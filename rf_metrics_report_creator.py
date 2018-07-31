@@ -143,7 +143,14 @@ with open('output.xml') as raw_resuls:
 
 ### ============================ START OF DASHBOARD ======================================= ####
 
+br = soup.new_tag('br')
+db_div.insert(0, br)
+br = soup.new_tag('br')
+db_div.insert(1, br)
 
+h3 = soup.new_tag('h3',style="align: center")
+h3.string= "<<<< Comming Soon >>>>"
+db_div.insert(2, h3)
 
 
 ### ============================ END OF DASHBOARD ============================================ ####

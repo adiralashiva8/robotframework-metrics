@@ -1,6 +1,6 @@
-# Keywords Performance Metrics Report in Robot Framework
+# Robot Framework Metrics Report
 
-Aim of this project is to create HTML report based on robot framework output.xml (To analyze time took by each keyword in entire suite|test execution)
+Aim of this project is to create HTML report based on robot framework output.xml (To analyze TESTS, KEYWORDS in entire suite | test execution)
 
 *How it Works:*
 
@@ -11,20 +11,28 @@ Aim of this project is to create HTML report based on robot framework output.xml
 *How to use in project:*
 
 1. Checkout the project
-2. Copy __keyword_performance_metrics_report_creator.py__ and __keyword_performance_metrics_executer.bat__ files to project (where output.xml file is available)
+2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.bat__ files to project (where output.xml file is available)
 3. Install beautifulsoap: __pip install beautifulsoup4__  (to create html report)
 4. Install lxml: __pip install lxml__ (to read data from xml file)
-5. Execute keyword_performance_metrics_executer.bat file
-6. "Keywords Performance Metrics Report" will be opened in new chrome tab
+5. Execute __rf_metrics_executer.bat__ file
+6. "RF_Metrics_Report" will be opened in new chrome tab
  
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
- ![Screenshot](Keywords_Performance_Metrics.PNG)
+ Dashboard: 
+ ![Screenshot](Dashboard.PNG)
 
-*How to Ignore Library Keywords in metrics*
- - In __keyword_performance_metrics_report_creator.py__ file add library to ignore for tuple:'ignore_library'
- - In this report keywords with type value 'for' and 'foritem' are ignored
- - Following library keywords are ignored in metrics
+ Test Metrics: 
+ ![Screenshot](Test_Metrics_Report.PNG)
+
+ Keyword Metrics: 
+ ![Screenshot](Keyword_Metrics_Report.PNG)
+
+
+*How to Ignore Library Keywords in Keyword Metrics Report*
+ - In __rf_metrics_report_creator.py__ file add specific library keywords to ignore for tuple __ignore_library__
+ - In Keyword Metric report keywords with type value 'for' and 'foritem' are ignored
+ - Following library keywords are ignored in Keyword Metrics Report
     ```
     ignore_library = [
      'BuiltIn',
@@ -35,11 +43,9 @@ Aim of this project is to create HTML report based on robot framework output.xml
     ] 
     ```
 
-Intention of project is to help the guys who are monitoring there keywords performance
+Intention of project is to help the guys who are monitoring there TESTS | KEYWORDS performance
 
  - Checkout the project.
  - Try within your project.
- - Suggest your feedback/queries
+ - Suggest your feedback | queries
  - Let us improve this report together
-
-** I want to check this report with larger automation suites (50 + test cases). To verify how the report behaves? and How table sorting works?
