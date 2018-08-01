@@ -262,11 +262,11 @@ th.string = "Test Case"
 tr.insert(0, th)
 
 th = soup.new_tag('th')
-th.string = "Status"
+th.string = "Keyword"
 tr.insert(1, th)
 
 th = soup.new_tag('th')
-th.string = "Keyword"
+th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
