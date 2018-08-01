@@ -180,6 +180,10 @@ th.string = "Test Case"
 tr.insert(0, th)
 
 th = soup.new_tag('th')
+th.string = "Status"
+tr.insert(1, th)
+
+th = soup.new_tag('th')
 th.string = "Start Time"
 tr.insert(2, th)
 
@@ -210,20 +214,25 @@ for tests in results.find_all("test"):
         # Get duration took by keyword
         start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")
         end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
-        
+        test_status = status['status']
+
     table_td = soup.new_tag('td')
-    table_td.string = str(start_time)
+    table_td.string = str(test_status)
     table_tr.insert(1, table_td)
 
     table_td = soup.new_tag('td')
-    table_td.string = str(end_time)
+    table_td.string = str(start_time)
     table_tr.insert(2, table_td)
+
+    table_td = soup.new_tag('td')
+    table_td.string = str(end_time)
+    table_tr.insert(3, table_td)
 
     duration = end_time - start_time
 
     table_td = soup.new_tag('td')
     table_td.string = str(duration)
-    table_tr.insert(3, table_td)
+    table_tr.insert(4, table_td)
 
 
 ### ============================ END OF TEST METRICS ============================================ ####
@@ -253,20 +262,24 @@ th.string = "Test Case"
 tr.insert(0, th)
 
 th = soup.new_tag('th')
-th.string = "Keyword"
+th.string = "Status"
 tr.insert(1, th)
 
 th = soup.new_tag('th')
-th.string = "Start Time"
+th.string = "Keyword"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "End time"
+th.string = "Start Time"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time"
+th.string = "End time"
 tr.insert(4, th)
+
+th = soup.new_tag('th')
+th.string = "Elapsed Time"
+tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
 table.insert(1, tbody)
@@ -316,20 +329,25 @@ for tests in results.find_all("test"):
                     # Get duration took by keyword
                     start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")
                     end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
-                    
+                    test_status = status['status']
+
                 table_td = soup.new_tag('td')
-                table_td.string = str(start_time)
+                table_td.string = test_status
                 table_tr.insert(2, table_td)
 
                 table_td = soup.new_tag('td')
-                table_td.string = str(end_time)
+                table_td.string = str(start_time)
                 table_tr.insert(3, table_td)
+
+                table_td = soup.new_tag('td')
+                table_td.string = str(end_time)
+                table_tr.insert(4, table_td)
 
                 duration = end_time - start_time
 
                 table_td = soup.new_tag('td')
                 table_td.string = str(duration)
-                table_tr.insert(4, table_td)
+                table_tr.insert(5, table_td)
 
 ### ============================ END OF KEYWORD METRICS ======================================= ####
 
