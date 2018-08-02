@@ -3,13 +3,13 @@
   Robot Framework Metrics Report
  </h1>
  <br/>
- <button class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, 'orange');executeDataTable('#db')">
+ <button class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, 'orange');executeDataTable('#db',0)">
   Dashboard
  </button>
- <button class="tablink" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm')">
+ <button class="tablink" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)">
   Test Metrics
  </button>
- <button class="tablink" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km')">
+ <button class="tablink" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)">
   Keyword Metrics
  </button>
  <div class="tabcontent" id="keywordMetrics">
@@ -290,9 +290,14 @@
   </h3>
  </div>
  <script>
-  function executeDataTable(tabname) {
-   $(document).ready(function() {
-    $(tabname).DataTable();
+  function executeDataTable(tabname,sortCol) {
+    $(document).ready(function() {
+    $(tabname).DataTable(
+        {
+        retrieve: true,
+        "order": [[ Number(sortCol), "desc" ]]
+        } 
+    );
 } );}
  </script>
  <script>
@@ -417,6 +422,7 @@ body, html {
     margin: 0;
     font-family:  Comic Sans MS;
 }
+
 
 /* Style tab links */
 .tablink {

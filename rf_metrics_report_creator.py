@@ -25,6 +25,7 @@ head_content = """
 		<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+        
 		<style>
 * {box-sizing: border-box}
 
@@ -34,6 +35,7 @@ body, html {
     margin: 0;
     font-family:  Comic Sans MS;
 }
+
 
 /* Style tab links */
 .tablink {
@@ -63,6 +65,7 @@ body, html {
 #dashboard {background-color: white;}
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
+
 
 </style>
 </head>
@@ -101,20 +104,20 @@ result_file = os.path.join(os.path.curdir, 'rf_metrics_result.html')
 # Buttons
 button = soup.new_tag('button')
 button["class"] = "tablink"
-button["onclick"] = "openPage('dashboard', this, 'orange');executeDataTable('#db')"
+button["onclick"] = "openPage('dashboard', this, 'orange');executeDataTable('#db',0)"
 button["id"] = "defaultOpen"
 button.string = "Dashboard"
 body.insert(2, button)
 
 button = soup.new_tag('button')
 button["class"] = "tablink"
-button["onclick"] = "openPage('testMetrics', this, 'orange');executeDataTable('#tm')"
+button["onclick"] = "openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)"
 button.string = "Test Metrics"
 body.insert(3, button)
 
 button = soup.new_tag('button')
 button["class"] = "tablink"
-button["onclick"] = "openPage('keywordMetrics', this, 'orange');executeDataTable('#km')"
+button["onclick"] = "openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)"
 button.string = "Keyword Metrics"
 body.insert(4, button)
 
@@ -151,7 +154,6 @@ db_div.insert(1, br)
 h3 = soup.new_tag('h3',style="align: center")
 h3.string= "<<<< Comming Soon >>>>"
 db_div.insert(2, h3)
-
 
 ### ============================ END OF DASHBOARD ============================================ ####
 
@@ -353,9 +355,14 @@ for tests in results.find_all("test"):
 
 ### data table script ###
 data_table_script = """
-function executeDataTable(tabname) {
-   $(document).ready(function() {
-    $(tabname).DataTable();
+function executeDataTable(tabname,sortCol) {
+    $(document).ready(function() {
+    $(tabname).DataTable(
+        {
+        retrieve: true,
+        "order": [[ Number(sortCol), "desc" ]]
+        } 
+    );
 } );}
 """
 # Create script tag - badges
