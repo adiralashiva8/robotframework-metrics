@@ -19,14 +19,20 @@ Aim of this project is to create HTML report based on robot framework output.xml
  
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
- Dashboard: 
+ Dashboard: (Consist of Keywords, Tests status charts)
  ![Screenshot](Dashboard.PNG)
 
- Test Metrics: 
- ![Screenshot](Test_Metrics_Report.PNG)
+KeywordPerformance Chart:
+ ![Screenshot](KeywordPerformance.PNG)
 
- Keyword Metrics: 
- ![Screenshot](Keyword_Metrics_Report.PNG)
+TestPerformance Chart:
+ ![Screenshot](TestPerformance.PNG)
+
+ Test Metrics:  (Test Metrics - Sort by Elapsed time descending order)
+ ![Screenshot](TestMetrics.PNG)
+
+ Keyword Metrics: (Keywords Metrics - Sort by Elapsed time descending order)
+ ![Screenshot](Keyword_metrics.PNG)
 
 
 *How to Ignore Library Keywords in Keyword Metrics Report*
@@ -49,3 +55,5 @@ Intention of project is to help the guys who are monitoring there TESTS | KEYWOR
  - Try within your project.
  - Suggest your feedback | queries
  - Let us improve this report together
+
+ __You are watching 'First Performance Metrics HTML Report' in Robot framework :) __

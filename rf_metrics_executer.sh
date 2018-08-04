@@ -5,8 +5,9 @@ echo "$(tput setaf 2)
 #                                                              #
 #                                                              #
 # Please wait while report is being generated...               #
-# Converting .xml to .html                                     #
+# Converting .xml to .html file                                #
 # This may take few minutes                                    #
+#                                                              #
 #                                                              #
 ***************************************************************
 ***************************************************************

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import datetime
+import time
 import sys
 import os
 
@@ -12,6 +13,13 @@ ignore_library = [
     'DateTime',
     ]
 
+# Get report result - OS independent
+current_path = os.getcwd()
+# output.xml file location
+text_file = os.path.join(os.path.curdir, 'output.xml')
+# performance report result file location
+result_file = os.path.join(os.path.curdir, 'rf_metrics_result.html')
+
 head_content = """
 
 <!DOCTYPE html>
@@ -23,6 +31,7 @@ head_content = """
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 		<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
 		<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
         
@@ -58,8 +67,22 @@ body, html {
 .tabcontent {
     color: black;
     display: none;
-    padding: 20px;
+    padding: 15px;
     height: 100%;
+}
+
+#container {
+  text-align: center;
+  max-width: 45%;
+  height: 100%
+  margin: 0 auto;
+}
+.block {
+  width: 45%;
+  height: 500px;
+  margin: 20px;
+  display: inline-block;
+  background: #f1f1f1;
 }
 
 #dashboard {background-color: white;}
@@ -91,20 +114,13 @@ h1 = soup.new_tag('h1',style="font-size: 2em;")
 h1.string = "Robot Framework Metrics Report"
 body.insert(0, h1)
 
-br = soup.new_tag('br')
-body.insert(1, br)
-
-# Get report result - OS independent
-current_path = os.getcwd()
-# output.xml file location
-text_file = os.path.join(os.path.curdir, 'output.xml')
-# performance report result file location
-result_file = os.path.join(os.path.curdir, 'rf_metrics_result.html')
+#br = soup.new_tag('br')
+#body.insert(1, br)
 
 # Buttons
 button = soup.new_tag('button')
 button["class"] = "tablink"
-button["onclick"] = "openPage('dashboard', this, 'orange');executeDataTable('#db',0)"
+button["onclick"] = "openPage('dashboard', this, 'orange');executeDataTable('#db',0);"
 button["id"] = "defaultOpen"
 button.string = "Dashboard"
 body.insert(2, button)
@@ -148,12 +164,63 @@ with open('output.xml') as raw_resuls:
 
 br = soup.new_tag('br')
 db_div.insert(0, br)
-br = soup.new_tag('br')
-db_div.insert(1, br)
 
-h3 = soup.new_tag('h3',style="align: center")
-h3.string= "<<<< Comming Soon >>>>"
-db_div.insert(2, h3)
+container_div = soup.new_tag('div')
+container_div["id"]="containers"
+db_div.insert(1, container_div)
+
+div_block_1 = soup.new_tag('div')
+div_block_1["class"]="block"
+container_div.insert(0, div_block_1)
+
+div_block_2 = soup.new_tag('div')
+div_block_2["class"]="block"
+container_div.insert(1, div_block_2)
+
+div_block_3 = soup.new_tag('div')
+div_block_3["class"]="block"
+container_div.insert(2, div_block_3)
+
+div_block_4 = soup.new_tag('div')
+div_block_4["class"]="block"
+container_div.insert(3, div_block_4)
+
+
+button = soup.new_tag('button',style="align: center")
+button.string= "<<<< Click Here For Tests Status Chart >>>>"
+button["onclick"] = "createPieChart('#tm',1,'testChartID','Tests Status:')"
+div_block_1.insert(0, button)
+
+div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div["id"] = "testChartID"
+div_block_1.insert(1, div)
+
+button = soup.new_tag('button',style="align: center")
+button.string= "<<<< Click Here For Tests Performace Chart >>>>"
+button["onclick"] = "executeDataTable('#tm',4);createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:')"
+div_block_2.insert(0, button)
+
+div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div["id"] = "testsBarID"
+div_block_2.insert(1, div)
+
+button = soup.new_tag('button',style="align: center")
+button.string= "<<<< Click Here For Keywords Status Chart >>>>"
+button["onclick"] = "createPieChart('#km',2,'keywordChartID','Keywords Status:')"
+div_block_3.insert(0, button)
+
+div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div["id"] = "keywordChartID"
+div_block_3.insert(1, div)
+
+button = soup.new_tag('button',style="align: center")
+button.string= "<<<< Click Here For Keyword Performance Chart >>>>"
+button["onclick"] = "executeDataTable('#km',5);createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')"
+div_block_4.insert(0, button)
+
+div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div["id"] = "keywordsBarID"
+div_block_4.insert(1, div)
 
 ### ============================ END OF DASHBOARD ============================================ ####
 
@@ -208,32 +275,42 @@ for tests in results.find_all("test"):
     table_tr = soup.new_tag('tr')
     tbody.insert(0, table_tr)
 
-    table_td = soup.new_tag('td')
+    table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
     table_td.string = tests['name']
     table_tr.insert(0, table_td)
 
     for status in tests.find_all("status"):
         # Get duration took by keyword
-        start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")
+        start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")        
         end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
         test_status = status['status']
+
+    dispay_start_time = start_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
+    display_end_time = end_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
 
     table_td = soup.new_tag('td')
     table_td.string = str(test_status)
     table_tr.insert(1, table_td)
 
     table_td = soup.new_tag('td')
-    table_td.string = str(start_time)
+    table_td.string = str(dispay_start_time)
     table_tr.insert(2, table_td)
 
     table_td = soup.new_tag('td')
-    table_td.string = str(end_time)
+    table_td.string = str(display_end_time)
     table_tr.insert(3, table_td)
 
-    duration = end_time - start_time
+    total_time= end_time - start_time                
+    try:
+        total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S.%f')
+        total_time = total_time.strftime('%H:%M:%S.%f')[:-3]
+    except ValueError:
+        total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S')
+        total_time = total_time.strftime('%H:%M:%S')
+        #total_time = total_time+".000"
 
     table_td = soup.new_tag('td')
-    table_td.string = str(duration)
+    table_td.string = str(total_time)
     table_tr.insert(4, table_td)
 
 
@@ -319,11 +396,11 @@ for tests in results.find_all("test"):
                 table_tr = soup.new_tag('tr')
                 tbody.insert(1, table_tr)
 
-                table_td = soup.new_tag('td')
+                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
                 table_td.string = tests['name']
                 table_tr.insert(0, table_td)
 
-                table_td = soup.new_tag('td')
+                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
                 table_td.string = keywords['name']
                 table_tr.insert(1, table_td)
 
@@ -333,42 +410,186 @@ for tests in results.find_all("test"):
                     end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
                     test_status = status['status']
 
+                dispay_start_time = start_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
+                display_end_time = end_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
+
                 table_td = soup.new_tag('td')
                 table_td.string = test_status
                 table_tr.insert(2, table_td)
 
                 table_td = soup.new_tag('td')
-                table_td.string = str(start_time)
+                table_td.string = str(dispay_start_time)
                 table_tr.insert(3, table_td)
 
                 table_td = soup.new_tag('td')
-                table_td.string = str(end_time)
+                table_td.string = str(display_end_time)
                 table_tr.insert(4, table_td)
 
-                duration = end_time - start_time
+                total_time= end_time - start_time
 
+                try:
+                    total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S.%f')
+                    total_time = total_time.strftime('%H:%M:%S.%f')[:-3]
+                except ValueError:
+                    total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S')
+                    total_time = total_time.strftime('%H:%M:%S')
+                    #total_time= total_time+".000"
+                
                 table_td = soup.new_tag('td')
-                table_td.string = str(duration)
+                table_td.string = str(total_time)
                 table_tr.insert(5, table_td)
 
 ### ============================ END OF KEYWORD METRICS ======================================= ####
 
+canvas_pie_script = """
+function createPieChart(tableID,status_column,ChartID,ChartName){
+
+var chart = new CanvasJS.Chart(ChartID,{  
+    exportFileName: ChartName,
+	exportEnabled: true,	
+    animationEnabled: true,
+	title: {
+    text: ChartName,
+    fontFamily: "Comic Sans MS",
+    fontSize: 20,
+	horizontalAlign: "left"
+  },
+  data: []
+  
+});
+
+var css_table_locator = tableID + ' tbody >tr'
+var rows = $(css_table_locator);
+var columns;
+var header;
+var isPass = 0;
+var isFail = 0;
+
+for (var i = 0; i < rows.length; i++) {
+  header = $(rows[0]).find('th');
+  columns = $(rows[i]).find('td');  
+  
+  for (var j = 0; j < 1; j++) {  	
+	
+    if (columns[Number(status_column)].innerHTML.trim() == "PASS") {
+      isPass = isPass + 1;      
+    } else {
+      isFail = isFail + 1;      
+    }
+  }
+  }  
+var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:parseInt(isFail),color:"Red"}];
+  chart.options.data.push({
+    //type: "pie",
+    type: "doughnut",
+    startAngle: 60,
+    //innerRadius: 60,
+    indexLabelFontSize: 15,
+    indexLabel: "{label} - #percent%",
+    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+
+    //name: ($(columns[0]).html()), 
+    //showInLegend: true,
+    //legendText: ($(columns[0]).html()),
+    dataPoints: status
+  });
+  chart.render();
+}
+"""
+script = soup.new_tag('script')
+script.string=canvas_pie_script
+body.insert(7,script)
+
+bar_graph_script = """
+function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
+      var chart = new CanvasJS.Chart(ChartID, {
+       exportFileName: ChartName,
+        exportEnabled: true,	
+        animationEnabled: true,
+    title: {
+        text: ChartName,
+        fontFamily: "Comic Sans MS",
+        fontSize: 20,
+        horizontalAlign: "left"
+    },
+      axisX:{
+        //title:"Axis X title",
+        labelAngle: 0,
+        labelFontSize: 10,
+        labelFontFamily:"Comic Sans MS",
+      },
+      axisY:{
+        title:"Seconds (s)",
+      },
+      data: []
+    });
+
+var status = [];
+css_selector_locator = tableID + ' tbody >tr'
+var rows = $(css_selector_locator);
+var columns;
+var header;
+
+for (var i = 0; i < rows.length; i++) {
+    if (i == Number(limit)){
+        break;
+    }
+	//status = [];
+  name_value = $(rows[i]).find('td');
+  //header = $(rows[0]).find('th');  
+  
+  time=($(name_value[Number(time_column)]).html()).trim();
+    try {
+	    mfree=time.split(".")    
+        if (mfree.length > 1){
+            tt=mfree[0].split(":");
+            sec=tt[0]*3600+tt[1]*60+tt[2]*1+(mfree[1]/1000)*1;
+        } else {
+            tt=mfree[0].split(":");
+            sec=tt[0]*3600+tt[1]*60+tt[2]*1;
+        }
+	    
+    }
+        catch (e) {
+	    tt=time.split(":");
+	    sec=tt[0]*3600+tt[1]*60+tt[2]*1;
+    }
+	
+	status.push({label:$(name_value[Number(keyword_column)]).html(),y:sec});
+  }  
+	chart.options.data.push({
+    type: "column",
+    //name: ($(rows[0]).find('th')), 
+    //showInLegend: true,
+    //legendText: ($(rows[0]).find('th')),
+	//yValueFormatString: "HH-mm-ss.fff",
+    dataPoints: status
+  });
+  
+    chart.render();
+	}
+  </script>
+"""
+
+script = soup.new_tag('script')
+script.string=bar_graph_script
+body.insert(8,script)
+
 ### data table script ###
 data_table_script = """
 function executeDataTable(tabname,sortCol) {
-    $(document).ready(function() {
     $(tabname).DataTable(
         {
         retrieve: true,
         "order": [[ Number(sortCol), "desc" ]]
         } 
     );
-} );}
+}
 """
 # Create script tag - badges
 script = soup.new_tag('script')
 script.string=data_table_script
-body.insert(7,script)
+body.insert(9,script)
 
 ### tab script ###
 tab_script = """
@@ -392,7 +613,7 @@ document.getElementById("defaultOpen").click();
 # Create script tag - badges
 script = soup.new_tag('script')
 script.string=tab_script
-body.insert(8,script)
+body.insert(10,script)
 
 
 ### ====== WRITE TO RF_METRICS_REPORT.HTML ===== ###
