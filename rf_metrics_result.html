@@ -3,7 +3,7 @@
   Robot Framework Metrics Report
  </h1>
  <br/>
- <button class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, 'orange');executeDataTable('#db',0);">
+ <button class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, 'orange');">
   Dashboard
  </button>
  <button class="tablink" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)">
@@ -625,10 +625,5 @@ body, html {
 #keywordMetrics {background-color: white;}
    </style>
   </meta>
-  <script type="text/javascript">
-   $(document).ready(function() {
-    $('#example').DataTable();
-} );
-  </script>
  </head>
 </html>

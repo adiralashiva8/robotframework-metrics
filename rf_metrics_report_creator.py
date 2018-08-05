@@ -97,15 +97,6 @@ body, html {
 
 soup = BeautifulSoup(head_content,"html.parser")
 
-# datatable script js
-script_text = """ $(document).ready(function() {
-    $('#example').DataTable();
-} );"""
-script = soup.new_tag('script')
-script.attrs["type"] = "text/javascript"
-script.string = script_text
-soup.head.append(script)
-
 body = soup.new_tag('body',style="padding: 5px")
 soup.insert(0, body)
 
@@ -120,7 +111,7 @@ body.insert(1, br)
 # Buttons
 button = soup.new_tag('button')
 button["class"] = "tablink"
-button["onclick"] = "openPage('dashboard', this, 'orange');executeDataTable('#db',0);"
+button["onclick"] = "openPage('dashboard', this, 'orange');"
 button["id"] = "defaultOpen"
 button.string = "Dashboard"
 body.insert(2, button)
