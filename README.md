@@ -52,10 +52,10 @@ Aim of this project is to create HTML report based on robot framework output.xml
 ---
 
  **TODO:**
-- [] Show loading indicator while report is loading
-- [] Show charts on page load
-- [] Improve performance while converting .xml to .html using Thread | Multiprocess
-- [] Read output.xml irrespective folder location
+- [ ] Show loading indicator while report is loading
+- [ ] Show charts on page load
+- [ ] Improve performance while converting .xml to .html using Thread | Multiprocess
+- [ ] Read output.xml irrespective folder location
 
 ---
 
