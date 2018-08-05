@@ -20,13 +20,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
  Dashboard: (Consist of Keywords, Tests status charts)
- ![Screenshot](Dashboard.PNG)
-
-KeywordPerformance Chart:
- ![Screenshot](KeywordPerformance.PNG)
-
-TestPerformance Chart:
- ![Screenshot](TestPerformance.PNG)
+ ![Screenshot](Dashboard_overview.PNG)
 
  Test Metrics:  (Test Metrics - Sort by Elapsed time descending order)
  ![Screenshot](TestMetrics.PNG)
@@ -60,8 +54,8 @@ Intention of project is to help the guys who are monitoring there TESTS | KEYWOR
  You are watching 'First Performance Metrics HTML Report' in Robot framework :)
  ```
 
- TODO:
- [] Show loading indicator while loading report
- [] Show charts on page load
- [] Improve performance while converting .xml to .html using Thread | Multiprocess
- [] Read output.xml irrespective folder location
+ **TODO:**
+ * [] Show loading indicator while report is loading
+ * [] Show charts on page load
+ * [] Improve performance while converting .xml to .html using Thread | Multiprocess
+ * [] Read output.xml irrespective folder location
