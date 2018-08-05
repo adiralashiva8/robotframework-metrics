@@ -2,11 +2,15 @@
 
 Aim of this project is to create HTML report based on robot framework output.xml (To analyze TESTS, KEYWORDS in entire suite | test execution)
 
+---
+
 *How it Works:*
 
 1. Read output.xml file (which will be created after script execution)
 2. Get Test Case Name (test tag) , Keyword Name (kw tag) , Start Time, End Time (status tag) values from output.xml file
 3. Convert data to html report using Beautifulsoap (Tabular format with sorting | pagination | search entire table | sort in search result)
+
+---
 
 *How to use in project:*
 
@@ -16,7 +20,9 @@ Aim of this project is to create HTML report based on robot framework output.xml
 4. Install lxml: __pip install lxml__ (to read data from xml file)
 5. Execute __rf_metrics_executer.sh__ file
 6. "RF_Metrics_Report" will be opened in new chrome tab
- 
+
+---
+
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
  Dashboard: (Consist of Keywords, Tests status charts)
@@ -28,6 +34,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
  Keyword Metrics: (Keywords Metrics - Sort by Elapsed time descending order)
  ![Screenshot](Keyword_metrics.PNG)
 
+---
 
 *How to Ignore Library Keywords in Keyword Metrics Report*
  - In __rf_metrics_report_creator.py__ file add specific library keywords to ignore for tuple __ignore_library__
@@ -42,6 +49,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
      'DateTime',
     ] 
     ```
+---
 
 Intention of project is to help the guys who are monitoring there TESTS | KEYWORDS performance
 
@@ -50,12 +58,12 @@ Intention of project is to help the guys who are monitoring there TESTS | KEYWOR
  - Suggest your feedback | queries
  - Let us improve this report together
 
- ```
- You are watching 'First Performance Metrics HTML Report' in Robot framework :)
- ```
+ > You are watching first 'Performance Metrics HTML Report' in Robot framework :)
+ 
+---
 
  **TODO:**
- * [] Show loading indicator while report is loading
- * [] Show charts on page load
- * [] Improve performance while converting .xml to .html using Thread | Multiprocess
- * [] Read output.xml irrespective folder location
+- [x] Show loading indicator while report is loading
+- [x] Show charts on page load
+- [x] Improve performance while converting .xml to .html using Thread | Multiprocess
+- [x] Read output.xml irrespective folder location
