@@ -333,25 +333,19 @@ var chart = new CanvasJS.Chart(ChartID,{
   
 });
 
-var css_table_locator = tableID + ' tbody >tr'
-var rows = $(css_table_locator);
+var rows = $(tableID).dataTable().fnGetNodes();
 var columns;
-var header;
 var isPass = 0;
 var isFail = 0;
 
 for (var i = 0; i < rows.length; i++) {
-  header = $(rows[0]).find('th');
   columns = $(rows[i]).find('td');  
   
-  for (var j = 0; j < 1; j++) {  	
-	
     if (columns[Number(status_column)].innerHTML.trim() == "PASS") {
       isPass = isPass + 1;      
     } else {
       isFail = isFail + 1;      
     }
-  }
   }  
 var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:parseInt(isFail),color:"Red"}];
   chart.options.data.push({
@@ -401,15 +395,13 @@ var status = [];
 css_selector_locator = tableID + ' tbody >tr'
 var rows = $(css_selector_locator);
 var columns;
-var header;
 
 for (var i = 0; i < rows.length; i++) {
     if (i == Number(limit)){
         break;
     }
 	//status = [];
-  name_value = $(rows[i]).find('td');
-  //header = $(rows[0]).find('th');  
+  name_value = $(rows[i]).find('td'); 
   
   time=($(name_value[Number(time_column)]).html()).trim();
     try {
