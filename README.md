@@ -11,10 +11,10 @@ Aim of this project is to create HTML report based on robot framework output.xml
 *How to use in project:*
 
 1. Checkout the project
-2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.bat__ files to project (where output.xml file is available)
+2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.sh__ files to project (where output.xml file is available)
 3. Install beautifulsoap: __pip install beautifulsoup4__  (to create html report)
 4. Install lxml: __pip install lxml__ (to read data from xml file)
-5. Execute __rf_metrics_executer.bat__ file
+5. Execute __rf_metrics_executer.sh__ file
 6. "RF_Metrics_Report" will be opened in new chrome tab
  
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
@@ -56,4 +56,12 @@ Intention of project is to help the guys who are monitoring there TESTS | KEYWOR
  - Suggest your feedback | queries
  - Let us improve this report together
 
- __You are watching 'First Performance Metrics HTML Report' in Robot framework :) __
+ ```
+ You are watching 'First Performance Metrics HTML Report' in Robot framework :)
+ ```
+
+ TODO:
+ [] Show loading indicator while loading report
+ [] Show charts on page load
+ [] Improve performance while converting .xml to .html using Thread | Multiprocess
+ [] Read output.xml irrespective folder location

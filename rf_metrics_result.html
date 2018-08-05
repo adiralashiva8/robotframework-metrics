@@ -2,6 +2,7 @@
  <h1 style="font-size: 2em;">
   Robot Framework Metrics Report
  </h1>
+ <br/>
  <button class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, 'orange');executeDataTable('#db',0);">
   Dashboard
  </button>
@@ -11,39 +12,6 @@
  <button class="tablink" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)">
   Keyword Metrics
  </button>
- <div class="tabcontent" id="dashboard">
-  <br/>
-  <div id="containers">
-   <div class="block">
-    <button onclick="createPieChart('#tm',1,'testChartID','Tests Status:')" style="align: center">
-     &lt;&lt;&lt;&lt; Click Here For Tests Status Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="testChartID" style="height: 500px; width: 100%;">
-    </div>
-   </div>
-   <div class="block">
-    <button onclick="executeDataTable('#tm',4);createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:')" style="align: center">
-     &lt;&lt;&lt;&lt; Click Here For Tests Performace Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="testsBarID" style="height: 500px; width: 100%;">
-    </div>
-   </div>
-   <div class="block">
-    <button onclick="createPieChart('#km',2,'keywordChartID','Keywords Status:')" style="align: center">
-     &lt;&lt;&lt;&lt; Click Here For Keywords Status Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="keywordChartID" style="height: 500px; width: 100%;">
-    </div>
-   </div>
-   <div class="block">
-    <button onclick="executeDataTable('#km',5);createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')" style="align: center">
-     &lt;&lt;&lt;&lt; Click Here For Keyword Performance Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="keywordsBarID" style="height: 500px; width: 100%;">
-    </div>
-   </div>
-  </div>
- </div>
  <div class="tabcontent" id="keywordMetrics">
   <br/>
   <br/>
@@ -314,6 +282,197 @@
    </tbody>
   </table>
  </div>
+ <div class="tabcontent" id="dashboard">
+  <br/>
+  <div id="containers">
+   <div class="block">
+    <button onclick="createPieChart('#tm',1,'testChartID','Tests Status:')" style="align: center;width:100%">
+     &lt;&lt;&lt;&lt; Click Here For Tests Status Chart &gt;&gt;&gt;&gt;
+    </button>
+    <div id="testChartID" style="height: 300px; width: 100%;">
+    </div>
+   </div>
+   <div class="block">
+    <button onclick="executeDataTable('#tm',4);createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:')" style="align: center;width:100%">
+     &lt;&lt;&lt;&lt; Click Here For Tests Performace Chart &gt;&gt;&gt;&gt;
+    </button>
+    <div id="testsBarID" style="height: 300px; width: 100%;">
+    </div>
+   </div>
+   <div class="block">
+    <button onclick="createPieChart('#km',2,'keywordChartID','Keywords Status:')" style="align: center;width:100%">
+     &lt;&lt;&lt;&lt; Click Here For Keywords Status Chart &gt;&gt;&gt;&gt;
+    </button>
+    <div id="keywordChartID" style="height: 300px; width: 100%;">
+    </div>
+   </div>
+   <div class="block">
+    <button onclick="executeDataTable('#km',5);createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')" style="align: center;width:100%">
+     &lt;&lt;&lt;&lt; Click Here For Keyword Performance Chart &gt;&gt;&gt;&gt;
+    </button>
+    <div id="keywordsBarID" style="height: 300px; width: 100%;">
+    </div>
+   </div>
+  </div>
+ </div>
+ <script>
+  function createPieChart(tableID,status_column,ChartID,ChartName){
+
+var chart = new CanvasJS.Chart(ChartID,{  
+    exportFileName: ChartName,
+	exportEnabled: true,	
+    animationEnabled: true,
+	title: {
+    text: ChartName,
+    fontFamily: "Comic Sans MS",
+    fontSize: 15,
+	horizontalAlign: "left",
+    
+  },
+  data: []
+  
+});
+
+var css_table_locator = tableID + ' tbody >tr'
+var rows = $(css_table_locator);
+var columns;
+var header;
+var isPass = 0;
+var isFail = 0;
+
+for (var i = 0; i < rows.length; i++) {
+  header = $(rows[0]).find('th');
+  columns = $(rows[i]).find('td');  
+  
+  for (var j = 0; j < 1; j++) {  	
+	
+    if (columns[Number(status_column)].innerHTML.trim() == "PASS") {
+      isPass = isPass + 1;      
+    } else {
+      isFail = isFail + 1;      
+    }
+  }
+  }  
+var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:parseInt(isFail),color:"Red"}];
+  chart.options.data.push({
+    //type: "pie",
+    type: "doughnut",
+    startAngle: 60,
+    //innerRadius: 60,
+    indexLabelFontSize: 15,
+    indexLabel: "{label} - #percent%",
+    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+
+    //name: ($(columns[0]).html()), 
+    //showInLegend: true,
+    //legendText: ($(columns[0]).html()),
+    dataPoints: status
+  });
+  chart.render();
+}
+ </script>
+ <script>
+  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
+      var chart = new CanvasJS.Chart(ChartID, {
+       exportFileName: ChartName,
+        exportEnabled: true,	
+        animationEnabled: true,
+    title: {
+        text: ChartName,
+        fontFamily: "Comic Sans MS",
+        fontSize: 15,
+        textAlign: "centre",
+        dockInsidePlotArea: true,
+    },
+      axisX:{
+        //title:"Axis X title",
+        labelAngle: 0,
+        labelFontSize: 10,
+        labelFontFamily:"Comic Sans MS",
+        
+      },
+      axisY:{
+        title:"Seconds (s)",
+      },
+      data: []
+    });
+
+var status = [];
+css_selector_locator = tableID + ' tbody >tr'
+var rows = $(css_selector_locator);
+var columns;
+var header;
+
+for (var i = 0; i < rows.length; i++) {
+    if (i == Number(limit)){
+        break;
+    }
+	//status = [];
+  name_value = $(rows[i]).find('td');
+  //header = $(rows[0]).find('th');  
+  
+  time=($(name_value[Number(time_column)]).html()).trim();
+    try {
+	    mfree=time.split(".")    
+        if (mfree.length > 1){
+            tt=mfree[0].split(":");
+            sec=tt[0]*3600+tt[1]*60+tt[2]*1+(mfree[1]/1000)*1;
+        } else {
+            tt=mfree[0].split(":");
+            sec=tt[0]*3600+tt[1]*60+tt[2]*1;
+        }
+	    
+    }
+        catch (e) {
+	    tt=time.split(":");
+	    sec=tt[0]*3600+tt[1]*60+tt[2]*1;
+    }
+	
+	status.push({label:$(name_value[Number(keyword_column)]).html(),y:sec});
+  }  
+	chart.options.data.push({
+    type: "column",
+    //name: ($(rows[0]).find('th')), 
+    //showInLegend: true,
+    //legendText: ($(rows[0]).find('th')),
+	//yValueFormatString: "HH-mm-ss.fff",
+    indexLabel: "{y} s",
+    toolTipContent: "<b>{label}:</b> {y} s",
+    dataPoints: status
+  });
+  
+    chart.render();
+	}
+  </script>
+ </script>
+ <script>
+  function executeDataTable(tabname,sortCol) {
+    $(tabname).DataTable(
+        {
+        retrieve: true,
+        "order": [[ Number(sortCol), "desc" ]]
+        } 
+    );
+}
+ </script>
+ <script>
+  function openPage(pageName,elmnt,color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+ </script>
  <div class="tabcontent" id="testMetrics">
   <br/>
   <br/>
@@ -392,159 +551,6 @@
    </tbody>
   </table>
  </div>
- <script>
-  function createPieChart(tableID,status_column,ChartID,ChartName){
-
-var chart = new CanvasJS.Chart(ChartID,{  
-    exportFileName: ChartName,
-	exportEnabled: true,	
-    animationEnabled: true,
-	title: {
-    text: ChartName,
-    fontFamily: "Comic Sans MS",
-    fontSize: 20,
-	horizontalAlign: "left"
-  },
-  data: []
-  
-});
-
-var css_table_locator = tableID + ' tbody >tr'
-var rows = $(css_table_locator);
-var columns;
-var header;
-var isPass = 0;
-var isFail = 0;
-
-for (var i = 0; i < rows.length; i++) {
-  header = $(rows[0]).find('th');
-  columns = $(rows[i]).find('td');  
-  
-  for (var j = 0; j < 1; j++) {  	
-	
-    if (columns[Number(status_column)].innerHTML.trim() == "PASS") {
-      isPass = isPass + 1;      
-    } else {
-      isFail = isFail + 1;      
-    }
-  }
-  }  
-var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:parseInt(isFail),color:"Red"}];
-  chart.options.data.push({
-    //type: "pie",
-    type: "doughnut",
-    startAngle: 60,
-    //innerRadius: 60,
-    indexLabelFontSize: 15,
-    indexLabel: "{label} - #percent%",
-    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-
-    //name: ($(columns[0]).html()), 
-    //showInLegend: true,
-    //legendText: ($(columns[0]).html()),
-    dataPoints: status
-  });
-  chart.render();
-}
- </script>
- <script>
-  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
-      var chart = new CanvasJS.Chart(ChartID, {
-       exportFileName: ChartName,
-        exportEnabled: true,	
-        animationEnabled: true,
-    title: {
-        text: ChartName,
-        fontFamily: "Comic Sans MS",
-        fontSize: 20,
-        horizontalAlign: "left"
-    },
-      axisX:{
-        //title:"Axis X title",
-        labelAngle: 0,
-        labelFontSize: 10,
-        labelFontFamily:"Comic Sans MS",
-      },
-      axisY:{
-        title:"Seconds (s)",
-      },
-      data: []
-    });
-
-var status = [];
-css_selector_locator = tableID + ' tbody >tr'
-var rows = $(css_selector_locator);
-var columns;
-var header;
-
-for (var i = 0; i < rows.length; i++) {
-    if (i == Number(limit)){
-        break;
-    }
-	//status = [];
-  name_value = $(rows[i]).find('td');
-  //header = $(rows[0]).find('th');  
-  
-  time=($(name_value[Number(time_column)]).html()).trim();
-    try {
-	    mfree=time.split(".")    
-        if (mfree.length > 1){
-            tt=mfree[0].split(":");
-            sec=tt[0]*3600+tt[1]*60+tt[2]*1+(mfree[1]/1000)*1;
-        } else {
-            tt=mfree[0].split(":");
-            sec=tt[0]*3600+tt[1]*60+tt[2]*1;
-        }
-	    
-    }
-        catch (e) {
-	    tt=time.split(":");
-	    sec=tt[0]*3600+tt[1]*60+tt[2]*1;
-    }
-	
-	status.push({label:$(name_value[Number(keyword_column)]).html(),y:sec});
-  }  
-	chart.options.data.push({
-    type: "column",
-    //name: ($(rows[0]).find('th')), 
-    //showInLegend: true,
-    //legendText: ($(rows[0]).find('th')),
-	//yValueFormatString: "HH-mm-ss.fff",
-    dataPoints: status
-  });
-  
-    chart.render();
-	}
-  </script>
- </script>
- <script>
-  function executeDataTable(tabname,sortCol) {
-    $(tabname).DataTable(
-        {
-        retrieve: true,
-        "order": [[ Number(sortCol), "desc" ]]
-        } 
-    );
-}
- </script>
- <script>
-  function openPage(pageName,elmnt,color) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].style.backgroundColor = "";
-    }
-    document.getElementById(pageName).style.display = "block";
-    elmnt.style.backgroundColor = color;
-
-}
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
- </script>
 </body>
 <!DOCTYPE html>
 <html>
@@ -603,12 +609,12 @@ body, html {
 #container {
   text-align: center;
   max-width: 45%;
-  height: 100%
+  //height: 100%
   margin: 0 auto;
 }
 .block {
   width: 45%;
-  height: 500px;
+  height: 320px;
   margin: 20px;
   display: inline-block;
   background: #f1f1f1;

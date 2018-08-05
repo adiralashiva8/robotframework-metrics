@@ -74,12 +74,12 @@ body, html {
 #container {
   text-align: center;
   max-width: 45%;
-  height: 100%
+  //height: 100%
   margin: 0 auto;
 }
 .block {
   width: 45%;
-  height: 500px;
+  height: 320px;
   margin: 20px;
   display: inline-block;
   background: #f1f1f1;
@@ -114,8 +114,8 @@ h1 = soup.new_tag('h1',style="font-size: 2em;")
 h1.string = "Robot Framework Metrics Report"
 body.insert(0, h1)
 
-#br = soup.new_tag('br')
-#body.insert(1, br)
+br = soup.new_tag('br')
+body.insert(1, br)
 
 # Buttons
 button = soup.new_tag('button')
@@ -186,39 +186,39 @@ div_block_4["class"]="block"
 container_div.insert(3, div_block_4)
 
 
-button = soup.new_tag('button',style="align: center")
+button = soup.new_tag('button',style="align: center;width:100%")
 button.string= "<<<< Click Here For Tests Status Chart >>>>"
 button["onclick"] = "createPieChart('#tm',1,'testChartID','Tests Status:')"
 div_block_1.insert(0, button)
 
-div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div = soup.new_tag('div',style="height: 300px; width: 100%;")
 div["id"] = "testChartID"
 div_block_1.insert(1, div)
 
-button = soup.new_tag('button',style="align: center")
+button = soup.new_tag('button',style="align: center;width:100%")
 button.string= "<<<< Click Here For Tests Performace Chart >>>>"
 button["onclick"] = "executeDataTable('#tm',4);createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:')"
 div_block_2.insert(0, button)
 
-div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div = soup.new_tag('div',style="height: 300px; width: 100%;")
 div["id"] = "testsBarID"
 div_block_2.insert(1, div)
 
-button = soup.new_tag('button',style="align: center")
+button = soup.new_tag('button',style="align: center;width:100%")
 button.string= "<<<< Click Here For Keywords Status Chart >>>>"
 button["onclick"] = "createPieChart('#km',2,'keywordChartID','Keywords Status:')"
 div_block_3.insert(0, button)
 
-div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div = soup.new_tag('div',style="height: 300px; width: 100%;")
 div["id"] = "keywordChartID"
 div_block_3.insert(1, div)
 
-button = soup.new_tag('button',style="align: center")
+button = soup.new_tag('button',style="align: center;width:100%")
 button.string= "<<<< Click Here For Keyword Performance Chart >>>>"
 button["onclick"] = "executeDataTable('#km',5);createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')"
 div_block_4.insert(0, button)
 
-div = soup.new_tag('div',style="height: 500px; width: 100%;")
+div = soup.new_tag('div',style="height: 300px; width: 100%;")
 div["id"] = "keywordsBarID"
 div_block_4.insert(1, div)
 
@@ -451,8 +451,9 @@ var chart = new CanvasJS.Chart(ChartID,{
 	title: {
     text: ChartName,
     fontFamily: "Comic Sans MS",
-    fontSize: 20,
-	horizontalAlign: "left"
+    fontSize: 15,
+	horizontalAlign: "left",
+    
   },
   data: []
   
@@ -509,14 +510,16 @@ function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartNa
     title: {
         text: ChartName,
         fontFamily: "Comic Sans MS",
-        fontSize: 20,
-        horizontalAlign: "left"
+        fontSize: 15,
+        textAlign: "centre",
+        dockInsidePlotArea: true,
     },
       axisX:{
         //title:"Axis X title",
         labelAngle: 0,
         labelFontSize: 10,
         labelFontFamily:"Comic Sans MS",
+        
       },
       axisY:{
         title:"Seconds (s)",
@@ -563,6 +566,8 @@ for (var i = 0; i < rows.length; i++) {
     //showInLegend: true,
     //legendText: ($(rows[0]).find('th')),
 	//yValueFormatString: "HH-mm-ss.fff",
+    indexLabel: "{y} s",
+    toolTipContent: "<b>{label}:</b> {y} s",
     dataPoints: status
   });
   
