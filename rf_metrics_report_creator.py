@@ -73,14 +73,14 @@ body, html {
 
 #container {
   text-align: center;
-  max-width: 45%;
+  max-width: 48%;
   //height: 100%
   margin: 0 auto;
 }
 .block {
-  width: 45%;
-  height: 320px;
-  margin: 20px;
+  width: 48%;
+  height: 350px;
+  margin: 10px;
   display: inline-block;
   background: #f1f1f1;
 }
@@ -176,42 +176,38 @@ div_block_4 = soup.new_tag('div')
 div_block_4["class"]="block"
 container_div.insert(3, div_block_4)
 
-
-button = soup.new_tag('button',style="align: center;width:100%")
-button.string= "<<<< Click Here For Tests Status Chart >>>>"
-button["onclick"] = "createPieChart('#tm',1,'testChartID','Tests Status:')"
-div_block_1.insert(0, button)
-
-div = soup.new_tag('div',style="height: 300px; width: 100%;")
+div = soup.new_tag('div',style="height: 350px; width: 100%;")
 div["id"] = "testChartID"
 div_block_1.insert(1, div)
 
-button = soup.new_tag('button',style="align: center;width:100%")
-button.string= "<<<< Click Here For Tests Performace Chart >>>>"
-button["onclick"] = "executeDataTable('#tm',4);createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:')"
-div_block_2.insert(0, button)
-
-div = soup.new_tag('div',style="height: 300px; width: 100%;")
+div = soup.new_tag('div',style="height: 350px; width: 100%;")
 div["id"] = "testsBarID"
 div_block_2.insert(1, div)
 
-button = soup.new_tag('button',style="align: center;width:100%")
-button.string= "<<<< Click Here For Keywords Status Chart >>>>"
-button["onclick"] = "createPieChart('#km',2,'keywordChartID','Keywords Status:')"
-div_block_3.insert(0, button)
-
-div = soup.new_tag('div',style="height: 300px; width: 100%;")
+div = soup.new_tag('div',style="height: 350px; width: 100%;")
 div["id"] = "keywordChartID"
 div_block_3.insert(1, div)
 
-button = soup.new_tag('button',style="align: center;width:100%")
-button.string= "<<<< Click Here For Keyword Performance Chart >>>>"
-button["onclick"] = "executeDataTable('#km',5);createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')"
-div_block_4.insert(0, button)
-
-div = soup.new_tag('div',style="height: 300px; width: 100%;")
+div = soup.new_tag('div',style="height: 350px; width: 100%;")
 div["id"] = "keywordsBarID"
 div_block_4.insert(1, div)
+
+# Show graphs on load
+show_graphs_on_load = """
+window.onload = function(){
+    executeDataTable('#tm',4);
+    executeDataTable('#km',5);
+    createPieChart('#tm',1,'testChartID','Tests Status:');		
+    createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:');
+    createPieChart('#km',2,'keywordChartID','Keywords Status:');		
+    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
+	};
+"""
+
+script = soup.new_tag('script')
+script.string = show_graphs_on_load
+container_div.insert(5, script)
+
 
 ### ============================ END OF DASHBOARD ============================================ ####
 
@@ -444,6 +440,7 @@ var chart = new CanvasJS.Chart(ChartID,{
     fontFamily: "Comic Sans MS",
     fontSize: 15,
 	horizontalAlign: "left",
+    fontWeight: "bold"
     
   },
   data: []
@@ -498,6 +495,7 @@ function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartNa
         fontSize: 15,
         textAlign: "centre",
         dockInsidePlotArea: true,
+        fontWeight: "bold"
     },
       axisX:{
         //title:"Axis X title",

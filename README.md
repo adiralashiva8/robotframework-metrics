@@ -36,10 +36,10 @@ Aim of this project is to create HTML report based on robot framework output.xml
 
 ---
 
-*How to Ignore Library Keywords in Keyword Metrics Report*
- - In __rf_metrics_report_creator.py__ file add specific library keywords to ignore for tuple __ignore_library__
- - In Keyword Metric report keywords with type value 'for' and 'foritem' are ignored
- - Following library keywords are ignored in Keyword Metrics Report
+*How to Ignore Library Keywords in Performance Metrics Report*
+ - In __rf_metrics_report_creator.py__ file add specific library keywords to tuple __ignore_library__
+ - In Performance Metric report, keywords with type value 'for' and 'foritem' are ignored
+ - Following library keywords are ignored in Performance Metrics Report
     ```
     ignore_library = [
      'BuiltIn',
@@ -53,7 +53,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
 
  **TODO:**
 - [ ] Show loading indicator while report is loading
-- [ ] Show charts on page load
+- [X] Show charts on page load
 - [ ] Improve performance while converting .xml to .html using Thread | Multiprocess
 - [ ] Read output.xml irrespective folder location
 

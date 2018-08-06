@@ -286,33 +286,31 @@
   <br/>
   <div id="containers">
    <div class="block">
-    <button onclick="createPieChart('#tm',1,'testChartID','Tests Status:')" style="align: center;width:100%">
-     &lt;&lt;&lt;&lt; Click Here For Tests Status Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="testChartID" style="height: 300px; width: 100%;">
+    <div id="testChartID" style="height: 350px; width: 100%;">
     </div>
    </div>
    <div class="block">
-    <button onclick="executeDataTable('#tm',4);createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:')" style="align: center;width:100%">
-     &lt;&lt;&lt;&lt; Click Here For Tests Performace Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="testsBarID" style="height: 300px; width: 100%;">
+    <div id="testsBarID" style="height: 350px; width: 100%;">
     </div>
    </div>
    <div class="block">
-    <button onclick="createPieChart('#km',2,'keywordChartID','Keywords Status:')" style="align: center;width:100%">
-     &lt;&lt;&lt;&lt; Click Here For Keywords Status Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="keywordChartID" style="height: 300px; width: 100%;">
+    <div id="keywordChartID" style="height: 350px; width: 100%;">
     </div>
    </div>
    <div class="block">
-    <button onclick="executeDataTable('#km',5);createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')" style="align: center;width:100%">
-     &lt;&lt;&lt;&lt; Click Here For Keyword Performance Chart &gt;&gt;&gt;&gt;
-    </button>
-    <div id="keywordsBarID" style="height: 300px; width: 100%;">
+    <div id="keywordsBarID" style="height: 350px; width: 100%;">
     </div>
    </div>
+   <script>
+    window.onload = function(){
+    executeDataTable('#tm',4);
+    executeDataTable('#km',5);
+    createPieChart('#tm',1,'testChartID','Tests Status:');		
+    createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:');
+    createPieChart('#km',2,'keywordChartID','Keywords Status:');		
+    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
+	};
+   </script>
   </div>
  </div>
  <script>
@@ -327,6 +325,7 @@ var chart = new CanvasJS.Chart(ChartID,{
     fontFamily: "Comic Sans MS",
     fontSize: 15,
 	horizontalAlign: "left",
+    fontWeight: "bold"
     
   },
   data: []
@@ -377,6 +376,7 @@ var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:pa
         fontSize: 15,
         textAlign: "centre",
         dockInsidePlotArea: true,
+        fontWeight: "bold"
     },
       axisX:{
         //title:"Axis X title",
@@ -600,14 +600,14 @@ body, html {
 
 #container {
   text-align: center;
-  max-width: 45%;
+  max-width: 48%;
   //height: 100%
   margin: 0 auto;
 }
 .block {
-  width: 45%;
-  height: 320px;
-  margin: 20px;
+  width: 48%;
+  height: 350px;
+  margin: 10px;
   display: inline-block;
   background: #f1f1f1;
 }
