@@ -1,350 +1,255 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20180729 18:03:53.891" generator="Robot 3.0.2 (Python 2.7.14 on win32)">
-	<suite source="D:\ROBO_SCRIPTS\RFReportAnalysis\RFKeywordPerformanceMetrics\facebook_login.robot" id="s1" name="Facebook Login">
-		<test id="s1-t1" name="TC-001">
-			<kw name="Launch Chrome Browser" library="common">
-				<doc>Launch chrome browser with google url as default</doc>
-				<kw name="Open Browser" library="SeleniumLibrary">
-					<doc>Opens a new browser instance to the given ``url``.</doc>
-					<arguments>
-						<arg>https://www.google.com</arg>
-						<arg>chrome</arg>
-					</arguments>
-					<msg timestamp="20180729 18:03:58.891" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com'.</msg>
-					<status status="PASS" endtime="20180729 18:04:08.792" starttime="20180729 18:03:58.891"></status>
-				</kw>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>name=q</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:08.833" starttime="20180729 18:04:08.792"></status>
-				</kw>
-				<kw name="Location Should Be" library="SeleniumLibrary">
-					<doc>Verifies that current URL is exactly ``url``.</doc>
-					<arguments>
-						<arg>https://www.google.com/</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:08.841" level="INFO">Current location is 'https://www.google.com/'.</msg>
-					<status status="PASS" endtime="20180729 18:04:08.841" starttime="20180729 18:04:08.835"></status>
-				</kw>
-				<status status="FAIL" endtime="20180729 18:04:08.841" starttime="20180729 18:03:58.891"></status>
-			</kw>
-			<kw name="Go To Facebook Login" library="common">
-				<kw name="Go To" library="SeleniumLibrary">
-					<doc>Navigates the active browser instance to the provided ``url``.</doc>
-					<arguments>
-						<arg>https://www.facebook.com/login</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:08.843" level="INFO">Opening url 'https://www.facebook.com/login'</msg>
-					<status status="PASS" endtime="20180729 18:04:11.242" starttime="20180729 18:04:08.842"></status>
-				</kw>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>name=login</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:11.283" starttime="20180729 18:04:11.242"></status>
-				</kw>
-				<kw name="Location Should Be" library="SeleniumLibrary">
-					<doc>Verifies that current URL is exactly ``url``.</doc>
-					<arguments>
-						<arg>https://www.facebook.com/login</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:11.290" level="INFO">Current location is 'https://www.facebook.com/login'.</msg>
-					<status status="PASS" endtime="20180729 18:04:11.290" starttime="20180729 18:04:11.283"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:11.290" starttime="20180729 18:04:08.842"></status>
-			</kw>
-			<kw name="Enter Email Or Phone">
-				<arguments>
-					<arg>XXXXXXXXXX</arg>
-					<arg>5s</arg>
-				</arguments>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>id=email</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:11.330" starttime="20180729 18:04:11.292"></status>
-				</kw>
-				<kw name="Sleep" library="BuiltIn">
-					<doc>Pauses the test executed for the given time.</doc>
-					<arguments>
-						<arg>${time}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:16.331" level="INFO">Slept 5 seconds</msg>
-					<status status="PASS" endtime="20180729 18:04:16.331" starttime="20180729 18:04:11.330"></status>
-				</kw>
-				<kw name="Input Text" library="SeleniumLibrary">
-					<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
-					<arguments>
-						<arg>id=email</arg>
-						<arg>${value}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:16.331" level="INFO">Typing text 'XXXXXXXXXX' into text field 'id=email'.</msg>
-					<status status="PASS" endtime="20180729 18:04:16.615" starttime="20180729 18:04:16.331"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:16.615" starttime="20180729 18:04:11.291"></status>
-			</kw>
-			<kw name="Enter Password">
-				<arguments>
-					<arg>XXXXXXXXXX</arg>
-				</arguments>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>id=pass</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:16.657" starttime="20180729 18:04:16.616"></status>
-				</kw>
-				<kw name="Input Text" library="SeleniumLibrary">
-					<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
-					<arguments>
-						<arg>id=pass</arg>
-						<arg>${value}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:16.658" level="INFO">Typing text 'XXXXXXXXXX' into text field 'id=pass'.</msg>
-					<status status="PASS" endtime="20180729 18:04:16.826" starttime="20180729 18:04:16.657"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:16.826" starttime="20180729 18:04:16.616"></status>
-			</kw>
-			<doc>Login To Facebook With Valid Credentials</doc>
-			<status status="PASS" endtime="20180729 18:04:16.827" critical="yes" starttime="20180729 18:03:58.891"></status>
-		</test>
-		<test id="s1-t2" name="TC-002">
-			<kw name="Launch Chrome Browser" library="common">
-				<doc>Launch chrome browser with google url as default</doc>
-				<kw name="Open Browser" library="SeleniumLibrary">
-					<doc>Opens a new browser instance to the given ``url``.</doc>
-					<arguments>
-						<arg>https://www.google.com</arg>
-						<arg>chrome</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:16.830" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com'.</msg>
-					<status status="PASS" endtime="20180729 18:04:25.166" starttime="20180729 18:04:16.830"></status>
-				</kw>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>name=q</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:25.207" starttime="20180729 18:04:25.166"></status>
-				</kw>
-				<kw name="Location Should Be" library="SeleniumLibrary">
-					<doc>Verifies that current URL is exactly ``url``.</doc>
-					<arguments>
-						<arg>https://www.google.com/</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:25.214" level="INFO">Current location is 'https://www.google.com/'.</msg>
-					<status status="PASS" endtime="20180729 18:04:25.214" starttime="20180729 18:04:25.208"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:25.215" starttime="20180729 18:04:16.829"></status>
-			</kw>
-			<kw name="Go To Facebook Login" library="common">
-				<kw name="Go To" library="SeleniumLibrary">
-					<doc>Navigates the active browser instance to the provided ``url``.</doc>
-					<arguments>
-						<arg>https://www.facebook.com/login</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:25.216" level="INFO">Opening url 'https://www.facebook.com/login'</msg>
-					<status status="PASS" endtime="20180729 18:04:27.632" starttime="20180729 18:04:25.216"></status>
-				</kw>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>name=login</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:27.677" starttime="20180729 18:04:27.632"></status>
-				</kw>
-				<kw name="Location Should Be" library="SeleniumLibrary">
-					<doc>Verifies that current URL is exactly ``url``.</doc>
-					<arguments>
-						<arg>https://www.facebook.com/login</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:27.683" level="INFO">Current location is 'https://www.facebook.com/login'.</msg>
-					<status status="PASS" endtime="20180729 18:04:27.683" starttime="20180729 18:04:27.678"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:27.683" starttime="20180729 18:04:25.215"></status>
-			</kw>
-			<kw name="Enter Email Or Phone">
-				<arguments>
-					<arg>XXXXXXXXXX</arg>
-					<arg>10s</arg>
-				</arguments>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>id=email</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:28.623" starttime="20180729 18:04:27.683"></status>
-				</kw>
-				<kw name="Sleep" library="BuiltIn">
-					<doc>Pauses the test executed for the given time.</doc>
-					<arguments>
-						<arg>${time}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:37.726" level="INFO">Slept 10 seconds</msg>
-					<status status="PASS" endtime="20180729 18:04:37.726" starttime="20180729 18:04:27.724"></status>
-				</kw>
-				<kw name="Input Text" library="SeleniumLibrary">
-					<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
-					<arguments>
-						<arg>id=email</arg>
-						<arg>${value}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:37.726" level="INFO">Typing text 'XXXXXXXXXX' into text field 'id=email'.</msg>
-					<status status="PASS" endtime="20180729 18:04:37.985" starttime="20180729 18:04:37.726"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:37.985" starttime="20180729 18:04:27.683"></status>
-			</kw>
-			<kw name="Enter Password">
-				<arguments>
-					<arg>XXXXXXXXXX</arg>
-				</arguments>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>id=pass</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:38.022" starttime="20180729 18:04:37.986"></status>
-				</kw>
-				<kw name="Input Text" library="SeleniumLibrary">
-					<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
-					<arguments>
-						<arg>id=pass</arg>
-						<arg>${value}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:38.022" level="INFO">Typing text 'XXXXXXXXXX' into text field 'id=pass'.</msg>
-					<status status="PASS" endtime="20180729 18:04:38.193" starttime="20180729 18:04:38.022"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:38.193" starttime="20180729 18:04:37.986"></status>
-			</kw>
-			<doc>Login To Facebook With INVALID Credentials</doc>
-			<status status="PASS" endtime="20180729 18:04:17.829" critical="yes" starttime="20180729 18:04:16.829"></status>
-		</test>
-		<test id="s1-t3" name="TC-003">
-			<kw name="Launch Chrome Browser" library="common">
-				<doc>Launch chrome browser with google url as default</doc>
-				<kw name="Open Browser" library="SeleniumLibrary">
-					<doc>Opens a new browser instance to the given ``url``.</doc>
-					<arguments>
-						<arg>https://www.google.com</arg>
-						<arg>chrome</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:38.198" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com'.</msg>
-					<status status="PASS" endtime="20180729 18:04:46.203" starttime="20180729 18:04:38.198"></status>
-				</kw>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>name=q</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:46.243" starttime="20180729 18:04:46.204"></status>
-				</kw>
-				<kw name="Location Should Be" library="SeleniumLibrary">
-					<doc>Verifies that current URL is exactly ``url``.</doc>
-					<arguments>
-						<arg>https://www.google.com/</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:46.249" level="INFO">Current location is 'https://www.google.com/'.</msg>
-					<status status="PASS" endtime="20180729 18:04:46.249" starttime="20180729 18:04:46.243"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:46.249" starttime="20180729 18:04:38.198"></status>
-			</kw>
-			<kw name="Go To Facebook Login" library="common">
-				<kw name="Go To" library="SeleniumLibrary">
-					<doc>Navigates the active browser instance to the provided ``url``.</doc>
-					<arguments>
-						<arg>https://www.facebook.com/login</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:46.250" level="INFO">Opening url 'https://www.facebook.com/login'</msg>
-					<status status="PASS" endtime="20180729 18:04:48.818" starttime="20180729 18:04:46.250"></status>
-				</kw>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>name=login</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:48.850" starttime="20180729 18:04:48.818"></status>
-				</kw>
-				<kw name="Location Should Be" library="SeleniumLibrary">
-					<doc>Verifies that current URL is exactly ``url``.</doc>
-					<arguments>
-						<arg>https://www.facebook.com/login</arg>
-					</arguments>
-					<msg timestamp="20180729 18:04:48.865" level="INFO">Current location is 'https://www.facebook.com/login'.</msg>
-					<status status="PASS" endtime="20180729 18:04:48.865" starttime="20180729 18:04:48.850"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:04:48.865" starttime="20180729 18:04:46.250"></status>
-			</kw>
-			<kw name="Enter Email Or Phone">
-				<arguments>
-					<arg>~!@#$%^&amp;*</arg>
-					<arg>20s</arg>
-				</arguments>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>id=email</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:04:48.910" starttime="20180729 18:04:48.865"></status>
-				</kw>
-				<kw name="Sleep" library="BuiltIn">
-					<doc>Pauses the test executed for the given time.</doc>
-					<arguments>
-						<arg>${time}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:05:08.920" level="INFO">Slept 20 seconds</msg>
-					<status status="PASS" endtime="20180729 18:05:48.911" starttime="20180729 18:04:48.911"></status>
-				</kw>
-				<kw name="Input Text" library="SeleniumLibrary">
-					<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
-					<arguments>
-						<arg>id=email</arg>
-						<arg>${value}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:05:08.920" level="INFO">Typing text '~!@#$%^&amp;*' into text field 'id=email'.</msg>
-					<status status="PASS" endtime="20180729 18:05:09.140" starttime="20180729 18:05:08.920"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:05:09.141" starttime="20180729 18:03:03.141"></status>
-			</kw>
-			<kw name="Enter Password">
-				<arguments>
-					<arg>~!@#$%^&amp;*</arg>
-				</arguments>
-				<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
-					<doc>Waits until element ``locator`` is visible.</doc>
-					<arguments>
-						<arg>id=pass</arg>
-					</arguments>
-					<status status="PASS" endtime="20180729 18:05:09.182" starttime="20180729 18:05:09.142"></status>
-				</kw>
-				<kw name="Input Text" library="SeleniumLibrary">
-					<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
-					<arguments>
-						<arg>id=pass</arg>
-						<arg>${value}</arg>
-					</arguments>
-					<msg timestamp="20180729 18:05:09.182" level="INFO">Typing text '~!@#$%^&amp;*' into text field 'id=pass'.</msg>
-					<status status="PASS" endtime="20180729 18:05:09.347" starttime="20180729 18:05:09.182"></status>
-				</kw>
-				<status status="PASS" endtime="20180729 18:05:09.347" starttime="20180729 18:05:09.141"></status>
-			</kw>
-			<doc>Login To Facebook With special characters in Credentials</doc>
-			<status status="PASS" endtime="20180729 18:05:09.348" critical="yes" starttime="20180729 18:04:38.196"></status>
-		</test>
-		<status status="PASS" endtime="20180729 18:05:09.351" starttime="20180729 18:03:53.906"></status>
-	</suite>
-	<statistics>
-		<total>
-			<stat fail="0" pass="3">Critical Tests</stat>
-			<stat fail="0" pass="3">All Tests</stat>
-		</total>
-		<tag></tag>
-		<suite>
-			<stat fail="0" id="s1" name="Facebook Login" pass="3">Facebook Login</stat>
-		</suite>
-	</statistics>
-	<errors></errors>
+<robot generated="20180811 08:43:13.864" generator="Robot 3.0.2 (Python 2.7.14 on win32)">
+<suite source="D:\ROBO_SCRIPTS\RFMetrics\robotframework-metrics\facebook_login.robot" id="s1" name="Facebook Login">
+<test id="s1-t1" name="TC-001">
+<kw name="Launch Chrome Browser" library="common">
+<doc>Launch chrome browser with google url as default</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.google.com</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20180811 08:43:19.634" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com'.</msg>
+<status status="PASS" endtime="20180811 08:44:02.669" starttime="20180811 08:43:19.633"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>name=q</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180811 08:44:08.022" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180811 08:44:08.022" starttime="20180811 08:44:07.749"></status>
+</kw>
+<msg timestamp="20180811 08:44:08.024" level="FAIL">Element 'name=q' not visible after 5 seconds.</msg>
+<status status="FAIL" endtime="20180811 08:44:08.025" starttime="20180811 08:44:02.669"></status>
+</kw>
+<status status="FAIL" endtime="20180811 08:44:08.025" starttime="20180811 08:43:19.633"></status>
+</kw>
+<doc>Login To Facebook With Valid Credentials</doc>
+<status status="FAIL" endtime="20180811 08:44:08.026" critical="yes" starttime="20180811 08:43:19.632">Element 'name=q' not visible after 5 seconds.</status>
+</test>
+<test id="s1-t2" name="TC-002">
+<kw name="Launch Chrome Browser" library="common">
+<doc>Launch chrome browser with google url as default</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.google.com</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20180811 08:44:08.031" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com'.</msg>
+<status status="PASS" endtime="20180811 08:45:06.002" starttime="20180811 08:44:08.031"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>name=q</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:45:06.050" starttime="20180811 08:45:06.003"></status>
+</kw>
+<kw name="Location Should Be" library="SeleniumLibrary">
+<doc>Verifies that current URL is exactly ``url``.</doc>
+<arguments>
+<arg>https://www.google.com/</arg>
+</arguments>
+<msg timestamp="20180811 08:45:06.056" level="INFO">Current location is 'https://www.google.com/'.</msg>
+<status status="PASS" endtime="20180811 08:45:06.056" starttime="20180811 08:45:06.050"></status>
+</kw>
+<status status="PASS" endtime="20180811 08:45:06.057" starttime="20180811 08:44:08.031"></status>
+</kw>
+<kw name="Go To Facebook Login" library="common">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>https://www.facebook.com/login</arg>
+</arguments>
+<msg timestamp="20180811 08:45:06.058" level="INFO">Opening url 'https://www.facebook.com/login'</msg>
+<status status="PASS" endtime="20180811 08:47:41.861" starttime="20180811 08:45:06.058"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>name=login</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:47:41.923" starttime="20180811 08:47:41.862"></status>
+</kw>
+<kw name="Location Should Be" library="SeleniumLibrary">
+<doc>Verifies that current URL is exactly ``url``.</doc>
+<arguments>
+<arg>https://www.facebook.com/login</arg>
+</arguments>
+<msg timestamp="20180811 08:47:41.930" level="INFO">Current location is 'https://www.facebook.com/login'.</msg>
+<status status="PASS" endtime="20180811 08:47:41.930" starttime="20180811 08:47:41.923"></status>
+</kw>
+<status status="PASS" endtime="20180811 08:47:41.931" starttime="20180811 08:45:06.057"></status>
+</kw>
+<kw name="Enter Email Or Phone">
+<arguments>
+<arg>XXXXXXXXXX</arg>
+<arg>10s</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>id=email</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:47:41.984" starttime="20180811 08:47:41.932"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${time}</arg>
+</arguments>
+<msg timestamp="20180811 08:47:51.984" level="INFO">Slept 10 seconds</msg>
+<status status="PASS" endtime="20180811 08:47:51.984" starttime="20180811 08:47:41.984"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>id=email</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20180811 08:47:51.986" level="INFO">Typing text 'XXXXXXXXXX' into text field 'id=email'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180811 08:47:57.036" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180811 08:47:57.037" starttime="20180811 08:47:56.695"></status>
+</kw>
+<msg timestamp="20180811 08:47:57.042" level="FAIL">Element with locator 'id=email' not found.</msg>
+<status status="FAIL" endtime="20180811 08:47:57.043" starttime="20180811 08:47:51.985"></status>
+</kw>
+<status status="FAIL" endtime="20180811 08:47:57.043" starttime="20180811 08:47:41.931"></status>
+</kw>
+<doc>Login To Facebook With INVALID Credentials</doc>
+<status status="FAIL" endtime="20180811 08:47:57.045" critical="yes" starttime="20180811 08:44:08.030">Element with locator 'id=email' not found.</status>
+</test>
+<test id="s1-t3" name="TC-003">
+<kw name="Launch Chrome Browser" library="common">
+<doc>Launch chrome browser with google url as default</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.google.com</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20180811 08:47:57.056" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com'.</msg>
+<status status="PASS" endtime="20180811 08:48:21.588" starttime="20180811 08:47:57.055"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>name=q</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:48:21.640" starttime="20180811 08:48:21.588"></status>
+</kw>
+<kw name="Location Should Be" library="SeleniumLibrary">
+<doc>Verifies that current URL is exactly ``url``.</doc>
+<arguments>
+<arg>https://www.google.com/</arg>
+</arguments>
+<msg timestamp="20180811 08:48:21.647" level="INFO">Current location is 'https://www.google.com/'.</msg>
+<status status="PASS" endtime="20180811 08:48:21.648" starttime="20180811 08:48:21.640"></status>
+</kw>
+<status status="PASS" endtime="20180811 08:48:21.648" starttime="20180811 08:47:57.054"></status>
+</kw>
+<kw name="Go To Facebook Login" library="common">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>https://www.facebook.com/login</arg>
+</arguments>
+<msg timestamp="20180811 08:48:21.650" level="INFO">Opening url 'https://www.facebook.com/login'</msg>
+<status status="PASS" endtime="20180811 08:48:27.014" starttime="20180811 08:48:21.649"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>name=login</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:48:27.057" starttime="20180811 08:48:27.015"></status>
+</kw>
+<kw name="Location Should Be" library="SeleniumLibrary">
+<doc>Verifies that current URL is exactly ``url``.</doc>
+<arguments>
+<arg>https://www.facebook.com/login</arg>
+</arguments>
+<msg timestamp="20180811 08:48:27.065" level="INFO">Current location is 'https://www.facebook.com/login'.</msg>
+<status status="PASS" endtime="20180811 08:48:27.065" starttime="20180811 08:48:27.058"></status>
+</kw>
+<status status="PASS" endtime="20180811 08:48:27.065" starttime="20180811 08:48:21.649"></status>
+</kw>
+<kw name="Enter Email Or Phone">
+<arguments>
+<arg>~!@#$%^&amp;*</arg>
+<arg>20s</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>id=email</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:48:27.110" starttime="20180811 08:48:27.066"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${time}</arg>
+</arguments>
+<msg timestamp="20180811 08:48:47.111" level="INFO">Slept 20 seconds</msg>
+<status status="PASS" endtime="20180811 08:48:47.111" starttime="20180811 08:48:27.110"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>id=email</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20180811 08:48:47.113" level="INFO">Typing text '~!@#$%^&amp;*' into text field 'id=email'.</msg>
+<status status="PASS" endtime="20180811 08:48:47.307" starttime="20180811 08:48:47.112"></status>
+</kw>
+<status status="PASS" endtime="20180811 08:48:47.307" starttime="20180811 08:48:27.066"></status>
+</kw>
+<kw name="Enter Password">
+<arguments>
+<arg>~!@#$%^&amp;*</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>id=pass</arg>
+</arguments>
+<status status="PASS" endtime="20180811 08:48:47.353" starttime="20180811 08:48:47.308"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>id=pass</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20180811 08:48:47.353" level="INFO">Typing text '~!@#$%^&amp;*' into text field 'id=pass'.</msg>
+<status status="PASS" endtime="20180811 08:48:47.516" starttime="20180811 08:48:47.353"></status>
+</kw>
+<status status="PASS" endtime="20180811 08:48:47.516" starttime="20180811 08:48:47.307"></status>
+</kw>
+<doc>Login To Facebook With special characters in Credentials</doc>
+<status status="PASS" endtime="20180811 08:48:47.516" critical="yes" starttime="20180811 08:47:57.051"></status>
+</test>
+<status status="FAIL" endtime="20180811 08:48:47.518" starttime="20180811 08:43:13.884"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="1">Critical Tests</stat>
+<stat fail="2" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="Facebook Login" pass="1">Facebook Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
 </robot>
