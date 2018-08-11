@@ -4,6 +4,13 @@ import time
 import sys
 import os
 
+"""
+@Author: Software tester with minimal coading knowledge.
+Suggest or provide feedback to improve coading standard and style
+Thanks in advance :)
+"""
+
+
 # Ignores following library keywords in metrics report
 ignore_library = [
     'BuiltIn',
@@ -85,6 +92,58 @@ body, html {
   background: #f1f1f1;
 }
 
+
+.loader,
+.loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    position: center;
+}
+.loader {
+    margin: 60px auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-left: 1.1em solid #ffffff;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+#loadingDiv {
+    position:absolute;;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:grey;
+}
+
 #dashboard {background-color: white;}
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
@@ -98,15 +157,22 @@ body, html {
 soup = BeautifulSoup(head_content,"html.parser")
 
 body = soup.new_tag('body',style="padding: 5px")
-soup.insert(0, body)
+soup.insert(20, body)
+
+#<div style="" id="loadingDiv"><div class="loader"></div></div>
+
+loadingDiv = soup.new_tag('div')
+loadingDiv["id"] = "loadingDiv"
+body.insert(1, loadingDiv)
+
+spiner = soup.new_tag('div')
+spiner["class"] = "loader"
+loadingDiv.insert(0, spiner)
 
 # Create header tag and title
-h1 = soup.new_tag('h1',style="font-size: 2em;")
+h1 = soup.new_tag('h4')
 h1.string = "Robot Framework Metrics Report"
-body.insert(0, h1)
-
-br = soup.new_tag('br')
-body.insert(1, br)
+body.insert(5, h1)
 
 # Buttons
 button = soup.new_tag('button')
@@ -114,37 +180,37 @@ button["class"] = "tablink"
 button["onclick"] = "openPage('dashboard', this, 'orange');"
 button["id"] = "defaultOpen"
 button.string = "Dashboard"
-body.insert(2, button)
+body.insert(7, button)
 
 button = soup.new_tag('button')
 button["class"] = "tablink"
 button["onclick"] = "openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)"
 button.string = "Test Metrics"
-body.insert(3, button)
+body.insert(8, button)
 
 button = soup.new_tag('button')
 button["class"] = "tablink"
 button["onclick"] = "openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)"
 button.string = "Keyword Metrics"
-body.insert(4, button)
+body.insert(9, button)
 
 # Dashboard div
 db_div = soup.new_tag('div')
 db_div["id"] = "dashboard"
 db_div["class"] = "tabcontent"
-body.insert(5, db_div)
+body.insert(10, db_div)
 
 # Tests div
 tm_div = soup.new_tag('div')
 tm_div["id"] = "testMetrics"
 tm_div["class"] = "tabcontent"
-body.insert(6, tm_div)
+body.insert(11, tm_div)
 
 # Keywords div
 km_div = soup.new_tag('div')
 km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
-body.insert(5, km_div)
+body.insert(12, km_div)
 
 ### ====== READ OUTPUT.XML ===== ###
 
@@ -481,7 +547,7 @@ var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:pa
 """
 script = soup.new_tag('script')
 script.string=canvas_pie_script
-body.insert(7,script)
+body.insert(21,script)
 
 bar_graph_script = """
 function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
@@ -559,7 +625,7 @@ for (var i = 0; i < rows.length; i++) {
 
 script = soup.new_tag('script')
 script.string=bar_graph_script
-body.insert(8,script)
+body.insert(22,script)
 
 ### data table script ###
 data_table_script = """
@@ -575,7 +641,7 @@ function executeDataTable(tabname,sortCol) {
 # Create script tag - badges
 script = soup.new_tag('script')
 script.string=data_table_script
-body.insert(9,script)
+body.insert(23,script)
 
 ### tab script ###
 tab_script = """
@@ -599,8 +665,24 @@ document.getElementById("defaultOpen").click();
 # Create script tag - badges
 script = soup.new_tag('script')
 script.string=tab_script
-body.insert(10,script)
+body.insert(24,script)
 
+loading_spinner="""
+//$('body').append('<div style="" id="loadingDiv"><div class="loader"></div></div>');
+$(window).on('load', function(){
+  setTimeout(removeLoader, 0); //wait for page load PLUS zero seconds.
+});
+function removeLoader(){
+    $( "#loadingDiv" ).fadeOut(50, function() {
+      // fadeOut complete. Remove the loading div
+      $( "#loadingDiv" ).remove(); //makes page more lightweight
+  });
+}
+"""
+# Create script tag - badges
+script = soup.new_tag('script')
+script.string=loading_spinner
+body.insert(25,script)
 
 ### ====== WRITE TO RF_METRICS_REPORT.HTML ===== ###
 

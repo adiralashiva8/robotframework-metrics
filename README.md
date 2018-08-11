@@ -16,8 +16,8 @@ Aim of this project is to create HTML report based on robot framework output.xml
 
 1. Checkout the project
 2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.sh__ files to project (where output.xml file is available)
-3. Install beautifulsoap: __pip install beautifulsoup4__  (to create html report)
-4. Install lxml: __pip install lxml__ (to read data from xml file)
+3. Install beautifulsoap: __pip install beautifulsoup4__  (to create html report - one time activity)
+4. Install lxml: __pip install lxml__ (to read data from xml file - one time activity)
 5. Execute __rf_metrics_executer.sh__ file
 6. "RF_Metrics_Report" will be opened in new chrome tab
 
@@ -26,7 +26,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
  Dashboard: (Consist of Keywords, Tests status charts)
- ![Screenshot](Dashboard_overview.PNG)
+ ![Screenshot](Dashboard_view.PNG)
 
  Test Metrics:  (Test Metrics - Sort by Elapsed time descending order)
  ![Screenshot](TestMetrics.PNG)
@@ -52,7 +52,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
 ---
 
  **TODO:**
-- [ ] Show loading indicator while report is loading
+- [X] Show loading indicator while report is loading
 - [X] Show charts on page load
 - [ ] Improve performance while converting .xml to .html using Thread | Multiprocess
 - [ ] Read output.xml irrespective folder location
@@ -66,6 +66,20 @@ Intention of project is to help the guys who are monitoring there TESTS | KEYWOR
  - Suggest your feedback | queries
  - Let us improve this report together
 
- > You are watching first 'Performance Metrics HTML Report' in Robot framework :)
- 
+---
+
+*Credits:*
+
+1. Robotframework
+2. W3Schools
+3. Stackoverflow
+4. CanvasJs
+5. DataTable
+6. BeautifulSoap & lxml
+7. Jquery | JavaScript
+
+---
+
+> You are watching first 'Performance Metrics HTML Report' in Robot framework :)
+
 ---
