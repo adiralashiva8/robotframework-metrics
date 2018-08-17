@@ -1,24 +1,13 @@
 from bs4 import BeautifulSoup
-import datetime
-import time
 import sys
 import os
+from robot.api import ExecutionResult, ResultVisitor
 
 """
-@Author: Software tester with minimal coading knowledge.
-Suggest or provide feedback to improve coading standard and style
+@Author: Software tester with minimal coding knowledge.
+Suggest or provide feedback to improve coding standard and style
 Thanks in advance :)
 """
-
-
-# Ignores following library keywords in metrics report
-ignore_library = [
-    'BuiltIn',
-    'SeleniumLibrary',
-    'String',
-    'Collections',
-    'DateTime',
-    ]
 
 # Get report result - OS independent
 current_path = os.getcwd()
@@ -26,6 +15,10 @@ current_path = os.getcwd()
 text_file = os.path.join(os.path.curdir, 'output.xml')
 # performance report result file location
 result_file = os.path.join(os.path.curdir, 'rf_metrics_result.html')
+
+result = ExecutionResult(text_file)
+result.configure(stat_config={'suite_stat_level': 2,
+                              'tag_stat_combine': 'tagANDanother'})
 
 head_content = """
 
@@ -159,8 +152,6 @@ soup = BeautifulSoup(head_content,"html.parser")
 body = soup.new_tag('body',style="padding: 5px")
 soup.insert(20, body)
 
-#<div style="" id="loadingDiv"><div class="loader"></div></div>
-
 loadingDiv = soup.new_tag('div')
 loadingDiv["id"] = "loadingDiv"
 body.insert(1, loadingDiv)
@@ -171,7 +162,11 @@ loadingDiv.insert(0, spiner)
 
 # Create header tag and title
 h1 = soup.new_tag('h4')
-h1.string = "Robot Framework Metrics Report"
+h1.string = """
+
+Robot Framework Metrics Report 
+
+ """
 body.insert(5, h1)
 
 # Buttons
@@ -314,7 +309,7 @@ th.string = "End time"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time"
+th.string = "Elapsed Time (sec)"
 tr.insert(4, th)
 
 tbody = soup.new_tag('tbody')
@@ -322,51 +317,34 @@ table.insert(1, tbody)
 
 ### =============== GET TEST METRICS =============== ###
 
-# List for test cases
-for tests in results.find_all("test"):    
+class TestCaseResults(ResultVisitor):
 
-    table_tr = soup.new_tag('tr')
-    tbody.insert(0, table_tr)
+    def visit_test(self, test):
 
-    table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
-    table_td.string = tests['name']
-    table_tr.insert(0, table_td)
+        table_tr = soup.new_tag('tr')
+        tbody.insert(0, table_tr)
 
-    for status in tests.find_all("status"):
-        # Get duration took by keyword
-        start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")        
-        end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
-        test_status = status['status']
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
+        table_td.string = str(test)
+        table_tr.insert(0, table_td)
 
-    dispay_start_time = start_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
-    display_end_time = end_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
+        table_td = soup.new_tag('td')
+        table_td.string = str(test.status)
+        table_tr.insert(1, table_td)
 
-    table_td = soup.new_tag('td')
-    table_td.string = str(test_status)
-    table_tr.insert(1, table_td)
+        table_td = soup.new_tag('td')
+        table_td.string = str(test.starttime)
+        table_tr.insert(2, table_td)
 
-    table_td = soup.new_tag('td')
-    table_td.string = str(dispay_start_time)
-    table_tr.insert(2, table_td)
+        table_td = soup.new_tag('td')
+        table_td.string = str(test.endtime)
+        table_tr.insert(3, table_td)
 
-    table_td = soup.new_tag('td')
-    table_td.string = str(display_end_time)
-    table_tr.insert(3, table_td)
+        table_td = soup.new_tag('td')
+        table_td.string = str(test.elapsedtime/float(1000))
+        table_tr.insert(4, table_td)
 
-    total_time= end_time - start_time                
-    try:
-        total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S.%f')
-        total_time = total_time.strftime('%H:%M:%S.%f')[:-3]
-    except ValueError:
-        total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S')
-        total_time = total_time.strftime('%H:%M:%S')
-        #total_time = total_time+".000"
-
-    table_td = soup.new_tag('td')
-    table_td.string = str(total_time)
-    table_tr.insert(4, table_td)
-
-
+result.visit(TestCaseResults())
 ### ============================ END OF TEST METRICS ============================================ ####
 
 ### ============================ START OF KEYWORD METRICS ======================================= ####
@@ -391,7 +369,7 @@ thead.insert(0, tr)
 
 th = soup.new_tag('th')
 th.string = "Test Case"
-tr.insert(0, th)
+tr.insert(1, th)
 
 th = soup.new_tag('th')
 th.string = "Keyword"
@@ -410,88 +388,44 @@ th.string = "End time"
 tr.insert(4, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time"
+th.string = "Elapsed Time (sec)"
 tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
 table.insert(1, tbody)
 
-# List for test cases
-for tests in results.find_all("test"):    
+class KeywordResults(ResultVisitor):
 
-    # List for keywords
-    for keywords in tests.find_all("kw"):
+    def visit_keyword(self,kw):
 
-        try:
-            keyword_type = keywords['type']
-            if  str(keyword_type) == "for" or str(keyword_type) == "foritem":
-                continue
+        table_tr = soup.new_tag('tr')
+        tbody.insert(1, table_tr)
 
-        except Exception :
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
+        table_td.string = str(kw.parent)
+        table_tr.insert(0, table_td)
 
-            try:
-                # Ignore library keywords
-                keyword_library = keywords['library']
+        table_td = soup.new_tag('td')
+        table_td.string = str(kw.kwname)
+        table_tr.insert(1, table_td)
 
-                if any (library in keyword_library for library in ignore_library):
-                    continue
+        table_td = soup.new_tag('td')
+        table_td.string = str(kw.status)
+        table_tr.insert(2, table_td)
 
-                else:
-                    # Keywords which are not ignored
-                    valid_keyword = True
+        table_td = soup.new_tag('td')
+        table_td.string = str(kw.starttime)
+        table_tr.insert(3, table_td)
 
-            except Exception :
-                # In output.xml library attribute will not be included for Local keywords
-                local_keyword = True
+        table_td = soup.new_tag('td')
+        table_td.string = str(kw.endtime)
+        table_tr.insert(4, table_td)
 
-            if valid_keyword or local_keyword:
+        table_td = soup.new_tag('td')
+        table_td.string =str(kw.elapsedtime/float(1000))
+        table_tr.insert(5, table_td)
 
-                table_tr = soup.new_tag('tr')
-                tbody.insert(1, table_tr)
-
-                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
-                table_td.string = tests['name']
-                table_tr.insert(0, table_td)
-
-                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
-                table_td.string = keywords['name']
-                table_tr.insert(1, table_td)
-
-                for status in keywords.find_all("status"):
-                    # Get duration took by keyword
-                    start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")
-                    end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
-                    test_status = status['status']
-
-                dispay_start_time = start_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
-                display_end_time = end_time.strftime('%Y%m%d %H:%M:%S.%f')[:-3]
-
-                table_td = soup.new_tag('td')
-                table_td.string = test_status
-                table_tr.insert(2, table_td)
-
-                table_td = soup.new_tag('td')
-                table_td.string = str(dispay_start_time)
-                table_tr.insert(3, table_td)
-
-                table_td = soup.new_tag('td')
-                table_td.string = str(display_end_time)
-                table_tr.insert(4, table_td)
-
-                total_time= end_time - start_time
-
-                try:
-                    total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S.%f')
-                    total_time = total_time.strftime('%H:%M:%S.%f')[:-3]
-                except ValueError:
-                    total_time = datetime.datetime.strptime(str(total_time),'%H:%M:%S')
-                    total_time = total_time.strftime('%H:%M:%S')
-                    #total_time= total_time+".000"
-                
-                table_td = soup.new_tag('td')
-                table_td.string = str(total_time)
-                table_tr.insert(5, table_td)
-
+result.visit(KeywordResults())
 ### ============================ END OF KEYWORD METRICS ======================================= ####
 
 canvas_pie_script = """
@@ -586,33 +520,13 @@ for (var i = 0; i < rows.length; i++) {
         break;
     }
 	//status = [];
-  name_value = $(rows[i]).find('td'); 
+    name_value = $(rows[i]).find('td'); 
   
-  time=($(name_value[Number(time_column)]).html()).trim();
-    try {
-	    mfree=time.split(".")    
-        if (mfree.length > 1){
-            tt=mfree[0].split(":");
-            sec=tt[0]*3600+tt[1]*60+tt[2]*1+(mfree[1]/1000)*1;
-        } else {
-            tt=mfree[0].split(":");
-            sec=tt[0]*3600+tt[1]*60+tt[2]*1;
-        }
-	    
-    }
-        catch (e) {
-	    tt=time.split(":");
-	    sec=tt[0]*3600+tt[1]*60+tt[2]*1;
-    }
-	
-	status.push({label:$(name_value[Number(keyword_column)]).html(),y:sec});
+    time=($(name_value[Number(time_column)]).html()).trim();
+	status.push({label:$(name_value[Number(keyword_column)]).html(),y:parseFloat(time)});
   }  
 	chart.options.data.push({
     type: "column",
-    //name: ($(rows[0]).find('th')), 
-    //showInLegend: true,
-    //legendText: ($(rows[0]).find('th')),
-	//yValueFormatString: "HH-mm-ss.fff",
     indexLabel: "{y} s",
     toolTipContent: "<b>{label}:</b> {y} s",
     dataPoints: status
