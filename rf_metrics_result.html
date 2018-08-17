@@ -192,7 +192,7 @@ body, html {
       End time
      </th>
      <th>
-      Elapsed Time
+      Elapsed Time (sec)
      </th>
     </tr>
    </thead>
@@ -211,7 +211,7 @@ body, html {
       20180811 08:48:47.516
      </td>
      <td>
-      00:00:50.465
+      50.465
      </td>
     </tr>
     <tr>
@@ -228,7 +228,7 @@ body, html {
       20180811 08:47:57.045
      </td>
      <td>
-      00:03:49.015
+      229.015
      </td>
     </tr>
     <tr>
@@ -245,7 +245,7 @@ body, html {
       20180811 08:44:08.026
      </td>
      <td>
-      00:00:48.394
+      48.394
      </td>
     </tr>
    </tbody>
@@ -273,7 +273,7 @@ body, html {
       End time
      </th>
      <th>
-      Elapsed Time
+      Elapsed Time (sec)
      </th>
     </tr>
    </thead>
@@ -282,7 +282,7 @@ body, html {
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-001
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Launch Chrome Browser
      </td>
      <td>
@@ -295,14 +295,14 @@ body, html {
       20180811 08:44:08.025
      </td>
      <td>
-      00:00:48.392
+      48.392
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-003
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Enter Password
      </td>
      <td>
@@ -315,14 +315,14 @@ body, html {
       20180811 08:48:47.516
      </td>
      <td>
-      00:00:00.209
+      0.209
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-003
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Enter Email Or Phone
      </td>
      <td>
@@ -335,14 +335,14 @@ body, html {
       20180811 08:48:47.307
      </td>
      <td>
-      00:00:20.241
+      20.241
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-003
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Go To Facebook Login
      </td>
      <td>
@@ -355,14 +355,14 @@ body, html {
       20180811 08:48:27.065
      </td>
      <td>
-      00:00:05.416
+      5.416
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-003
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Launch Chrome Browser
      </td>
      <td>
@@ -375,14 +375,14 @@ body, html {
       20180811 08:48:21.648
      </td>
      <td>
-      00:00:24.594
+      24.594
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-002
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Enter Email Or Phone
      </td>
      <td>
@@ -395,14 +395,14 @@ body, html {
       20180811 08:47:57.043
      </td>
      <td>
-      00:00:15.112
+      15.112
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-002
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Go To Facebook Login
      </td>
      <td>
@@ -415,14 +415,14 @@ body, html {
       20180811 08:47:41.931
      </td>
      <td>
-      00:02:35.874
+      155.874
      </td>
     </tr>
     <tr>
      <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
       TC-002
      </td>
-     <td style="word-wrap: break-word;max-width: 200px; white-space: normal">
+     <td>
       Launch Chrome Browser
      </td>
      <td>
@@ -435,7 +435,7 @@ body, html {
       20180811 08:45:06.057
      </td>
      <td>
-      00:00:58.026
+      58.026
      </td>
     </tr>
    </tbody>
@@ -529,33 +529,13 @@ for (var i = 0; i < rows.length; i++) {
         break;
     }
 	//status = [];
-  name_value = $(rows[i]).find('td'); 
+    name_value = $(rows[i]).find('td'); 
   
-  time=($(name_value[Number(time_column)]).html()).trim();
-    try {
-	    mfree=time.split(".")    
-        if (mfree.length > 1){
-            tt=mfree[0].split(":");
-            sec=tt[0]*3600+tt[1]*60+tt[2]*1+(mfree[1]/1000)*1;
-        } else {
-            tt=mfree[0].split(":");
-            sec=tt[0]*3600+tt[1]*60+tt[2]*1;
-        }
-	    
-    }
-        catch (e) {
-	    tt=time.split(":");
-	    sec=tt[0]*3600+tt[1]*60+tt[2]*1;
-    }
-	
-	status.push({label:$(name_value[Number(keyword_column)]).html(),y:sec});
+    time=($(name_value[Number(time_column)]).html()).trim();
+	status.push({label:$(name_value[Number(keyword_column)]).html(),y:parseFloat(time)});
   }  
 	chart.options.data.push({
     type: "column",
-    //name: ($(rows[0]).find('th')), 
-    //showInLegend: true,
-    //legendText: ($(rows[0]).find('th')),
-	//yValueFormatString: "HH-mm-ss.fff",
     indexLabel: "{y} s",
     toolTipContent: "<b>{label}:</b> {y} s",
     dataPoints: status
