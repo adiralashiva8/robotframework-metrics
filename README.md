@@ -6,8 +6,8 @@ Aim of this project is to create HTML report based on robot framework output.xml
 
 *How it Works:*
 
-1. Read output.xml file (which will be created after script execution)
-2. Get Test Case Name (test tag) , Keyword Name (kw tag) , Start Time, End Time (status tag) values from output.xml file
+1. Read output.xml file using robotframework api (robot.result.model)
+2. Get Test Case Name , Keyword Name, Status, Start Time, End Time and Elapsed time values using api
 3. Convert data to html report using Beautifulsoup (Tabular format with sorting | pagination | search entire table | sort in search result)
 
 ---
@@ -31,14 +31,30 @@ Aim of this project is to create HTML report based on robot framework output.xml
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
  Dashboard: (Consist of Keywords, Tests status charts)
- ![Screenshot](Dashboard_Overview.PNG)
+
+ __WEB__
+ ![Screenshot](web_dashboard.JPG)
+
+ __SMALL_SCREEN__
+ ![Screenshot](mobile_dashboard.JPG)
 
  Test Metrics:  (Test Metrics - Sort by Elapsed time descending order)
- ![Screenshot](Test_Metrics.PNG)
+
+  __WEB__
+ ![Screenshot](Web_Test_Metrics.JPG)
+
+ __SMALL_SCREEN__
+ ![Screenshot](mobile_test_metrics.JPG)
 
  Keyword Metrics: (Keywords Metrics - Sort by Elapsed time descending order)
- ![Screenshot](KeywordMetrics.PNG)
 
+ __WEB__
+ ![Screenshot](web_keyword_metrics.JPG)
+ 
+ __SMALL_SCREEN__
+ ![Screenshot](mobile_keyword_metrics.JPG)
+
+---
 
 *Credits:*
 
@@ -49,6 +65,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
 5. DataTable
 6. BeautifulSoup
 7. Jquery | JavaScript
+8. Bootstrap
 
 ---
 
