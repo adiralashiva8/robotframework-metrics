@@ -31,20 +31,26 @@ Aim of this project is to create HTML report based on robot framework output.xml
  Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
  Dashboard: (Consist of Keywords, Tests status charts)
+
  __WEB__
  ![Screenshot](web_dashboard.JPG)
+
  __SMALL_SCREEN__
  ![Screenshot](mobile_dashboard.JPG)
 
  Test Metrics:  (Test Metrics - Sort by Elapsed time descending order)
- __WEB__
+
+  __WEB__
  ![Screenshot](Web_Test_Metrics.JPG)
+
  __SMALL_SCREEN__
  ![Screenshot](mobile_test_metrics.JPG)
 
  Keyword Metrics: (Keywords Metrics - Sort by Elapsed time descending order)
+
  __WEB__
  ![Screenshot](web_keyword_metrics.JPG)
+ 
  __SMALL_SCREEN__
  ![Screenshot](mobile_keyword_metrics.JPG)
 
