@@ -24,18 +24,31 @@ head_content = """
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Robot Framework Metrics Report</title>
-		<meta charset="utf-8"/>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-		<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
-		<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
-		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-        
-		<style>
+<title>RF Metrics Report</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+   
+<style>
+//body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;background: #222;}
+
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+
 * {box-sizing: border-box}
 
 /* Set height of body and the document to 100% */
@@ -45,46 +58,15 @@ body, html {
     font-family:  Comic Sans MS;
 }
 
-
 /* Style tab links */
 .tablink {
-    background-color: #555;
     color: white;
-    float: left;
-    border: none;
-    outline: none;
     cursor: pointer;
-    padding: 14px 16px;
-    font-size: 14px;
-    width: 33.3%;
 }
 
 .tablink:hover {
     background-color: #777;
 }
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-    color: black;
-    display: none;
-    padding: 15px;
-    height: 100%;
-}
-
-#container {
-  text-align: center;
-  max-width: 48%;
-  //height: 100%
-  margin: 0 auto;
-}
-.block {
-  width: 48%;
-  height: 350px;
-  margin: 10px;
-  display: inline-block;
-  background: #f1f1f1;
-}
-
 
 .loader,
 .loader:after {
@@ -141,7 +123,6 @@ body, html {
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
 
-
 </style>
 </head>
 </html>
@@ -160,102 +141,69 @@ spiner = soup.new_tag('div')
 spiner["class"] = "loader"
 loadingDiv.insert(0, spiner)
 
-# Create header tag and title
-h1 = soup.new_tag('h4')
-h1.string = """
+icons_txt= """
 
-Robot Framework Metrics Report 
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-dashboard w3-xxlarge"></i>
+    <p>DASHBOARD</p>
+  </a>
+  <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-table w3-xxlarge"></i>
+    <p>TEST METRICS</p>
+  </a>
+  <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-table w3-xxlarge"></i>
+    <p>KEYWORD METRICS</p>
+  </a>
+</nav>
 
- """
-body.insert(5, h1)
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25% !important">DASHBOARD</a>
+    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
+    <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
+  </div>
+</div>
 
-# Buttons
-button = soup.new_tag('button')
-button["class"] = "tablink"
-button["onclick"] = "openPage('dashboard', this, 'orange');"
-button["id"] = "defaultOpen"
-button.string = "Dashboard"
-body.insert(7, button)
+"""
 
-button = soup.new_tag('button')
-button["class"] = "tablink"
-button["onclick"] = "openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)"
-button.string = "Test Metrics"
-body.insert(8, button)
+body.append(BeautifulSoup(icons_txt, 'html.parser'))
 
-button = soup.new_tag('button')
-button["class"] = "tablink"
-button["onclick"] = "openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)"
-button.string = "Keyword Metrics"
-body.insert(9, button)
 
-# Dashboard div
-db_div = soup.new_tag('div')
-db_div["id"] = "dashboard"
-db_div["class"] = "tabcontent"
-body.insert(10, db_div)
+page_content_div = soup.new_tag('div')
+page_content_div["id"] = "main"
+page_content_div["class"] = "w3-padding-large"
+body.insert(30, page_content_div)
 
 # Tests div
 tm_div = soup.new_tag('div')
 tm_div["id"] = "testMetrics"
 tm_div["class"] = "tabcontent"
-body.insert(11, tm_div)
+page_content_div.insert(50, tm_div)
 
 # Keywords div
 km_div = soup.new_tag('div')
 km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
-body.insert(12, km_div)
-
-### ====== READ OUTPUT.XML ===== ###
-
-with open('output.xml') as raw_resuls:
-    results = BeautifulSoup(raw_resuls, 'lxml')
+page_content_div.insert(100, km_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
 
-br = soup.new_tag('br')
-db_div.insert(0, br)
-
-container_div = soup.new_tag('div')
-container_div["id"]="containers"
-db_div.insert(1, container_div)
-
-div_block_1 = soup.new_tag('div')
-div_block_1["class"]="block"
-container_div.insert(0, div_block_1)
-
-div_block_2 = soup.new_tag('div')
-div_block_2["class"]="block"
-container_div.insert(1, div_block_2)
-
-div_block_3 = soup.new_tag('div')
-div_block_3["class"]="block"
-container_div.insert(2, div_block_3)
-
-div_block_4 = soup.new_tag('div')
-div_block_4["class"]="block"
-container_div.insert(3, div_block_4)
-
-div = soup.new_tag('div',style="height: 350px; width: 100%;")
-div["id"] = "testChartID"
-div_block_1.insert(1, div)
-
-div = soup.new_tag('div',style="height: 350px; width: 100%;")
-div["id"] = "testsBarID"
-div_block_2.insert(1, div)
-
-div = soup.new_tag('div',style="height: 350px; width: 100%;")
-div["id"] = "keywordChartID"
-div_block_3.insert(1, div)
-
-div = soup.new_tag('div',style="height: 350px; width: 100%;")
-div["id"] = "keywordsBarID"
-div_block_4.insert(1, div)
-
-# Show graphs on load
-show_graphs_on_load = """
-window.onload = function(){
+dashboard_content="""
+<div class="tabcontent" id="dashboard">
+    <h3><b><i class="fa fa-dashboard"></i> Dashboard</b></h3>
+  <hr>
+  
+    <div class="col-md-5 chart-blo-1" id="testChartID" style="height: 350px;"></div>
+    <div class="col-md-7 chart-blo-1" id="testsBarID" style="height: 350px;"></div>
+    <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 350px;"></div>
+    <div class="col-md-7 chart-blo-1" id="keywordsBarID" style="height: 350px;"></div>
+   
+   <script>
+    window.onload = function(){
     executeDataTable('#tm',4);
     executeDataTable('#km',5);
     createPieChart('#tm',1,'testChartID','Tests Status:');		
@@ -263,25 +211,24 @@ window.onload = function(){
     createPieChart('#km',2,'keywordChartID','Keywords Status:');		
     createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
 	};
+   </script>
+  </div>
 """
-
-script = soup.new_tag('script')
-script.string = show_graphs_on_load
-container_div.insert(5, script)
-
+page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
 
 
 ### ============================ START OF TEST METRICS ======================================= ####
 
-br = soup.new_tag('br')
-tm_div.insert(0, br)
-br = soup.new_tag('br')
-tm_div.insert(1, br)
+test_icon_txt="""
+<h3><b><i class="fa fa-table"></i> Test Metrics</b></h3>
+  <hr>
+"""
+tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 # Create table tag
-table = soup.new_tag('table',style="padding: 5px;font-size: 13px;")
+table = soup.new_tag('table',style="padding: 5px;")
 table["id"] = "tm"
 table["class"] = "table table-striped table-bordered"
 tm_div.insert(2, table)
@@ -309,11 +256,11 @@ th.string = "End time"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time (sec)"
+th.string = "Elapsed Time(s)"
 tr.insert(4, th)
 
 tbody = soup.new_tag('tbody')
-table.insert(1, tbody)
+table.insert(11, tbody)
 
 ### =============== GET TEST METRICS =============== ###
 
@@ -324,7 +271,7 @@ class TestCaseResults(ResultVisitor):
         table_tr = soup.new_tag('tr')
         tbody.insert(0, table_tr)
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
         table_td.string = str(test)
         table_tr.insert(0, table_td)
 
@@ -349,14 +296,15 @@ result.visit(TestCaseResults())
 
 ### ============================ START OF KEYWORD METRICS ======================================= ####
 
-br = soup.new_tag('br')
-km_div.insert(0, br)
-br = soup.new_tag('br')
-km_div.insert(1, br)
+keyword_icon_txt="""
+<h3><b><i class="fa fa-table"></i> Keyword Metrics</b></h3>
+  <hr>
+"""
+km_div.append(BeautifulSoup(keyword_icon_txt, 'html.parser'))
 
 # Create table tag
 # <table id="myTable">
-table = soup.new_tag('table',style="padding: 5px;font-size: 13px;")
+table = soup.new_tag('table',style="padding: 5px;")
 table["id"] = "km"
 table["class"] = "table table-striped table-bordered"
 km_div.insert(2, table)
@@ -388,7 +336,7 @@ th.string = "End time"
 tr.insert(4, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time (sec)"
+th.string = "Elapsed Time(s)"
 tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
@@ -401,11 +349,11 @@ class KeywordResults(ResultVisitor):
         table_tr = soup.new_tag('tr')
         tbody.insert(1, table_tr)
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
         table_td.string = str(kw.parent)
         table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td')
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
         table_td.string = str(kw.kwname)
         table_tr.insert(1, table_td)
 
@@ -428,8 +376,9 @@ class KeywordResults(ResultVisitor):
 result.visit(KeywordResults())
 ### ============================ END OF KEYWORD METRICS ======================================= ####
 
-canvas_pie_script = """
-function createPieChart(tableID,status_column,ChartID,ChartName){
+script_text="""
+ <script>
+  function createPieChart(tableID,status_column,ChartID,ChartName){
 
 var chart = new CanvasJS.Chart(ChartID,{  
     exportFileName: ChartName,
@@ -478,13 +427,9 @@ var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:pa
   });
   chart.render();
 }
-"""
-script = soup.new_tag('script')
-script.string=canvas_pie_script
-body.insert(21,script)
-
-bar_graph_script = """
-function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
+ </script>
+ <script>
+  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
       var chart = new CanvasJS.Chart(ChartID, {
        exportFileName: ChartName,
         exportEnabled: true,	
@@ -535,15 +480,9 @@ for (var i = 0; i < rows.length; i++) {
     chart.render();
 	}
   </script>
-"""
-
-script = soup.new_tag('script')
-script.string=bar_graph_script
-body.insert(22,script)
-
-### data table script ###
-data_table_script = """
-function executeDataTable(tabname,sortCol) {
+ </script>
+ <script>
+  function executeDataTable(tabname,sortCol) {
     $(tabname).DataTable(
         {
         retrieve: true,
@@ -551,15 +490,9 @@ function executeDataTable(tabname,sortCol) {
         } 
     );
 }
-"""
-# Create script tag - badges
-script = soup.new_tag('script')
-script.string=data_table_script
-body.insert(23,script)
-
-### tab script ###
-tab_script = """
-function openPage(pageName,elmnt,color) {
+ </script>
+ <script>
+  function openPage(pageName,elmnt,color) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -575,14 +508,9 @@ function openPage(pageName,elmnt,color) {
 }
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
-"""
-# Create script tag - badges
-script = soup.new_tag('script')
-script.string=tab_script
-body.insert(24,script)
-
-loading_spinner="""
-//$('body').append('<div style="" id="loadingDiv"><div class="loader"></div></div>');
+ </script>
+ <script>
+  //$('body').append('<div style="" id="loadingDiv"><div class="loader"></div></div>');
 $(window).on('load', function(){
   setTimeout(removeLoader, 0); //wait for page load PLUS zero seconds.
 });
@@ -592,11 +520,10 @@ function removeLoader(){
       $( "#loadingDiv" ).remove(); //makes page more lightweight
   });
 }
+</script>
 """
-# Create script tag - badges
-script = soup.new_tag('script')
-script.string=loading_spinner
-body.insert(25,script)
+
+body.append(BeautifulSoup(script_text, 'html.parser'))
 
 ### ====== WRITE TO RF_METRICS_REPORT.HTML ===== ###
 
