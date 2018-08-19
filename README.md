@@ -1,14 +1,14 @@
 # Robot Framework Metrics Report
 
-Aim of this project is to create HTML report based on robot framework output.xml (To analyze TESTS, KEYWORDS in entire suite | test execution)
+Creates HTML report based on robot framework output.xml
 
 ---
 
 *How it Works:*
 
-1. Read output.xml file using robotframework api (robot.result.model)
+1. Read output.xml file using robotframework api (class: robot.result.model)
 2. Get Test Case Name , Keyword Name, Status, Start Time, End Time and Elapsed time values using api
-3. Convert data to html report using Beautifulsoup (Tabular format with sorting | pagination | search entire table | sort in search result)
+3. Convert data to html report using Beautifulsoup
 
 ---
 
@@ -25,34 +25,23 @@ Aim of this project is to create HTML report based on robot framework output.xml
     ```
 4. Execute __rf_metrics_executer.sh__ file
 5. __Robotframework Metrics Report__ will be launched in new chrome tab
+    > Assumption __Python__ already installed in machine
 
 ---
 
- Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
+ *Sample Report:*
+
+ __DASHBOARD__
+
+![Screenshot](Dashboard_Overview.JPG)
+
+  __TEST METRICS__
+
+ ![Screenshot](Test_Metrics.JPG)
  
- Dashboard: (Consist of Keywords, Tests status charts)
+ __KEYWORD METRICS__
 
- __WEB__
- ![Screenshot](web_dashboard.JPG)
-
- __SMALL_SCREEN__
- ![Screenshot](mobile_dashboard.JPG)
-
- Test Metrics:  (Test Metrics - Sort by Elapsed time descending order)
-
-  __WEB__
- ![Screenshot](Web_Test_Metrics.JPG)
-
- __SMALL_SCREEN__
- ![Screenshot](mobile_test_metrics.JPG)
-
- Keyword Metrics: (Keywords Metrics - Sort by Elapsed time descending order)
-
- __WEB__
- ![Screenshot](web_keyword_metrics.JPG)
- 
- __SMALL_SCREEN__
- ![Screenshot](mobile_keyword_metrics.JPG)
+ ![Screenshot](keyword_metrics.JPG)
 
 ---
 

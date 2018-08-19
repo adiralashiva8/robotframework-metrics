@@ -3,12 +3,6 @@ import sys
 import os
 from robot.api import ExecutionResult, ResultVisitor
 
-"""
-@Author: Software tester with minimal coding knowledge.
-Suggest or provide feedback to improve coding standard and style
-Thanks in advance :)
-"""
-
 # Get report result - OS independent
 current_path = os.getcwd()
 # output.xml file location
@@ -130,7 +124,7 @@ body, html {
 
 soup = BeautifulSoup(head_content,"html.parser")
 
-body = soup.new_tag('body',style="padding: 5px")
+body = soup.new_tag('body')
 soup.insert(20, body)
 
 loadingDiv = soup.new_tag('div')
@@ -191,12 +185,93 @@ km_div["class"] = "tabcontent"
 page_content_div.insert(100, km_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
+stats = result.statistics
+total= stats.total.all.total
+passed= stats.total.all.passed
+failed= stats.total.all.failed
+
+total_keywords = 0
+passed_keywords = 0
+failed_keywords = 0
+
+class KeywordResults(ResultVisitor):
+    
+    def visit_keyword(self,kw):
+        global total_keywords
+        total_keywords+= 1
+        if kw.status== "PASS":
+            global passed_keywords
+            passed_keywords+= 1
+        else:
+            global failed_keywords
+            failed_keywords += 1
+
+result.visit(KeywordResults())
 
 dashboard_content="""
 <div class="tabcontent" id="dashboard">
-    <h3><b><i class="fa fa-dashboard"></i> Dashboard</b></h3>
+    <h4><b><i class="fa fa-dashboard"></i> Dashboard</b></h4>
   <hr>
-  
+    
+    <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
+        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-container w3-teal w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px"  class="text-center">Total Test Cases</h4>
+            </div>
+        </div>
+        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-container w3-green w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Passed Test Cases</h4>
+            </div>
+        </div>
+        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-container w3-red w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Failed Test Cases</h4>
+            </div>
+        </div>
+        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-container w3-teal w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Total Keywords</h4>
+            </div>
+        </div>
+        <div class="w3-quarter col-md-2 col-sm-4 col-xs-8">
+        <div class="w3-container w3-green w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Passed Keywords</h4>
+            </div>
+        </div>
+        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-container w3-red w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Failed Keywords</h4>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
     <div class="col-md-5 chart-blo-1" id="testChartID" style="height: 350px;"></div>
     <div class="col-md-7 chart-blo-1" id="testsBarID" style="height: 350px;"></div>
     <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 350px;"></div>
@@ -213,7 +288,7 @@ dashboard_content="""
 	};
    </script>
   </div>
-"""
+""" % (total,passed,failed,total_keywords,passed_keywords,failed_keywords)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
@@ -222,13 +297,13 @@ page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 ### ============================ START OF TEST METRICS ======================================= ####
 
 test_icon_txt="""
-<h3><b><i class="fa fa-table"></i> Test Metrics</b></h3>
+<h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
   <hr>
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 # Create table tag
-table = soup.new_tag('table',style="padding: 5px;")
+table = soup.new_tag('table')
 table["id"] = "tm"
 table["class"] = "table table-striped table-bordered"
 tm_div.insert(2, table)
@@ -297,14 +372,14 @@ result.visit(TestCaseResults())
 ### ============================ START OF KEYWORD METRICS ======================================= ####
 
 keyword_icon_txt="""
-<h3><b><i class="fa fa-table"></i> Keyword Metrics</b></h3>
+<h4><b><i class="fa fa-table"></i> Keyword Metrics</b></h4>
   <hr>
 """
 km_div.append(BeautifulSoup(keyword_icon_txt, 'html.parser'))
 
 # Create table tag
 # <table id="myTable">
-table = soup.new_tag('table',style="padding: 5px;")
+table = soup.new_tag('table')
 table["id"] = "km"
 table["class"] = "table table-striped table-bordered"
 km_div.insert(2, table)
