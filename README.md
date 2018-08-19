@@ -41,7 +41,7 @@ Creates HTML report based on robot framework output.xml
  
  __KEYWORD METRICS__
 
- ![Screenshot](keyword_metrics.JPG)
+ ![Screenshot](Keyword_Metrics.JPG)
 
 ---
 
