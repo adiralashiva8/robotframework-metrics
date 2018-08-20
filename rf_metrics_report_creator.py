@@ -306,7 +306,7 @@ tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 table = soup.new_tag('table')
 table["id"] = "tm"
 table["class"] = "table table-striped table-bordered"
-tm_div.insert(2, table)
+tm_div.insert(10, table)
 
 thead = soup.new_tag('thead')
 table.insert(0, thead)
@@ -382,7 +382,7 @@ km_div.append(BeautifulSoup(keyword_icon_txt, 'html.parser'))
 table = soup.new_tag('table')
 table["id"] = "km"
 table["class"] = "table table-striped table-bordered"
-km_div.insert(2, table)
+km_div.insert(10, table)
 
 thead = soup.new_tag('thead')
 table.insert(0, thead)
