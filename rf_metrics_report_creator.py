@@ -3,6 +3,21 @@ import sys
 import os
 from robot.api import ExecutionResult, ResultVisitor
 
+# Ignores following library keywords in metrics report
+ignore_library = [
+    'BuiltIn',
+    'SeleniumLibrary',
+    'String',
+    'Collections',
+    'DateTime',
+    ]
+
+# Ignores following type keywords in metrics report
+ignore_type = [
+    'foritem',
+    'for',
+    ]
+
 # Get report result - OS independent
 current_path = os.getcwd()
 # output.xml file location
@@ -196,15 +211,25 @@ failed_keywords = 0
 
 class KeywordResults(ResultVisitor):
     
-    def visit_keyword(self,kw):
-        global total_keywords
-        total_keywords+= 1
-        if kw.status== "PASS":
-            global passed_keywords
-            passed_keywords+= 1
+    def start_keyword(self,kw):
+        # Ignore library keywords
+        keyword_library = kw.libname
+
+        if any (library in keyword_library for library in ignore_library):
+            pass
         else:
-            global failed_keywords
-            failed_keywords += 1
+            keyword_type = kw.type            
+            if any (library in keyword_type for library in ignore_type):
+                pass
+            else:
+                global total_keywords
+                total_keywords+= 1
+                if kw.status== "PASS":
+                    global passed_keywords
+                    passed_keywords+= 1
+                else:
+                    global failed_keywords
+                    failed_keywords += 1
 
 result.visit(KeywordResults())
 
@@ -419,34 +444,59 @@ table.insert(1, tbody)
 
 class KeywordResults(ResultVisitor):
 
-    def visit_keyword(self,kw):
+    def __init__(self):
+        self.test = None
 
-        table_tr = soup.new_tag('tr')
-        tbody.insert(1, table_tr)
+    def start_test(self, test):
+        self.test = test
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
-        table_td.string = str(kw.parent)
-        table_tr.insert(0, table_td)
+    def end_test(self, test):
+        self.test = None
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
-        table_td.string = str(kw.kwname)
-        table_tr.insert(1, table_td)
+    def start_keyword(self,kw):
+        # Get test case name (Credits: Robotframework author - Pekke)
+        test_name = self.test.name if self.test is not None else ''
 
-        table_td = soup.new_tag('td')
-        table_td.string = str(kw.status)
-        table_tr.insert(2, table_td)
+         # Ignore library keywords
+        keyword_library = kw.libname
 
-        table_td = soup.new_tag('td')
-        table_td.string = str(kw.starttime)
-        table_tr.insert(3, table_td)
+        if any (library in keyword_library for library in ignore_library):
+            pass
+        else:
+            keyword_type = kw.type            
+            if any (library in keyword_type for library in ignore_type):
+                pass
+            else:
+                table_tr = soup.new_tag('tr')
+                tbody.insert(1, table_tr)
 
-        table_td = soup.new_tag('td')
-        table_td.string = str(kw.endtime)
-        table_tr.insert(4, table_td)
+                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+                
+                if keyword_type != "kw":
+                    table_td.string = str(kw.parent)
+                else:
+                    table_td.string = str(test_name)
+                table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td')
-        table_td.string =str(kw.elapsedtime/float(1000))
-        table_tr.insert(5, table_td)
+                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+                table_td.string = str(kw.kwname)
+                table_tr.insert(1, table_td)
+
+                table_td = soup.new_tag('td')
+                table_td.string = str(kw.status)
+                table_tr.insert(2, table_td)
+
+                table_td = soup.new_tag('td')
+                table_td.string = str(kw.starttime)
+                table_tr.insert(3, table_td)
+
+                table_td = soup.new_tag('td')
+                table_td.string = str(kw.endtime)
+                table_tr.insert(4, table_td)
+
+                table_td = soup.new_tag('td')
+                table_td.string =str(kw.elapsedtime/float(1000))
+                table_tr.insert(5, table_td)
 
 result.visit(KeywordResults())
 ### ============================ END OF KEYWORD METRICS ======================================= ####

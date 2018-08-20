@@ -14,7 +14,7 @@ Creates HTML report based on robot framework output.xml
 
 *How to use in project:*
 
-1. Clone project
+1. Clone project or download here [link](https://github.com/adiralashiva8/robotframework-metrics/archive/master.zip)
     ```
     git clone https://github.com/adiralashiva8/robotframework-metrics.git
     ```
@@ -25,6 +25,7 @@ Creates HTML report based on robot framework output.xml
     ```
 4. Execute __rf_metrics_executer.sh__ file
 5. __Robotframework Metrics Report__ will be launched in new chrome tab
+
     > Assumption __Python__ already installed in machine
 
 ---
@@ -33,15 +34,31 @@ Creates HTML report based on robot framework output.xml
 
  __DASHBOARD__
 
-![Screenshot](Dashboard_Overview.JPG)
+![Screenshot](Dashboard.JPG)
 
   __TEST METRICS__
 
- ![Screenshot](Test_Metrics.JPG)
+ ![Screenshot](Test.JPG)
  
  __KEYWORD METRICS__
 
- ![Screenshot](Keyword_Metrics.JPG)
+ ![Screenshot](Keyword.JPG)
+
+---
+
+*How to Ignore Library Keywords in Metrics Report*
+ - In __rf_metrics_report_creator.py__ file add specific library keywords to tuple __ignore_library__
+ - In Metric report, keywords with type value 'for' and 'foritem' are ignored
+ - Following library keywords are ignored in Metrics Report
+    ```
+    ignore_library = [
+     'BuiltIn',
+     'SeleniumLibrary',
+     'String',
+     'Collections',
+     'DateTime',
+    ] 
+    ```
 
 ---
 
