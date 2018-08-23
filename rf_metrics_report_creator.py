@@ -163,7 +163,7 @@ icons_txt= """
     <i class="fa fa-table w3-xxlarge"></i>
     <p>SUITE METRICS</p>
   </a>
-  <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" class="tablink w3-bar-item w3-button w3-padding-large">
+  <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-table w3-xxlarge"></i>
     <p>TEST METRICS</p>
   </a>
@@ -178,7 +178,7 @@ icons_txt= """
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
     <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25% !important">DASHBOARD</a>
     <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">SUITE METRICS</a>
-    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
+    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
   </div>
 </div>
@@ -376,18 +376,18 @@ dashboard_content="""
    <script>
     window.onload = function(){
     executeDataTable('#sm',4);
-    executeDataTable('#tm',4);
+    executeDataTable('#tm',5);
     executeDataTable('#km',5);
-    createPieChart('#sm',1,'suiteChartID','Suite Status:');		
+    createPieChart(%s,%s,'suiteChartID','Suite Status:');		
     createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:');
-    createPieChart('#tm',1,'testChartID','Tests Status:');		
-    createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:');
-    createPieChart('#km',2,'keywordChartID','Keywords Status:');
+    createPieChart(%s,%s,'testChartID','Tests Status:');		
+    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:');
+    createPieChart(%s,%s,'keywordChartID','Keywords Status:');
     createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
 	};
    </script>
   </div>
-""" % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
+""" % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
@@ -493,24 +493,28 @@ tr = soup.new_tag('tr')
 thead.insert(0, tr)
 
 th = soup.new_tag('th')
-th.string = "Test Case"
+th.string = "Suite Name"
 tr.insert(0, th)
 
 th = soup.new_tag('th')
-th.string = "Status"
+th.string = "Test Case"
 tr.insert(1, th)
 
 th = soup.new_tag('th')
-th.string = "Start Time"
+th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "End time"
+th.string = "Start Time"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time(s)"
+th.string = "End time"
 tr.insert(4, th)
+
+th = soup.new_tag('th')
+th.string = "Elapsed Time(s)"
+tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
 table.insert(11, tbody)
@@ -525,24 +529,28 @@ class TestCaseResults(ResultVisitor):
         tbody.insert(0, table_tr)
 
         table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
-        table_td.string = str(test)
+        table_td.string = str(test.parent)
         table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td')
-        table_td.string = str(test.status)
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+        table_td.string = str(test)
         table_tr.insert(1, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.starttime)
+        table_td.string = str(test.status)
         table_tr.insert(2, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.endtime)
+        table_td.string = str(test.starttime)
         table_tr.insert(3, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.elapsedtime/float(1000))
+        table_td.string = str(test.endtime)
         table_tr.insert(4, table_td)
+
+        table_td = soup.new_tag('td')
+        table_td.string = str(test.elapsedtime/float(1000))
+        table_tr.insert(5, table_td)
 
 result.visit(TestCaseResults())
 ### ============================ END OF TEST METRICS ============================================ ####
@@ -656,7 +664,7 @@ result.visit(KeywordResults())
 
 script_text="""
  <script>
-  function createPieChart(tableID,status_column,ChartID,ChartName){
+  function createPieChart(passed_count,failed_count,ChartID,ChartName){
 
 var chart = new CanvasJS.Chart(ChartID,{  
     exportFileName: ChartName,
@@ -674,21 +682,7 @@ var chart = new CanvasJS.Chart(ChartID,{
   
 });
 
-var rows = $(tableID).dataTable().fnGetNodes();
-var columns;
-var isPass = 0;
-var isFail = 0;
-
-for (var i = 0; i < rows.length; i++) {
-  columns = $(rows[i]).find('td');  
-  
-    if (columns[Number(status_column)].innerHTML.trim() == "PASS") {
-      isPass = isPass + 1;      
-    } else {
-      isFail = isFail + 1;      
-    }
-  }  
-var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:parseInt(isFail),color:"Red"}];
+var status = [{label:'PASS',y:parseInt(passed_count),color:"Green"},{label:'FAIL',y:parseInt(failed_count),color:"Red"}];
   chart.options.data.push({
     //type: "pie",
     type: "doughnut",
