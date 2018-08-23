@@ -129,6 +129,7 @@ body, html {
 }
 
 #dashboard {background-color: white;}
+#suiteMetrics {background-color: white;}
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
 
@@ -158,7 +159,11 @@ icons_txt= """
     <i class="fa fa-dashboard w3-xxlarge"></i>
     <p>DASHBOARD</p>
   </a>
-  <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" class="tablink w3-bar-item w3-button w3-padding-large">
+  <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-table w3-xxlarge"></i>
+    <p>SUITE METRICS</p>
+  </a>
+  <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-table w3-xxlarge"></i>
     <p>TEST METRICS</p>
   </a>
@@ -172,7 +177,8 @@ icons_txt= """
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
     <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25% !important">DASHBOARD</a>
-    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
+    <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">SUITE METRICS</a>
+    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
   </div>
 </div>
@@ -188,18 +194,47 @@ page_content_div["class"] = "w3-padding-large"
 body.insert(30, page_content_div)
 
 # Tests div
+suite_div = soup.new_tag('div')
+suite_div["id"] = "suiteMetrics"
+suite_div["class"] = "tabcontent"
+page_content_div.insert(50, suite_div)
+
+# Tests div
 tm_div = soup.new_tag('div')
 tm_div["id"] = "testMetrics"
 tm_div["class"] = "tabcontent"
-page_content_div.insert(50, tm_div)
+page_content_div.insert(100, tm_div)
 
 # Keywords div
 km_div = soup.new_tag('div')
 km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
-page_content_div.insert(100, km_div)
+page_content_div.insert(150, km_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
+total_suite = 0
+passed_suite = 0
+failed_suite = 0
+
+class SuiteResults(ResultVisitor):
+    
+    def start_suite(self,suite):
+       
+        suite_test_list = suite.tests
+        if not suite_test_list:
+            pass
+        else:        
+            global total_suite
+            total_suite+= 1
+            if suite.status== "PASS":
+                global passed_suite
+                passed_suite+= 1
+            else:
+                global failed_suite
+                failed_suite += 1
+
+result.visit(SuiteResults())
+
 stats = result.statistics
 total= stats.total.all.total
 passed= stats.total.all.passed
@@ -239,7 +274,39 @@ dashboard_content="""
   <hr>
     
     <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
-        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+    <div class="w3-quarter col-sm-4">
+        <div class="w3-container w3-teal w3-padding-8">
+            <div class="w3-clear">
+                <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Total Suites</h4>
+        </div>
+    </div>
+
+    <div class="w3-quarter col-sm-4">
+        <div class="w3-container w3-green w3-padding-8">
+            <div class="w3-clear">
+                <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Passed Suites</h4>
+        </div>
+    </div>
+
+    <div class="w3-quarter col-sm-4">
+        <div class="w3-container w3-red w3-padding-8">
+            <div class="w3-clear">
+                <h3 class="text-center">%s</h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Failed Suites</h4>
+        </div>
+    </div>
+    </div>
+
+    <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
+        <div class="w3-quarter col-sm-4">
         <div class="w3-container w3-teal w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center">%s</h3>
@@ -248,7 +315,7 @@ dashboard_content="""
             <h4 style="font-size:13px"  class="text-center">Total Test Cases</h4>
             </div>
         </div>
-        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-quarter col-sm-4">
         <div class="w3-container w3-green w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center">%s</h3>
@@ -257,7 +324,7 @@ dashboard_content="""
             <h4 style="font-size:13px" class="text-center">Passed Test Cases</h4>
             </div>
         </div>
-        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-quarter col-sm-4">
         <div class="w3-container w3-red w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center">%s</h3>
@@ -266,7 +333,9 @@ dashboard_content="""
             <h4 style="font-size:13px" class="text-center">Failed Test Cases</h4>
             </div>
         </div>
-        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        </div>
+        <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
+        <div class="w3-quarter col-sm-4">
         <div class="w3-container w3-teal w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center">%s</h3>
@@ -275,7 +344,7 @@ dashboard_content="""
             <h4 style="font-size:13px" class="text-center">Total Keywords</h4>
             </div>
         </div>
-        <div class="w3-quarter col-md-2 col-sm-4 col-xs-8">
+        <div class="w3-quarter col-sm-4">
         <div class="w3-container w3-green w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center">%s</h3>
@@ -284,7 +353,7 @@ dashboard_content="""
             <h4 style="font-size:13px" class="text-center">Passed Keywords</h4>
             </div>
         </div>
-        <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+        <div class="w3-quarter col-sm-4">
         <div class="w3-container w3-red w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center">%s</h3>
@@ -297,6 +366,8 @@ dashboard_content="""
 
     <hr>
 
+    <div class="col-md-5 chart-blo-1" id="suiteChartID" style="height: 350px;"></div>
+    <div class="col-md-7 chart-blo-1" id="suiteBarID" style="height: 350px;"></div>
     <div class="col-md-5 chart-blo-1" id="testChartID" style="height: 350px;"></div>
     <div class="col-md-7 chart-blo-1" id="testsBarID" style="height: 350px;"></div>
     <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 350px;"></div>
@@ -304,19 +375,101 @@ dashboard_content="""
    
    <script>
     window.onload = function(){
-    executeDataTable('#tm',4);
+    executeDataTable('#sm',4);
+    executeDataTable('#tm',5);
     executeDataTable('#km',5);
-    createPieChart('#tm',1,'testChartID','Tests Status:');		
-    createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:');
-    createPieChart('#km',2,'keywordChartID','Keywords Status:');		
+    createPieChart(%s,%s,'suiteChartID','Suite Status:');		
+    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:');
+    createPieChart(%s,%s,'testChartID','Tests Status:');		
+    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:');
+    createPieChart(%s,%s,'keywordChartID','Keywords Status:');
     createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
 	};
    </script>
   </div>
-""" % (total,passed,failed,total_keywords,passed_keywords,failed_keywords)
+""" % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
+
+### ============================ START OF TEST METRICS ======================================= ####
+
+test_icon_txt="""
+<h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
+  <hr>
+"""
+suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
+
+# Create table tag
+table = soup.new_tag('table')
+table["id"] = "sm"
+table["class"] = "table table-striped table-bordered"
+suite_div.insert(10, table)
+
+thead = soup.new_tag('thead')
+table.insert(0, thead)
+
+tr = soup.new_tag('tr')
+thead.insert(0, tr)
+
+th = soup.new_tag('th')
+th.string = "Suite Name"
+tr.insert(0, th)
+
+th = soup.new_tag('th')
+th.string = "Status"
+tr.insert(1, th)
+
+th = soup.new_tag('th')
+th.string = "Start Time"
+tr.insert(2, th)
+
+th = soup.new_tag('th')
+th.string = "End time"
+tr.insert(3, th)
+
+th = soup.new_tag('th')
+th.string = "Elapsed Time(s)"
+tr.insert(4, th)
+
+tbody = soup.new_tag('tbody')
+table.insert(11, tbody)
+
+### =============== GET SUITE METRICS =============== ###
+
+class SuiteResults(ResultVisitor):
+
+    def start_suite(self, suite):
+
+        suite_test_list = suite.tests
+        if not suite_test_list:
+            pass
+        else:
+            table_tr = soup.new_tag('tr')
+            tbody.insert(0, table_tr)
+
+            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+            table_td.string = str(suite)
+            table_tr.insert(0, table_td)
+
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.status)
+            table_tr.insert(1, table_td)
+
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.starttime)
+            table_tr.insert(2, table_td)
+
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.endtime)
+            table_tr.insert(3, table_td)
+
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.elapsedtime/float(1000))
+            table_tr.insert(4, table_td)
+
+result.visit(SuiteResults())
+### ============================ END OF SUITE METRICS ============================================ ####
 
 
 ### ============================ START OF TEST METRICS ======================================= ####
@@ -340,24 +493,28 @@ tr = soup.new_tag('tr')
 thead.insert(0, tr)
 
 th = soup.new_tag('th')
-th.string = "Test Case"
+th.string = "Suite Name"
 tr.insert(0, th)
 
 th = soup.new_tag('th')
-th.string = "Status"
+th.string = "Test Case"
 tr.insert(1, th)
 
 th = soup.new_tag('th')
-th.string = "Start Time"
+th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "End time"
+th.string = "Start Time"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time(s)"
+th.string = "End time"
 tr.insert(4, th)
+
+th = soup.new_tag('th')
+th.string = "Elapsed Time(s)"
+tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
 table.insert(11, tbody)
@@ -372,24 +529,28 @@ class TestCaseResults(ResultVisitor):
         tbody.insert(0, table_tr)
 
         table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
-        table_td.string = str(test)
+        table_td.string = str(test.parent)
         table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td')
-        table_td.string = str(test.status)
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+        table_td.string = str(test)
         table_tr.insert(1, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.starttime)
+        table_td.string = str(test.status)
         table_tr.insert(2, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.endtime)
+        table_td.string = str(test.starttime)
         table_tr.insert(3, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.elapsedtime/float(1000))
+        table_td.string = str(test.endtime)
         table_tr.insert(4, table_td)
+
+        table_td = soup.new_tag('td')
+        table_td.string = str(test.elapsedtime/float(1000))
+        table_tr.insert(5, table_td)
 
 result.visit(TestCaseResults())
 ### ============================ END OF TEST METRICS ============================================ ####
@@ -503,7 +664,7 @@ result.visit(KeywordResults())
 
 script_text="""
  <script>
-  function createPieChart(tableID,status_column,ChartID,ChartName){
+  function createPieChart(passed_count,failed_count,ChartID,ChartName){
 
 var chart = new CanvasJS.Chart(ChartID,{  
     exportFileName: ChartName,
@@ -521,21 +682,7 @@ var chart = new CanvasJS.Chart(ChartID,{
   
 });
 
-var rows = $(tableID).dataTable().fnGetNodes();
-var columns;
-var isPass = 0;
-var isFail = 0;
-
-for (var i = 0; i < rows.length; i++) {
-  columns = $(rows[i]).find('td');  
-  
-    if (columns[Number(status_column)].innerHTML.trim() == "PASS") {
-      isPass = isPass + 1;      
-    } else {
-      isFail = isFail + 1;      
-    }
-  }  
-var status = [{label:'PASS',y:parseInt(isPass),color:"Green"},{label:'FAIL',y:parseInt(isFail),color:"Red"}];
+var status = [{label:'PASS',y:parseInt(passed_count),color:"Green"},{label:'FAIL',y:parseInt(failed_count),color:"Red"}];
   chart.options.data.push({
     //type: "pie",
     type: "doughnut",

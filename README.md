@@ -1,12 +1,12 @@
 # Robot Framework Metrics Report
 
-Creates HTML report based on robot framework output.xml
+Creates HTML metrics report based on robotframework output.xml
 
 ---
 
 *How it Works:*
 
-1. Read output.xml file using robotframework api (class: robot.result.model)
+1. Read output.xml file using robotframework API (robot.result.model)
 2. Get Test Case Name , Keyword Name, Status, Start Time, End Time and Elapsed time values using api
 3. Convert data to html report using Beautifulsoup
 
@@ -34,20 +34,26 @@ Creates HTML report based on robot framework output.xml
 
  __DASHBOARD__
 
-![Screenshot](Dashboard.JPG)
+![Screenshot](Image_Dashboard_Metrics_Up.JPG)
 
-  __TEST METRICS__
+![Screenshot](Image_Dashboard_Metrics_Down_1.JPG)
 
- ![Screenshot](Test.JPG)
+__SUITE METRICS__
+
+ ![Screenshot](Image_Suite_Metrics.JPG)
  
- __KEYWORD METRICS__
+__TEST METRICS__
 
- ![Screenshot](Keyword.JPG)
+ ![Screenshot](Image_Test_Metric.JPG)
+ 
+__KEYWORD METRICS__
+
+ ![Screenshot](Image_Keyword_Metrics.JPG)
 
 ---
 
 *How to Ignore Library Keywords in Metrics Report*
- - In __rf_metrics_report_creator.py__ file add specific library keywords to tuple __ignore_library__
+ - In __rf_metrics_report_creator.py__ file add specific library keywords to tuple __ignore_library__ to ignore in report
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
  - Following library keywords are ignored in Metrics Report
     ```
@@ -75,6 +81,6 @@ Creates HTML report based on robot framework output.xml
 
 ---
 
-> You are watching first HTML 'Metrics Report' in Robot framework :)
+> You are watching first HTML 'Metrics Report' in Robot framework.
 
 ---
