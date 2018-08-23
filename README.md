@@ -36,7 +36,7 @@ Creates HTML metrics report based on robotframework output.xml
 
 ![Screenshot](Image_Dashboard_Metrics_Up.JPG)
 
-![Screenshot](Image_Dashboard_Metrics_Down.JPG)
+![Screenshot](Image_Dashboard_Metrics_Down_1.JPG)
 
 __SUITE METRICS__
 
