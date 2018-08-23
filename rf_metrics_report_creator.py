@@ -33,6 +33,7 @@ head_content = """
 
 <!DOCTYPE html>
 <html>
+<link rel="shortcut icon" href="https://png.icons8.com/material-rounded/50/000000/bar-chart.png" type="image/x-icon" />
 <title>RF Metrics Report</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +45,6 @@ head_content = """
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-   
 <style>
 //body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
@@ -65,6 +65,7 @@ body, html {
     height: 100%;
     margin: 0;
     font-family:  Comic Sans MS;
+    //font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
 }
 
 /* Style tab links */
@@ -159,7 +160,7 @@ icons_txt= """
     <i class="fa fa-dashboard w3-xxlarge"></i>
     <p>DASHBOARD</p>
   </a>
-  <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large">
+  <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large" >
     <i class="fa fa-table w3-xxlarge"></i>
     <p>SUITE METRICS</p>
   </a>
@@ -273,9 +274,9 @@ dashboard_content="""
     <h4><b><i class="fa fa-dashboard"></i> Dashboard</b></h4>
   <hr>
     
-    <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
+    <div class="w3-row-padding w3-margin-bottom" style="font-size:14px;">
     <div class="w3-quarter col-sm-4">
-        <div class="w3-container w3-teal w3-padding-8">
+        <div class="w3-container w3-teal w3-padding-8 ">
             <div class="w3-clear">
                 <h3 class="text-center">%s</h3>
             </div>
