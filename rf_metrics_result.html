@@ -101,6 +101,7 @@ body, html {
 }
 
 #dashboard {background-color: white;}
+#suiteMetrics {background-color: white;}
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
    </style>
@@ -119,6 +120,13 @@ body, html {
   </i>
   <p>
    DASHBOARD
+  </p>
+ </a>
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)">
+  <i class="fa fa-table w3-xxlarge">
+  </i>
+  <p>
+   SUITE METRICS
   </p>
  </a>
  <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)">
@@ -142,6 +150,9 @@ body, html {
   <a class="tablink w3-bar-item w3-button" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" style="width:25% !important">
    DASHBOARD
   </a>
+  <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" style="width:25% !important">
+   SUITE METRICS
+  </a>
   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',4)" style="width:25% !important">
    TEST METRICS
   </a>
@@ -151,6 +162,73 @@ body, html {
  </div>
 </div>
  <div class="w3-padding-large" id="main">
+  <div class="tabcontent" id="suiteMetrics">
+<h4>
+ <b>
+  <i class="fa fa-table">
+  </i>
+  Suite Metrics
+ </b>
+</h4>
+<hr/>
+   <table class="table table-striped table-bordered" id="sm">
+    <thead>
+     <tr>
+      <th>
+       Suite Name
+      </th>
+      <th>
+       Status
+      </th>
+      <th>
+       Start Time
+      </th>
+      <th>
+       End time
+      </th>
+      <th>
+       Elapsed Time(s)
+      </th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Facebook Login
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:18:13.191
+      </td>
+      <td>
+       20180823 08:19:46.958
+      </td>
+      <td>
+       93.767
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Gmail Login
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:16:58.488
+      </td>
+      <td>
+       20180823 08:18:13.187
+      </td>
+      <td>
+       74.699
+      </td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
   <div class="tabcontent" id="testMetrics">
 <h4>
  <b>
@@ -189,13 +267,13 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:47:57.051
+       20180823 08:19:14.204
       </td>
       <td>
-       20180811 08:48:47.516
+       20180823 08:19:46.953
       </td>
       <td>
-       50.465
+       32.749
       </td>
      </tr>
      <tr>
@@ -203,16 +281,16 @@ body, html {
        TC-002
       </td>
       <td>
-       FAIL
+       PASS
       </td>
       <td>
-       20180811 08:44:08.030
+       20180823 08:18:45.492
       </td>
       <td>
-       20180811 08:47:57.045
+       20180823 08:19:14.202
       </td>
       <td>
-       229.015
+       28.71
       </td>
      </tr>
      <tr>
@@ -220,16 +298,67 @@ body, html {
        TC-001
       </td>
       <td>
-       FAIL
+       PASS
       </td>
       <td>
-       20180811 08:43:19.632
+       20180823 08:18:13.201
       </td>
       <td>
-       20180811 08:44:08.026
+       20180823 08:18:45.490
       </td>
       <td>
-       48.394
+       32.289
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-006
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:41.735
+      </td>
+      <td>
+       20180823 08:18:13.184
+      </td>
+      <td>
+       31.449
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-005
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:20.113
+      </td>
+      <td>
+       20180823 08:17:41.733
+      </td>
+      <td>
+       21.62
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-004
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:02.438
+      </td>
+      <td>
+       20180823 08:17:20.109
+      </td>
+      <td>
+       17.671
       </td>
      </tr>
     </tbody>
@@ -270,22 +399,22 @@ body, html {
     <tbody>
      <tr>
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
-       TC-001
+       TC-004
       </td>
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Launch Chrome Browser
       </td>
       <td>
-       FAIL
+       PASS
       </td>
       <td>
-       20180811 08:43:19.633
+       20180823 08:17:02.441
       </td>
       <td>
-       20180811 08:44:08.025
+       20180823 08:17:11.726
       </td>
       <td>
-       48.392
+       9.285
       </td>
      </tr>
      <tr>
@@ -299,13 +428,13 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:48:47.307
+       20180823 08:19:46.658
       </td>
       <td>
-       20180811 08:48:47.516
+       20180823 08:19:46.952
       </td>
       <td>
-       0.209
+       0.294
       </td>
      </tr>
      <tr>
@@ -319,13 +448,13 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:48:27.066
+       20180823 08:19:26.263
       </td>
       <td>
-       20180811 08:48:47.307
+       20180823 08:19:46.657
       </td>
       <td>
-       20.241
+       20.394
       </td>
      </tr>
      <tr>
@@ -339,13 +468,13 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:48:21.649
+       20180823 08:19:22.095
       </td>
       <td>
-       20180811 08:48:27.065
+       20180823 08:19:26.262
       </td>
       <td>
-       5.416
+       4.167
       </td>
      </tr>
      <tr>
@@ -359,13 +488,33 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:47:57.054
+       20180823 08:19:14.205
       </td>
       <td>
-       20180811 08:48:21.648
+       20180823 08:19:22.094
       </td>
       <td>
-       24.594
+       7.889
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-002
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Password
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:19:13.998
+      </td>
+      <td>
+       20180823 08:19:14.200
+      </td>
+      <td>
+       0.202
       </td>
      </tr>
      <tr>
@@ -376,16 +525,16 @@ body, html {
        Enter Email Or Phone
       </td>
       <td>
-       FAIL
+       PASS
       </td>
       <td>
-       20180811 08:47:41.931
+       20180823 08:19:03.576
       </td>
       <td>
-       20180811 08:47:57.043
+       20180823 08:19:13.997
       </td>
       <td>
-       15.112
+       10.421
       </td>
      </tr>
      <tr>
@@ -399,13 +548,13 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:45:06.057
+       20180823 08:19:00.535
       </td>
       <td>
-       20180811 08:47:41.931
+       20180823 08:19:03.576
       </td>
       <td>
-       155.874
+       3.041
       </td>
      </tr>
      <tr>
@@ -419,13 +568,313 @@ body, html {
        PASS
       </td>
       <td>
-       20180811 08:44:08.031
+       20180823 08:18:45.494
       </td>
       <td>
-       20180811 08:45:06.057
+       20180823 08:19:00.534
       </td>
       <td>
-       58.026
+       15.04
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-001
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Password
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:18:45.279
+      </td>
+      <td>
+       20180823 08:18:45.489
+      </td>
+      <td>
+       0.21
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-001
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Email Or Phone
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:18:39.840
+      </td>
+      <td>
+       20180823 08:18:45.279
+      </td>
+      <td>
+       5.439
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-001
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Go To Facebook Login
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:18:22.345
+      </td>
+      <td>
+       20180823 08:18:39.840
+      </td>
+      <td>
+       17.495
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-001
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Launch Chrome Browser
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:18:13.202
+      </td>
+      <td>
+       20180823 08:18:22.343
+      </td>
+      <td>
+       9.141
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-006
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Password
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:18:12.989
+      </td>
+      <td>
+       20180823 08:18:13.184
+      </td>
+      <td>
+       0.195
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-006
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Email Or Phone
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:52.708
+      </td>
+      <td>
+       20180823 08:18:12.988
+      </td>
+      <td>
+       20.28
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-006
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Go To Facebook Login
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:49.390
+      </td>
+      <td>
+       20180823 08:17:52.708
+      </td>
+      <td>
+       3.318
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-006
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Launch Chrome Browser
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:41.736
+      </td>
+      <td>
+       20180823 08:17:49.387
+      </td>
+      <td>
+       7.651
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-005
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Password
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:41.501
+      </td>
+      <td>
+       20180823 08:17:41.733
+      </td>
+      <td>
+       0.232
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-005
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Email Or Phone
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:31.176
+      </td>
+      <td>
+       20180823 08:17:41.500
+      </td>
+      <td>
+       10.324
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-005
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Go To Facebook Login
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:28.120
+      </td>
+      <td>
+       20180823 08:17:31.175
+      </td>
+      <td>
+       3.055
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-005
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Launch Chrome Browser
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:20.114
+      </td>
+      <td>
+       20180823 08:17:28.120
+      </td>
+      <td>
+       8.006
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-004
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Password
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:19.831
+      </td>
+      <td>
+       20180823 08:17:20.108
+      </td>
+      <td>
+       0.277
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-004
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Enter Email Or Phone
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:14.423
+      </td>
+      <td>
+       20180823 08:17:19.830
+      </td>
+      <td>
+       5.407
+      </td>
+     </tr>
+     <tr>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       TC-004
+      </td>
+      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+       Go To Facebook Login
+      </td>
+      <td>
+       PASS
+      </td>
+      <td>
+       20180823 08:17:11.728
+      </td>
+      <td>
+       20180823 08:17:14.423
+      </td>
+      <td>
+       2.695
       </td>
      </tr>
     </tbody>
@@ -441,11 +890,55 @@ body, html {
  </h4>
  <hr/>
  <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
-  <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+  <div class="w3-quarter col-sm-4">
    <div class="w3-container w3-teal w3-padding-8">
     <div class="w3-clear">
      <h3 class="text-center">
-      3
+      2
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Total Suites
+    </h4>
+   </div>
+  </div>
+  <div class="w3-quarter col-sm-4">
+   <div class="w3-container w3-green w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center">
+      2
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Passed Suites
+    </h4>
+   </div>
+  </div>
+  <div class="w3-quarter col-sm-4">
+   <div class="w3-container w3-red w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center">
+      0
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Failed Suites
+    </h4>
+   </div>
+  </div>
+ </div>
+ <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
+  <div class="w3-quarter col-sm-4">
+   <div class="w3-container w3-teal w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center">
+      6
      </h3>
     </div>
     <div class="w3-left">
@@ -455,49 +948,7 @@ body, html {
     </h4>
    </div>
   </div>
-  <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
-   <div class="w3-container w3-green w3-padding-8">
-    <div class="w3-clear">
-     <h3 class="text-center">
-      1
-     </h3>
-    </div>
-    <div class="w3-left">
-    </div>
-    <h4 class="text-center" style="font-size:13px">
-     Passed Test Cases
-    </h4>
-   </div>
-  </div>
-  <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
-   <div class="w3-container w3-red w3-padding-8">
-    <div class="w3-clear">
-     <h3 class="text-center">
-      2
-     </h3>
-    </div>
-    <div class="w3-left">
-    </div>
-    <h4 class="text-center" style="font-size:13px">
-     Failed Test Cases
-    </h4>
-   </div>
-  </div>
-  <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
-   <div class="w3-container w3-teal w3-padding-8">
-    <div class="w3-clear">
-     <h3 class="text-center">
-      8
-     </h3>
-    </div>
-    <div class="w3-left">
-    </div>
-    <h4 class="text-center" style="font-size:13px">
-     Total Keywords
-    </h4>
-   </div>
-  </div>
-  <div class="w3-quarter col-md-2 col-sm-4 col-xs-8">
+  <div class="w3-quarter col-sm-4">
    <div class="w3-container w3-green w3-padding-8">
     <div class="w3-clear">
      <h3 class="text-center">
@@ -507,15 +958,59 @@ body, html {
     <div class="w3-left">
     </div>
     <h4 class="text-center" style="font-size:13px">
+     Passed Test Cases
+    </h4>
+   </div>
+  </div>
+  <div class="w3-quarter col-sm-4">
+   <div class="w3-container w3-red w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center">
+      0
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Failed Test Cases
+    </h4>
+   </div>
+  </div>
+ </div>
+ <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
+  <div class="w3-quarter col-sm-4">
+   <div class="w3-container w3-teal w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center">
+      24
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Total Keywords
+    </h4>
+   </div>
+  </div>
+  <div class="w3-quarter col-sm-4">
+   <div class="w3-container w3-green w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center">
+      24
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
      Passed Keywords
     </h4>
    </div>
   </div>
-  <div class="w3-quarter col-md-2 col-sm-4 col-xs-6">
+  <div class="w3-quarter col-sm-4">
    <div class="w3-container w3-red w3-padding-8">
     <div class="w3-clear">
      <h3 class="text-center">
-      2
+      0
      </h3>
     </div>
     <div class="w3-left">
@@ -527,6 +1022,10 @@ body, html {
   </div>
  </div>
  <hr/>
+ <div class="col-md-5 chart-blo-1" id="suiteChartID" style="height: 350px;">
+ </div>
+ <div class="col-md-7 chart-blo-1" id="suiteBarID" style="height: 350px;">
+ </div>
  <div class="col-md-5 chart-blo-1" id="testChartID" style="height: 350px;">
  </div>
  <div class="col-md-7 chart-blo-1" id="testsBarID" style="height: 350px;">
@@ -537,11 +1036,14 @@ body, html {
  </div>
  <script>
   window.onload = function(){
+    executeDataTable('#sm',4);
     executeDataTable('#tm',4);
     executeDataTable('#km',5);
+    createPieChart('#sm',1,'suiteChartID','Suite Status:');		
+    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:');
     createPieChart('#tm',1,'testChartID','Tests Status:');		
     createBarGraph('#tm',0,4,10,'testsBarID','Top 10 Tests Performance:');
-    createPieChart('#km',2,'keywordChartID','Keywords Status:');		
+    createPieChart('#km',2,'keywordChartID','Keywords Status:');
     createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
 	};
  </script>
