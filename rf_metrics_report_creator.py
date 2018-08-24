@@ -33,7 +33,7 @@ head_content = """
 
 <!DOCTYPE html>
 <html>
-<link rel="shortcut icon" href="https://png.icons8.com/material-rounded/50/000000/bar-chart.png" type="image/x-icon" />
+<link rel="shortcut icon" href="https://png.icons8.com/windows/50/000000/bot.png" type="image/x-icon" />
 <title>RF Metrics Report</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
