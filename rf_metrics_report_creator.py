@@ -46,7 +46,7 @@ head_content = """
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <style>
-//body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+//body, h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI",Arial,sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
 
 /* Set the width of the sidebar to 120px */
@@ -161,16 +161,20 @@ icons_txt= """
     <p>DASHBOARD</p>
   </a>
   <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large" >
-    <i class="fa fa-table w3-xxlarge"></i>
+    <i class="fa fa-th-large w3-xxlarge"></i>
     <p>SUITE METRICS</p>
   </a>
   <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-table w3-xxlarge"></i>
+    <i class="fa fa-list-alt w3-xxlarge"></i>
     <p>TEST METRICS</p>
   </a>
   <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-table w3-xxlarge"></i>
     <p>KEYWORD METRICS</p>
+  </a>
+  <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-file-text w3-xxlarge"></i>
+    <p>RF REPORT</p>
   </a>
 </nav>
 
@@ -181,6 +185,7 @@ icons_txt= """
     <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">SUITE METRICS</a>
     <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
+    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">RF REPORTS</a>
   </div>
 </div>
 
@@ -211,6 +216,12 @@ km_div = soup.new_tag('div')
 km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
 page_content_div.insert(150, km_div)
+
+# Keywords div
+log_div = soup.new_tag('div')
+log_div["id"] = "log"
+log_div["class"] = "tabcontent"
+page_content_div.insert(200, log_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
 total_suite = 0
@@ -662,6 +673,18 @@ class KeywordResults(ResultVisitor):
 
 result.visit(KeywordResults())
 ### ============================ END OF KEYWORD METRICS ======================================= ####
+
+
+### ============================ START OF LOGS ====================================== ###
+
+test_icon_txt="""
+  <div class="embed-responsive embed-responsive-4by3">
+    <iframe class="embed-responsive-item" src="report.html" ></iframe>
+  </div>
+"""
+log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
+
+### ============================ END OF LOGS ======================================= ####
 
 script_text="""
  <script>
