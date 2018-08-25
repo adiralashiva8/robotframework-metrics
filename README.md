@@ -34,21 +34,27 @@ Creates HTML metrics report based on robotframework output.xml
 
  __DASHBOARD__
 
-![Screenshot](Image_Dashboard_Metrics_Up.JPG)
+![Screenshot](Image_Dashboard_Metrics_1.JPG)
 
-![Screenshot](Image_Dashboard_Metrics_Down_1.JPG)
+![Screenshot](Image_Dashboard_Metrics_2.JPG)
 
 __SUITE METRICS__
 
- ![Screenshot](Image_Suite_Metrics.JPG)
+ ![Screenshot](Image_Suite_Metrics_New.JPG)
  
 __TEST METRICS__
 
- ![Screenshot](Image_Test_Metric.JPG)
+ ![Screenshot](Image_Test_Metric_New.JPG)
  
 __KEYWORD METRICS__
 
- ![Screenshot](Image_Keyword_Metrics.JPG)
+ ![Screenshot](Image_Keyword_Metrics_New.JPG)
+
+__RF REPORT__
+
+ ![Screenshot](Image_RF_Report_Report.JPG)
+
+ ![Screenshot](Image_RF_Report_Log.JPG)
 
 ---
 
@@ -68,16 +74,26 @@ __KEYWORD METRICS__
 
 ---
 
+*Frequently Asked Queries*
+ - I dont have chrome browser will Metrics Report works
+    > Yes, Generate report by executing ```   python rf_metrics_report_creator.py ``` command and open __rf_metrics_result.html__ in your favorite browser
+ - Can I change font style of report
+    > Yes, By changing __font-family:__ value in __rf_metrics_report_creator.py__ file
+
+---
+
 *Credits:*
 
-1. Robotframework
-2. W3Schools
-3. Stackoverflow
-4. CanvasJs
-5. DataTable
-6. BeautifulSoup
-7. Jquery | JavaScript
-8. Bootstrap
+1. Robotframework [link](http://robotframework.org)
+2. W3Schools [link](http://www.w3schools.com)
+3. Stackoverflow [link](http://stackoverflow.com)
+4. CanvasJs [link](https://canvasjs.com)
+5. DataTable [link](https://datatables.net)
+6. BeautifulSoup [link](http://beautiful-soup-4.readthedocs.io)
+7. Jquery | JavaScript [link](https://www.jqueryscript.net)
+8. Bootstrap [link](https://getbootstrap.com/)
+9. Icons8 [link](https://icons8.com/)
+10. FontAwesome [link](https://fontawesome.com)
 
 ---
 

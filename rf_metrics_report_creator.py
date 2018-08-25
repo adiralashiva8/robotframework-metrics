@@ -46,7 +46,6 @@ head_content = """
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <style>
-//body, h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI",Arial,sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
 
 /* Set the width of the sidebar to 120px */
@@ -65,7 +64,6 @@ body, html {
     height: 100%;
     margin: 0;
     font-family:  Comic Sans MS;
-    //font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
 }
 
 /* Style tab links */
@@ -158,23 +156,23 @@ icons_txt= """
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-dashboard w3-xxlarge"></i>
-    <p>DASHBOARD</p>
+    <p> DASHBOARD</p>
   </a>
   <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large" >
     <i class="fa fa-th-large w3-xxlarge"></i>
-    <p>SUITE METRICS</p>
+    <p> SUITE METRICS</p>
   </a>
   <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-list-alt w3-xxlarge"></i>
-    <p>TEST METRICS</p>
+    <p> TEST METRICS</p>
   </a>
   <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-table w3-xxlarge"></i>
-    <p>KEYWORD METRICS</p>
+    <p> KEYWORD METRICS</p>
   </a>
   <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-file-text w3-xxlarge"></i>
-    <p>RF REPORT</p>
+    <p> ROBOT REPORT</p>
   </a>
 </nav>
 
@@ -285,93 +283,120 @@ dashboard_content="""
     <h4><b><i class="fa fa-dashboard"></i> Dashboard</b></h4>
   <hr>
     
-    <div class="w3-row-padding w3-margin-bottom" style="font-size:14px;">
-    <div class="w3-quarter col-sm-4">
+    <div class="w3-row-padding w3-margin-bottom"">
+    <div class="w3-quarter col-sm-3">
+        <div class="w3-container w3-dark-gray w3-padding-8 ">
+            <div class="w3-clear">
+                <h3  class="text-center" style="font-size:25px"><b>Suite</b></h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Statistics</h4>
+        </div>
+    </div>
+    <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-teal w3-padding-8 ">
             <div class="w3-clear">
-                <h3 class="text-center">%s</h3>
+                <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Total Suites</h4>
+            <h4 style="font-size:13px" class="text-center">Total</h4>
         </div>
     </div>
 
-    <div class="w3-quarter col-sm-4">
+    <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-green w3-padding-8">
             <div class="w3-clear">
-                <h3 class="text-center">%s</h3>
+                <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Passed Suites</h4>
+            <h4 style="font-size:13px" class="text-center">Passed</h4>
         </div>
     </div>
 
-    <div class="w3-quarter col-sm-4">
+    <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-red w3-padding-8">
             <div class="w3-clear">
-                <h3 class="text-center">%s</h3>
+                <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Failed Suites</h4>
+            <h4 style="font-size:13px" class="text-center">Failed</h4>
         </div>
     </div>
     </div>
 
-    <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
-        <div class="w3-quarter col-sm-4">
+    <div class="w3-row-padding w3-margin-bottom">
+        <div class="w3-quarter col-sm-3">
+        <div class="w3-container  w3-dark-gray w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center" style="font-size:25px"><b>Test Case</b></h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px"  class="text-center">Statistics</h4>
+            </div>
+        </div>
+         <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-teal w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center">%s</h3>
+            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px"  class="text-center">Total Test Cases</h4>
+            <h4 style="font-size:13px"  class="text-center">Total</h4>
             </div>
         </div>
-        <div class="w3-quarter col-sm-4">
+        <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-green w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center">%s</h3>
+            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Passed Test Cases</h4>
+            <h4 style="font-size:13px" class="text-center">Passed</h4>
             </div>
         </div>
-        <div class="w3-quarter col-sm-4">
+        <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-red w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center">%s</h3>
+            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Failed Test Cases</h4>
+            <h4 style="font-size:13px" class="text-center">Failed</h4>
             </div>
         </div>
         </div>
-        <div class="w3-row-padding w3-margin-bottom" style="font-size:14px">
-        <div class="w3-quarter col-sm-4">
+        <div class="w3-row-padding w3-margin-bottom">
+        <div class="w3-quarter col-sm-3">
+        <div class="w3-container w3-dark-gray w3-padding-8">
+            <div class="w3-clear">
+            <h3 class="text-center" style="font-size:25px"><b>Keyword</b></h3>
+            </div>
+            <div class="w3-left"></div>
+            <h4 style="font-size:13px" class="text-center">Statistics</h4>
+            </div>
+        </div>
+        <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-teal w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center">%s</h3>
+            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Total Keywords</h4>
+            <h4 style="font-size:13px" class="text-center">Total</h4>
             </div>
         </div>
-        <div class="w3-quarter col-sm-4">
+        <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-green w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center">%s</h3>
+            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Passed Keywords</h4>
+            <h4 style="font-size:13px" class="text-center">Passed</h4>
             </div>
         </div>
-        <div class="w3-quarter col-sm-4">
+        <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-red w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center">%s</h3>
+            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Failed Keywords</h4>
+            <h4 style="font-size:13px" class="text-center">Failed</h4>
             </div>
         </div>
     </div>
@@ -678,6 +703,7 @@ result.visit(KeywordResults())
 ### ============================ START OF LOGS ====================================== ###
 
 test_icon_txt="""
+    <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in order to display here</p>
   <div class="embed-responsive embed-responsive-4by3">
     <iframe class="embed-responsive-item" src="report.html" ></iframe>
   </div>
