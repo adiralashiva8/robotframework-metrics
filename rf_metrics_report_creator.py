@@ -19,13 +19,30 @@ ignore_type = [
     ]
 
 # Get report result - OS independent
-current_path = os.getcwd()
+#current_path = os.getcwd()
 # output.xml file location
-text_file = os.path.join(os.path.curdir, 'output.xml')
+#text_file = os.path.join(os.path.curdir, 'output.xml')
+
+#report_file="report.html"
+#output_file="output.xml"
+#log_file="log.html"
+
+for filename in os.listdir(os.path.curdir):
+    root, ext = os.path.splitext(filename)
+    if root.startswith('report') and ext == '.html':
+        global report_file
+        report_file= filename
+    elif root.startswith('output') and ext == '.xml':
+        global output_file
+        output_file= filename
+    elif root.startswith('log') and ext == '.html':
+        global log_file
+        log_file= filename
+
 # performance report result file location
 result_file = os.path.join(os.path.curdir, 'rf_metrics_result.html')
 
-result = ExecutionResult(text_file)
+result = ExecutionResult(output_file)
 result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
@@ -705,9 +722,9 @@ result.visit(KeywordResults())
 test_icon_txt="""
     <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in order to display here</p>
   <div class="embed-responsive embed-responsive-4by3">
-    <iframe class="embed-responsive-item" src="report.html" ></iframe>
+    <iframe class="embed-responsive-item" src=%s></iframe>
   </div>
-"""
+"""%(report_file)
 log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 ### ============================ END OF LOGS ======================================= ####
@@ -723,7 +740,7 @@ var chart = new CanvasJS.Chart(ChartID,{
 	title: {
     text: ChartName,
     fontFamily: "Comic Sans MS",
-    fontSize: 15,
+    fontSize: 16,
 	horizontalAlign: "left",
     fontWeight: "bold"
     
@@ -759,10 +776,10 @@ var status = [{label:'PASS',y:parseInt(passed_count),color:"Green"},{label:'FAIL
     title: {
         text: ChartName,
         fontFamily: "Comic Sans MS",
-        fontSize: 15,
-        textAlign: "centre",
-        dockInsidePlotArea: true,
+        fontSize: 16,
+        horizontalAlign: "left",
         fontWeight: "bold"
+    
     },
       axisX:{
         //title:"Axis X title",
