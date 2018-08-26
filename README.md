@@ -18,7 +18,8 @@ Creates HTML metrics report based on robotframework output.xml
     ```
     git clone https://github.com/adiralashiva8/robotframework-metrics.git
     ```
-2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.sh__ files to project (where output.xml file is available)
+2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.sh__ files to project (where output.xml file is available.)
+    > Note: __output.xml__ having timestamp is auto recognized by Metrics Report but output.xml, report.html and log.html need to be within folder.
 3. Install beautifulsoup: (to create html report - one time activity)
     ```
     pip install beautifulsoup4
