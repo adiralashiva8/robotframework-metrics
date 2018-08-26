@@ -16,6 +16,4 @@ $(tput sgr0)"
 # Launch report if converstion is success
 { python rf_metrics_report_creator.py && 
 start chrome "rf_metrics_result.html" ;} ||
-echo "$(tput setaf 1) Failed to generate report $(tput sgr0)"
-# Wait for 15s before close
-Sleep 15s
+cmd.exe /k
