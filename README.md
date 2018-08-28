@@ -29,6 +29,10 @@ Creates HTML metrics report based on robotframework output.xml
 
     > Assumption __Python__ already installed in machine
 
+    If you were using latest python. Please upgrade robotframework to generate report
+        
+    > Update Robot Framework
+    ``` pip install --pre --upgrade robotframework ```
 ---
 
  *Sample Report:*
