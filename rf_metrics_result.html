@@ -45,6 +45,12 @@ body, html {
     cursor: pointer;
 }
 
+/* Style tab links */
+.tablinkLog {
+    //color: white;
+    cursor: pointer;
+}
+
 .tablink:hover {
     background-color: #777;
 }
@@ -147,7 +153,7 @@ body, html {
   <i class="fa fa-file-text w3-xxlarge">
   </i>
   <p>
-   ROBOT REPORT
+   ROBOT LOG
   </p>
  </a>
 </nav>
@@ -167,7 +173,7 @@ body, html {
    KEYWORD METRICS
   </a>
   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('log', this, 'orange');" style="width:25% !important">
-   RF REPORTS
+   ROBOT LOG
   </a>
  </div>
 </div>
@@ -203,7 +209,7 @@ body, html {
     </thead>
     <tbody>
      <tr>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s2','#s1-s2')" style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;">
        Gmail Login
       </td>
       <td>
@@ -220,7 +226,7 @@ body, html {
       </td>
      </tr>
      <tr>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s1','#s1-s1')" style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;">
        Facebook Login
       </td>
       <td>
@@ -238,6 +244,13 @@ body, html {
      </tr>
     </tbody>
    </table>
+<script>
+ function openInNewTab(url,element_id) {
+  var win = window.open(url, '_blank');
+  win.focus();
+  $('body').scrollTo(element_id); 
+}
+</script>
   </div>
   <div class="tabcontent" id="testMetrics">
 <h4>
@@ -276,7 +289,7 @@ body, html {
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Gmail Login
       </td>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s2-t3','#s1-s2-t3')" style="word-wrap: break-word;max-width: 300px; white-space: normal">
        TC-006
       </td>
       <td>
@@ -296,7 +309,7 @@ body, html {
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Gmail Login
       </td>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s2-t2','#s1-s2-t2')" style="word-wrap: break-word;max-width: 300px; white-space: normal">
        TC-005
       </td>
       <td>
@@ -316,7 +329,7 @@ body, html {
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Gmail Login
       </td>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s2-t1','#s1-s2-t1')" style="word-wrap: break-word;max-width: 300px; white-space: normal">
        TC-004
       </td>
       <td>
@@ -336,7 +349,7 @@ body, html {
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Facebook Login
       </td>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s1-t3','#s1-s1-t3')" style="word-wrap: break-word;max-width: 300px; white-space: normal">
        TC-003
       </td>
       <td>
@@ -356,7 +369,7 @@ body, html {
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Facebook Login
       </td>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s1-t2','#s1-s1-t2')" style="word-wrap: break-word;max-width: 300px; white-space: normal">
        TC-002
       </td>
       <td>
@@ -376,7 +389,7 @@ body, html {
       <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
        Facebook Login
       </td>
-      <td style="word-wrap: break-word;max-width: 300px; white-space: normal">
+      <td onclick="openInNewTab('log-20180825-185242.html#s1-s1-t1','#s1-s1-t1')" style="word-wrap: break-word;max-width: 300px; white-space: normal">
        TC-001
       </td>
       <td>
@@ -924,7 +937,7 @@ body, html {
  need to be in current folder in order to display here
 </p>
 <div class="embed-responsive embed-responsive-4by3">
- <iframe class="embed-responsive-item" src="report-20180825-185242.html">
+ <iframe class="embed-responsive-item" src="log-20180825-185242.html">
  </iframe>
 </div>
   </div>

@@ -89,6 +89,12 @@ body, html {
     cursor: pointer;
 }
 
+/* Style tab links */
+.tablinkLog {
+    //color: white;
+    cursor: pointer;
+}
+
 .tablink:hover {
     background-color: #777;
 }
@@ -189,7 +195,7 @@ icons_txt= """
   </a>
   <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-file-text w3-xxlarge"></i>
-    <p> ROBOT REPORT</p>
+    <p> ROBOT LOG</p>
   </a>
 </nav>
 
@@ -200,7 +206,7 @@ icons_txt= """
     <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">SUITE METRICS</a>
     <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
-    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">RF REPORTS</a>
+    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">ROBOT LOG</a>
   </div>
 </div>
 
@@ -502,8 +508,10 @@ class SuiteResults(ResultVisitor):
             table_tr = soup.new_tag('tr')
             tbody.insert(0, table_tr)
 
-            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
             table_td.string = str(suite)
+            #table_td['onclick']="openInNewTab('%s%s%s')"%(log_file,'#suites?',suite.id)
+            table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',suite.id,'#',suite.id)
             table_tr.insert(0, table_td)
 
             table_td = soup.new_tag('td')
@@ -523,6 +531,20 @@ class SuiteResults(ResultVisitor):
             table_tr.insert(4, table_td)
 
 result.visit(SuiteResults())
+
+
+script_me="""
+<script>
+function openInNewTab(url,element_id) {
+  var win = window.open(url, '_blank');
+  win.focus();
+  $('body').scrollTo(element_id); 
+}
+</script>
+"""
+suite_div.append(BeautifulSoup(script_me, 'html.parser'))
+
+
 ### ============================ END OF SUITE METRICS ============================================ ####
 
 
@@ -588,6 +610,7 @@ class TestCaseResults(ResultVisitor):
 
         table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
         table_td.string = str(test)
+        table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',test.id,'#',test.id)
         table_tr.insert(1, table_td)
 
         table_td = soup.new_tag('td')
@@ -724,7 +747,7 @@ test_icon_txt="""
   <div class="embed-responsive embed-responsive-4by3">
     <iframe class="embed-responsive-item" src=%s></iframe>
   </div>
-"""%(report_file)
+"""%(log_file)
 log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 ### ============================ END OF LOGS ======================================= ####
