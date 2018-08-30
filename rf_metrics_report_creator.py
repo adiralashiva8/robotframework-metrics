@@ -53,7 +53,6 @@ head_content = """
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
 <style>
 .w3-row-padding img {margin-bottom: 12px}
 
@@ -449,6 +448,7 @@ page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
 <hr>
+<h6 style="text-align:right">**Click Suite name to view logs</h6>
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -503,10 +503,8 @@ class SuiteResults(ResultVisitor):
             table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
             table_td.string = str(suite)
             table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',suite.id,'#',suite.id)
-            table_td['data-balloon-length']="large"
-            table_td['data-balloon']="Click to view '%s' logs"% suite
-            table_td['data-balloon-pos']="right"
-
+            table_td['data-toggle']="tooltip"
+            table_td['title']="Click to view '%s' logs"% suite
             table_tr.insert(0, table_td)
 
             table_td = soup.new_tag('td')
@@ -531,10 +529,14 @@ result.visit(SuiteResults())
 script_me="""
 <script>
 function openInNewTab(url,element_id) {
+  var element_id= element_id;
   var win = window.open(url, '_blank');
   win.focus();
   $('body').scrollTo(element_id); 
 }
+</script>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 """
 suite_div.append(BeautifulSoup(script_me, 'html.parser'))
@@ -548,6 +550,7 @@ suite_div.append(BeautifulSoup(script_me, 'html.parser'))
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
 <hr>  
+<h6 style="text-align:right">**Click Test Case name to view logs</h6>
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -606,9 +609,8 @@ class TestCaseResults(ResultVisitor):
         table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
         table_td.string = str(test)
         table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',test.id,'#',test.id)
-        table_td['data-balloon-length']="large"
-        table_td['data-balloon']="Click to view '%s' logs"% test
-        table_td['data-balloon-pos']="right"
+        table_td['data-toggle']="tooltip"
+        table_td['title']="Click to view '%s' logs"% test
         table_tr.insert(1, table_td)
 
         table_td = soup.new_tag('td')
