@@ -46,15 +46,14 @@ head_content = """
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
 <style>
 .w3-row-padding img {margin-bottom: 12px}
 
@@ -107,7 +106,7 @@ body, html {
     border-top: 1.1em solid rgba(255, 255, 255, 0.2);
     border-right: 1.1em solid rgba(255, 255, 255, 0.2);
     border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-left: 1.1em solid #ffffff;
+    border-left: 1.1em solid #fffffa;
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
@@ -140,7 +139,7 @@ body, html {
     left:0;
     width:100%;
     height:100%;
-    background-color:grey;
+    background-color:black;
 }
 
 #dashboard {background-color: white;}
@@ -449,8 +448,7 @@ page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
-  <hr>
-  <h6 style="text-align:right"><b>**Click on 'Suite Name' for logs</b></h6>
+<hr>
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -549,8 +547,7 @@ suite_div.append(BeautifulSoup(script_me, 'html.parser'))
 
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
-  <hr>
-  <h6 style="text-align:right"><b>**Click on Test Case name for logs</b></h6>
+<hr>  
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
