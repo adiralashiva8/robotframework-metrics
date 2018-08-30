@@ -18,15 +18,6 @@ ignore_type = [
     'for',
     ]
 
-# Get report result - OS independent
-#current_path = os.getcwd()
-# output.xml file location
-#text_file = os.path.join(os.path.curdir, 'output.xml')
-
-#report_file="report.html"
-#output_file="output.xml"
-#log_file="log.html"
-
 for filename in os.listdir(os.path.curdir):
     root, ext = os.path.splitext(filename)
     if root.startswith('report') and ext == '.html':
@@ -55,10 +46,12 @@ head_content = """
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
@@ -86,6 +79,12 @@ body, html {
 /* Style tab links */
 .tablink {
     color: white;
+    cursor: pointer;
+}
+
+/* Style tab links */
+.tablinkLog {
+    //color: white;
     cursor: pointer;
 }
 
@@ -189,7 +188,7 @@ icons_txt= """
   </a>
   <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-file-text w3-xxlarge"></i>
-    <p> ROBOT REPORT</p>
+    <p> ROBOT LOGS</p>
   </a>
 </nav>
 
@@ -200,7 +199,7 @@ icons_txt= """
     <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">SUITE METRICS</a>
     <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
-    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">RF REPORTS</a>
+    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">ROBOT LOGS</a>
   </div>
 </div>
 
@@ -451,6 +450,7 @@ page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
   <hr>
+  <h6 style="text-align:right"><b>**Click on 'Suite Name' for logs</b></h6>
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -502,8 +502,13 @@ class SuiteResults(ResultVisitor):
             table_tr = soup.new_tag('tr')
             tbody.insert(0, table_tr)
 
-            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
             table_td.string = str(suite)
+            table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',suite.id,'#',suite.id)
+            table_td['data-balloon-length']="large"
+            table_td['data-balloon']="Click to view '%s' logs"% suite
+            table_td['data-balloon-pos']="right"
+
             table_tr.insert(0, table_td)
 
             table_td = soup.new_tag('td')
@@ -523,6 +528,20 @@ class SuiteResults(ResultVisitor):
             table_tr.insert(4, table_td)
 
 result.visit(SuiteResults())
+
+
+script_me="""
+<script>
+function openInNewTab(url,element_id) {
+  var win = window.open(url, '_blank');
+  win.focus();
+  $('body').scrollTo(element_id); 
+}
+</script>
+"""
+suite_div.append(BeautifulSoup(script_me, 'html.parser'))
+
+
 ### ============================ END OF SUITE METRICS ============================================ ####
 
 
@@ -531,6 +550,7 @@ result.visit(SuiteResults())
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
   <hr>
+  <h6 style="text-align:right"><b>**Click on Test Case name for logs</b></h6>
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -586,8 +606,12 @@ class TestCaseResults(ResultVisitor):
         table_td.string = str(test.parent)
         table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal")
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
         table_td.string = str(test)
+        table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',test.id,'#',test.id)
+        table_td['data-balloon-length']="large"
+        table_td['data-balloon']="Click to view '%s' logs"% test
+        table_td['data-balloon-pos']="right"
         table_tr.insert(1, table_td)
 
         table_td = soup.new_tag('td')
@@ -724,7 +748,7 @@ test_icon_txt="""
   <div class="embed-responsive embed-responsive-4by3">
     <iframe class="embed-responsive-item" src=%s></iframe>
   </div>
-"""%(report_file)
+"""%(log_file)
 log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 ### ============================ END OF LOGS ======================================= ####
