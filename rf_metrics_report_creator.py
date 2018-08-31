@@ -417,12 +417,12 @@ dashboard_content="""
     </div>
 
     <hr>
-    <div class="col-md-5 chart-blo-1" id="suiteChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="suiteBarID" style="height: 400px;"></div>
-    <div class="col-md-5 chart-blo-1" id="testChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="testsBarID" style="height: 400px;"></div>
-    <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;"></div>
+    <div class="col-md-8 chart-blo-1" id="suiteBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;"></div>
+    <div class="col-md-8 chart-blo-1" id="testsBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
+    <div class="col-md-8 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
     
    
    <script>
@@ -762,13 +762,15 @@ script_text="""
 	var data = google.visualization.arrayToDataTable(status);
 
 	var options = {
-	  title: ChartName,
+      title: ChartName,
+        titleTextStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 15,
+        },
 	  pieHole: 0.7,
-      //is3D: true,
 	  legend: 'none',
-      width: 'auto',
-      //tooltip: {isHtml: true},
-	  colors: ['green', 'red']
+      chartArea: {width: "80%",height: "80%"},
+	  colors: ['green', 'red'],
 	};
 
 	var chart = new google.visualization.PieChart(document.getElementById(ChartID));
@@ -782,20 +784,18 @@ script_text="""
 		var rows = $(css_selector_locator);
 		var columns;
 		var myColors = [
-
-            '#4661EE',
-            '#EC5657',
-            '#1BCDD1',
-            '#8FAABB',
-            '#B08BEB',
-            '#3EA0DD',
-            '#F5A52A',
-            '#23BFAA',
-            '#FAA586',
-            '#EB8CC6'
-        ];
-
-		status.push(['Year', 'Elaspsed Time(s)', {role: 'style'}]);
+			'#3366CC',
+            '#DC3912',
+            '#FF9900',
+            '#109618',
+            '#990099',
+            '#3B3EAC',
+            '#0099C6',
+            '#DD4477',
+            '#66AA00',
+            '#B82E2E'
+		];
+		status.push(['Year', 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
 		for (var i = 0; i < rows.length; i++) {
 			if (i == Number(limit)){
 				break;
@@ -805,15 +805,45 @@ script_text="""
 		  
 			time=($(name_value[Number(time_column)]).html()).trim();
 			keyword=($(name_value[Number(keyword_column)]).html()).trim();
-			status.push([keyword,parseFloat(time),myColors[i]]);
+			status.push([keyword,parseFloat(time),parseFloat(time),myColors[i]]);
 		  }
 		  var data = google.visualization.arrayToDataTable(status);
 
-		  var options = {
+		  var options = {            
             title: ChartName,
-            is3D: true,
+            titleTextStyle: {
+                    fontName: 'Comic Sans MS',
+                    fontSize: 15,
+            },
             legend: 'none',
-            //width: 700,
+            chartArea: {width: "85%",height: "75%"},
+			bar: {
+				groupWidth: '90%'
+			},
+			annotations: {
+				alwaysOutside: true,
+                textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                //bold: true,
+                //italic: true,
+                color: "black",     // The color of the text.
+                },
+			},
+            hAxis: {
+                textStyle: {
+                    fontName: 'Comic Sans MS',
+                    fontSize: 13,
+                }
+            },
+            vAxis: {
+                format: 'decimal',
+                title: "Seconds",
+                textStyle: {                    
+                    fontName: 'Comic Sans MS',
+                    fontSize: 13,
+                }
+            },
 		  };  
 
             // Instantiate and draw the chart.
