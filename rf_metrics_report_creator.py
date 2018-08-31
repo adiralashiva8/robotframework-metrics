@@ -764,13 +764,24 @@ script_text="""
 	var options = {
       title: ChartName,
         titleTextStyle: {
-                fontName: 'Comic Sans MS',
-                fontSize: 15,
+            fontName: 'Comic Sans MS',
+            fontSize: 15,
+            bold: true,
         },
 	  pieHole: 0.7,
 	  legend: 'none',
-      chartArea: {width: "80%",height: "80%"},
+      chartArea: {width: "90%",height: "75%"},
 	  colors: ['green', 'red'],
+      annotations: {
+            alwaysOutside: true,
+            textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                bold: true,
+                italic: true,
+                color: "black",     // The color of the text.
+            },
+        },
 	};
 
 	var chart = new google.visualization.PieChart(document.getElementById(ChartID));
@@ -784,16 +795,16 @@ script_text="""
 		var rows = $(css_selector_locator);
 		var columns;
 		var myColors = [
-			'#3366CC',
-            '#DC3912',
-            '#FF9900',
-            '#109618',
-            '#990099',
-            '#3B3EAC',
-            '#0099C6',
-            '#DD4477',
-            '#66AA00',
-            '#B82E2E'
+			'#4F81BC',
+            '#C0504E',
+            '#9BBB58',
+            '#24BEAA',
+            '#8064A1',
+            '#4AACC5',
+            '#F79647',
+            '#815E86',
+            '#76A032',
+            '#34558B'
 		];
 		status.push(['Year', 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
 		for (var i = 0; i < rows.length; i++) {
@@ -816,32 +827,33 @@ script_text="""
                     fontSize: 15,
             },
             legend: 'none',
-            chartArea: {width: "85%",height: "75%"},
+            chartArea: {width: "88%",height: "75%"},
 			bar: {
-				groupWidth: '90%'
+				groupWidth: '85%'
 			},
 			annotations: {
 				alwaysOutside: true,
                 textStyle: {
                 fontName: 'Comic Sans MS',
                 fontSize: 13,
-                //bold: true,
-                //italic: true,
+                bold: true,
+                italic: true,
                 color: "black",     // The color of the text.
                 },
 			},
             hAxis: {
                 textStyle: {
                     fontName: 'Comic Sans MS',
-                    fontSize: 13,
+                    fontSize: 11,
                 }
             },
             vAxis: {
                 format: 'decimal',
                 title: "Seconds",
+                gridlines: { count: 10 },
                 textStyle: {                    
                     fontName: 'Comic Sans MS',
-                    fontSize: 13,
+                    fontSize: 11,
                 }
             },
 		  };  

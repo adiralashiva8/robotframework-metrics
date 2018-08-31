@@ -109,22 +109,6 @@ body, html {
     background-color:black;
 }
 
- .google-visualization-tooltip { 
-
-    width: 150px !important;
-    border: none !important;
-    border-radius: 21px !important;
-    background-color: rgb(30, 50, 230)!important;
-    position: absolute !important;
-    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75) !important;
-    background: -moz-linear-gradient(30deg, rgb(30, 50, 230) 30%, rgb(90, 140, 250) 70%) !important;
-    background: -webkit-linear-gradient(30deg, rgb(30, 50, 230) 30%, rgb(90, 140, 250) 70%) !important;
-    background: -o-linear-gradient(30deg, rgb(30, 50, 230) 30%, rgb(90, 140, 250) 70%) !important;
-    background: -ms-linear-gradient(30deg, rgb(30, 50, 230) 30%, rgb(90, 140, 250) 70%) !important;
-    background: linear-gradient(120deg, rgb(30, 50, 230) 30%, rgb(90, 140, 250) 70%) !important;
-    font-size:  10px !important;
-    }
-
 #dashboard {background-color: white;}
 #suiteMetrics {background-color: white;}
 #testMetrics {background-color: white;}
@@ -138,77 +122,77 @@ body, html {
   <div class="loader">
   </div>
  </div>
- <!-- Icon Bar (Sidebar - hidden on small screens) -->
- <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')">
-   <i class="fa fa-dashboard w3-xxlarge">
-   </i>
-   <p>
-    DASHBOARD
-   </p>
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')">
+  <i class="fa fa-dashboard w3-xxlarge">
+  </i>
+  <p>
+   DASHBOARD
+  </p>
+ </a>
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)">
+  <i class="fa fa-th-large w3-xxlarge">
+  </i>
+  <p>
+   SUITE METRICS
+  </p>
+ </a>
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)">
+  <i class="fa fa-list-alt w3-xxlarge">
+  </i>
+  <p>
+   TEST METRICS
+  </p>
+ </a>
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)">
+  <i class="fa fa-table w3-xxlarge">
+  </i>
+  <p>
+   KEYWORD METRICS
+  </p>
+ </a>
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('log', this, 'orange');">
+  <i class="fa fa-file-text w3-xxlarge">
+  </i>
+  <p>
+   ROBOT LOGS
+  </p>
+ </a>
+</nav>
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+ <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+  <a class="tablink w3-bar-item w3-button" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" style="width:25% !important">
+   DASHBOARD
   </a>
-  <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)">
-   <i class="fa fa-th-large w3-xxlarge">
-   </i>
-   <p>
-    SUITE METRICS
-   </p>
+  <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" style="width:25% !important">
+   SUITE METRICS
   </a>
-  <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)">
-   <i class="fa fa-list-alt w3-xxlarge">
-   </i>
-   <p>
-    TEST METRICS
-   </p>
+  <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" style="width:25% !important">
+   TEST METRICS
   </a>
-  <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)">
-   <i class="fa fa-table w3-xxlarge">
-   </i>
-   <p>
-    KEYWORD METRICS
-   </p>
+  <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" style="width:25% !important">
+   KEYWORD METRICS
   </a>
-  <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('log', this, 'orange');">
-   <i class="fa fa-file-text w3-xxlarge">
-   </i>
-   <p>
-    ROBOT LOGS
-   </p>
+  <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('log', this, 'orange');" style="width:25% !important">
+   ROBOT LOGS
   </a>
- </nav>
- <!-- Navbar on small screens (Hidden on medium and large screens) -->
- <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-   <a class="tablink w3-bar-item w3-button" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" style="width:25% !important">
-    DASHBOARD
-   </a>
-   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" style="width:25% !important">
-    SUITE METRICS
-   </a>
-   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" style="width:25% !important">
-    TEST METRICS
-   </a>
-   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" style="width:25% !important">
-    KEYWORD METRICS
-   </a>
-   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('log', this, 'orange');" style="width:25% !important">
-    ROBOT LOGS
-   </a>
-  </div>
  </div>
+</div>
  <div class="w3-padding-large" id="main">
   <div class="tabcontent" id="suiteMetrics">
-   <h4>
-    <b>
-     <i class="fa fa-table">
-     </i>
-     Suite Metrics
-    </b>
-   </h4>
-   <hr/>
-   <h6 style="text-align:right">
-    **Click Suite name to view logs
-   </h6>
+<h4>
+ <b>
+  <i class="fa fa-table">
+  </i>
+  Suite Metrics
+ </b>
+</h4>
+<hr/>
+<h6 style="text-align:right">
+ **Click Suite name to view logs
+</h6>
    <table class="table table-striped table-bordered" id="sm">
     <thead>
      <tr>
@@ -266,30 +250,30 @@ body, html {
      </tr>
     </tbody>
    </table>
-   <script>
-    function openInNewTab(url,element_id) {
+<script>
+ function openInNewTab(url,element_id) {
   var element_id= element_id;
   var win = window.open(url, '_blank');
   win.focus();
   $('body').scrollTo(element_id); 
 }
-   </script>
-   <script>
-    $('[data-toggle="tooltip"]').tooltip();
-   </script>
+</script>
+<script>
+ $('[data-toggle="tooltip"]').tooltip();
+</script>
   </div>
   <div class="tabcontent" id="testMetrics">
-   <h4>
-    <b>
-     <i class="fa fa-table">
-     </i>
-     Test Metrics
-    </b>
-   </h4>
-   <hr/>
-   <h6 style="text-align:right">
-    **Click Test Case name to view logs
-   </h6>
+<h4>
+ <b>
+  <i class="fa fa-table">
+  </i>
+  Test Metrics
+ </b>
+</h4>
+<hr/>
+<h6 style="text-align:right">
+ **Click Test Case name to view logs
+</h6>
    <table class="table table-striped table-bordered" id="tm">
     <thead>
      <tr>
@@ -438,14 +422,14 @@ body, html {
    </table>
   </div>
   <div class="tabcontent" id="keywordMetrics">
-   <h4>
-    <b>
-     <i class="fa fa-table">
-     </i>
-     Keyword Metrics
-    </b>
-   </h4>
-   <hr/>
+<h4>
+ <b>
+  <i class="fa fa-table">
+  </i>
+  Keyword Metrics
+ </b>
+</h4>
+<hr/>
    <table class="table table-striped table-bordered" id="km">
     <thead>
      <tr>
@@ -954,244 +938,244 @@ body, html {
    </table>
   </div>
   <div class="tabcontent" id="log">
-   <p style="text-align:right">
-    **
-    <b>
-     Report.html
-    </b>
-    and
-    <b>
-     Log.html
-    </b>
-    need to be in current folder in order to display here
-   </p>
-   <div class="embed-responsive embed-responsive-4by3">
-    <iframe class="embed-responsive-item" src="log-20180825-185242.html">
-    </iframe>
+<p style="text-align:right">
+ **
+ <b>
+  Report.html
+ </b>
+ and
+ <b>
+  Log.html
+ </b>
+ need to be in current folder in order to display here
+</p>
+<div class="embed-responsive embed-responsive-4by3">
+ <iframe class="embed-responsive-item" src="log-20180825-185242.html">
+ </iframe>
+</div>
+  </div>
+<div class="tabcontent" id="dashboard">
+ <h4>
+  <b>
+   <i class="fa fa-dashboard">
+   </i>
+   Dashboard
+  </b>
+ </h4>
+ <hr/>
+ <div "="" class="w3-row-padding w3-margin-bottom">
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-dark-gray w3-padding-8 ">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       Suite
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Statistics
+    </h4>
    </div>
   </div>
-  <div class="tabcontent" id="dashboard">
-   <h4>
-    <b>
-     <i class="fa fa-dashboard">
-     </i>
-     Dashboard
-    </b>
-   </h4>
-   <hr/>
-   <div "="" class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-dark-gray w3-padding-8 ">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         Suite
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Statistics
-      </h4>
-     </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-teal w3-padding-8 ">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       2
+      </b>
+     </h3>
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-teal w3-padding-8 ">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         2
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Total
-      </h4>
-     </div>
+    <div class="w3-left">
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-green w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         2
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Passed
-      </h4>
-     </div>
-    </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-red w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         0
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Failed
-      </h4>
-     </div>
-    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Total
+    </h4>
    </div>
-   <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-dark-gray w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         Test Case
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Statistics
-      </h4>
-     </div>
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-green w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       2
+      </b>
+     </h3>
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-teal w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         6
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Total
-      </h4>
-     </div>
+    <div class="w3-left">
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-green w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         6
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Passed
-      </h4>
-     </div>
+    <h4 class="text-center" style="font-size:13px">
+     Passed
+    </h4>
+   </div>
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-red w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       0
+      </b>
+     </h3>
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-red w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         0
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Failed
-      </h4>
-     </div>
+    <div class="w3-left">
     </div>
+    <h4 class="text-center" style="font-size:13px">
+     Failed
+    </h4>
    </div>
-   <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-dark-gray w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         Keyword
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Statistics
-      </h4>
-     </div>
+  </div>
+ </div>
+ <div class="w3-row-padding w3-margin-bottom">
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-dark-gray w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       Test Case
+      </b>
+     </h3>
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-teal w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         24
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Total
-      </h4>
-     </div>
+    <div class="w3-left">
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-green w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         24
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Passed
-      </h4>
-     </div>
+    <h4 class="text-center" style="font-size:13px">
+     Statistics
+    </h4>
+   </div>
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-teal w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       6
+      </b>
+     </h3>
     </div>
-    <div class="w3-quarter col-sm-3">
-     <div class="w3-container w3-red w3-padding-8">
-      <div class="w3-clear">
-       <h3 class="text-center" style="font-size:25px">
-        <b>
-         0
-        </b>
-       </h3>
-      </div>
-      <div class="w3-left">
-      </div>
-      <h4 class="text-center" style="font-size:13px">
-       Failed
-      </h4>
-     </div>
+    <div class="w3-left">
     </div>
+    <h4 class="text-center" style="font-size:13px">
+     Total
+    </h4>
    </div>
-   <hr/>
-   <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;">
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-green w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       6
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Passed
+    </h4>
    </div>
-   <div class="col-md-8 chart-blo-1" id="suiteBarID" style="height: 400px;">
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-red w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       0
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Failed
+    </h4>
    </div>
-   <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;">
+  </div>
+ </div>
+ <div class="w3-row-padding w3-margin-bottom">
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-dark-gray w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       Keyword
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Statistics
+    </h4>
    </div>
-   <div class="col-md-8 chart-blo-1" id="testsBarID" style="height: 400px;">
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-teal w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       24
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Total
+    </h4>
    </div>
-   <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;">
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-green w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       24
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Passed
+    </h4>
    </div>
-   <div class="col-md-8 chart-blo-1" id="keywordsBarID" style="height: 400px;">
+  </div>
+  <div class="w3-quarter col-sm-3">
+   <div class="w3-container w3-red w3-padding-8">
+    <div class="w3-clear">
+     <h3 class="text-center" style="font-size:25px">
+      <b>
+       0
+      </b>
+     </h3>
+    </div>
+    <div class="w3-left">
+    </div>
+    <h4 class="text-center" style="font-size:13px">
+     Failed
+    </h4>
    </div>
-   <script>
-    window.onload = function(){
+  </div>
+ </div>
+ <hr/>
+ <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;">
+ </div>
+ <div class="col-md-8 chart-blo-1" id="suiteBarID" style="height: 400px;">
+ </div>
+ <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;">
+ </div>
+ <div class="col-md-8 chart-blo-1" id="testsBarID" style="height: 400px;">
+ </div>
+ <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;">
+ </div>
+ <div class="col-md-8 chart-blo-1" id="keywordsBarID" style="height: 400px;">
+ </div>
+ <script>
+  window.onload = function(){
     executeDataTable('#sm',4);
     executeDataTable('#tm',5);
     executeDataTable('#km',5);
@@ -1202,11 +1186,11 @@ body, html {
     createPieChart(24,0,'keywordChartID','Keywords Status:');
     createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
 	};
-   </script>
-  </div>
+ </script>
+</div>
  </div>
- <script>
-  function createPieChart(passed_count,failed_count,ChartID,ChartName){
+<script>
+ function createPieChart(passed_count,failed_count,ChartID,ChartName){
 	var status = [];
 	status.push(['Status', 'Percentage']);
 	status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
@@ -1215,36 +1199,47 @@ body, html {
 	var options = {
       title: ChartName,
         titleTextStyle: {
-                fontName: 'Comic Sans MS',
-                fontSize: 15,
+            fontName: 'Comic Sans MS',
+            fontSize: 15,
+            bold: true,
         },
 	  pieHole: 0.7,
 	  legend: 'none',
-      chartArea: {width: "80%",height: "80%"},
+      chartArea: {width: "90%",height: "75%"},
 	  colors: ['green', 'red'],
+      annotations: {
+            alwaysOutside: true,
+            textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                bold: true,
+                italic: true,
+                color: "black",     // The color of the text.
+            },
+        },
 	};
 
 	var chart = new google.visualization.PieChart(document.getElementById(ChartID));
 	chart.draw(data, options);
   }
- </script>
- <script>
-  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
+</script>
+<script>
+ function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
 		var status = [];
 		css_selector_locator = tableID + ' tbody >tr'
 		var rows = $(css_selector_locator);
 		var columns;
 		var myColors = [
-			'#3366CC',
-            '#DC3912',
-            '#FF9900',
-            '#109618',
-            '#990099',
-            '#3B3EAC',
-            '#0099C6',
-            '#DD4477',
-            '#66AA00',
-            '#B82E2E'
+			'#4F81BC',
+            '#C0504E',
+            '#9BBB58',
+            '#24BEAA',
+            '#8064A1',
+            '#4AACC5',
+            '#F79647',
+            '#815E86',
+            '#76A032',
+            '#34558B'
 		];
 		status.push(['Year', 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
 		for (var i = 0; i < rows.length; i++) {
@@ -1267,32 +1262,33 @@ body, html {
                     fontSize: 15,
             },
             legend: 'none',
-            chartArea: {width: "85%",height: "75%"},
+            chartArea: {width: "88%",height: "75%"},
 			bar: {
-				groupWidth: '90%'
+				groupWidth: '85%'
 			},
 			annotations: {
 				alwaysOutside: true,
                 textStyle: {
                 fontName: 'Comic Sans MS',
                 fontSize: 13,
-                //bold: true,
-                //italic: true,
+                bold: true,
+                italic: true,
                 color: "black",     // The color of the text.
                 },
 			},
             hAxis: {
                 textStyle: {
                     fontName: 'Comic Sans MS',
-                    fontSize: 13,
+                    fontSize: 11,
                 }
             },
             vAxis: {
                 format: 'decimal',
                 title: "Seconds",
+                gridlines: { count: 10 },
                 textStyle: {                    
                     fontName: 'Comic Sans MS',
-                    fontSize: 13,
+                    fontSize: 11,
                 }
             },
 		  };  
@@ -1302,9 +1298,9 @@ body, html {
             chart.draw(data, options);
          }
          google.charts.setOnLoadCallback(drawChart);
- </script>
- <script>
-  function executeDataTable(tabname,sortCol) {
+</script>
+<script>
+ function executeDataTable(tabname,sortCol) {
     $(tabname).DataTable(
         {
         retrieve: true,
@@ -1312,9 +1308,9 @@ body, html {
         } 
     );
 }
- </script>
- <script>
-  function openPage(pageName,elmnt,color) {
+</script>
+<script>
+ function openPage(pageName,elmnt,color) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -1330,9 +1326,9 @@ body, html {
 }
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
- </script>
- <script>
-  //$('body').append('<div style="" id="loadingDiv"><div class="loader"></div></div>');
+</script>
+<script>
+ //$('body').append('<div style="" id="loadingDiv"><div class="loader"></div></div>');
 $(window).on('load', function(){
   setTimeout(removeLoader, 0); //wait for page load PLUS zero seconds.
 });
@@ -1342,5 +1338,5 @@ function removeLoader(){
       $( "#loadingDiv" ).remove(); //makes page more lightweight
   });
 }
- </script>
+</script>
 </body>

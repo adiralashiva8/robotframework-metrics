@@ -19,7 +19,7 @@ Creates HTML metrics report based on robotframework output.xml
     git clone https://github.com/adiralashiva8/robotframework-metrics.git
     ```
 2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.sh__ files to project (where output.xml file is available.)
-    > Note: __output.xml__ having timestamp is auto recognized by Metrics Report but output.xml, report.html and log.html need to be within folder.
+    > Note: __output.xml__ having timestamp is auto recognized by Metrics Report but output.xml, report.html and log.html need to be within same folder.
 3. Install beautifulsoup: (to create html report - one time activity)
     ```
     pip install beautifulsoup4
@@ -29,7 +29,7 @@ Creates HTML metrics report based on robotframework output.xml
 
     > Assumption __Python__ already installed in machine
 
-    If you were using latest python. Please upgrade robotframework to generate report
+    If you were using latest python. Upgrade robotframework to generate report
         
     > Update Robot Framework
     ``` pip install --pre --upgrade robotframework ```
@@ -80,8 +80,8 @@ __RF REPORT__
 ---
 
 *Frequently Asked Queries*
- - I dont have chrome browser will Metrics Report works
-    > Yes, Generate report by executing ```   python rf_metrics_report_creator.py ``` command and open __rf_metrics_result.html__ in your favorite browser
+ - I dont have chrome browser, will Metrics Report works
+    > Yes, Generate report by executing ```   python rf_metrics_report_creator.py ``` command and open __rf_metrics_result.html__ in your prefered browser
  - Can I change font style of report
     > Yes, By changing __font-family:__ value in __rf_metrics_report_creator.py__ file
 
@@ -92,7 +92,7 @@ __RF REPORT__
 1. Robotframework [link](http://robotframework.org)
 2. W3Schools [link](http://www.w3schools.com)
 3. Stackoverflow [link](http://stackoverflow.com)
-4. CanvasJs [link](https://canvasjs.com)
+4. Google charts [link](https://developers.google.com/chart/)
 5. DataTable [link](https://datatables.net)
 6. BeautifulSoup [link](http://beautiful-soup-4.readthedocs.io)
 7. Jquery | JavaScript [link](https://www.jqueryscript.net)
