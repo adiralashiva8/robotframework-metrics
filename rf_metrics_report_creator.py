@@ -50,7 +50,8 @@ head_content = """
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+<script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <style>
@@ -416,12 +417,12 @@ dashboard_content="""
     </div>
 
     <hr>
-    <div class="col-md-5 chart-blo-1" id="suiteChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="suiteBarID" style="height: 400px;"></div>
-    <div class="col-md-5 chart-blo-1" id="testChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="testsBarID" style="height: 400px;"></div>
-    <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;"></div>
+    <div class="col-md-8 chart-blo-1" id="suiteBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;"></div>
+    <div class="col-md-8 chart-blo-1" id="testsBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
+    <div class="col-md-8 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
     
    
    <script>
@@ -755,93 +756,114 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 script_text="""
  <script>
   function createPieChart(passed_count,failed_count,ChartID,ChartName){
+	var status = [];
+	status.push(['Status', 'Percentage']);
+	status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
+	var data = google.visualization.arrayToDataTable(status);
 
-var chart = new CanvasJS.Chart(ChartID,{  
-    exportFileName: ChartName,
-	exportEnabled: true,	
-    animationEnabled: true,
-	title: {
-    text: ChartName,
-    fontFamily: "Comic Sans MS",
-    fontSize: 16,
-	horizontalAlign: "left",
-    fontWeight: "bold"
-    
-  },
-  data: []
-  
-});
+	var options = {
+      title: ChartName,
+        titleTextStyle: {
+            fontName: 'Comic Sans MS',
+            fontSize: 15,
+            bold: true,
+        },
+	  pieHole: 0.7,
+	  legend: 'none',
+      chartArea: {width: "90%",height: "75%"},
+	  colors: ['green', 'red'],
+      annotations: {
+            alwaysOutside: true,
+            textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                bold: true,
+                italic: true,
+                color: "black",     // The color of the text.
+            },
+        },
+	};
 
-var status = [{label:'PASS',y:parseInt(passed_count),color:"Green"},{label:'FAIL',y:parseInt(failed_count),color:"Red"}];
-  chart.options.data.push({
-    //type: "pie",
-    type: "doughnut",
-    startAngle: 60,
-    //innerRadius: 60,
-    indexLabelFontSize: 15,
-    indexLabel: "{label} - #percent%",
-    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-
-    //name: ($(columns[0]).html()), 
-    //showInLegend: true,
-    //legendText: ($(columns[0]).html()),
-    dataPoints: status
-  });
-  chart.render();
-}
+	var chart = new google.visualization.PieChart(document.getElementById(ChartID));
+	chart.draw(data, options);
+  }
  </script>
  <script>
   function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
-      var chart = new CanvasJS.Chart(ChartID, {
-       exportFileName: ChartName,
-        exportEnabled: true,	
-        animationEnabled: true,
-    title: {
-        text: ChartName,
-        fontFamily: "Comic Sans MS",
-        fontSize: 16,
-        horizontalAlign: "left",
-        fontWeight: "bold"
-    
-    },
-      axisX:{
-        //title:"Axis X title",
-        labelAngle: 0,
-        labelFontSize: 10,
-        labelFontFamily:"Comic Sans MS",
-        
-      },
-      axisY:{
-        title:"Seconds (s)",
-      },
-      data: []
-    });
+		var status = [];
+		css_selector_locator = tableID + ' tbody >tr'
+		var rows = $(css_selector_locator);
+		var columns;
+		var myColors = [
+			'#4F81BC',
+            '#C0504E',
+            '#9BBB58',
+            '#24BEAA',
+            '#8064A1',
+            '#4AACC5',
+            '#F79647',
+            '#815E86',
+            '#76A032',
+            '#34558B'
+		];
+		status.push(['Year', 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
+		for (var i = 0; i < rows.length; i++) {
+			if (i == Number(limit)){
+				break;
+			}
+			//status = [];
+			name_value = $(rows[i]).find('td'); 
+		  
+			time=($(name_value[Number(time_column)]).html()).trim();
+			keyword=($(name_value[Number(keyword_column)]).html()).trim();
+			status.push([keyword,parseFloat(time),parseFloat(time),myColors[i]]);
+		  }
+		  var data = google.visualization.arrayToDataTable(status);
 
-var status = [];
-css_selector_locator = tableID + ' tbody >tr'
-var rows = $(css_selector_locator);
-var columns;
+		  var options = {            
+            title: ChartName,
+            titleTextStyle: {
+                    fontName: 'Comic Sans MS',
+                    fontSize: 15,
+            },
+            legend: 'none',
+            chartArea: {width: "88%",height: "75%"},
+			bar: {
+				groupWidth: '85%'
+			},
+			annotations: {
+				alwaysOutside: true,
+                textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                bold: true,
+                italic: true,
+                color: "black",     // The color of the text.
+                },
+			},
+            hAxis: {
+                textStyle: {
+                    fontName: 'Comic Sans MS',
+                    fontSize: 11,
+                }
+            },
+            vAxis: {
+                format: 'decimal',
+                title: "Seconds",
+                gridlines: { count: 10 },
+                textStyle: {                    
+                    fontName: 'Comic Sans MS',
+                    fontSize: 11,
+                }
+            },
+		  };  
 
-for (var i = 0; i < rows.length; i++) {
-    if (i == Number(limit)){
-        break;
-    }
-	//status = [];
-    name_value = $(rows[i]).find('td'); 
-  
-    time=($(name_value[Number(time_column)]).html()).trim();
-	status.push({label:$(name_value[Number(keyword_column)]).html(),y:parseFloat(time)});
-  }  
-	chart.options.data.push({
-    type: "column",
-    indexLabel: "{y} s",
-    toolTipContent: "<b>{label}:</b> {y} s",
-    dataPoints: status
-  });
-  
-    chart.render();
-	}
-  </script>
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.ColumnChart(document.getElementById(ChartID));
+            chart.draw(data, options);
+         }
+         google.charts.setOnLoadCallback(drawChart);
+</script>
  </script>
  <script>
   function executeDataTable(tabname,sortCol) {
