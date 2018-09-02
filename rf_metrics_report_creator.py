@@ -417,12 +417,13 @@ dashboard_content="""
     </div>
 
     <hr>
-    <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;"></div>
-    <div class="col-md-8 chart-blo-1" id="suiteBarID" style="height: 400px;"></div>
-    <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;"></div>
-    <div class="col-md-8 chart-blo-1" id="testsBarID" style="height: 400px;"></div>
-    <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
-    <div class="col-md-8 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
+    <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;border:1px;border-style: inset;"></div>
+    <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;border:1px;border-style: inset;"></div>
+    <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;border:1px;border-style: inset;"></div>
+
+    <div class="col-md-12 chart-blo-1" id="suiteBarID" style="height: 400px;border:1px;border-style: inset;"></div>
+    <div class="col-md-12 chart-blo-1" id="testsBarID" style="height: 400px;border:1px;border-style: inset;"></div>    
+    <div class="col-md-12 chart-blo-1" id="keywordsBarID" style="height: 400px;border:1px;border-style: inset;"></div>
     
    
    <script>
@@ -827,10 +828,10 @@ script_text="""
                     fontSize: 15,
             },
             legend: 'none',
-            chartArea: {width: "88%",height: "75%"},
-			bar: {
-				groupWidth: '85%'
-			},
+            chartArea: {width: "92%",height: "75%"},
+            bar: {
+                groupWidth: '90%'
+            },
 			annotations: {
 				alwaysOutside: true,
                 textStyle: {
@@ -843,8 +844,8 @@ script_text="""
 			},
             hAxis: {
                 textStyle: {
-                    fontName: 'Comic Sans MS',
-                    fontSize: 11,
+                    fontName: 'Arial',
+                    fontSize: 10,
                 }
             },
             vAxis: {
@@ -853,7 +854,7 @@ script_text="""
                 gridlines: { count: 10 },
                 textStyle: {                    
                     fontName: 'Comic Sans MS',
-                    fontSize: 11,
+                    fontSize: 10,
                 }
             },
 		  };  
