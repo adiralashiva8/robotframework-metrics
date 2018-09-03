@@ -191,7 +191,7 @@ icons_txt= """
     <p> ROBOT LOGS</p>
   </a>
   <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-file-text w3-xxlarge"></i>
+    <i class="fa fa-envelope-o w3-xxlarge"></i>
     <p> EMAIL STATISTICS</p>
   </a>
 </nav>
@@ -769,12 +769,11 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ EMAIL STATISTICS ================================== ###
 
 emailStatistics="""
-<h4><b><i class="fa fa-table"></i> Email Statistics</b></h4>
+<h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
   <hr>
-<button id="create">Generate Statisitcs Email</button><br><br>
-<a download="message.eml" id="downloadlink" style="display: none">Download Email</a>
-
-<textarea id="textbox" style="width: 1200px; height: 400px; display:none">
+<button id="create" class="btn btn-primary active" role="button" >Generate Statistics Email</button><br><br>
+<a download="message.eml" class="btn btn-secondary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+<textarea id="textbox" style="width: 1200px; height: 400px; padding:1em;">
 To: firstemail@email.com
 Subject: Automation Execution Status
 X-Unsent: 1
@@ -804,46 +803,45 @@ Content-Type: text/html
 </style>
 </head>
 <body>
-<p>Hi Team,
-Following are the last night #build execution result statistics.</p>
+<p>Hi Team, <br />
+Following are the last build execution result statistics.</p>
 
 </br>
 <table style="width: 600px;">
 	<thead>
-        <th>#</th>
+        <th>Statistics</th>
 		<th>Total</th>
 		<th>Pass</th>
 		<th>Failed</th>
 	</thead>
 	<tbody>
 	<tr>
-        <td>Suite</td>
-		<td>%s</td>
-		<td>%s</td>
-		<td>%s</td>
+        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Suite</td>
+		<td style="background-color: #F5DEB3;">%s</td>
+		<td style="background-color: #90EE90;">%s</td>
+		<td style="background-color: #F08080;">%s</td>
 	</tr>
 	<tr>
-        <td>Tests</td>
-		<td>%s</td>
-		<td>%s</td>
-		<td>%s</td>
+        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left:15px;"> Tests</td>
+		<td style="background-color: #F5DEB3;">%s</td>
+		<td style="background-color: #90EE90;">%s</td>
+		<td style="background-color: #F08080;">%s</td>
 	</tr>
 	<tr>
-        <td>Keywords</td>
-		<td>%s</td>
-		<td>%s</td>
-		<td>%s</td>
+        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Keywords</td>
+		<td style="background-color: #F5DEB3;">%s</td>
+		<td style="background-color: #90EE90;">%s</td>
+		<td style="background-color: #F08080;">%s</td>
 	</tr>
 	</tbody>
 </table>
-
-</br>
-</br>
-<p> TEAM QA</p>
+<p>Please refer RF Metrics Report for detailed statistics.</p>
+<p>Regards,<br/>
+QA Team</p>
 
 </body>
 </html>
-</textarea> <br>
+</textarea>
 """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
 statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
 

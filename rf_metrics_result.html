@@ -113,6 +113,7 @@ body, html {
 #suiteMetrics {background-color: white;}
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
+#emailStatistics {background-color: white;}
    </style>
   </link>
  </link>
@@ -159,6 +160,13 @@ body, html {
    ROBOT LOGS
   </p>
  </a>
+ <a class="tablink w3-bar-item w3-button w3-padding-large" href="#" onclick="openPage('statistics', this, 'orange');">
+  <i class="fa fa-envelope-o w3-xxlarge">
+  </i>
+  <p>
+   EMAIL STATISTICS
+  </p>
+ </a>
 </nav>
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
@@ -177,6 +185,9 @@ body, html {
   </a>
   <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('log', this, 'orange');" style="width:25% !important">
    ROBOT LOGS
+  </a>
+  <a class="tablink w3-bar-item w3-button" href="#" onclick="openPage('statistics', this, 'orange');" style="width:25% !important">
+   EMAIL STATISTICS
   </a>
  </div>
 </div>
@@ -954,6 +965,95 @@ body, html {
  </iframe>
 </div>
   </div>
+  <div class="tabcontent" id="statistics">
+<h4>
+ <b>
+  <i class="fa fa-envelope-o">
+  </i>
+  Email Statistics
+ </b>
+</h4>
+<hr/>
+<button class="btn btn-primary active" id="create" role="button">
+ Generate Statistics Email
+</button>
+<br/>
+<br/>
+<a class="btn btn-secondary active" download="message.eml" id="downloadlink" role="button" style="display: none; width: 300px;font-weight: bold;">
+ <i class="fa fa-download">
+ </i>
+ Click Here To Download Email
+</a>
+<textarea id="textbox" style="width: 1200px; height: 400px; padding:1em;">
+To: firstemail@email.com
+Subject: Automation Execution Status
+X-Unsent: 1
+Content-Type: text/html
+
+<html>
+<head>
+<style>
+    body, html, table {
+        font-family: Calibri, Arial, sans-serif;
+    }
+    .pastdue { color: crimson; }
+    table {
+    	border: 1px solid silver;
+    	padding: 6px;
+    }
+    thead {
+        text-align: center;
+        font-size: 1.2em;
+        color: navy;
+        background-color: silver;
+        font-weight: bold;
+    }
+    tbody td {
+    	text-align: center;
+    }
+</style>
+</head>
+<body>
+<p>Hi Team, <br>
+Following are the last build execution result statistics.</br></p>
+
+
+<table style="width: 600px;">
+	<thead>
+        <th>Statistics</th>
+		<th>Total</th>
+		<th>Pass</th>
+		<th>Failed</th>
+	</thead>
+	<tbody>
+	<tr>
+        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Suite</td>
+		<td style="background-color: #F5DEB3;">2</td>
+		<td style="background-color: #90EE90;">2</td>
+		<td style="background-color: #F08080;">0</td>
+	</tr>
+	<tr>
+        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left:15px;"> Tests</td>
+		<td style="background-color: #F5DEB3;">6</td>
+		<td style="background-color: #90EE90;">6</td>
+		<td style="background-color: #F08080;">0</td>
+	</tr>
+	<tr>
+        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Keywords</td>
+		<td style="background-color: #F5DEB3;">24</td>
+		<td style="background-color: #90EE90;">24</td>
+		<td style="background-color: #F08080;">0</td>
+	</tr>
+	</tbody>
+</table>
+<p>Please refer RF Metrics Report for detailed statistics.</p>
+<p>Regards,<br/>
+QA Team</p>
+
+</body>
+</html>
+</textarea>
+  </div>
 <div class="tabcontent" id="dashboard">
  <h4>
   <b>
@@ -1189,6 +1289,27 @@ body, html {
  </script>
 </div>
  </div>
+<script>
+ (function () {
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+    textFile = window.URL.createObjectURL(data);
+    return textFile;
+  };
+
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+  create.addEventListener('click', function () {
+    var link = document.getElementById('downloadlink');
+    link.href = makeTextFile(textbox.value);
+    link.style.display = 'block';
+  }, false);
+})();
+</script>
 <script>
  function createPieChart(passed_count,failed_count,ChartID,ChartName){
 	var status = [];
