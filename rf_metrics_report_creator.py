@@ -146,6 +146,7 @@ body, html {
 #suiteMetrics {background-color: white;}
 #testMetrics {background-color: white;}
 #keywordMetrics {background-color: white;}
+#emailStatistics {background-color: white;}
 
 </style>
 </head>
@@ -189,6 +190,10 @@ icons_txt= """
     <i class="fa fa-file-text w3-xxlarge"></i>
     <p> ROBOT LOGS</p>
   </a>
+  <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-envelope-o w3-xxlarge"></i>
+    <p> EMAIL STATISTICS</p>
+  </a>
 </nav>
 
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
@@ -199,6 +204,7 @@ icons_txt= """
     <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
     <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">ROBOT LOGS</a>
+    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">EMAIL STATISTICS</a>
   </div>
 </div>
 
@@ -230,11 +236,17 @@ km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
 page_content_div.insert(150, km_div)
 
-# Keywords div
+# Logs div
 log_div = soup.new_tag('div')
 log_div["id"] = "log"
 log_div["class"] = "tabcontent"
 page_content_div.insert(200, log_div)
+
+# Statistics div
+statisitcs_div = soup.new_tag('div')
+statisitcs_div["id"] = "statistics"
+statisitcs_div["class"] = "tabcontent"
+page_content_div.insert(300, statisitcs_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
 total_suite = 0
@@ -754,7 +766,117 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 ### ============================ END OF LOGS ======================================= ####
 
+### ============================ EMAIL STATISTICS ================================== ###
+
+emailStatistics="""
+<h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
+<hr>
+<h6><ul><li>Click 'Generate Statistics Email' button to get generate statistics email</li><li>Click 'Click Here To Download Email' link to download generated email</ul></h6>
+<button id="create" class="btn btn-primary active" role="button" ><i class="fa fa-cogs"></i> Generate Statistics Email</button><br><br>
+<a download="message.eml" class="btn btn-secondary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+<textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
+To: myemail1234@email.com
+Subject: Automation Execution Status
+X-Unsent: 1
+Content-Type: text/html
+
+<html>
+   <head>
+      <style>
+         body, html, table,pre {
+			 font-family: Calibri, Arial, sans-serif;
+			 font-size: 1em; 
+         }
+         .pastdue { color: crimson; }
+         table {
+			 border: 1px solid silver;
+			 padding: 6px;
+			 margin-left: 30px;
+         }
+         thead {
+			 text-align: center;
+			 font-size: 1.1em;        
+			 background-color: #B0C4DE;
+			 font-weight: bold;
+			 color: #2D2C2C;
+         }
+         tbody td {
+			text-align: center;
+         }
+      </style>
+   </head>
+   <body>
+<pre>Hi Team,
+Following are the last build execution statistics.
+
+</pre>
+      <table style="width: 600px;">
+         <thead>
+            <th style="width: 25%%;">Statistics</th>
+            <th style="width: 25%%;">Total</th>
+            <th style="width: 25%%;">Pass</th>
+            <th style="width: 25%%;">Fail</th>
+         </thead>
+         <tbody>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> SUITE </td>
+               <td style="background-color: #F5DEB3;">%s</td>
+               <td style="background-color: #90EE90;">%s</td>
+               <td style="background-color: #F08080;">%s</td>
+            </tr>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left:40px;"> TESTS </td>
+               <td style="background-color: #F5DEB3;">%s</td>
+               <td style="background-color: #90EE90;">%s</td>
+               <td style="background-color: #F08080;">%s</td>
+            </tr>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> KEYWORDS </td>
+               <td style="background-color: #F5DEB3;">%s</td>
+               <td style="background-color: #90EE90;">%s</td>
+               <td style="background-color: #F08080;">%s</td>
+            </tr>
+         </tbody>
+      </table>
+  <pre>
+Please refer RF Metrics Report for detailed statistics.
+
+Regards,
+QA Team</pre>
+   </body>
+</html>
+</textarea>
+""" % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
+statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
+
+
+
+### ============================ END OF EMAIL STATISTICS ================================== ###
+
+
+
 script_text="""
+<script>
+(function () {
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+    textFile = window.URL.createObjectURL(data);
+    return textFile;
+  };
+
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+  create.addEventListener('click', function () {
+    var link = document.getElementById('downloadlink');
+    link.href = makeTextFile(textbox.value);
+    link.style.display = 'block';
+  }, false);
+})();
+</script>
  <script>
   function createPieChart(passed_count,failed_count,ChartID,ChartName){
 	var status = [];
