@@ -92,6 +92,38 @@ __ROBOT LOG__
      'DateTime',
     ] 
     ```
+---
+
+*Versions:*
+
+1. V2.1 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/V2.1.zip)
+
+    > Status: __Beta__
+        > 1. Dashboard
+        > 2. Suite Metrics
+        > 3. Test Metrics
+        > 4. Keyword Metrics
+        > 5. Robot Logs
+        > 6. Email
+        >
+
+2. V2.0 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/V2.0.zip)
+
+    > Status: __Stable__
+    > 1. Dashboard
+    > 2. Suite Metrics
+    > 3. Test Metrics
+    > 4. Keyword Metrics
+    > 5. Robot Logs
+    >
+
+3. V1.0 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/V1.0.zip)
+
+    > Status: __Stable__
+    > 1. Dashboard
+    > 2. Test Metrics
+    > 3. Keyword Metrics
+    >
 
 ---
 
