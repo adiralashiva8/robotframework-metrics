@@ -770,11 +770,11 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 emailStatistics="""
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
-  <hr>
-<button id="create" class="btn btn-primary active" role="button" >Generate Statistics Email</button><br><br>
+<hr>
+<button id="create" class="btn btn-primary active" role="button" ><i class="fa fa-cogs"></i> Generate Statistics Email</button><br><br>
 <a download="message.eml" class="btn btn-secondary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
 <textarea id="textbox" style="width: 1200px; height: 400px; padding:1em;">
-To: firstemail@email.com
+To: myemail@email.com
 Subject: Automation Execution Status
 X-Unsent: 1
 Content-Type: text/html
@@ -804,15 +804,15 @@ Content-Type: text/html
 </head>
 <body>
 <p>Hi Team, <br />
-Following are the last build execution result statistics.</p>
+Following are the last build execution statistics.</p>
 
 </br>
 <table style="width: 600px;">
 	<thead>
-        <th>Statistics</th>
-		<th>Total</th>
-		<th>Pass</th>
-		<th>Failed</th>
+        <th style="width: 25%%;">Statistics</th>
+		<th style="width: 25%%;">Total</th>
+		<th style="width: 25%%;">Pass</th>
+		<th style="width: 25%%;">Failed</th>
 	</thead>
 	<tbody>
 	<tr>
