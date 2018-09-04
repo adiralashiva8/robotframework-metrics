@@ -96,7 +96,7 @@ __ROBOT LOG__
 
 *Versions:*
 
-1. V2.1 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/V2.1.zip)
+1. V2.1 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/v2.1.zip)
 
     > Status: __Beta__
     > 1. Dashboard
