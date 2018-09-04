@@ -771,75 +771,79 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 emailStatistics="""
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
 <hr>
+<h6><ul><li>Click 'Generate Statistics Email' button to get generate statistics email</li><li>Click 'Click Here To Download Email' link to download generated email</ul></h6>
 <button id="create" class="btn btn-primary active" role="button" ><i class="fa fa-cogs"></i> Generate Statistics Email</button><br><br>
 <a download="message.eml" class="btn btn-secondary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
-<textarea id="textbox" style="width: 1200px; height: 400px; padding:1em;">
-To: myemail@email.com
+<textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
+To: myemail1234@email.com
 Subject: Automation Execution Status
 X-Unsent: 1
 Content-Type: text/html
 
 <html>
-<head>
-<style>
-    body, html, table {
-        font-family: Calibri, Arial, sans-serif;
-    }
-    .pastdue { color: crimson; }
-    table {
-    	border: 1px solid silver;
-    	padding: 6px;
-    }
-    thead {
-        text-align: center;
-        font-size: 1.2em;
-        color: navy;
-        background-color: silver;
-        font-weight: bold;
-    }
-    tbody td {
-    	text-align: center;
-    }
-</style>
-</head>
-<body>
-<p>Hi Team, <br />
-Following are the last build execution statistics.</p>
+   <head>
+      <style>
+         body, html, table,pre {
+			 font-family: Calibri, Arial, sans-serif;
+			 font-size: 1em; 
+         }
+         .pastdue { color: crimson; }
+         table {
+			 border: 1px solid silver;
+			 padding: 6px;
+			 margin-left: 30px;
+         }
+         thead {
+			 text-align: center;
+			 font-size: 1.1em;        
+			 background-color: #B0C4DE;
+			 font-weight: bold;
+			 color: #2D2C2C;
+         }
+         tbody td {
+			text-align: center;
+         }
+      </style>
+   </head>
+   <body>
+<pre>Hi Team,
+Following are the last build execution statistics.
 
-</br>
-<table style="width: 600px;">
-	<thead>
-        <th style="width: 25%%;">Statistics</th>
-		<th style="width: 25%%;">Total</th>
-		<th style="width: 25%%;">Pass</th>
-		<th style="width: 25%%;">Failed</th>
-	</thead>
-	<tbody>
-	<tr>
-        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Suite</td>
-		<td style="background-color: #F5DEB3;">%s</td>
-		<td style="background-color: #90EE90;">%s</td>
-		<td style="background-color: #F08080;">%s</td>
-	</tr>
-	<tr>
-        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left:15px;"> Tests</td>
-		<td style="background-color: #F5DEB3;">%s</td>
-		<td style="background-color: #90EE90;">%s</td>
-		<td style="background-color: #F08080;">%s</td>
-	</tr>
-	<tr>
-        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Keywords</td>
-		<td style="background-color: #F5DEB3;">%s</td>
-		<td style="background-color: #90EE90;">%s</td>
-		<td style="background-color: #F08080;">%s</td>
-	</tr>
-	</tbody>
-</table>
-<p>Please refer RF Metrics Report for detailed statistics.</p>
-<p>Regards,<br/>
-QA Team</p>
+</pre>
+      <table style="width: 600px;">
+         <thead>
+            <th style="width: 25%%;">Statistics</th>
+            <th style="width: 25%%;">Total</th>
+            <th style="width: 25%%;">Pass</th>
+            <th style="width: 25%%;">Fail</th>
+         </thead>
+         <tbody>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> SUITE </td>
+               <td style="background-color: #F5DEB3;">%s</td>
+               <td style="background-color: #90EE90;">%s</td>
+               <td style="background-color: #F08080;">%s</td>
+            </tr>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left:40px;"> TESTS </td>
+               <td style="background-color: #F5DEB3;">%s</td>
+               <td style="background-color: #90EE90;">%s</td>
+               <td style="background-color: #F08080;">%s</td>
+            </tr>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> KEYWORDS </td>
+               <td style="background-color: #F5DEB3;">%s</td>
+               <td style="background-color: #90EE90;">%s</td>
+               <td style="background-color: #F08080;">%s</td>
+            </tr>
+         </tbody>
+      </table>
+  <pre>
+Please refer RF Metrics Report for detailed statistics.
 
-</body>
+Regards,
+QA Team</pre>
+   </body>
 </html>
 </textarea>
 """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)

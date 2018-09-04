@@ -974,6 +974,16 @@ body, html {
     </b>
    </h4>
    <hr/>
+   <h6>
+    <ul>
+     <li>
+      Click 'Generate Statistics Email' button to get generate statistics email
+     </li>
+     <li>
+      Click 'Click Here To Download Email' link to download generated email
+     </li>
+    </ul>
+   </h6>
    <button class="btn btn-primary active" id="create" role="button">
     <i class="fa fa-cogs">
     </i>
@@ -986,73 +996,76 @@ body, html {
     </i>
     Click Here To Download Email
    </a>
-   <textarea id="textbox" style="width: 1200px; height: 400px; padding:1em;">
-To: myemail@email.com
+   <textarea class="col-md-12" id="textbox" style="height: 400px; padding:1em;">
+To: myemail1234@email.com
 Subject: Automation Execution Status
 X-Unsent: 1
 Content-Type: text/html
 
 <html>
-<head>
-<style>
-    body, html, table {
-        font-family: Calibri, Arial, sans-serif;
-    }
-    .pastdue { color: crimson; }
-    table {
-    	border: 1px solid silver;
-    	padding: 6px;
-    }
-    thead {
-        text-align: center;
-        font-size: 1.2em;
-        color: navy;
-        background-color: silver;
-        font-weight: bold;
-    }
-    tbody td {
-    	text-align: center;
-    }
-</style>
-</head>
-<body>
-<p>Hi Team, <br>
-Following are the last build execution statistics.</br></p>
+   <head>
+      <style>
+         body, html, table,pre {
+			 font-family: Calibri, Arial, sans-serif;
+			 font-size: 1em; 
+         }
+         .pastdue { color: crimson; }
+         table {
+			 border: 1px solid silver;
+			 padding: 6px;
+			 margin-left: 30px;
+         }
+         thead {
+			 text-align: center;
+			 font-size: 1.1em;        
+			 background-color: #B0C4DE;
+			 font-weight: bold;
+			 color: #2D2C2C;
+         }
+         tbody td {
+			text-align: center;
+         }
+      </style>
+   </head>
+   <body>
+<pre>Hi Team,
+Following are the last build execution statistics.
 
+</pre>
+      <table style="width: 600px;">
+         <thead>
+            <th style="width: 25%;">Statistics</th>
+            <th style="width: 25%;">Total</th>
+            <th style="width: 25%;">Pass</th>
+            <th style="width: 25%;">Fail</th>
+         </thead>
+         <tbody>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> SUITE </td>
+               <td style="background-color: #F5DEB3;">2</td>
+               <td style="background-color: #90EE90;">2</td>
+               <td style="background-color: #F08080;">0</td>
+            </tr>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left:40px;"> TESTS </td>
+               <td style="background-color: #F5DEB3;">6</td>
+               <td style="background-color: #90EE90;">6</td>
+               <td style="background-color: #F08080;">0</td>
+            </tr>
+            <tr>
+               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> KEYWORDS </td>
+               <td style="background-color: #F5DEB3;">24</td>
+               <td style="background-color: #90EE90;">24</td>
+               <td style="background-color: #F08080;">0</td>
+            </tr>
+         </tbody>
+      </table>
+  <pre>
+Please refer RF Metrics Report for detailed statistics.
 
-<table style="width: 600px;">
-	<thead>
-        <th style="width: 25%;">Statistics</th>
-		<th style="width: 25%;">Total</th>
-		<th style="width: 25%;">Pass</th>
-		<th style="width: 25%;">Failed</th>
-	</thead>
-	<tbody>
-	<tr>
-        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Suite</td>
-		<td style="background-color: #F5DEB3;">2</td>
-		<td style="background-color: #90EE90;">2</td>
-		<td style="background-color: #F08080;">0</td>
-	</tr>
-	<tr>
-        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left:15px;"> Tests</td>
-		<td style="background-color: #F5DEB3;">6</td>
-		<td style="background-color: #90EE90;">6</td>
-		<td style="background-color: #F08080;">0</td>
-	</tr>
-	<tr>
-        <td style="text-align: left;font-weight: bold; font-size: 1.1em;padding-left: 15px;"> Keywords</td>
-		<td style="background-color: #F5DEB3;">24</td>
-		<td style="background-color: #90EE90;">24</td>
-		<td style="background-color: #F08080;">0</td>
-	</tr>
-	</tbody>
-</table>
-<p>Please refer RF Metrics Report for detailed statistics.</p>
-<p>Regards,<br/>
-QA Team</p>
-
-</body>
+Regards,
+QA Team</pre>
+   </body>
 </html>
 </textarea>
   </div>

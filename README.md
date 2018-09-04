@@ -1,13 +1,13 @@
 # Robot Framework Metrics Report
 
-Creates HTML metrics report based on robotframework output.xml
+Creates HTML Metrics report based on robotframework output.xml
 
 ---
 
 *How it Works:*
 
 1. Read output.xml file using robotframework API (robot.result.model)
-2. Get Test Case Name , Keyword Name, Status, Start Time, End Time and Elapsed time values using api
+2. Get Suite, Test Case , Keyword , Status, Start Time, End Time and Elapsed time values using api
 3. Convert data to html report using Beautifulsoup
 
 ---
@@ -15,51 +15,67 @@ Creates HTML metrics report based on robotframework output.xml
 *How to use in project:*
 
 1. Clone project or download here [link](https://github.com/adiralashiva8/robotframework-metrics/archive/master.zip)
+
     ```
     git clone https://github.com/adiralashiva8/robotframework-metrics.git
     ```
-2. Copy __rf_metrics_report_creator.py__ and __rf_metrics_executer.sh__ files to project (where output.xml file is available.)
-    > Note: __output.xml__ having timestamp is auto recognized by Metrics Report but output.xml, report.html and log.html need to be within same folder.
+
+2. Copy __rf_metrics_report_creator.py__ file to project (where output.xml file is available.)
+
+    > Note: __output.xml__ file name having timestamp is recognized by Metrics Report
+
+    > output.xml, report.html and log.html need to be within same folder.
+
 3. Install beautifulsoup: (to create html report - one time activity)
+
     ```
     pip install beautifulsoup4
     ```
-4. Execute __rf_metrics_executer.sh__ file
-5. __Robotframework Metrics Report__ will be launched in new chrome tab
 
-    > Assumption __Python__ already installed in machine
+4. Execute __rf_metrics_report_creator.py__ file
 
-    If you were using latest python. Upgrade robotframework to generate report
-        
-    > Update Robot Framework
-    ``` pip install --pre --upgrade robotframework ```
+    ```
+    python rf_metrics_report_creator.py
+    ```
+
+5. RobotFramework Metrics Report __rf_metrics_result.html__ file will be created in current folder
+
 ---
 
  *Sample Report:*
 
  __DASHBOARD__
 
-![Screenshot](Image_Dashboard_Metrics_1.JPG)
+![Screenshot](Images/Dashboard_1.png)
 
-![Screenshot](Image_Dashboard_Metrics_2.JPG)
+![Screenshot](Images/Dashboard_2.png)
+
+![Screenshot](Images/Dashboard_3.png)
 
 __SUITE METRICS__
 
- ![Screenshot](Image_Suite_Metrics_New.JPG)
+ ![Screenshot](Images/Suite_Metrics.png)
  
 __TEST METRICS__
 
- ![Screenshot](Image_Test_Metric_New.JPG)
+ ![Screenshot](Images/Test_Metrics.png)
  
 __KEYWORD METRICS__
 
- ![Screenshot](Image_Keyword_Metrics_New.JPG)
+ ![Screenshot](Images/Keyword_Metrics.png)
 
-__RF REPORT__
+__ROBOT LOG__
 
- ![Screenshot](Image_RF_Report_Report.JPG)
+ ![Screenshot](Images/Robot_Logs.png)
 
- ![Screenshot](Image_RF_Report_Log.JPG)
+ __EMAIL STATISTICS__
+
+
+ ![Screenshot](Images/Email_Statistics.png)
+
+
+ ![Screenshot](Images/Email_Statistics_Email.png)
+
 
 ---
 
@@ -76,14 +92,6 @@ __RF REPORT__
      'DateTime',
     ] 
     ```
-
----
-
-*Frequently Asked Queries*
- - I dont have chrome browser, will Metrics Report works
-    > Yes, Generate report by executing ```   python rf_metrics_report_creator.py ``` command and open __rf_metrics_result.html__ in your prefered browser
- - Can I change font style of report
-    > Yes, By changing __font-family:__ value in __rf_metrics_report_creator.py__ file
 
 ---
 
