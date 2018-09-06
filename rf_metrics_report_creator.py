@@ -444,11 +444,11 @@ dashboard_content="""
     executeDataTable('#tm',5);
     executeDataTable('#km',5);
     createPieChart(%s,%s,'suiteChartID','Suite Status:');		
-    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:');
+    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:','Suite');
     createPieChart(%s,%s,'testChartID','Tests Status:');		
-    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:');
+    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:','Test');
     createPieChart(%s,%s,'keywordChartID','Keywords Status:');
-    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
+    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword')
 	};
    </script>
   </div>
@@ -771,9 +771,26 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 emailStatistics="""
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
 <hr>
-<h6><ul><li>Click 'Generate Statistics Email' button to get generate statistics email</li><li>Click 'Click Here To Download Email' link to download generated email</ul></h6>
-<button id="create" class="btn btn-primary active" role="button" ><i class="fa fa-cogs"></i> Generate Statistics Email</button><br><br>
+<button id="create" class="btn btn-primary active" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button><br><br>
 <a download="message.eml" class="btn btn-secondary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+
+<script>
+function updateTextArea() {
+    var suite = "<b>Top Performance Suite Metrics</b><br><br>" + $("#suiteBarID table")[0].outerHTML;
+    var test = "<b>Top Performance Test Metrics</b><br><br>" + $("#testsBarID table")[0].outerHTML;
+    var keyword ="<b>Top Performance Keyword Metrics</b><br><br>" + $("#keywordsBarID table")[0].outerHTML;
+
+    var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre></body></html>";
+
+    document.getElementById("textbox").value += "<br>" + suite + "<br>" + test + "<br>" + keyword + saluation;
+
+    $("#create").click(function(){
+    $(this).remove();
+    });
+
+}
+</script>
+
 <textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
 To: myemail1234@email.com
 Subject: Automation Execution Status
@@ -802,6 +819,11 @@ Content-Type: text/html
          }
          tbody td {
 			text-align: center;
+         }
+         th {
+            width: 25%%;
+            max-width:250px;
+            word-wrap:break-word;
          }
       </style>
    </head>
@@ -838,14 +860,10 @@ Following are the last build execution statistics.
             </tr>
          </tbody>
       </table>
-  <pre>
-Please refer RF Metrics Report for detailed statistics.
 
-Regards,
-QA Team</pre>
-   </body>
-</html>
+
 </textarea>
+
 """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
 statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
 
@@ -912,7 +930,7 @@ var textFile = null,
   }
  </script>
  <script>
-  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
+  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName,type){
 		var status = [];
 		css_selector_locator = tableID + ' tbody >tr'
 		var rows = $(css_selector_locator);
@@ -929,7 +947,7 @@ var textFile = null,
             '#76A032',
             '#34558B'
 		];
-		status.push(['Year', 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
+		status.push([type, 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
 		for (var i = 0; i < rows.length; i++) {
 			if (i == Number(limit)){
 				break;
