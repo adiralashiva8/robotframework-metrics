@@ -74,7 +74,7 @@ __ROBOT LOG__
  ![Screenshot](Images/Email_Statistics.png)
 
 
- ![Screenshot](Images/Email_Statistics_Email.png)
+ ![Screenshot](Images/Email_Statistics_Email_new.png)
 
 
 ---
@@ -96,7 +96,7 @@ __ROBOT LOG__
 
 *Versions:*
 
-1. V2.1 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/v2.1.zip)
+1. V2.2 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/v2.2.zip)
 
     > Status: __Beta__
     > 1. Dashboard
