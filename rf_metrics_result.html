@@ -974,28 +974,28 @@ body, html {
     </b>
    </h4>
    <hr/>
-   <h6>
-    <ul>
-     <li>
-      Click 'Generate Statistics Email' button to get generate statistics email
-     </li>
-     <li>
-      Click 'Click Here To Download Email' link to download generated email
-     </li>
-    </ul>
-   </h6>
-   <button class="btn btn-primary active" id="create" role="button">
+   <button class="btn btn-primary active" id="create" onclick="updateTextArea();this.style.visibility= 'hidden';" role="button">
     <i class="fa fa-cogs">
     </i>
     Generate Statistics Email
    </button>
-   <br/>
-   <br/>
-   <a class="btn btn-secondary active" download="message.eml" id="downloadlink" role="button" style="display: none; width: 300px;font-weight: bold;">
+   <a class="btn btn-primary active" download="message.eml" id="downloadlink" role="button" style="display: none; width: 300px;font-weight: bold;">
     <i class="fa fa-download">
     </i>
     Click Here To Download Email
    </a>
+   <script>
+    function updateTextArea() {
+    var suite = "<b>Top 10 Suite Performance:</b><br><br>" + $("#suiteBarID table")[0].outerHTML;
+    var test = "<b>Top 10 Test Performance:</b><br><br>" + $("#testsBarID table")[0].outerHTML;
+    var keyword ="<b>Top 10 Keyword Performance:</b><br><br>" + $("#keywordsBarID table")[0].outerHTML;
+    var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre></body></html>";
+    document.getElementById("textbox").value += "<br>" + suite + "<br>" + test + "<br>" + keyword + saluation;
+    $("#create").click(function(){
+    $(this).remove();
+    });
+}
+   </script>
    <textarea class="col-md-12" id="textbox" style="height: 400px; padding:1em;">
 To: myemail1234@email.com
 Subject: Automation Execution Status
@@ -1005,7 +1005,7 @@ Content-Type: text/html
 <html>
    <head>
       <style>
-         body, html, table,pre {
+         body, html, table,pre,b {
 			 font-family: Calibri, Arial, sans-serif;
 			 font-size: 1em; 
          }
@@ -1014,6 +1014,7 @@ Content-Type: text/html
 			 border: 1px solid silver;
 			 padding: 6px;
 			 margin-left: 30px;
+			 width: 600px;
          }
          thead {
 			 text-align: center;
@@ -1022,8 +1023,12 @@ Content-Type: text/html
 			 font-weight: bold;
 			 color: #2D2C2C;
          }
-         tbody td {
+         tbody {
 			text-align: center;
+         }
+         th {
+            width: 25%;
+            word-wrap:break-word;
          }
       </style>
    </head>
@@ -1031,8 +1036,10 @@ Content-Type: text/html
 <pre>Hi Team,
 Following are the last build execution statistics.
 
-</pre>
-      <table style="width: 600px;">
+<b>Metrics:<b>
+
+</b></b></pre>
+      <table>
          <thead>
             <th style="width: 25%;">Statistics</th>
             <th style="width: 25%;">Total</th>
@@ -1041,33 +1048,28 @@ Following are the last build execution statistics.
          </thead>
          <tbody>
             <tr>
-               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> SUITE </td>
-               <td style="background-color: #F5DEB3;">2</td>
-               <td style="background-color: #90EE90;">2</td>
-               <td style="background-color: #F08080;">0</td>
+               <td style="text-align: left;font-weight: bold;"> SUITE </td>
+               <td style="background-color: #F5DEB3;text-align: center;">2</td>
+               <td style="background-color: #90EE90;text-align: center;">2</td>
+               <td style="background-color: #F08080;text-align: center;">0</td>
             </tr>
             <tr>
-               <td style="text-align: left;font-weight: bold;padding-left:40px;"> TESTS </td>
-               <td style="background-color: #F5DEB3;">6</td>
-               <td style="background-color: #90EE90;">6</td>
-               <td style="background-color: #F08080;">0</td>
+               <td style="text-align: left;font-weight: bold;"> TESTS </td>
+               <td style="background-color: #F5DEB3;text-align: center;">6</td>
+               <td style="background-color: #90EE90;text-align: center;">6</td>
+               <td style="background-color: #F08080;text-align: center;">0</td>
             </tr>
             <tr>
-               <td style="text-align: left;font-weight: bold;padding-left: 40px;"> KEYWORDS </td>
-               <td style="background-color: #F5DEB3;">24</td>
-               <td style="background-color: #90EE90;">24</td>
-               <td style="background-color: #F08080;">0</td>
+               <td style="text-align: left;font-weight: bold;"> KEYWORDS </td>
+               <td style="background-color: #F5DEB3;text-align: center;">24</td>
+               <td style="background-color: #90EE90;text-align: center;">24</td>
+               <td style="background-color: #F08080;text-align: center;">0</td>
             </tr>
          </tbody>
       </table>
-  <pre>
-Please refer RF Metrics Report for detailed statistics.
 
-Regards,
-QA Team</pre>
-   </body>
-</html>
-</textarea>
+
+</body></html></textarea>
   </div>
   <div class="tabcontent" id="dashboard">
    <h4>
@@ -1295,11 +1297,11 @@ QA Team</pre>
     executeDataTable('#tm',5);
     executeDataTable('#km',5);
     createPieChart(2,0,'suiteChartID','Suite Status:');		
-    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:');
+    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:','Suite');
     createPieChart(6,0,'testChartID','Tests Status:');		
-    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:');
+    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:','Test');
     createPieChart(24,0,'keywordChartID','Keywords Status:');
-    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
+    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword')
 	};
    </script>
   </div>
@@ -1360,7 +1362,7 @@ var textFile = null,
   }
  </script>
  <script>
-  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
+  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName,type){
 		var status = [];
 		css_selector_locator = tableID + ' tbody >tr'
 		var rows = $(css_selector_locator);
@@ -1377,7 +1379,7 @@ var textFile = null,
             '#76A032',
             '#34558B'
 		];
-		status.push(['Year', 'Elaspsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
+		status.push([type, 'Elapsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
 		for (var i = 0; i < rows.length; i++) {
 			if (i == Number(limit)){
 				break;
