@@ -14,7 +14,7 @@ Creates HTML Metrics report based on robotframework output.xml
 
 *How to use in project:*
 
-1. Clone project or download here [link](https://github.com/adiralashiva8/robotframework-metrics/archive/master.zip)
+1. Clone project or download here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v2.3/robotframework-metrics-master.zip)
 
     ```
     git clone https://github.com/adiralashiva8/robotframework-metrics.git
@@ -94,39 +94,6 @@ __ROBOT LOG__
     ```
 ---
 
-*Versions:*
-
-1. V2.2 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/v2.2.zip)
-
-    > Status: __Beta__
-    > 1. Dashboard
-    > 2. Suite Metrics
-    > 3. Test Metrics
-    > 4. Keyword Metrics
-    > 5. Robot Logs
-    > 6. Email
-    >
-
-2. V2.0 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/V2.0.zip)
-
-    > Status: __Stable__
-    > 1. Dashboard
-    > 2. Suite Metrics
-    > 3. Test Metrics
-    > 4. Keyword Metrics
-    > 5. Robot Logs
-    >
-
-3. V1.0 [link](https://github.com/adiralashiva8/robotframework-metrics/archive/V1.0.zip)
-
-    > Status: __Stable__
-    > 1. Dashboard
-    > 2. Test Metrics
-    > 3. Keyword Metrics
-    >
-
----
-
 *Credits:*
 
 1. Robotframework [link](http://robotframework.org)
@@ -139,9 +106,5 @@ __ROBOT LOG__
 8. Bootstrap [link](https://getbootstrap.com/)
 9. Icons8 [link](https://icons8.com/)
 10. FontAwesome [link](https://fontawesome.com)
-
----
-
-> You are watching first HTML 'Metrics Report' in Robot framework.
 
 ---
