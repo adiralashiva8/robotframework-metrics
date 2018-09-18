@@ -20,11 +20,7 @@ Creates HTML Metrics report based on robotframework output.xml
     git clone https://github.com/adiralashiva8/robotframework-metrics.git
     ```
 
-2. Copy __rf_metrics_report_creator.py__ file to project (where output.xml file is available.)
-
-    > Note: __output.xml__ file name having timestamp is recognized by Metrics Report
-
-    > output.xml, report.html and log.html need to be within same folder.
+2. Copy __getrfmetrics.py__ file to project (where output.xml file is available.)
 
 3. Install beautifulsoup: (to create html report - one time activity)
 
@@ -32,55 +28,22 @@ Creates HTML Metrics report based on robotframework output.xml
     pip install beautifulsoup4
     ```
 
-4. Execute __rf_metrics_report_creator.py__ file
+4. Execute __getrfmetrics.py__ file
 
     ```
-    python rf_metrics_report_creator.py
+    python getrfmetrics.py
     ```
 
-5. RobotFramework Metrics Report __rf_metrics_result.html__ file will be created in current folder
+5. RobotFramework Metrics Report __rfmetrics.html__ file will be created in current folder
 
 ---
 
- *Sample Report:*
-
- __DASHBOARD__
-
-![Screenshot](Images/Dashboard_1.png)
-
-![Screenshot](Images/Dashboard_2.png)
-
-![Screenshot](Images/Dashboard_3.png)
-
-__SUITE METRICS__
-
- ![Screenshot](Images/Suite_Metrics.png)
- 
-__TEST METRICS__
-
- ![Screenshot](Images/Test_Metrics.png)
- 
-__KEYWORD METRICS__
-
- ![Screenshot](Images/Keyword_Metrics.png)
-
-__ROBOT LOG__
-
- ![Screenshot](Images/Robot_Logs.png)
-
- __EMAIL STATISTICS__
-
-
- ![Screenshot](Images/Email_Statistics.png)
-
-
- ![Screenshot](Images/Email_Statistics_Email_new.png)
-
+ Sample report [link](http://htmlpreview.github.com/?https://github.com/adiralashiva8/robotframework-metrics/blob/v-3-0/rfmetrics.html)
 
 ---
 
 *How to Ignore Library Keywords in Metrics Report*
- - In __rf_metrics_report_creator.py__ file add specific library keywords to tuple __ignore_library__ to ignore in report
+ - In __getrfmetrics.py__ file add specific library keywords to tuple __ignore_library__ to ignore in report
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
  - Following library keywords are ignored in Metrics Report
     ```

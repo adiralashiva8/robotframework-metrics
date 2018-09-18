@@ -1,7 +1,18 @@
+#!/usr/bin/env python
+
+"""\
+Robot Framework Metrics Report is a post metrics report generator tool.
+This report helps to analyze execution times of Suite | Test | Keyword metrics with top 10 performances
+"""
+
 from bs4 import BeautifulSoup
 import sys
 import os
 from robot.api import ExecutionResult, ResultVisitor
+
+# URL of your company logo
+global logo
+logo = "https://www.analyticsinsight.net/wp-content/uploads/2018/04/AI234.jpeg"
 
 # Ignores following library keywords in metrics report
 ignore_library = [
@@ -31,7 +42,7 @@ for filename in os.listdir(os.path.curdir):
         log_file= filename
 
 # performance report result file location
-result_file = os.path.join(os.path.curdir, 'rf_metrics_result.html')
+result_file = os.path.join(os.path.curdir, 'rfmetrics.html')
 
 result = ExecutionResult(output_file)
 result.configure(stat_config={'suite_stat_level': 2,
@@ -58,10 +69,10 @@ head_content = """
 .w3-row-padding img {margin-bottom: 12px}
 
 /* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
+.w3-sidebar {width: 130px;background: #222;}
 
 /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
+#main {margin-left: 130px}
 
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
@@ -73,6 +84,7 @@ body, html {
     height: 100%;
     margin: 0;
     font-family:  Comic Sans MS;
+
 }
 
 /* Style tab links */
@@ -170,6 +182,10 @@ icons_txt= """
 
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+
+  <!-- Avatar image in top left corner -->
+  <img src=%s style="width:100%%">
+
   <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-dashboard w3-xxlarge"></i>
     <p> DASHBOARD</p>
@@ -187,7 +203,7 @@ icons_txt= """
     <p> KEYWORD METRICS</p>
   </a>
   <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-file-text w3-xxlarge"></i>
+    <i class="fa fa-wpforms w3-xxlarge"></i>
     <p> ROBOT LOGS</p>
   </a>
   <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
@@ -199,16 +215,16 @@ icons_txt= """
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25% !important">DASHBOARD</a>
-    <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">SUITE METRICS</a>
-    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">TEST METRICS</a>
-    <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
-    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">ROBOT LOGS</a>
-    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">EMAIL STATISTICS</a>
+    <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25%% !important">DASHBOARD</a>
+    <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25%% !important">SUITE METRICS</a>
+    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25%% !important">TEST METRICS</a>
+    <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25%% !important">KEYWORD METRICS</a>
+    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">ROBOT LOGS</a>
+    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">EMAIL STATISTICS</a>
   </div>
 </div>
 
-"""
+"""%(logo)
 
 body.append(BeautifulSoup(icons_txt, 'html.parser'))
 
@@ -309,8 +325,8 @@ dashboard_content="""
 <div class="tabcontent" id="dashboard">
     <h4><b><i class="fa fa-dashboard"></i> Dashboard</b></h4>
   <hr>
-    
-    <div class="w3-row-padding w3-margin-bottom"">
+    <div id="metricsId">
+    <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-dark-gray w3-padding-8 ">
             <div class="w3-clear">
@@ -427,7 +443,7 @@ dashboard_content="""
             </div>
         </div>
     </div>
-
+</div>
     <hr>
     <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;border:1px;border-style: inset;"></div>
     <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;border:1px;border-style: inset;"></div>
@@ -772,7 +788,7 @@ emailStatistics="""
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
 <hr>
 <button id="create" class="btn btn-primary active" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
-<a download="message.eml" class="btn btn-primary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+<a download="message.eml" class="btn btn-primary active" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
 
 <script>
 function updateTextArea() {
@@ -793,9 +809,18 @@ Subject: Automation Execution Status
 X-Unsent: 1
 Content-Type: text/html
 
-<html>
-   <head>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Test Email Sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0 " />
       <style>
+         body {
+			 background-color:#F2F2F2; 
+         }
          body, html, table,pre,b {
 			 font-family: Calibri, Arial, sans-serif;
 			 font-size: 1em; 
@@ -823,8 +848,7 @@ Content-Type: text/html
          }
       </style>
    </head>
-   <body>
-<pre>Hi Team,
+   <body><pre>Hi Team,
 Following are the last build execution statistics.
 
 <b>Metrics:<b>
