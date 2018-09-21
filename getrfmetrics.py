@@ -1,17 +1,11 @@
 #!/usr/bin/env python
-
-"""\
-Robot Framework Metrics Report is a post metrics report generator tool.
-This report helps to analyze execution times of Suite | Test | Keyword metrics with top 10 performances (single execution)
-"""
-
 from bs4 import BeautifulSoup
 import sys
 import os
 from datetime import datetime
 from robot.api import ExecutionResult, ResultVisitor
 
-# ======================== START OF USER DATA ================================== #
+# ======================== START OF CUSTOMIZE REPORT ================================== #
 
 # URL of your company logo
 logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudlzVOFZzxlqB5WIkv2yRz3ff_LiWeHw024fGsLCEkPTh8Thi"
@@ -32,25 +26,52 @@ ignore_type = [
     ]
 
 
-# ======================== END OF USER DATA ================================== #
+# ======================== END OF CUSTOMIZE REPORT ================================== #
 
+# Report to support to pass file location as arguments
+# Source Code Contributed By : Ruud Prijs
+def getopts(argv):
+        opts = {}
+        while argv:
+            if argv[0][0] == '-':
+                if argv[0] in opts:
+                    opts[argv[0]].append(argv[1])
+                else:
+                    opts[argv[0]] = [argv[1]]
+            argv = argv[1:]
+        return opts
 
-for filename in os.listdir(os.path.curdir):
-    root, ext = os.path.splitext(filename)
-    if root.startswith('report') and ext == '.html':
-        global report_file
-        report_file= filename
-    elif root.startswith('output') and ext == '.xml':
-        global output_file
-        output_file= filename
-    elif root.startswith('log') and ext == '.html':
-        global log_file
-        log_file= filename
+myargs = getopts(sys.argv)
 
-# performance report result file location
-result_file = os.path.join(os.path.curdir, 'rfmetrics-'+ datetime.now().strftime('%Y%m%d-%H%M%S')+ '.html')
+# input directory
+if '-inputpath' in myargs:
+    path = os.path.abspath(os.path.expanduser(myargs['-inputpath'][0]))
+else:
+    path = os.path.curdir
 
-result = ExecutionResult(output_file)
+# report.html file
+if '-report' in myargs:
+    report_name = myargs['-report'][0]
+else:
+    report_name = 'report.html'
+
+# log.html file
+if '-log' in myargs:
+    log_name = myargs['-log'][0]
+else:
+    log_name = 'log.html'
+
+# output.xml file
+if '-output' in myargs:
+    output_name = os.path.join(path,myargs['-output'][0])
+else:
+    output_name = os.path.join(path,'output.xml')
+
+# Output result file location
+result_file = os.path.join(path, 'rfmetrics-'+ datetime.now().strftime('%Y%m%d-%H%M%S')+ '.html')
+
+# Read output.xml file
+result = ExecutionResult(output_name)
 result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
@@ -193,27 +214,27 @@ icons_txt= """
   <img src=%s style="width:100%%">
   <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-dashboard w3-xxlarge"></i>
-    <p> DASHBOARD</p>
+    <p>DASHBOARD</p>
   </a>
   <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large" >
     <i class="fa fa-th-large w3-xxlarge"></i>
-    <p> SUITE METRICS</p>
+    <p>SUITE METRICS</p>
   </a>
   <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-list-alt w3-xxlarge"></i>
-    <p> TEST METRICS</p>
+    <p>TEST METRICS</p>
   </a>
   <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-table w3-xxlarge"></i>
-    <p> KEYWORD METRICS</p>
+    <p>KEYWORD METRICS</p>
   </a>
   <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-wpforms w3-xxlarge"></i>
-    <p> ROBOT LOGS</p>
+    <p>ROBOT LOGS</p>
   </a>
   <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-envelope-o w3-xxlarge"></i>
-    <p> EMAIL METRICS</p>
+    <p>EMAIL METRICS</p>
   </a>
 </nav>
 
@@ -483,7 +504,6 @@ page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
 <hr>
-<h6 style="text-align:right">**Click Suite name to view logs</h6>
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -537,7 +557,7 @@ class SuiteResults(ResultVisitor):
 
             table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
             table_td.string = str(suite)
-            table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',suite.id,'#',suite.id)
+            table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_name,'#',suite.id,'#',suite.id)
             table_td['data-toggle']="tooltip"
             table_td['title']="Click to view '%s' logs"% suite
             table_tr.insert(0, table_td)
@@ -584,8 +604,7 @@ suite_div.append(BeautifulSoup(script_me, 'html.parser'))
 
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
-<hr>  
-<h6 style="text-align:right">**Click Test Case name to view logs</h6>
+<hr>
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -643,7 +662,7 @@ class TestCaseResults(ResultVisitor):
 
         table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
         table_td.string = str(test)
-        table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',test.id,'#',test.id)
+        table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_name,'#',test.id,'#',test.id)
         table_td['data-toggle']="tooltip"
         table_td['title']="Click to view '%s' logs"% test
         table_tr.insert(1, table_td)
@@ -782,7 +801,7 @@ test_icon_txt="""
   <div class="embed-responsive embed-responsive-4by3">
     <iframe class="embed-responsive-item" src=%s></iframe>
   </div>
-"""%(log_file)
+"""%(log_name)
 log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 ### ============================ END OF LOGS ======================================= ####
