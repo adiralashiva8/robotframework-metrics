@@ -2,17 +2,19 @@
 
 """\
 Robot Framework Metrics Report is a post metrics report generator tool.
-This report helps to analyze execution times of Suite | Test | Keyword metrics with top 10 performances
+This report helps to analyze execution times of Suite | Test | Keyword metrics with top 10 performances (single execution)
 """
 
 from bs4 import BeautifulSoup
 import sys
 import os
+from datetime import datetime
 from robot.api import ExecutionResult, ResultVisitor
 
+# ======================== START OF USER DATA ================================== #
+
 # URL of your company logo
-global logo
-logo = "https://www.analyticsinsight.net/wp-content/uploads/2018/04/AI234.jpeg"
+logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudlzVOFZzxlqB5WIkv2yRz3ff_LiWeHw024fGsLCEkPTh8Thi"
 
 # Ignores following library keywords in metrics report
 ignore_library = [
@@ -29,6 +31,10 @@ ignore_type = [
     'for',
     ]
 
+
+# ======================== END OF USER DATA ================================== #
+
+
 for filename in os.listdir(os.path.curdir):
     root, ext = os.path.splitext(filename)
     if root.startswith('report') and ext == '.html':
@@ -42,7 +48,7 @@ for filename in os.listdir(os.path.curdir):
         log_file= filename
 
 # performance report result file location
-result_file = os.path.join(os.path.curdir, 'rfmetrics.html')
+result_file = os.path.join(os.path.curdir, 'rfmetrics-'+ datetime.now().strftime('%Y%m%d-%H%M%S')+ '.html')
 
 result = ExecutionResult(output_file)
 result.configure(stat_config={'suite_stat_level': 2,
@@ -56,6 +62,7 @@ head_content = """
 <title>RF Metrics Report</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src https: 'unsafe-eval' 'unsafe-inline'; frame-src *; object-src 'none'">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -68,11 +75,11 @@ head_content = """
 <style>
 .w3-row-padding img {margin-bottom: 12px}
 
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 130px;background: #222;}
+/* Set the width of the sidebar to 100px */
+.w3-sidebar {width: 120px;background: #222;}
 
 /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 130px}
+#main {margin-left: 120px}
 
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
@@ -84,7 +91,6 @@ body, html {
     height: 100%;
     margin: 0;
     font-family:  Comic Sans MS;
-
 }
 
 /* Style tab links */
@@ -185,7 +191,6 @@ icons_txt= """
 
   <!-- Avatar image in top left corner -->
   <img src=%s style="width:100%%">
-
   <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-dashboard w3-xxlarge"></i>
     <p> DASHBOARD</p>
@@ -208,7 +213,7 @@ icons_txt= """
   </a>
   <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-envelope-o w3-xxlarge"></i>
-    <p> EMAIL STATISTICS</p>
+    <p> EMAIL METRICS</p>
   </a>
 </nav>
 
@@ -330,7 +335,7 @@ dashboard_content="""
     <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-dark-gray w3-padding-8 ">
             <div class="w3-clear">
-                <h3  class="text-center" style="font-size:25px"><b>Suite</b></h3>
+                <h3 onclick="openPage('suiteMetrics', this, '')" class="text-center" data-toggle="tooltip" title="Click to view Suite metrics" style="font-size:25px; cursor: pointer; text-decoration: underline;"><b>Suite</b></h3>
             </div>
             <div class="w3-left"></div>
             <h4 style="font-size:13px" class="text-center">Statistics</h4>
@@ -371,7 +376,7 @@ dashboard_content="""
         <div class="w3-quarter col-sm-3">
         <div class="w3-container  w3-dark-gray w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>Test Case</b></h3>
+            <h3 onclick="openPage('testMetrics', this, '')" class="text-center"  data-toggle="tooltip" title="Click to view Keyword metrics" style="font-size:25px; cursor: pointer; text-decoration: underline;"><b>Test Case</b></h3>
             </div>
             <div class="w3-left"></div>
             <h4 style="font-size:13px"  class="text-center">Statistics</h4>
@@ -409,7 +414,7 @@ dashboard_content="""
         <div class="w3-quarter col-sm-3">
         <div class="w3-container w3-dark-gray w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>Keyword</b></h3>
+            <h3 onclick="openPage('keywordMetrics', this, '')" class="text-center"  data-toggle="tooltip" title="Click to view Test metrics" style="font-size:25px; cursor: pointer; text-decoration: underline;"><b>Keyword</b></h3>
             </div>
             <div class="w3-left"></div>
             <h4 style="font-size:13px" class="text-center">Statistics</h4>
@@ -473,7 +478,7 @@ page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
 
-### ============================ START OF TEST METRICS ======================================= ####
+### ============================ START OF SUITE METRICS ======================================= ####
 
 test_icon_txt="""
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
@@ -530,7 +535,7 @@ class SuiteResults(ResultVisitor):
             table_tr = soup.new_tag('tr')
             tbody.insert(0, table_tr)
 
-            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
+            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
             table_td.string = str(suite)
             table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',suite.id,'#',suite.id)
             table_td['data-toggle']="tooltip"
@@ -636,7 +641,7 @@ class TestCaseResults(ResultVisitor):
         table_td.string = str(test.parent)
         table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer;")
+        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 300px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
         table_td.string = str(test)
         table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_file,'#',test.id,'#',test.id)
         table_td['data-toggle']="tooltip"
@@ -787,9 +792,8 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 emailStatistics="""
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
 <hr>
-<button id="create" class="btn btn-primary active" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
-<a download="message.eml" class="btn btn-primary active" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
-
+<button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
+<a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
 <script>
 function updateTextArea() {
     var suite = "<b>Top 10 Suite Performance:</b><br><br>" + $("#suiteBarID table")[0].outerHTML;
