@@ -7,8 +7,8 @@ from robot.api import ExecutionResult, ResultVisitor
 
 # ======================== START OF CUSTOMIZE REPORT ================================== #
 
-# URL of your company logo
-logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudlzVOFZzxlqB5WIkv2yRz3ff_LiWeHw024fGsLCEkPTh8Thi"
+# URL or filepath of your company logo
+logo = "https://cdn.pixabay.com/photo/2013/10/31/14/09/phone-booth-203492_960_720.jpg"
 
 # Ignores following library keywords in metrics report
 ignore_library = [
@@ -68,7 +68,7 @@ else:
     output_name = os.path.join(path,'output.xml')
 
 # Output result file location
-result_file = os.path.join(path, 'rfmetrics-'+ datetime.now().strftime('%Y%m%d-%H%M%S')+ '.html')
+result_file = os.path.join(path, 'metrics-'+ datetime.now().strftime('%Y%m%d-%H%M%S')+ '.html')
 
 # Read output.xml file
 result = ExecutionResult(output_name)
@@ -246,7 +246,7 @@ icons_txt= """
     <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25%% !important">TEST METRICS</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25%% !important">KEYWORD METRICS</a>
     <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">ROBOT LOGS</a>
-    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">EMAIL STATISTICS</a>
+    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">EMAIL METRICS</a>
   </div>
 </div>
 
@@ -348,15 +348,27 @@ class KeywordResults(ResultVisitor):
 result.visit(KeywordResults())
 
 dashboard_content="""
-<div class="tabcontent" id="dashboard">
-    <h4><b><i class="fa fa-dashboard"></i> Dashboard</b></h4>
-  <hr>
+<div class="tabcontent" id="dashboard">    
+    <nav class="navbar navbar-inverse" style="border:none; background-color:transparent; margin-bottom:1px">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" style="color:black"><b><i class="fa fa-dashboard"></i> Dashboard</b></a>
+        </div>
+        <div id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" style="color:blue"><b><i class="fa fa-info-circle"></i> Info</b></a></li>
+            <li><a style="color:red"><b style="color:black"><i class="fa fa-hourglass-end "></i> Duration: </b>00:45:15 h</a></li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+
     <div id="metricsId">
     <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-dark-gray w3-padding-8 ">
+        <div class="w3-container w3-dark-gray w3-padding-8 "  onclick="openPage('suiteMetrics', this, '')" style="cursor: pointer;"  data-toggle="tooltip" title="Click to view Suite metrics" >
             <div class="w3-clear">
-                <h3 onclick="openPage('suiteMetrics', this, '')" class="text-center" data-toggle="tooltip" title="Click to view Suite metrics" style="font-size:25px; cursor: pointer; text-decoration: underline;"><b>Suite</b></h3>
+                <h3 class="text-center" style="font-size:25px;"><b>Suite</b></h3>
             </div>
             <div class="w3-left"></div>
             <h4 style="font-size:13px" class="text-center">Statistics</h4>
@@ -395,9 +407,9 @@ dashboard_content="""
 
     <div class="w3-row-padding w3-margin-bottom">
         <div class="w3-quarter col-sm-3">
-        <div class="w3-container  w3-dark-gray w3-padding-8">
+        <div class="w3-container  w3-dark-gray w3-padding-8"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">
             <div class="w3-clear">
-            <h3 onclick="openPage('testMetrics', this, '')" class="text-center"  data-toggle="tooltip" title="Click to view Keyword metrics" style="font-size:25px; cursor: pointer; text-decoration: underline;"><b>Test Case</b></h3>
+            <h3 class="text-center" style="font-size:25px;"><b>Test Case</b></h3>
             </div>
             <div class="w3-left"></div>
             <h4 style="font-size:13px"  class="text-center">Statistics</h4>
@@ -433,9 +445,9 @@ dashboard_content="""
         </div>
         <div class="w3-row-padding w3-margin-bottom">
         <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-dark-gray w3-padding-8">
+        <div class="w3-container w3-dark-gray w3-padding-8" onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">
             <div class="w3-clear">
-            <h3 onclick="openPage('keywordMetrics', this, '')" class="text-center"  data-toggle="tooltip" title="Click to view Test metrics" style="font-size:25px; cursor: pointer; text-decoration: underline;"><b>Keyword</b></h3>
+            <h3 class="text-center" style="font-size:25px;"><b>Keyword</b></h3>
             </div>
             <div class="w3-left"></div>
             <h4 style="font-size:13px" class="text-center">Statistics</h4>
