@@ -3,12 +3,13 @@ from bs4 import BeautifulSoup
 import sys
 import os
 from datetime import datetime
+from datetime import timedelta
 from robot.api import ExecutionResult, ResultVisitor
 
 # ======================== START OF CUSTOMIZE REPORT ================================== #
 
 # URL or filepath of your company logo
-logo = "https://cdn.pixabay.com/photo/2013/10/31/14/09/phone-booth-203492_960_720.jpg"
+logo = "https://cdn.pixabay.com/photo/2017/08/22/11/55/linked-in-2668692__340.png"
 
 # Ignores following library keywords in metrics report
 ignore_library = [
@@ -76,120 +77,146 @@ result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
 head_content = """
+<!doctype html>
+<html lang="en">
 
-<!DOCTYPE html>
-<html>
-<link rel="shortcut icon" href="https://png.icons8.com/windows/50/000000/bot.png" type="image/x-icon" />
-<title>RF Metrics Report</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src https: 'unsafe-eval' 'unsafe-inline'; frame-src *; object-src 'none'">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
-<script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-<style>
-.w3-row-padding img {margin-bottom: 12px}
+<head>
+    <link rel="shortcut icon" href="https://png.icons8.com/windows/50/000000/bot.png" type="image/x-icon" />
+    <title>RF Metrics Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/* Set the width of the sidebar to 100px */
-.w3-sidebar {width: 120px;background: #222;}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
 
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+   <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript">
+   </script>
 
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+   </script>
+   <script crossorigin="anonymous" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+   </script>
+   <script crossorigin="anonymous" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">
+   </script>
+    <!-- Bootstrap core Googleccharts
+    ================================================== -->
+   <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript">
+   </script>
+   <script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart']});
+   </script>
+   <!-- Bootstrap core Datatable
+    ================================================== -->
 
-* {box-sizing: border-box}
+    <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 
-/* Set height of body and the document to 100% */
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family:  Comic Sans MS;
-}
+    <style>        
+        .sidebar {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 100; /* Behind the navbar */
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+        
+        .sidebar-sticky {
+          position: relative;
+          top: 0;
+          height: calc(100vh - 48px);
+          padding-top: .5rem;
+          overflow-x: hidden;
+          overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        }
+        
+        @supports ((position: -webkit-sticky) or (position: sticky)) {
+          .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+          }
+        }
+        
+        .sidebar .nav-link {
+          color: black;
+        }
+        
+        .sidebar .nav-link.active {
+          color: #007bff;
+        }
+        
+        .sidebar .nav-link:hover .feather,
+        .sidebar .nav-link.active .feather {
+          color: inherit;
+        }
 
-/* Style tab links */
-.tablink {
-    color: white;
-    cursor: pointer;
-}
+        [role="main"] {
+          padding-top: 10px;
+        }
+        
+		/* Set height of body and the document to 100% */
+		body {
+			height: 100%;
+			margin: 0;
+			//font-family:  Comic Sans MS;
+			//background-color: white;
+		}
 
-/* Style tab links */
-.tablinkLog {
-    //color: white;
-    cursor: pointer;
-}
+		/* Style tab links */
+		.tablinkLog {
+			cursor: pointer;
+		}
+		
+        @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+		.loader {
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: 9999;
+			background: url('http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif?e44397') 50% 50% no-repeat rgb(249,249,249);
+		}
 
-.tablink:hover {
-    background-color: #777;
-}
+		/* TILES */
+		.tile {
+		  width: 100%;
+		  float: left;
+		  margin: 0px;
+		  list-style: none;
+		  font-size: 30px;
+		  color: #FFF;
+		  -moz-border-radius: 5px;
+		  -webkit-border-radius: 5px;
+		  margin-bottom: 5px;
+		  position: relative;
+		  text-align: center;
+		  color: white!important;
+		}
 
-.loader,
-.loader:after {
-    border-radius: 50%;
-    width: 10em;
-    height: 10em;
-    position: center;
-}
-.loader {
-    margin: 60px auto;
-    font-size: 10px;
-    position: relative;
-    text-indent: -9999em;
-    border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-right: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-left: 1.1em solid #fffffa;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-animation: load8 1.1s infinite linear;
-    animation: load8 1.1s infinite linear;
-}
-@-webkit-keyframes load8 {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-@keyframes load8 {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-#loadingDiv {
-    position:absolute;;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-color:black;
-}
+		.tile.tile-fail {
+		  background: #f44336!important;
+		}
+		.tile.tile-pass {
+		  background: #4CAF50!important;
+		}
+		.tile.tile-info {
+		  background: #009688!important;
+		}
+		.tile.tile-head {
+		  background: #616161!important;
+		}
 
-#dashboard {background-color: white;}
-#suiteMetrics {background-color: white;}
-#testMetrics {background-color: white;}
-#keywordMetrics {background-color: white;}
-#emailStatistics {background-color: white;}
-
-</style>
+    </style>
 </head>
-</html>
 """
 
 soup = BeautifulSoup(head_content,"html.parser")
@@ -197,59 +224,84 @@ soup = BeautifulSoup(head_content,"html.parser")
 body = soup.new_tag('body')
 soup.insert(20, body)
 
-loadingDiv = soup.new_tag('div')
-loadingDiv["id"] = "loadingDiv"
-body.insert(1, loadingDiv)
-
-spiner = soup.new_tag('div')
-spiner["class"] = "loader"
-loadingDiv.insert(0, spiner)
-
 icons_txt= """
+<div class="loader"></div>
+ <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="font-size:16px;">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">                            
+                  <img src="%s" style="height:18vh!important;width:95%%;"/>
+                
+				<br>
+				
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
+                        <span>Metrics</span>
+                        <a class="d-flex align-items-center text-muted" href="#"></a>
+                    </h6>
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')">
+								<i class="fa fa-dashboard"></i> Dashboard
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" >
+								<i class="fa fa-th-large"></i> Suite Metrics
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)">
+							  <i class="fa fa-list-alt"></i> Test Metrics
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)">
+							  <i class="fa fa-table"></i> Keyword Metrics
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#" onclick="openPage('log', this, 'orange');">
+							  <i class="fa fa-wpforms"></i> Robot Logs
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#" onclick="openPage('statistics', this, 'orange');">
+							  <i class="fa fa-envelope-o"></i> Email Metrics
+							</a>
+                        </li>
+                    </ul>
 
-  <!-- Avatar image in top left corner -->
-  <img src=%s style="width:100%%">
-  <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-dashboard w3-xxlarge"></i>
-    <p>DASHBOARD</p>
-  </a>
-  <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button w3-padding-large" >
-    <i class="fa fa-th-large w3-xxlarge"></i>
-    <p>SUITE METRICS</p>
-  </a>
-  <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-list-alt w3-xxlarge"></i>
-    <p>TEST METRICS</p>
-  </a>
-  <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-table w3-xxlarge"></i>
-    <p>KEYWORD METRICS</p>
-  </a>
-  <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-wpforms w3-xxlarge"></i>
-    <p>ROBOT LOGS</p>
-  </a>
-  <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-envelope-o w3-xxlarge"></i>
-    <p>EMAIL METRICS</p>
-  </a>
-</nav>
-
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25%% !important">DASHBOARD</a>
-    <a href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" class="tablink w3-bar-item w3-button" style="width:25%% !important">SUITE METRICS</a>
-    <a href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)" class="tablink w3-bar-item w3-button" style="width:25%% !important">TEST METRICS</a>
-    <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)" class="tablink w3-bar-item w3-button" style="width:25%% !important">KEYWORD METRICS</a>
-    <a href="#" onclick="openPage('log', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">ROBOT LOGS</a>
-    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25%% !important">EMAIL METRICS</a>
-  </div>
-</div>
-
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
+                        <span>Saved reports</span>
+                        <a class="d-flex align-items-center text-muted" href="#"></a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="tablink nav-link" href="#">
+							  <i class="fa fa-hourglass-2"></i> Comming Soon
+							</a>
+                        </li>
+                    </ul>
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
+                        <span>Project</span>
+                        <a class="d-flex align-items-center text-muted" href="#"></a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a style="color:blue;" class="tablink nav-link" href="https://www.github.com">
+							  <i class="fa fa-external-link"></i> Git Hub
+							</a>
+                        </li>
+						<li class="nav-item">
+                            <a style="color:blue;" class="tablink nav-link" href="https://www.jira.com">
+							  <i class="fa fa-external-link"></i> JIRA
+							</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
 """%(logo)
 
 body.append(BeautifulSoup(icons_txt, 'html.parser'))
@@ -257,38 +309,8 @@ body.append(BeautifulSoup(icons_txt, 'html.parser'))
 
 page_content_div = soup.new_tag('div')
 page_content_div["id"] = "main"
-page_content_div["class"] = "w3-padding-large"
-body.insert(30, page_content_div)
-
-# Tests div
-suite_div = soup.new_tag('div')
-suite_div["id"] = "suiteMetrics"
-suite_div["class"] = "tabcontent"
-page_content_div.insert(50, suite_div)
-
-# Tests div
-tm_div = soup.new_tag('div')
-tm_div["id"] = "testMetrics"
-tm_div["class"] = "tabcontent"
-page_content_div.insert(100, tm_div)
-
-# Keywords div
-km_div = soup.new_tag('div')
-km_div["id"] = "keywordMetrics"
-km_div["class"] = "tabcontent"
-page_content_div.insert(150, km_div)
-
-# Logs div
-log_div = soup.new_tag('div')
-log_div["id"] = "log"
-log_div["class"] = "tabcontent"
-page_content_div.insert(200, log_div)
-
-# Statistics div
-statisitcs_div = soup.new_tag('div')
-statisitcs_div["id"] = "statistics"
-statisitcs_div["class"] = "tabcontent"
-page_content_div.insert(300, statisitcs_div)
+page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
+body.insert(50, page_content_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
 total_suite = 0
@@ -313,6 +335,9 @@ class SuiteResults(ResultVisitor):
                 failed_suite += 1
 
 result.visit(SuiteResults())
+
+elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
+elapsedtime = elapsedtime.strftime("%X")
 
 stats = result.statistics
 total= stats.total.all.total
@@ -348,174 +373,199 @@ class KeywordResults(ResultVisitor):
 result.visit(KeywordResults())
 
 dashboard_content="""
-<div class="tabcontent" id="dashboard">    
-    <nav class="navbar navbar-inverse" style="border:none; background-color:transparent; margin-bottom:1px">
-    <div class="container-fluid">
-        <div class="navbar-header">
-        <a class="navbar-brand" style="color:black"><b><i class="fa fa-dashboard"></i> Dashboard</b></a>
-        </div>
-        <div id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" style="color:blue"><b><i class="fa fa-info-circle"></i> Info</b></a></li>
-            <li><a style="color:red"><b style="color:black"><i class="fa fa-hourglass-end "></i> Duration: </b>00:45:15 h</a></li>
-        </ul>
-        </div>
-    </div>
-    </nav>
+<div class="tabcontent" id="dashboard">
+			
+				<div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
+				  <h5 class="my-0 mr-md-auto font-weight-normal"><i class="fa fa-dashboard"></i> Dashboard</h5>
+				  <nav class="my-2 my-md-0 mr-md-3" style="color:red">
+					<a class="p-2"><b style="color:black;">Execution Time: </b>%s</a>
+				  </nav>
+				  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Info</button>                            
+                  
+				</div>
+			
+				<div class="row">
+					<div class="col-md-3"  onclick="openPage('suiteMetrics', this, '')" data-toggle="tooltip" title="Click to view Suite metrics" style="cursor: pointer;">                        
+						<a class="tile tile-head">
+							Suite
+							<p style="font-size:12px">Statistics</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-info">
+							%s
+							<p style="font-size:12px">Total</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-pass">
+							%s
+							<p style="font-size:12px">Pass</p>
+						</a>
+					</div>						
+					<div class="col-md-3">                        
+						<a class="tile tile-fail">
+							%s
+							<p style="font-size:12px">Fail</p>
+						</a>
+					</div>
+                </div>
+				
+				<div class="row">
+					<div class="col-md-3"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">                        
+						<a class="tile tile-head">
+							Test
+							<p style="font-size:12px">Statistics</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-info">
+							%s
+							<p style="font-size:12px">Total</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-pass">
+							%s
+							<p style="font-size:12px">Pass</p>
+						</a>
+					</div>						
+					<div class="col-md-3">                        
+						<a class="tile tile-fail">
+							%s
+							<p style="font-size:12px">Fail</p>
+						</a>
+					</div>
+                </div>
+				
+				<div class="row">
+					<div class="col-md-3"  onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">                        
+						<a class="tile tile-head">
+							Keyword
+							<p style="font-size:12px">Statistics</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-info">
+							%s
+							<p style="font-size:12px">Total</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-pass">
+							%s
+							<p style="font-size:12px">Pass</p>
+						</a>
+					</div>						
+					<div class="col-md-3">                        
+						<a class="tile tile-fail">
+							%s
+							<p style="font-size:12px">Fail</p>
+						</a>
+					</div>
+                </div>
+				
+				<hr></hr>
+				<div class="row">
+					<div class="col-md-4" style="background-color:white;height:380px;width:auto;border:groove;">
+						<span style="font-weight:bold">Suite Status:</span>
+                        <div id="suiteChartID" style="height:350px;width:auto;"></div>
+					</div>
+					<div class="col-md-4" style="background-color:white;height:380px;width:auto;border:groove;">
+						<span style="font-weight:bold">Test Status:</span>
+                        <div id="testChartID" style="height:350px;width:auto;"></div>
+					</div>
+					<div class="col-md-4" style="background-color:white;height:380px;width:auto;border:groove;">
+						<span style="font-weight:bold">Keyword Status:</span>
+                        <div id="keywordChartID" style="height:350px;width:auto;"></div>
+					</div>
+				</div>
 
-    <div id="metricsId">
-    <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-dark-gray w3-padding-8 "  onclick="openPage('suiteMetrics', this, '')" style="cursor: pointer;"  data-toggle="tooltip" title="Click to view Suite metrics" >
-            <div class="w3-clear">
-                <h3 class="text-center" style="font-size:25px;"><b>Suite</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Statistics</h4>
-        </div>
-    </div>
-    <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-teal w3-padding-8 ">
-            <div class="w3-clear">
-                <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Total</h4>
-        </div>
-    </div>
-
-    <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-green w3-padding-8">
-            <div class="w3-clear">
-                <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Passed</h4>
-        </div>
-    </div>
-
-    <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-red w3-padding-8">
-            <div class="w3-clear">
-                <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Failed</h4>
-        </div>
-    </div>
-    </div>
-
-    <div class="w3-row-padding w3-margin-bottom">
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container  w3-dark-gray w3-padding-8"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px;"><b>Test Case</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px"  class="text-center">Statistics</h4>
-            </div>
-        </div>
-         <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-teal w3-padding-8">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px"  class="text-center">Total</h4>
-            </div>
-        </div>
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-green w3-padding-8">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Passed</h4>
-            </div>
-        </div>
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-red w3-padding-8">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Failed</h4>
-            </div>
-        </div>
-        </div>
-        <div class="w3-row-padding w3-margin-bottom">
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-dark-gray w3-padding-8" onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px;"><b>Keyword</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Statistics</h4>
-            </div>
-        </div>
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-teal w3-padding-8">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Total</h4>
-            </div>
-        </div>
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-green w3-padding-8">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Passed</h4>
-            </div>
-        </div>
-        <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-red w3-padding-8">
-            <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>%s</b></h3>
-            </div>
-            <div class="w3-left"></div>
-            <h4 style="font-size:13px" class="text-center">Failed</h4>
-            </div>
-        </div>
-    </div>
-</div>
-    <hr>
-    <div class="col-md-4 chart-blo-1" id="suiteChartID" style="height: 400px;border:1px;border-style: inset;"></div>
-    <div class="col-md-4 chart-blo-1" id="testChartID" style="height: 400px;border:1px;border-style: inset;"></div>
-    <div class="col-md-4 chart-blo-1" id="keywordChartID" style="height: 400px;border:1px;border-style: inset;"></div>
-
-    <div class="col-md-12 chart-blo-1" id="suiteBarID" style="height: 400px;border:1px;border-style: inset;"></div>
-    <div class="col-md-12 chart-blo-1" id="testsBarID" style="height: 400px;border:1px;border-style: inset;"></div>    
-    <div class="col-md-12 chart-blo-1" id="keywordsBarID" style="height: 400px;border:1px;border-style: inset;"></div>
-    
+                <hr></hr>
+				<div class="row">
+					<div class="col-md-12" style="background-color:white;height:450px;width:auto;border:groove;">
+						<span style="font-weight:bold">Top 10 Suite Performance(sec):</span>
+                        <div id="suiteBarID" style="height:400px;width:auto;"></div>
+					</div>
+					<div class="col-md-12" style="background-color:white;height:450px;width:auto;border:groove;">
+						<span style="font-weight:bold">Top 10 Test Performance(sec):</span>
+                        <div id="testsBarID" style="height:400px;width:auto;"></div>
+					</div>
+					<div class="col-md-12" style="background-color:white;height:450px;width:auto;border:groove;">
+						<span style="font-weight:bold">Top 10 Keywords Performance(sec):</span>
+                        <div id="keywordsBarID" style="height:400px;width:auto;"></div>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-md-12" style="background-color:white;height:25px;width:auto;border:groove;">
+						<p class="text-muted" style="text-align:center;font-family: Comic Sans MS; font-size:10px">@Robotframework Metrics Report</p>
+					</div>
+				</div>
    
    <script>
     window.onload = function(){
-    executeDataTable('#sm',4);
+    executeDataTable('#sm',7);
     executeDataTable('#tm',5);
     executeDataTable('#km',5);
     createPieChart(%s,%s,'suiteChartID','Suite Status:');		
-    createBarGraph('#sm',0,4,10,'suiteBarID','Top 10 Suite Performance:','Suite');
+    createBarGraph('#sm',0,7,10,'suiteBarID','Top 10 Suite Performance:','Suite');
     createPieChart(%s,%s,'testChartID','Tests Status:');		
     createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:','Test');
     createPieChart(%s,%s,'keywordChartID','Keywords Status:');
-    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword')
+    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword');
 	};
    </script>
+   <script>
+function openInNewTab(url,element_id) {
+  var element_id= element_id;
+  var win = window.open(url, '_blank');
+  win.focus();
+  $('body').scrollTo(element_id); 
+}
+</script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Execution Info:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                </div>
+                <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Generated:</td>
+                        <td>20180908 15:23:28.281</td>
+                    </tr>
+                    <tr>
+                        <td>Generator:</td>
+                        <td>Robot 3.0.2 (Python 2.7.14 on win32)</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-""" % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
+""" % (elapsedtime,total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
 
 ### ============================ START OF SUITE METRICS ======================================= ####
 
+# Tests div
+suite_div = soup.new_tag('div')
+suite_div["id"] = "suiteMetrics"
+suite_div["class"] = "tabcontent"
+page_content_div.insert(50, suite_div)
+
 test_icon_txt="""
+<hr></hr>
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
-<hr>
+<hr></hr>
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -540,16 +590,28 @@ th.string = "Status"
 tr.insert(1, th)
 
 th = soup.new_tag('th')
-th.string = "Start Time"
+th.string = "Total"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "End time"
+th.string = "Pass"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time(s)"
+th.string = "Fail"
 tr.insert(4, th)
+
+th = soup.new_tag('th')
+th.string = "Start"
+tr.insert(5, th)
+
+th = soup.new_tag('th')
+th.string = "End"
+tr.insert(6, th)
+
+th = soup.new_tag('th')
+th.string = "Elapsed (s)"
+tr.insert(7, th)
 
 tbody = soup.new_tag('tbody')
 table.insert(11, tbody)
@@ -564,6 +626,7 @@ class SuiteResults(ResultVisitor):
         if not suite_test_list:
             pass
         else:
+            stats = suite.statistics
             table_tr = soup.new_tag('tr')
             tbody.insert(0, table_tr)
 
@@ -579,44 +642,45 @@ class SuiteResults(ResultVisitor):
             table_tr.insert(1, table_td)
 
             table_td = soup.new_tag('td')
-            table_td.string = str(suite.starttime)
+            table_td.string = str(stats.all.total)
             table_tr.insert(2, table_td)
 
             table_td = soup.new_tag('td')
-            table_td.string = str(suite.endtime)
+            table_td.string = str(stats.all.passed)
             table_tr.insert(3, table_td)
 
             table_td = soup.new_tag('td')
-            table_td.string = str(suite.elapsedtime/float(1000))
+            table_td.string = str(stats.all.failed)
             table_tr.insert(4, table_td)
 
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.starttime)
+            table_tr.insert(5, table_td)
+
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.endtime)
+            table_tr.insert(6, table_td)
+
+            table_td = soup.new_tag('td')
+            table_td.string = str(suite.elapsedtime/float(1000))
+            table_tr.insert(7, table_td)
+
 result.visit(SuiteResults())
-
-
-script_me="""
-<script>
-function openInNewTab(url,element_id) {
-  var element_id= element_id;
-  var win = window.open(url, '_blank');
-  win.focus();
-  $('body').scrollTo(element_id); 
-}
-</script>
-<script>
-    $('[data-toggle="tooltip"]').tooltip();
-</script>
-"""
-suite_div.append(BeautifulSoup(script_me, 'html.parser'))
-
 
 ### ============================ END OF SUITE METRICS ============================================ ####
 
 
 ### ============================ START OF TEST METRICS ======================================= ####
+# Tests div
+tm_div = soup.new_tag('div')
+tm_div["id"] = "testMetrics"
+tm_div["class"] = "tabcontent"
+page_content_div.insert(100, tm_div)
 
 test_icon_txt="""
+<hr></hr>
 <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
-<hr>
+<hr></hr>
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
@@ -645,15 +709,15 @@ th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "Start Time"
+th.string = "Start"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "End time"
+th.string = "End"
 tr.insert(4, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time(s)"
+th.string = "Elapsed (s)"
 tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
@@ -700,9 +764,16 @@ result.visit(TestCaseResults())
 
 ### ============================ START OF KEYWORD METRICS ======================================= ####
 
+# Keywords div
+km_div = soup.new_tag('div')
+km_div["id"] = "keywordMetrics"
+km_div["class"] = "tabcontent"
+page_content_div.insert(150, km_div)
+
 keyword_icon_txt="""
+<hr></hr>
 <h4><b><i class="fa fa-table"></i> Keyword Metrics</b></h4>
-  <hr>
+  <hr></hr>
 """
 km_div.append(BeautifulSoup(keyword_icon_txt, 'html.parser'))
 
@@ -732,15 +803,15 @@ th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "Start Time"
+th.string = "Start"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th.string = "End time"
+th.string = "End"
 tr.insert(4, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed Time(s)"
+th.string = "Elapsed (s)"
 tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
@@ -808,6 +879,12 @@ result.visit(KeywordResults())
 
 ### ============================ START OF LOGS ====================================== ###
 
+# Logs div
+log_div = soup.new_tag('div')
+log_div["id"] = "log"
+log_div["class"] = "tabcontent"
+page_content_div.insert(200, log_div)
+
 test_icon_txt="""
     <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in order to display here</p>
   <div class="embed-responsive embed-responsive-4by3">
@@ -819,10 +896,16 @@ log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF LOGS ======================================= ####
 
 ### ============================ EMAIL STATISTICS ================================== ###
+# Statistics div
+statisitcs_div = soup.new_tag('div')
+statisitcs_div["id"] = "statistics"
+statisitcs_div["class"] = "tabcontent"
+page_content_div.insert(300, statisitcs_div)
 
 emailStatistics="""
+<hr></hr>
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
-<hr>
+<hr></hr>
 <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
 <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
 <script>
@@ -931,63 +1014,48 @@ statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
 
 
 script_text="""
-<script>
-(function () {
-var textFile = null,
-  makeTextFile = function (text) {
-    var data = new Blob([text], {type: 'text/plain'});
-    if (textFile !== null) {
-      window.URL.revokeObjectURL(textFile);
+
+    <script>
+        (function () {
+        var textFile = null,
+          makeTextFile = function (text) {
+            var data = new Blob([text], {type: 'text/plain'});
+            if (textFile !== null) {
+              window.URL.revokeObjectURL(textFile);
+            }
+            textFile = window.URL.createObjectURL(data);
+            return textFile;
+          };
+        
+          var create = document.getElementById('create'),
+            textbox = document.getElementById('textbox');
+          create.addEventListener('click', function () {
+            var link = document.getElementById('downloadlink');
+            link.href = makeTextFile(textbox.value);
+            link.style.display = 'block';
+          }, false);
+        })();
+    </script>
+    <script>
+        function createPieChart(passed_count,failed_count,ChartID,ChartName){
+        var status = [];
+        status.push(['Status', 'Percentage']);
+        status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
+        var data = google.visualization.arrayToDataTable(status);
+
+        var options = {
+        pieHole: 0.7,
+        legend: 'none',
+        chartArea: {width: "95%",height: "90%"},
+        colors: ['green', 'red'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById(ChartID));
+        chart.draw(data, options);
     }
-    textFile = window.URL.createObjectURL(data);
-    return textFile;
-  };
-
-  var create = document.getElementById('create'),
-    textbox = document.getElementById('textbox');
-  create.addEventListener('click', function () {
-    var link = document.getElementById('downloadlink');
-    link.href = makeTextFile(textbox.value);
-    link.style.display = 'block';
-  }, false);
-})();
-</script>
- <script>
-  function createPieChart(passed_count,failed_count,ChartID,ChartName){
-	var status = [];
-	status.push(['Status', 'Percentage']);
-	status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
-	var data = google.visualization.arrayToDataTable(status);
-
-	var options = {
-      title: ChartName,
-        titleTextStyle: {
-            fontName: 'Comic Sans MS',
-            fontSize: 15,
-            bold: true,
-        },
-	  pieHole: 0.7,
-	  legend: 'none',
-      chartArea: {width: "90%",height: "75%"},
-	  colors: ['green', 'red'],
-      annotations: {
-            alwaysOutside: true,
-            textStyle: {
-                fontName: 'Comic Sans MS',
-                fontSize: 13,
-                bold: true,
-                italic: true,
-                color: "black",     // The color of the text.
-            },
-        },
-	};
-
-	var chart = new google.visualization.PieChart(document.getElementById(ChartID));
-	chart.draw(data, options);
-  }
- </script>
- <script>
-  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName,type){
+    </script>
+    <script>
+       function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName,type){
 		var status = [];
 		css_selector_locator = tableID + ' tbody >tr'
 		var rows = $(css_selector_locator);
@@ -1018,12 +1086,7 @@ var textFile = null,
 		  }
 		  var data = google.visualization.arrayToDataTable(status);
 
-		  var options = {            
-            title: ChartName,
-            titleTextStyle: {
-                    fontName: 'Comic Sans MS',
-                    fontSize: 15,
-            },
+		  var options = {
             legend: 'none',
             chartArea: {width: "92%",height: "75%"},
             bar: {
@@ -1046,8 +1109,6 @@ var textFile = null,
                 }
             },
             vAxis: {
-                format: 'decimal',
-                title: "Seconds",
                 gridlines: { count: 10 },
                 textStyle: {                    
                     fontName: 'Comic Sans MS',
@@ -1060,9 +1121,9 @@ var textFile = null,
             var chart = new google.visualization.ColumnChart(document.getElementById(ChartID));
             chart.draw(data, options);
          }
-         google.charts.setOnLoadCallback(drawChart);
-</script>
- </script>
+
+    </script>
+
  <script>
   function executeDataTable(tabname,sortCol) {
     $(tabname).DataTable(
@@ -1092,16 +1153,11 @@ var textFile = null,
 document.getElementById("defaultOpen").click();
  </script>
  <script>
-  //$('body').append('<div style="" id="loadingDiv"><div class="loader"></div></div>');
-$(window).on('load', function(){
-  setTimeout(removeLoader, 0); //wait for page load PLUS zero seconds.
-});
-function removeLoader(){
-    $( "#loadingDiv" ).fadeOut(50, function() {
-      // fadeOut complete. Remove the loading div
-      $( "#loadingDiv" ).remove(); //makes page more lightweight
-  });
-}
+ // Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+ </script>
+ <script>
+$(window).on('load',function(){$('.loader').fadeOut();});
 </script>
 """
 
