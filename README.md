@@ -14,7 +14,7 @@ Creates HTML Metrics report based on robotframework output.xml
 
 *How to use in project:*
 
-1. Download __robotmetrics.py__ from here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.0/robotframework-metrics-master.zip)
+1. Download __robotmetrics.py__ from here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.0/robotmetrics.py)
 
     > Repo has some extra files (.html and .xml for testing) - I suggest to download from link
 
