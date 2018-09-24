@@ -1,0 +1,2767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180908 15:23:28.281" generator="Robot 3.0.2 (Python 2.7.14 on win32)">
+<suite id="s1" name="Login &amp; Manager Dashboard">
+<suite source="D:\ROBO_GURU99\robo_guru99\tests\login.robot" id="s1-s1" name="Login">
+<test id="s1-s1-t1" name="Login To Guuru99 Bank With Valid Credentials">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:23:28.628" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:23:59.802" starttime="20180908 15:23:28.628"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:23:59.805" starttime="20180908 15:23:59.803"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:23:59.909" starttime="20180908 15:23:59.806"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:23:59.923" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:23:59.923" starttime="20180908 15:23:59.909"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:23:59.924" starttime="20180908 15:23:59.805"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:23:59.924" starttime="20180908 15:23:28.628"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:23:59.925" starttime="20180908 15:23:28.627"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${USER_NAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:23:59.996" starttime="20180908 15:23:59.927"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:23:59.996" level="INFO">Typing text 'mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:24:00.258" starttime="20180908 15:23:59.996"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:00.258" starttime="20180908 15:23:59.927"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:00.306" starttime="20180908 15:24:00.259"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:00.307" level="INFO">Typing text 'nenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:24:00.427" starttime="20180908 15:24:00.306"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:00.427" starttime="20180908 15:24:00.258"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:00.449" starttime="20180908 15:24:00.428"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:00.449" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:24:06.962" starttime="20180908 15:24:00.449"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:06.962" starttime="20180908 15:24:00.428"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:06.963" starttime="20180908 15:23:59.926"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:07.054" starttime="20180908 15:24:06.965"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:07.107" starttime="20180908 15:24:07.054"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:24:07.115" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:24:07.115" starttime="20180908 15:24:07.107"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:07.115" starttime="20180908 15:24:06.964"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:24:10.369" starttime="20180908 15:24:07.115"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:10.369" starttime="20180908 15:24:07.115"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:10.369" starttime="20180908 15:24:07.115"></status>
+</kw>
+<tags>
+<tag>smoke-test</tag>
+<tag>test-case</tag>
+</tags>
+<status status="PASS" endtime="20180908 15:24:10.369" critical="yes" starttime="20180908 15:23:28.625"></status>
+</test>
+<test id="s1-s1-t2" name="Login To Guuru99 Bank With InValid Credentials">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:10.384" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:24:40.374" starttime="20180908 15:24:10.384"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:40.377" starttime="20180908 15:24:40.375"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:40.419" starttime="20180908 15:24:40.379"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:24:40.426" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:24:40.427" starttime="20180908 15:24:40.420"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:40.427" starttime="20180908 15:24:40.378"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:40.427" starttime="20180908 15:24:10.384"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:40.427" starttime="20180908 15:24:10.384"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${INVALID_USER_NAME}</arg>
+<arg>${INVALID_PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:40.471" starttime="20180908 15:24:40.430"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:40.472" level="INFO">Typing text 'mngr152469mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:24:40.648" starttime="20180908 15:24:40.471"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:40.648" starttime="20180908 15:24:40.429"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:40.705" starttime="20180908 15:24:40.649"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:40.705" level="INFO">Typing text 'nenerevnenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:24:40.842" starttime="20180908 15:24:40.705"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:40.842" starttime="20180908 15:24:40.649"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:40.864" starttime="20180908 15:24:40.842"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:40.865" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:24:41.343" starttime="20180908 15:24:40.864"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:41.344" starttime="20180908 15:24:40.842"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:41.344" starttime="20180908 15:24:40.429"></status>
+</kw>
+<kw name="Alert Should Be Present" library="SeleniumLibrary">
+<doc>Verifies that an alert is present and, by default, accepts it.</doc>
+<arguments>
+<arg>User or Password is not valid</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:41.350" starttime="20180908 15:24:41.344"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:24:46.417" starttime="20180908 15:24:41.351"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:24:46.423" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:24:46.424" starttime="20180908 15:24:46.417"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:46.424" starttime="20180908 15:24:41.350"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:24:49.669" starttime="20180908 15:24:46.426"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:49.670" starttime="20180908 15:24:46.425"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:24:49.670" starttime="20180908 15:24:46.424"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="PASS" endtime="20180908 15:24:49.670" critical="yes" starttime="20180908 15:24:10.369"></status>
+</test>
+<test id="s1-s1-t3" name="Login To Guuru99 Bank With Blank Credentials">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:24:49.694" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:25:13.713" starttime="20180908 15:24:49.686"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:25:13.716" starttime="20180908 15:25:13.713"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:25:13.756" starttime="20180908 15:25:13.717"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:25:13.762" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:25:13.763" starttime="20180908 15:25:13.756"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:13.763" starttime="20180908 15:25:13.716"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:13.763" starttime="20180908 15:24:49.686"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:13.763" starttime="20180908 15:24:49.686"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>${EMPTY}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:25:13.804" starttime="20180908 15:25:13.765"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:25:13.806" level="INFO">Typing text '' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:25:13.891" starttime="20180908 15:25:13.806"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:13.892" starttime="20180908 15:25:13.765"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:25:13.943" starttime="20180908 15:25:13.892"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:25:13.944" level="INFO">Typing text '' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:25:14.030" starttime="20180908 15:25:13.943"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:14.031" starttime="20180908 15:25:13.892"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:25:14.051" starttime="20180908 15:25:14.031"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:25:14.052" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:25:14.121" starttime="20180908 15:25:14.052"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:14.122" starttime="20180908 15:25:14.031"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:14.122" starttime="20180908 15:25:13.764"></status>
+</kw>
+<kw name="Alert Should Be Present" library="SeleniumLibrary">
+<doc>Verifies that an alert is present and, by default, accepts it.</doc>
+<arguments>
+<arg>User or Password is not valid</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180908 15:25:55.013" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180908 15:25:55.013" starttime="20180908 15:25:54.497"></status>
+</kw>
+<msg timestamp="20180908 15:25:55.021" level="FAIL">Alert not found in 40 seconds.</msg>
+<status status="FAIL" endtime="20180908 15:25:55.021" starttime="20180908 15:25:14.123"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:25:58.301" starttime="20180908 15:25:55.029"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:58.303" starttime="20180908 15:25:55.027"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:25:58.303" starttime="20180908 15:25:55.025"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="FAIL" endtime="20180908 15:25:58.305" critical="yes" starttime="20180908 15:24:49.670">Alert not found in 40 seconds.</status>
+</test>
+<test id="s1-s1-t4" name="Login To Guuru99 Bank With Blank User Name">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:25:58.325" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:26:54.244" starttime="20180908 15:25:58.325"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:26:54.246" starttime="20180908 15:26:54.244"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:26:54.288" starttime="20180908 15:26:54.247"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:26:54.295" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:26:54.296" starttime="20180908 15:26:54.288"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:54.296" starttime="20180908 15:26:54.246"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:54.296" starttime="20180908 15:25:58.325"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:54.296" starttime="20180908 15:25:58.323"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:26:54.345" starttime="20180908 15:26:54.296"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:26:54.347" level="INFO">Typing text '' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:26:54.436" starttime="20180908 15:26:54.346"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:54.436" starttime="20180908 15:26:54.296"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:26:54.478" starttime="20180908 15:26:54.436"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:26:54.479" level="INFO">Typing text 'nenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:26:54.599" starttime="20180908 15:26:54.478"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:54.599" starttime="20180908 15:26:54.436"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:26:54.622" starttime="20180908 15:26:54.600"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:26:54.623" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:26:55.170" starttime="20180908 15:26:54.622"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:55.170" starttime="20180908 15:26:54.599"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:55.171" starttime="20180908 15:26:54.296"></status>
+</kw>
+<kw name="User Name Mandatory Text Should Be" library="login_page_locator">
+<arguments>
+<arg>User-ID must not be blank</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${user_name_mandatory_field}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180908 15:26:55.216" level="FAIL">UnexpectedAlertPresentException: Alert Text: None
+Message: unexpected alert open: {Alert text : User or Password is not valid}
+  (Session info: chrome=69.0.3497.81)
+  (Driver info: chromedriver=2.35.528161 (5b82f2d2aae0ca24b877009200ced9065a772e73),platform=Windows NT 10.0.17134 x86_64)
+</msg>
+<status status="FAIL" endtime="20180908 15:26:55.217" starttime="20180908 15:26:55.211"></status>
+</kw>
+<msg timestamp="20180908 15:26:55.217" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: UnexpectedAlertPresentException: Alert Text: None
+Message: unexpected alert open: {Alert text : User or Password is not valid}
+  (Session info: chrome=69.0.3497.81)
+  (Driver info: chromedriver=2.35.528161 (5b82f2d2aae0ca24b877009200ced9065a772e73),platform=Windows NT 10.0.17134 x86_64)
+</msg>
+<msg timestamp="20180908 15:26:55.222" level="FAIL">UnexpectedAlertPresentException: Alert Text: None
+Message: unexpected alert open: {Alert text : User or Password is not valid}
+  (Session info: chrome=69.0.3497.81)
+  (Driver info: chromedriver=2.35.528161 (5b82f2d2aae0ca24b877009200ced9065a772e73),platform=Windows NT 10.0.17134 x86_64)
+</msg>
+<status status="FAIL" endtime="20180908 15:26:55.222" starttime="20180908 15:26:55.173"></status>
+</kw>
+<status status="FAIL" endtime="20180908 15:26:55.223" starttime="20180908 15:26:55.172"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:26:58.490" starttime="20180908 15:26:55.225"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:58.490" starttime="20180908 15:26:55.224"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:26:58.491" starttime="20180908 15:26:55.224"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="FAIL" endtime="20180908 15:26:58.492" critical="yes" starttime="20180908 15:25:58.318">UnexpectedAlertPresentException: Alert Text: None
+Message: unexpected alert open: {Alert text : User or Password is not valid}
+  (Session info: chrome=69.0.3497.81)
+  (Driver info: chromedriver=2.35.528161 (5b82f2d2aae0ca24b877009200ced9065a772e73),platform=Windows NT 10.0.17134 x86_64)
+</status>
+</test>
+<test id="s1-s1-t5" name="Login To Guuru99 Bank With Blank Password">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:26:58.506" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:27:30.138" starttime="20180908 15:26:58.506"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.141" starttime="20180908 15:27:30.139"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.235" starttime="20180908 15:27:30.141"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:27:30.245" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:27:30.245" starttime="20180908 15:27:30.235"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.245" starttime="20180908 15:27:30.141"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.246" starttime="20180908 15:26:58.506"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.246" starttime="20180908 15:26:58.506"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${USER_NAME}</arg>
+<arg>${EMPTY}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.293" starttime="20180908 15:27:30.247"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:30.295" level="INFO">Typing text 'mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:27:30.462" starttime="20180908 15:27:30.293"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.462" starttime="20180908 15:27:30.247"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.510" starttime="20180908 15:27:30.463"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:30.511" level="INFO">Typing text '' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:27:30.590" starttime="20180908 15:27:30.511"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.590" starttime="20180908 15:27:30.462"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.615" starttime="20180908 15:27:30.591"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:30.615" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:27:30.693" starttime="20180908 15:27:30.615"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.693" starttime="20180908 15:27:30.591"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.693" starttime="20180908 15:27:30.246"></status>
+</kw>
+<kw name="Password Mandatory Text Should Be" library="login_page_locator">
+<arguments>
+<arg>Password must not be blank</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${password_mandatory_field}</arg>
+<arg>${text}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.757" starttime="20180908 15:27:30.693"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.757" starttime="20180908 15:27:30.693"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:30.781" starttime="20180908 15:27:30.758"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:27:30.787" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:27:30.787" starttime="20180908 15:27:30.781"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:30.787" starttime="20180908 15:27:30.758"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:27:34.170" starttime="20180908 15:27:30.790"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:34.170" starttime="20180908 15:27:30.789"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:34.170" starttime="20180908 15:27:30.788"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="PASS" endtime="20180908 15:27:34.170" critical="yes" starttime="20180908 15:26:58.506"></status>
+</test>
+<test id="s1-s1-t6" name="Validate Reset In Login">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:34.189" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:27:57.809" starttime="20180908 15:27:34.189"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:57.812" starttime="20180908 15:27:57.810"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:57.857" starttime="20180908 15:27:57.813"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:27:57.864" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:27:57.864" starttime="20180908 15:27:57.857"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:57.864" starttime="20180908 15:27:57.812"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:57.865" starttime="20180908 15:27:34.189"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:57.865" starttime="20180908 15:27:34.188"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${USER_NAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:57.912" starttime="20180908 15:27:57.865"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:57.913" level="INFO">Typing text 'mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:27:58.053" starttime="20180908 15:27:57.913"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:58.053" starttime="20180908 15:27:57.865"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:58.101" starttime="20180908 15:27:58.054"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:58.102" level="INFO">Typing text 'nenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:27:58.219" starttime="20180908 15:27:58.102"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:27:58.219" starttime="20180908 15:27:58.053"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:27:58.260" starttime="20180908 15:27:58.219"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:27:58.260" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:28:05.206" starttime="20180908 15:27:58.260"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:28:05.207" starttime="20180908 15:27:58.219"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:28:05.207" starttime="20180908 15:27:57.865"></status>
+</kw>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180908 15:28:45.568" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180908 15:28:45.568" starttime="20180908 15:28:45.211"></status>
+</kw>
+<msg timestamp="20180908 15:28:45.569" level="FAIL">Element 'name:uid' not visible after 40 seconds.</msg>
+<status status="FAIL" endtime="20180908 15:28:45.569" starttime="20180908 15:28:05.208"></status>
+</kw>
+<status status="FAIL" endtime="20180908 15:28:45.569" starttime="20180908 15:28:05.207"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:28:49.056" starttime="20180908 15:28:45.571"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:28:49.056" starttime="20180908 15:28:45.571"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:28:49.057" starttime="20180908 15:28:45.570"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="FAIL" endtime="20180908 15:28:49.059" critical="yes" starttime="20180908 15:27:34.183">Element 'name:uid' not visible after 40 seconds.</status>
+</test>
+<test id="s1-s1-t7" name="Validate Logout From Guru99 Bank When Navigate Back">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:28:49.079" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:29:11.688" starttime="20180908 15:28:49.079"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:11.691" starttime="20180908 15:29:11.689"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:11.732" starttime="20180908 15:29:11.692"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:29:11.740" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:29:11.740" starttime="20180908 15:29:11.733"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:11.740" starttime="20180908 15:29:11.691"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:11.741" starttime="20180908 15:28:49.078"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:11.741" starttime="20180908 15:28:49.075"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${USER_NAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:11.784" starttime="20180908 15:29:11.742"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:29:11.785" level="INFO">Typing text 'mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:29:11.935" starttime="20180908 15:29:11.784"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:11.935" starttime="20180908 15:29:11.742"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:11.988" starttime="20180908 15:29:11.937"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:29:11.989" level="INFO">Typing text 'nenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:29:12.100" starttime="20180908 15:29:11.989"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:12.100" starttime="20180908 15:29:11.935"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:12.120" starttime="20180908 15:29:12.100"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:29:12.121" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:29:20.465" starttime="20180908 15:29:12.120"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:20.465" starttime="20180908 15:29:12.100"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:20.465" starttime="20180908 15:29:11.741"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:20.512" starttime="20180908 15:29:20.467"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:20.576" starttime="20180908 15:29:20.512"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:29:20.583" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:29:20.583" starttime="20180908 15:29:20.576"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:20.584" starttime="20180908 15:29:20.466"></status>
+</kw>
+<kw name="Get Location" library="SeleniumLibrary">
+<doc>Returns the current browser URL.</doc>
+<assign>
+<var>${manager_home_page_url}</var>
+</assign>
+<msg timestamp="20180908 15:29:20.591" level="INFO">${manager_home_page_url} = http://demo.guru99.com/v4/manager/Managerhomepage.php</msg>
+<status status="PASS" endtime="20180908 15:29:20.591" starttime="20180908 15:29:20.584"></status>
+</kw>
+<kw name="Go Back" library="SeleniumLibrary">
+<doc>Simulates the user clicking the back button on their browser.</doc>
+<status status="PASS" endtime="20180908 15:29:22.138" starttime="20180908 15:29:20.592"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:29:22.178" starttime="20180908 15:29:22.139"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:29:22.185" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:29:22.185" starttime="20180908 15:29:22.178"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:29:22.185" starttime="20180908 15:29:22.139"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${manager_home_page_url}</arg>
+</arguments>
+<msg timestamp="20180908 15:29:22.186" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:29:26.064" starttime="20180908 15:29:22.186"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180908 15:30:06.765" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180908 15:30:06.766" starttime="20180908 15:30:06.166"></status>
+</kw>
+<msg timestamp="20180908 15:30:06.766" level="FAIL">Element 'css:input[value="LOGIN"]' not visible after 40 seconds.</msg>
+<status status="FAIL" endtime="20180908 15:30:06.770" starttime="20180908 15:29:26.065"></status>
+</kw>
+<status status="FAIL" endtime="20180908 15:30:06.771" starttime="20180908 15:29:26.064"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:30:10.064" starttime="20180908 15:30:06.773"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:10.065" starttime="20180908 15:30:06.773"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:10.065" starttime="20180908 15:30:06.773"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="FAIL" endtime="20180908 15:30:10.070" critical="yes" starttime="20180908 15:28:49.071">Element 'css:input[value="LOGIN"]' not visible after 40 seconds.</status>
+</test>
+<status status="FAIL" endtime="20180908 15:30:10.087" starttime="20180908 15:23:28.322"></status>
+</suite>
+<suite source="D:\ROBO_GURU99\robo_guru99\tests\manager_dashboard.robot" id="s1-s2" name="Manager Dashboard">
+<test id="s1-s2-t1" name="Validate Available Links In Manager Dashboard">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:10.263" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:30:31.205" starttime="20180908 15:30:10.258"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:31.207" starttime="20180908 15:30:31.205"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:31.248" starttime="20180908 15:30:31.208"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:30:31.254" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:30:31.254" starttime="20180908 15:30:31.248"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:31.254" starttime="20180908 15:30:31.207"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:31.254" starttime="20180908 15:30:10.258"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${USER_NAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:31.296" starttime="20180908 15:30:31.254"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:31.296" level="INFO">Typing text 'mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:30:31.447" starttime="20180908 15:30:31.296"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:31.448" starttime="20180908 15:30:31.254"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:31.498" starttime="20180908 15:30:31.448"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:31.499" level="INFO">Typing text 'nenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:30:31.637" starttime="20180908 15:30:31.498"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:31.637" starttime="20180908 15:30:31.448"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:31.658" starttime="20180908 15:30:31.638"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:31.660" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:30:34.194" starttime="20180908 15:30:31.659"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:34.194" starttime="20180908 15:30:31.637"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:34.195" starttime="20180908 15:30:31.254"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:48.243" starttime="20180908 15:30:34.197"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:48.303" starttime="20180908 15:30:48.243"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:30:48.311" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:30:48.311" starttime="20180908 15:30:48.303"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:48.311" starttime="20180908 15:30:34.195"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:48.311" starttime="20180908 15:30:10.258"></status>
+</kw>
+<kw name="Remember Manager Home Page URL">
+<kw name="Get Location" library="SeleniumLibrary">
+<doc>Returns the current browser URL.</doc>
+<assign>
+<var>${current_url}</var>
+</assign>
+<msg timestamp="20180908 15:30:48.320" level="INFO">${current_url} = http://demo.guru99.com/v4/manager/Managerhomepage.php</msg>
+<status status="PASS" endtime="20180908 15:30:48.321" starttime="20180908 15:30:48.313"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+<arg>${current_url}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:48.323" level="INFO">${HOME_PAGE_URL} = http://demo.guru99.com/v4/manager/Managerhomepage.php</msg>
+<status status="PASS" endtime="20180908 15:30:48.323" starttime="20180908 15:30:48.321"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:48.323" starttime="20180908 15:30:48.312"></status>
+</kw>
+<kw type="for" name="${LINKS} IN [ @{LINKS_LIST} ]">
+<kw type="foritem" name="${LINKS} = New Customer">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:48.325" level="INFO">Clicking link 'New Customer'.</msg>
+<status status="PASS" endtime="20180908 15:30:52.663" starttime="20180908 15:30:48.325"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:52.699" level="INFO">Current page contains text 'New Customer'.</msg>
+<status status="PASS" endtime="20180908 15:30:52.699" starttime="20180908 15:30:52.663"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:52.699" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:30:56.813" starttime="20180908 15:30:52.699"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:56.855" starttime="20180908 15:30:56.814"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:30:56.902" starttime="20180908 15:30:56.856"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:30:56.908" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:30:56.908" starttime="20180908 15:30:56.902"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:56.908" starttime="20180908 15:30:56.813"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:56.908" starttime="20180908 15:30:48.324"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:30:56.909" starttime="20180908 15:30:48.324"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Edit Customer">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:30:56.910" level="INFO">Clicking link 'Edit Customer'.</msg>
+<status status="PASS" endtime="20180908 15:31:15.062" starttime="20180908 15:30:56.910"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:15.095" level="INFO">Current page contains text 'Edit Customer'.</msg>
+<status status="PASS" endtime="20180908 15:31:15.095" starttime="20180908 15:31:15.062"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:15.095" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:31:19.052" starttime="20180908 15:31:15.095"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:19.101" starttime="20180908 15:31:19.053"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:19.156" starttime="20180908 15:31:19.102"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:31:19.164" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:31:19.164" starttime="20180908 15:31:19.157"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:19.164" starttime="20180908 15:31:19.052"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:19.166" starttime="20180908 15:30:56.909"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:19.166" starttime="20180908 15:30:56.909"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Delete Customer">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:19.166" level="INFO">Clicking link 'Delete Customer'.</msg>
+<status status="PASS" endtime="20180908 15:31:22.674" starttime="20180908 15:31:19.166"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:22.715" level="INFO">Current page contains text 'Delete Customer'.</msg>
+<status status="PASS" endtime="20180908 15:31:22.715" starttime="20180908 15:31:22.675"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:22.716" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:31:27.376" starttime="20180908 15:31:22.715"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:27.421" starttime="20180908 15:31:27.378"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:27.466" starttime="20180908 15:31:27.421"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:31:27.471" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:31:27.472" starttime="20180908 15:31:27.466"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:27.472" starttime="20180908 15:31:27.377"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:27.472" starttime="20180908 15:31:19.166"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:27.472" starttime="20180908 15:31:19.166"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = New Account">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:27.473" level="INFO">Clicking link 'New Account'.</msg>
+<status status="PASS" endtime="20180908 15:31:31.579" starttime="20180908 15:31:27.473"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:31.615" level="INFO">Current page contains text 'New Account'.</msg>
+<status status="PASS" endtime="20180908 15:31:31.615" starttime="20180908 15:31:31.580"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:31.615" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:31:35.834" starttime="20180908 15:31:31.615"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:35.918" starttime="20180908 15:31:35.838"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:36.009" starttime="20180908 15:31:35.919"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:31:36.019" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:31:36.020" starttime="20180908 15:31:36.009"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:36.020" starttime="20180908 15:31:35.835"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:36.020" starttime="20180908 15:31:27.472"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:36.020" starttime="20180908 15:31:27.472"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Edit Account">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:36.020" level="INFO">Clicking link 'Edit Account'.</msg>
+<status status="PASS" endtime="20180908 15:31:40.273" starttime="20180908 15:31:36.020"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:40.307" level="INFO">Current page contains text 'Edit Account'.</msg>
+<status status="PASS" endtime="20180908 15:31:40.307" starttime="20180908 15:31:40.274"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:40.308" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:31:44.152" starttime="20180908 15:31:40.308"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:44.233" starttime="20180908 15:31:44.155"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:44.292" starttime="20180908 15:31:44.233"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:31:44.299" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:31:44.300" starttime="20180908 15:31:44.293"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:44.300" starttime="20180908 15:31:44.153"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:44.300" starttime="20180908 15:31:36.020"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:44.300" starttime="20180908 15:31:36.020"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Delete Account">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:44.302" level="INFO">Clicking link 'Delete Account'.</msg>
+<status status="PASS" endtime="20180908 15:31:48.358" starttime="20180908 15:31:44.301"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:48.393" level="INFO">Current page contains text 'Delete Account'.</msg>
+<status status="PASS" endtime="20180908 15:31:48.393" starttime="20180908 15:31:48.358"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:48.394" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:31:52.782" starttime="20180908 15:31:48.394"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:52.824" starttime="20180908 15:31:52.784"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:31:52.871" starttime="20180908 15:31:52.824"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:31:52.877" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:31:52.877" starttime="20180908 15:31:52.872"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:52.878" starttime="20180908 15:31:52.782"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:52.878" starttime="20180908 15:31:44.301"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:31:52.878" starttime="20180908 15:31:44.300"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Deposit">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:52.878" level="INFO">Clicking link 'Deposit'.</msg>
+<status status="PASS" endtime="20180908 15:31:56.801" starttime="20180908 15:31:52.878"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:56.835" level="INFO">Current page contains text 'Deposit'.</msg>
+<status status="PASS" endtime="20180908 15:31:56.835" starttime="20180908 15:31:56.802"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:31:56.836" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:00.943" starttime="20180908 15:31:56.835"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:00.984" starttime="20180908 15:32:00.944"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:01.030" starttime="20180908 15:32:00.984"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:01.037" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:01.037" starttime="20180908 15:32:01.030"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:01.037" starttime="20180908 15:32:00.943"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:01.037" starttime="20180908 15:31:52.878"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:01.037" starttime="20180908 15:31:52.878"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Withdrawal">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:01.038" level="INFO">Clicking link 'Withdrawal'.</msg>
+<status status="PASS" endtime="20180908 15:32:05.052" starttime="20180908 15:32:01.038"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:05.117" level="INFO">Current page contains text 'Withdrawal'.</msg>
+<status status="PASS" endtime="20180908 15:32:05.117" starttime="20180908 15:32:05.053"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:05.118" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:09.257" starttime="20180908 15:32:05.118"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:09.299" starttime="20180908 15:32:09.258"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:09.343" starttime="20180908 15:32:09.299"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:09.350" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:09.350" starttime="20180908 15:32:09.343"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:09.350" starttime="20180908 15:32:09.257"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:09.350" starttime="20180908 15:32:01.038"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:09.351" starttime="20180908 15:32:01.037"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Fund Transfer">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:09.352" level="INFO">Clicking link 'Fund Transfer'.</msg>
+<status status="PASS" endtime="20180908 15:32:13.234" starttime="20180908 15:32:09.352"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:13.305" level="INFO">Current page contains text 'Fund Transfer'.</msg>
+<status status="PASS" endtime="20180908 15:32:13.305" starttime="20180908 15:32:13.235"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:13.306" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:17.104" starttime="20180908 15:32:13.305"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:17.144" starttime="20180908 15:32:17.105"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:17.191" starttime="20180908 15:32:17.145"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:17.197" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:17.197" starttime="20180908 15:32:17.191"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:17.198" starttime="20180908 15:32:17.104"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:17.198" starttime="20180908 15:32:09.351"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:17.198" starttime="20180908 15:32:09.351"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Change Password">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:17.200" level="INFO">Clicking link 'Change Password'.</msg>
+<status status="PASS" endtime="20180908 15:32:21.513" starttime="20180908 15:32:17.198"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:21.545" level="INFO">Current page contains text 'Change Password'.</msg>
+<status status="PASS" endtime="20180908 15:32:21.546" starttime="20180908 15:32:21.513"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:21.547" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:25.262" starttime="20180908 15:32:21.546"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:25.302" starttime="20180908 15:32:25.263"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:25.349" starttime="20180908 15:32:25.302"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:25.355" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:25.355" starttime="20180908 15:32:25.350"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:25.355" starttime="20180908 15:32:25.262"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:25.356" starttime="20180908 15:32:17.198"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:25.356" starttime="20180908 15:32:17.198"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Balance Enquiry">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:25.357" level="INFO">Clicking link 'Balance Enquiry'.</msg>
+<status status="PASS" endtime="20180908 15:32:29.814" starttime="20180908 15:32:25.357"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:29.882" level="INFO">Current page contains text 'Balance Enquiry'.</msg>
+<status status="PASS" endtime="20180908 15:32:29.882" starttime="20180908 15:32:29.814"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:29.883" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:33.706" starttime="20180908 15:32:29.882"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:33.751" starttime="20180908 15:32:33.706"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:33.799" starttime="20180908 15:32:33.752"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:33.806" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:33.806" starttime="20180908 15:32:33.799"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:33.806" starttime="20180908 15:32:33.706"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:33.806" starttime="20180908 15:32:25.356"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:33.806" starttime="20180908 15:32:25.356"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Mini Statement">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:33.807" level="INFO">Clicking link 'Mini Statement'.</msg>
+<status status="PASS" endtime="20180908 15:32:38.112" starttime="20180908 15:32:33.807"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:38.143" level="INFO">Current page contains text 'Mini Statement'.</msg>
+<status status="PASS" endtime="20180908 15:32:38.143" starttime="20180908 15:32:38.112"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:38.144" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:42.163" starttime="20180908 15:32:38.144"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:42.238" starttime="20180908 15:32:42.166"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:42.307" starttime="20180908 15:32:42.239"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:42.316" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:42.316" starttime="20180908 15:32:42.307"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:42.317" starttime="20180908 15:32:42.163"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:42.317" starttime="20180908 15:32:33.807"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:42.317" starttime="20180908 15:32:33.807"></status>
+</kw>
+<kw type="foritem" name="${LINKS} = Customised Statement">
+<kw name="Validate Links In Manager Homepage">
+<arguments>
+<arg>${LINKS}</arg>
+<arg>${LINKS}</arg>
+</arguments>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${link}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:42.320" level="INFO">Clicking link 'Customised Statement'.</msg>
+<status status="PASS" endtime="20180908 15:32:46.230" starttime="20180908 15:32:42.319"></status>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${expected_page}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:46.265" level="INFO">Current page contains text 'Customised Statement'.</msg>
+<status status="PASS" endtime="20180908 15:32:46.265" starttime="20180908 15:32:46.231"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:46.266" level="INFO">Opening url 'http://demo.guru99.com/v4/manager/Managerhomepage.php'</msg>
+<status status="PASS" endtime="20180908 15:32:50.289" starttime="20180908 15:32:46.265"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:50.336" starttime="20180908 15:32:50.290"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:32:50.391" starttime="20180908 15:32:50.337"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:32:50.397" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:32:50.397" starttime="20180908 15:32:50.392"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:50.397" starttime="20180908 15:32:50.289"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:50.398" starttime="20180908 15:32:42.318"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:50.398" starttime="20180908 15:32:42.317"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:50.398" starttime="20180908 15:30:48.324"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:32:53.654" starttime="20180908 15:32:50.401"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:53.654" starttime="20180908 15:32:50.399"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:32:53.654" starttime="20180908 15:32:50.399"></status>
+</kw>
+<tags>
+<tag>smoke-test</tag>
+<tag>test-case</tag>
+</tags>
+<status status="PASS" endtime="20180908 15:32:53.654" critical="yes" starttime="20180908 15:30:10.256"></status>
+</test>
+<test id="s1-s2-t2" name="Validate Available Links Order In Manager Dashboard">
+<kw type="setup" name="Test Setup">
+<kw name="Launch Guru99 Bank Application" library="util">
+<doc>Launch guru 99 bank application in chrome</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${GURU_99_BANK_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180908 15:32:53.676" level="INFO">Opening browser 'chrome' to base url 'http://demo.guru99.com/v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:33:21.148" starttime="20180908 15:32:53.676"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>${SEL_TIMEOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:21.150" starttime="20180908 15:33:21.148"></status>
+</kw>
+<kw name="Guru99 Bank Login Page Should Be Loaded" library="login_page_locator">
+<doc>Keyword is used to wait until login page is loaded</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:21.192" starttime="20180908 15:33:21.151"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current URL contains ``expected``.</doc>
+<arguments>
+<arg>v4/index.php</arg>
+</arguments>
+<msg timestamp="20180908 15:33:21.200" level="INFO">Current location contains 'v4/index.php'.</msg>
+<status status="PASS" endtime="20180908 15:33:21.200" starttime="20180908 15:33:21.193"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:21.200" starttime="20180908 15:33:21.151"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:21.200" starttime="20180908 15:32:53.672"></status>
+</kw>
+<kw name="Login To Guru99 Bank" library="util">
+<arguments>
+<arg>${USER_NAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Enter User Name" library="login_page_locator">
+<arguments>
+<arg>${user_name}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:21.240" starttime="20180908 15:33:21.201"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${user_name_field}</arg>
+<arg>${user_name}</arg>
+</arguments>
+<msg timestamp="20180908 15:33:21.240" level="INFO">Typing text 'mngr152469' into text field 'name:uid'.</msg>
+<status status="PASS" endtime="20180908 15:33:21.366" starttime="20180908 15:33:21.240"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:21.367" starttime="20180908 15:33:21.201"></status>
+</kw>
+<kw name="Enter Password" library="login_page_locator">
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${password_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:21.414" starttime="20180908 15:33:21.367"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${password_field}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20180908 15:33:21.415" level="INFO">Typing text 'nenerev' into text field 'xpath://input[@name='password']'.</msg>
+<status status="PASS" endtime="20180908 15:33:21.540" starttime="20180908 15:33:21.415"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:21.540" starttime="20180908 15:33:21.367"></status>
+</kw>
+<kw name="Click Login" library="login_page_locator">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:21.565" starttime="20180908 15:33:21.541"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_field}</arg>
+</arguments>
+<msg timestamp="20180908 15:33:21.565" level="INFO">Clicking element 'css:input[value="LOGIN"]'.</msg>
+<status status="PASS" endtime="20180908 15:33:31.389" starttime="20180908 15:33:21.565"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.389" starttime="20180908 15:33:21.540"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.390" starttime="20180908 15:33:21.200"></status>
+</kw>
+<kw name="Guru99 Bank Manager Home Page Should Be Loaded" library="manager_home_page_locators">
+<doc>Keyword is used to wait until Manager Home page is loaded</doc>
+<arguments>
+<arg>${USER_NAME}</arg>
+</arguments>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` contains ``text``.</doc>
+<arguments>
+<arg>${logged_manager_field}</arg>
+<arg>${manager_id}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.452" starttime="20180908 15:33:31.391"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${LINKS.logout}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.515" starttime="20180908 15:33:31.452"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that current page title equals ``title``.</doc>
+<arguments>
+<arg>Guru99 Bank Manager HomePage</arg>
+</arguments>
+<msg timestamp="20180908 15:33:31.524" level="INFO">Page title is 'Guru99 Bank Manager HomePage'.</msg>
+<status status="PASS" endtime="20180908 15:33:31.524" starttime="20180908 15:33:31.516"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.524" starttime="20180908 15:33:31.390"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.525" starttime="20180908 15:32:53.672"></status>
+</kw>
+<kw name="Remember Manager Home Page URL">
+<kw name="Get Location" library="SeleniumLibrary">
+<doc>Returns the current browser URL.</doc>
+<assign>
+<var>${current_url}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.532" level="INFO">${current_url} = http://demo.guru99.com/v4/manager/Managerhomepage.php</msg>
+<status status="PASS" endtime="20180908 15:33:31.532" starttime="20180908 15:33:31.526"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${HOME_PAGE_URL}</arg>
+<arg>${current_url}</arg>
+</arguments>
+<msg timestamp="20180908 15:33:31.534" level="INFO">${HOME_PAGE_URL} = http://demo.guru99.com/v4/manager/Managerhomepage.php</msg>
+<status status="PASS" endtime="20180908 15:33:31.534" starttime="20180908 15:33:31.532"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.534" starttime="20180908 15:33:31.525"></status>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>Manager</arg>
+<arg>New Customer</arg>
+<arg>Edit Customer</arg>
+<arg>Delete Customer</arg>
+<arg>New Account</arg>
+<arg>Edit Account</arg>
+<arg>Delete Account</arg>
+<arg>Deposit</arg>
+<arg>Withdrawal</arg>
+<arg>Fund Transfer</arg>
+<arg>Change Password</arg>
+<arg>Balance Enquiry</arg>
+<arg>Mini Statement</arg>
+<arg>Customised Statement</arg>
+<arg>Log out</arg>
+</arguments>
+<assign>
+<var>@{expected_links_order}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.535" level="INFO">@{expected_links_order} = [ Manager | New Customer | Edit Customer | Delete Customer | New Account | Edit Account | Delete Account | Deposit | Withdrawal | Fund Transfer | Change Password | Balance Enquiry | Mini Statement | C...</msg>
+<status status="PASS" endtime="20180908 15:33:31.535" starttime="20180908 15:33:31.535"></status>
+</kw>
+<kw name="Get Available Links In Page" library="manager_home_page_locators">
+<doc>Get's list of app link in homepage</doc>
+<assign>
+<var>${actual_links_order}</var>
+</assign>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${list_of_links}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.586" starttime="20180908 15:33:31.536"></status>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<doc>Returns list of WebElement objects matching the ``locator``.</doc>
+<arguments>
+<arg>${list_of_links}</arg>
+</arguments>
+<assign>
+<var>@{locators}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.600" level="INFO">@{locators} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="752058763bd673bb237e1dcb6ac2dba9", element="0.7881787704229704-3")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (session="752058763b...</msg>
+<status status="PASS" endtime="20180908 15:33:31.600" starttime="20180908 15:33:31.586"></status>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>@{result}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.601" level="INFO">@{result} = [ ]</msg>
+<status status="PASS" endtime="20180908 15:33:31.601" starttime="20180908 15:33:31.600"></status>
+</kw>
+<kw type="for" name="${locator} IN [ @{locators} ]">
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-3&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.628" level="INFO">${name} = Manager</msg>
+<status status="PASS" endtime="20180908 15:33:31.628" starttime="20180908 15:33:31.601"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.628" starttime="20180908 15:33:31.628"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.628" starttime="20180908 15:33:31.601"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-4&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.654" level="INFO">${name} = New Customer</msg>
+<status status="PASS" endtime="20180908 15:33:31.654" starttime="20180908 15:33:31.629"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.654" starttime="20180908 15:33:31.654"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.654" starttime="20180908 15:33:31.629"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-5&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.687" level="INFO">${name} = Edit Customer</msg>
+<status status="PASS" endtime="20180908 15:33:31.687" starttime="20180908 15:33:31.654"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.688" starttime="20180908 15:33:31.688"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.688" starttime="20180908 15:33:31.654"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-6&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.713" level="INFO">${name} = Delete Customer</msg>
+<status status="PASS" endtime="20180908 15:33:31.713" starttime="20180908 15:33:31.688"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.714" starttime="20180908 15:33:31.713"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.714" starttime="20180908 15:33:31.688"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-7&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.740" level="INFO">${name} = New Account</msg>
+<status status="PASS" endtime="20180908 15:33:31.740" starttime="20180908 15:33:31.714"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.740" starttime="20180908 15:33:31.740"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.740" starttime="20180908 15:33:31.714"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-8&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.766" level="INFO">${name} = Edit Account</msg>
+<status status="PASS" endtime="20180908 15:33:31.767" starttime="20180908 15:33:31.741"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.767" starttime="20180908 15:33:31.767"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.768" starttime="20180908 15:33:31.740"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-9&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.794" level="INFO">${name} = Delete Account</msg>
+<status status="PASS" endtime="20180908 15:33:31.794" starttime="20180908 15:33:31.768"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.794" starttime="20180908 15:33:31.794"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.794" starttime="20180908 15:33:31.768"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-10&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.820" level="INFO">${name} = Deposit</msg>
+<status status="PASS" endtime="20180908 15:33:31.820" starttime="20180908 15:33:31.795"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.820" starttime="20180908 15:33:31.820"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.821" starttime="20180908 15:33:31.795"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-11&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.847" level="INFO">${name} = Withdrawal</msg>
+<status status="PASS" endtime="20180908 15:33:31.847" starttime="20180908 15:33:31.821"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.848" starttime="20180908 15:33:31.847"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.848" starttime="20180908 15:33:31.821"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-12&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.874" level="INFO">${name} = Fund Transfer</msg>
+<status status="PASS" endtime="20180908 15:33:31.874" starttime="20180908 15:33:31.848"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.874" starttime="20180908 15:33:31.874"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.875" starttime="20180908 15:33:31.848"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-13&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.901" level="INFO">${name} = Change Password</msg>
+<status status="PASS" endtime="20180908 15:33:31.901" starttime="20180908 15:33:31.875"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.902" starttime="20180908 15:33:31.901"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.902" starttime="20180908 15:33:31.875"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-14&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.928" level="INFO">${name} = Balance Enquiry</msg>
+<status status="PASS" endtime="20180908 15:33:31.928" starttime="20180908 15:33:31.902"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.930" starttime="20180908 15:33:31.930"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.930" starttime="20180908 15:33:31.902"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-15&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.958" level="INFO">${name} = Mini Statement</msg>
+<status status="PASS" endtime="20180908 15:33:31.958" starttime="20180908 15:33:31.931"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.959" starttime="20180908 15:33:31.958"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.959" starttime="20180908 15:33:31.930"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-16&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:31.988" level="INFO">${name} = Customised Statement</msg>
+<status status="PASS" endtime="20180908 15:33:31.988" starttime="20180908 15:33:31.960"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:31.989" starttime="20180908 15:33:31.989"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:31.989" starttime="20180908 15:33:31.959"></status>
+</kw>
+<kw type="foritem" name="${locator} = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;752058763bd673bb237e1dcb6ac2dba9&quot;, element=&quot;0.7881787704229704-2&quot;)&gt;">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20180908 15:33:32.023" level="INFO">${name} = Log out</msg>
+<status status="PASS" endtime="20180908 15:33:32.023" starttime="20180908 15:33:31.989"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20180908 15:33:32.024" starttime="20180908 15:33:32.023"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:32.024" starttime="20180908 15:33:31.989"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:32.024" starttime="20180908 15:33:31.601"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<msg timestamp="20180908 15:33:32.025" level="INFO">[u'Manager', u'New Customer', u'Edit Customer', u'Delete Customer', u'New Account', u'Edit Account', u'Delete Account', u'Deposit', u'Withdrawal', u'Fund Transfer', u'Change Password', u'Balance Enquiry', u'Mini Statement', u'Customised Statement', u'Log out']</msg>
+<status status="PASS" endtime="20180908 15:33:32.025" starttime="20180908 15:33:32.024"></status>
+</kw>
+<msg timestamp="20180908 15:33:32.026" level="INFO">${actual_links_order} = [u'Manager', u'New Customer', u'Edit Customer', u'Delete Customer', u'New Account', u'Edit Account', u'Delete Account', u'Deposit', u'Withdrawal', u'Fund Transfer', u'Change Password', u'Balance Enqui...</msg>
+<status status="PASS" endtime="20180908 15:33:32.026" starttime="20180908 15:33:31.536"></status>
+</kw>
+<kw name="Lists Should Be Equal" library="Collections">
+<doc>Fails if given lists are unequal.</doc>
+<arguments>
+<arg>{actual_links_order}</arg>
+<arg>${expected_links_order}</arg>
+</arguments>
+<msg timestamp="20180908 15:33:32.026" level="FAIL">Lengths are different: 20 != 15</msg>
+<status status="FAIL" endtime="20180908 15:33:32.026" starttime="20180908 15:33:32.026"></status>
+</kw>
+<kw type="teardown" name="Test Teardown">
+<kw name="Quit Sessions" library="util">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180908 15:33:35.278" starttime="20180908 15:33:32.030"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:35.278" starttime="20180908 15:33:32.030"></status>
+</kw>
+<status status="PASS" endtime="20180908 15:33:35.278" starttime="20180908 15:33:32.026"></status>
+</kw>
+<tags>
+<tag>test-case</tag>
+</tags>
+<status status="FAIL" endtime="20180908 15:33:35.278" critical="yes" starttime="20180908 15:32:53.669">Lengths are different: 20 != 15</status>
+</test>
+<status status="FAIL" endtime="20180908 15:33:35.295" starttime="20180908 15:30:10.117"></status>
+</suite>
+<status status="FAIL" endtime="20180908 15:33:35.317" starttime="20180908 15:23:28.285"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="5" pass="4">Critical Tests</stat>
+<stat fail="5" pass="4">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="2">smoke-test</stat>
+<stat fail="5" pass="4">test-case</stat>
+</tag>
+<suite>
+<stat fail="5" id="s1" name="Login &amp; Manager Dashboard" pass="4">Login &amp; Manager Dashboard</stat>
+<stat fail="4" id="s1-s1" name="Login" pass="3">Login &amp; Manager Dashboard.Login</stat>
+<stat fail="1" id="s1-s2" name="Manager Dashboard" pass="1">Login &amp; Manager Dashboard.Manager Dashboard</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20180908 15:26:55.217" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: UnexpectedAlertPresentException: Alert Text: None
+Message: unexpected alert open: {Alert text : User or Password is not valid}
+  (Session info: chrome=69.0.3497.81)
+  (Driver info: chromedriver=2.35.528161 (5b82f2d2aae0ca24b877009200ced9065a772e73),platform=Windows NT 10.0.17134 x86_64)
+</msg>
+</errors>
+</robot>
