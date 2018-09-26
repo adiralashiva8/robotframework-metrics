@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup
 import sys
 import os
+import math
 from datetime import datetime
 from datetime import timedelta
 from robot.api import ExecutionResult, ResultVisitor
@@ -337,6 +338,9 @@ class SuiteResults(ResultVisitor):
 
 result.visit(SuiteResults())
 
+suitepp = math.ceil(passed_suite*100.0/total_suite)
+suitefp = round(failed_suite*100.0/total_suite,2)
+
 elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
 elapsedtime = elapsedtime.strftime("%X")
 
@@ -351,6 +355,9 @@ stats = result.statistics
 total= stats.total.all.total
 passed= stats.total.all.passed
 failed= stats.total.all.failed
+
+testpp = round(passed*100.0/total,2)
+testfp = round(failed*100.0/total,2)
 
 total_keywords = 0
 passed_keywords = 0
@@ -380,6 +387,9 @@ class KeywordResults(ResultVisitor):
 
 result.visit(KeywordResults())
 
+kwpp = round(passed_keywords*100.0/total_keywords,2)
+kwfp = round(failed_keywords*100.0/total_keywords,2)
+
 dashboard_content="""
 <div class="tabcontent" id="dashboard">
 			
@@ -407,13 +417,13 @@ dashboard_content="""
 					<div class="col-md-3">                        
 						<a class="tile tile-pass">
 							%s
-							<p style="font-size:12px">Pass</p>
+							<p style="font-size:12px">Pass %s%%</p>
 						</a>
 					</div>						
 					<div class="col-md-3">                        
 						<a class="tile tile-fail">
 							%s
-							<p style="font-size:12px">Fail</p>
+							<p style="font-size:12px">Fail %s%%</p>
 						</a>
 					</div>
                 </div>
@@ -434,13 +444,13 @@ dashboard_content="""
 					<div class="col-md-3">                        
 						<a class="tile tile-pass">
 							%s
-							<p style="font-size:12px">Pass</p>
+							<p style="font-size:12px">Pass %s%%</p>
 						</a>
 					</div>						
 					<div class="col-md-3">                        
 						<a class="tile tile-fail">
 							%s
-							<p style="font-size:12px">Fail</p>
+							<p style="font-size:12px">Fail %s%%</p>
 						</a>
 					</div>
                 </div>
@@ -461,30 +471,26 @@ dashboard_content="""
 					<div class="col-md-3">                        
 						<a class="tile tile-pass">
 							%s
-							<p style="font-size:12px">Pass</p>
+							<p style="font-size:12px">Pass %s%%</p>
 						</a>
 					</div>						
 					<div class="col-md-3">                        
 						<a class="tile tile-fail">
 							%s
-							<p style="font-size:12px">Fail</p>
+							<p style="font-size:12px">Fail %s%%</p>
 						</a>
 					</div>
                 </div>
 				
 				<hr></hr>
 				<div class="row">
-					<div class="col-md-4" style="background-color:white;height:380px;width:auto;border:groove;">
-						<span style="font-weight:bold">Suite Status:</span>
-                        <div id="suiteChartID" style="height:350px;width:auto;"></div>
+					<div class="col-md-6" style="background-color:white;height:380px;width:auto;border:groove;">
+						<span style="font-weight:bold">Top 5 Suite Failures:</span>
+                        
 					</div>
-					<div class="col-md-4" style="background-color:white;height:380px;width:auto;border:groove;">
-						<span style="font-weight:bold">Test Status:</span>
-                        <div id="testChartID" style="height:350px;width:auto;"></div>
-					</div>
-					<div class="col-md-4" style="background-color:white;height:380px;width:auto;border:groove;">
-						<span style="font-weight:bold">Keyword Status:</span>
-                        <div id="keywordChartID" style="height:350px;width:auto;"></div>
+					<div class="col-md-6" style="background-color:white;height:380px;width:auto;border:groove;">
+						<span style="font-weight:bold">Top 5 Tag Failures:</span>
+                        
 					</div>
 				</div>
 
@@ -514,11 +520,11 @@ dashboard_content="""
     executeDataTable('#sm',7);
     executeDataTable('#tm',5);
     executeDataTable('#km',5);
-    createPieChart(%s,%s,'suiteChartID','Suite Status:');		
+    
     createBarGraph('#sm',0,7,10,'suiteBarID','Top 10 Suite Performance:','Suite');
-    createPieChart(%s,%s,'testChartID','Tests Status:');		
+    
     createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:','Test');
-    createPieChart(%s,%s,'keywordChartID','Keywords Status:');
+    
     createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword');
 	};
    </script>
@@ -531,7 +537,7 @@ function openInNewTab(url,element_id) {
 }
 </script>
   </div>
-""" % (elapsedtime,generator,total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
+""" % (elapsedtime,generator,total_suite,passed_suite,suitepp,failed_suite,suitefp,total,passed,testpp,failed,testfp,total_keywords,passed_keywords,kwpp,failed_keywords,kwfp)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
