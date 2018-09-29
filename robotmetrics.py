@@ -1296,7 +1296,7 @@ email_content = """
          </tbody>
       </table>
 
-<span style="text-align: left;font-weight: normal;"><br>Please refer reports for detailed info.<br><br>Regards,<br>QA Team</span>
+<span style="text-align: left;font-weight: normal;"><br>Please refer robotframework-metrics report for detailed info.<br><br>Regards,<br>QA Team</span>
 
 </body></html> 
 """%(total_suite,passed_suite,failed_suite,suitepp,total,passed,failed,testpp,total_keywords,passed_keywords,failed_keywords,kwpp,elapsedtime,generator)
