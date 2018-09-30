@@ -110,29 +110,74 @@
 		  width: 100%;
 		  float: left;
 		  margin: 0px;
-		  list-style: none;
-		  font-size: 30px;
-		  color: #FFF;
+		  color: black;
 		  -moz-border-radius: 5px;
-		  -webkit-border-radius: 5px;
-		  margin-bottom: 5px;
+		  -webkit-border-radius: 15px;
+		  margin-bottom: 0px;
 		  position: relative;
-		  text-align: center;
 		  color: white!important;
 		}
 
 		.tile.tile-fail {
-		  background: #f44336!important;
+		  background: #212F3D!important;
 		}
 		.tile.tile-pass {
-		  background: #4CAF50!important;
+		  background: #117864!important;
 		}
 		.tile.tile-info {
-		  background: #009688!important;
+		  background: #1A5276!important;
 		}
-		.tile.tile-head {
-		  background: #616161!important;
-		}
+
+        .sm-data-box-1 .cus-sat-stat {
+            font-size: 42px;
+        }
+
+        .weight-500 {
+            font-weight: 500 !important;
+        }
+
+        .block {
+            display: block !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+       .mt-8 {
+        margin-top: 8px !important;
+        }
+
+        .mt-5 {
+        margin-top: 5px !important;
+        }
+
+        /*Small graph*/
+        .flex-stat {
+        overflow: hidden;
+        }
+
+        .flex-stat li {
+        float: left;
+        width: 33.33%;
+        text-align: center;
+        }
+
+        .flex-stat li > span {
+        text-transform: capitalize;
+        }
+
+        .font-14 {
+        font-size: 14px !important;
+        }
+
+        .font-15 {
+        font-size: 15px !important;
+        }
+
+        ul {
+        list-style: none;
+        }
   </style>
  </head>
 </html>
@@ -144,7 +189,7 @@
   <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="font-size:16px;">
    <div class="sidebar-sticky">
     <ul class="nav flex-column">
-     <img src="https://cdn.pixabay.com/photo/2017/08/22/11/55/linked-in-2668692__340.png" style="height:18vh!important;width:95%;"/>
+     <img src="https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg" style="height:18vh!important;width:95%;"/>
      <br/>
      <h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
       <span>
@@ -198,22 +243,6 @@
     </ul>
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
      <span>
-      Saved reports
-     </span>
-     <a class="d-flex align-items-center text-muted" href="#">
-     </a>
-    </h6>
-    <ul class="nav flex-column mb-2">
-     <li class="nav-item">
-      <a class="tablink nav-link" href="#">
-       <i class="fa fa-hourglass-2">
-       </i>
-       Comming Soon
-      </a>
-     </li>
-    </ul>
-    <h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
-     <span>
       Project
      </span>
      <a class="d-flex align-items-center text-muted" href="#">
@@ -221,14 +250,14 @@
     </h6>
     <ul class="nav flex-column mb-2">
      <li class="nav-item">
-      <a class="tablink nav-link" href="https://www.github.com" style="color:blue;">
+      <a class="tablink nav-link" href="https://www.github.com" style="color:blue;" target="_blank">
        <i class="fa fa-external-link">
        </i>
        Git Hub
       </a>
      </li>
      <li class="nav-item">
-      <a class="tablink nav-link" href="https://www.jira.com" style="color:blue;">
+      <a class="tablink nav-link" href="https://www.jira.com" style="color:blue;" target="_blank">
        <i class="fa fa-external-link">
        </i>
        JIRA
@@ -262,118 +291,128 @@
   </nav>
  </div>
  <div class="row">
-  <div class="col-md-3" data-toggle="tooltip" onclick="openPage('suiteMetrics', this, '')" style="cursor: pointer;" title="Click to view Suite metrics">
-   <a class="tile tile-head">
-    Suite
-    <p style="font-size:12px">
-     Statistics
-    </p>
-   </a>
+  <div class="col-md-4" data-toggle="tooltip" onclick="openPage('suiteMetrics', this, '')" style="cursor: pointer;" title="Click to view Suite metrics">
+   <div class="panel-body sm-data-box-1 tile tile-fail">
+    <span class="weight-500 block text-center txt-dark mt-8">
+     SUITE STATISTICS
+    </span>
+    <div class="cus-sat-stat weight-500 txt-success text-center mt-5">
+     <span>
+      0.0
+     </span>
+     <span style="font-size:15px">
+      %
+     </span>
+    </div>
+    <ul class="flex-stat mt-5">
+     <li>
+      <span class="block">
+       Total
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       2
+      </span>
+     </li>
+     <li>
+      <span class="block">
+       Pass
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       0
+      </span>
+     </li>
+     <li>
+      <span class="block">
+       Fail
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       2
+      </span>
+     </li>
+    </ul>
+   </div>
   </div>
-  <div class="col-md-3">
-   <a class="tile tile-info">
-    2
-    <p style="font-size:12px">
-     Total
-    </p>
-   </a>
+  <div class="col-md-4" data-toggle="tooltip" onclick="openPage('testMetrics', this, '')" style="cursor: pointer;" title="Click to view Test metrics">
+   <div class="panel-body sm-data-box-1 tile tile-pass">
+    <span class="weight-500 block text-center txt-dark mt-8">
+     TEST STATISTICS
+    </span>
+    <div class="cus-sat-stat weight-500 txt-success text-center mt-5">
+     <span>
+      44.44
+     </span>
+     <span style="font-size:15px">
+      %
+     </span>
+    </div>
+    <ul class="flex-stat mt-5">
+     <li>
+      <span class="block">
+       Total
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       9
+      </span>
+     </li>
+     <li>
+      <span class="block">
+       Pass
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       4
+      </span>
+     </li>
+     <li>
+      <span class="block">
+       Fail
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       5
+      </span>
+     </li>
+    </ul>
+   </div>
   </div>
-  <div class="col-md-3">
-   <a class="tile tile-pass">
-    0
-    <p style="font-size:12px">
-     Pass 0.0%
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-fail">
-    2
-    <p style="font-size:12px">
-     Fail 100.0%
-    </p>
-   </a>
-  </div>
- </div>
- <div class="row">
-  <div class="col-md-3" data-toggle="tooltip" onclick="openPage('testMetrics', this, '')" style="cursor: pointer;" title="Click to view Test metrics">
-   <a class="tile tile-head">
-    Test
-    <p style="font-size:12px">
-     Statistics
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-info">
-    9
-    <p style="font-size:12px">
-     Total
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-pass">
-    4
-    <p style="font-size:12px">
-     Pass 44.44%
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-fail">
-    5
-    <p style="font-size:12px">
-     Fail 55.56%
-    </p>
-   </a>
-  </div>
- </div>
- <div class="row">
-  <div class="col-md-3" data-toggle="tooltip" onclick="openPage('keywordMetrics', this, '')" style="cursor: pointer;" title="Click to view Keyword metrics">
-   <a class="tile tile-head">
-    Keyword
-    <p style="font-size:12px">
-     Statistics
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-info">
-    121
-    <p style="font-size:12px">
-     Total
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-pass">
-    118
-    <p style="font-size:12px">
-     Pass 97.52%
-    </p>
-   </a>
-  </div>
-  <div class="col-md-3">
-   <a class="tile tile-fail">
-    3
-    <p style="font-size:12px">
-     Fail 2.48%
-    </p>
-   </a>
-  </div>
- </div>
- <hr/>
- <div class="row">
-  <div class="col-md-6" style="background-color:white;height:380px;width:auto;border:groove;">
-   <span style="font-weight:bold">
-    Top 5 Suite Failures:
-   </span>
-  </div>
-  <div class="col-md-6" style="background-color:white;height:380px;width:auto;border:groove;">
-   <span style="font-weight:bold">
-    Top 5 Tag Failures:
-   </span>
+  <div class="col-md-4" data-toggle="tooltip" onclick="openPage('keywordMetrics', this, '')" style="cursor: pointer;" title="Click to view Keyword metrics">
+   <div class="panel-body sm-data-box-1 tile tile-info">
+    <span class="weight-500 block text-center txt-dark mt-8">
+     KEYWORD STATISTICS
+    </span>
+    <div class="cus-sat-stat weight-500 txt-success text-center mt-5">
+     <span>
+      97.52
+     </span>
+     <span style="font-size:15px">
+      %
+     </span>
+    </div>
+    <ul class="flex-stat mt-5">
+     <li>
+      <span class="block">
+       Total
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       121
+      </span>
+     </li>
+     <li>
+      <span class="block">
+       Pass
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       118
+      </span>
+     </li>
+     <li>
+      <span class="block">
+       Fail
+      </span>
+      <span class="block txt-dark weight-500 font-15">
+       3
+      </span>
+     </li>
+    </ul>
+   </div>
   </div>
  </div>
  <hr/>
@@ -409,15 +448,12 @@
  </div>
  <script>
   window.onload = function(){
-    executeDataTable('#sm',7);
-    executeDataTable('#tm',5);
-    executeDataTable('#km',5);
-    
-    createBarGraph('#sm',0,7,10,'suiteBarID','Top 10 Suite Performance:','Suite');
-    
-    createBarGraph('#tm',1,5,10,'testsBarID','Top 10 Tests Performance:','Test');
-    
-    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword');
+    executeDataTable('#sm',5);
+    executeDataTable('#tm',3);
+    executeDataTable('#km',3);    
+    createBarGraph('#sm',0,5,10,'suiteBarID','Elapsed Time(s): ','Suite');    
+    createBarGraph('#tm',1,3,10,'testsBarID','Elapsed Time(s): ','Test');    
+    createBarGraph('#km',1,3,10,'keywordsBarID','Elapsed Time(s): ','Keyword');
 	};
  </script>
  <script>
@@ -457,12 +493,6 @@
        Fail
       </th>
       <th>
-       Start
-      </th>
-      <th>
-       End
-      </th>
-      <th>
        Elapsed (s)
       </th>
      </tr>
@@ -485,12 +515,6 @@
        1
       </td>
       <td>
-       20180908 15:30:10.117
-      </td>
-      <td>
-       20180908 15:33:35.295
-      </td>
-      <td>
        205.178
       </td>
      </tr>
@@ -509,12 +533,6 @@
       </td>
       <td>
        4
-      </td>
-      <td>
-       20180908 15:23:28.322
-      </td>
-      <td>
-       20180908 15:30:10.087
       </td>
       <td>
        401.765
@@ -549,12 +567,6 @@
        Status
       </th>
       <th>
-       Start
-      </th>
-      <th>
-       End
-      </th>
-      <th>
        Elapsed (s)
       </th>
      </tr>
@@ -571,12 +583,6 @@
        FAIL
       </td>
       <td>
-       20180908 15:32:53.669
-      </td>
-      <td>
-       20180908 15:33:35.278
-      </td>
-      <td>
        41.609
       </td>
      </tr>
@@ -589,12 +595,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:10.256
-      </td>
-      <td>
-       20180908 15:32:53.654
       </td>
       <td>
        163.398
@@ -611,12 +611,6 @@
        FAIL
       </td>
       <td>
-       20180908 15:28:49.071
-      </td>
-      <td>
-       20180908 15:30:10.070
-      </td>
-      <td>
        80.999
       </td>
      </tr>
@@ -629,12 +623,6 @@
       </td>
       <td>
        FAIL
-      </td>
-      <td>
-       20180908 15:27:34.183
-      </td>
-      <td>
-       20180908 15:28:49.059
       </td>
       <td>
        74.876
@@ -651,12 +639,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:58.506
-      </td>
-      <td>
-       20180908 15:27:34.170
-      </td>
-      <td>
        35.664
       </td>
      </tr>
@@ -669,12 +651,6 @@
       </td>
       <td>
        FAIL
-      </td>
-      <td>
-       20180908 15:25:58.318
-      </td>
-      <td>
-       20180908 15:26:58.492
       </td>
       <td>
        60.174
@@ -691,12 +667,6 @@
        FAIL
       </td>
       <td>
-       20180908 15:24:49.670
-      </td>
-      <td>
-       20180908 15:25:58.305
-      </td>
-      <td>
        68.635
       </td>
      </tr>
@@ -711,12 +681,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:10.369
-      </td>
-      <td>
-       20180908 15:24:49.670
-      </td>
-      <td>
        39.301
       </td>
      </tr>
@@ -729,12 +693,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:23:28.625
-      </td>
-      <td>
-       20180908 15:24:10.369
       </td>
       <td>
        41.744
@@ -769,12 +727,6 @@
        Status
       </th>
       <th>
-       Start
-      </th>
-      <th>
-       End
-      </th>
-      <th>
        Elapsed (s)
       </th>
      </tr>
@@ -791,12 +743,6 @@
        PASS
       </td>
       <td>
-       20180908 15:23:28.627
-      </td>
-      <td>
-       20180908 15:23:59.925
-      </td>
-      <td>
        31.298
       </td>
      </tr>
@@ -809,12 +755,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:33:32.030
-      </td>
-      <td>
-       20180908 15:33:35.278
       </td>
       <td>
        3.248
@@ -831,12 +771,6 @@
        PASS
       </td>
       <td>
-       20180908 15:33:32.026
-      </td>
-      <td>
-       20180908 15:33:35.278
-      </td>
-      <td>
        3.252
       </td>
      </tr>
@@ -849,12 +783,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:33:31.536
-      </td>
-      <td>
-       20180908 15:33:32.026
       </td>
       <td>
        0.49
@@ -871,12 +799,6 @@
        PASS
       </td>
       <td>
-       20180908 15:33:31.525
-      </td>
-      <td>
-       20180908 15:33:31.534
-      </td>
-      <td>
        0.009
       </td>
      </tr>
@@ -889,12 +811,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:33:31.390
-      </td>
-      <td>
-       20180908 15:33:31.524
       </td>
       <td>
        0.134
@@ -911,12 +827,6 @@
        PASS
       </td>
       <td>
-       20180908 15:33:21.540
-      </td>
-      <td>
-       20180908 15:33:31.389
-      </td>
-      <td>
        9.849
       </td>
      </tr>
@@ -929,12 +839,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:33:21.367
-      </td>
-      <td>
-       20180908 15:33:21.540
       </td>
       <td>
        0.173
@@ -951,12 +855,6 @@
        PASS
       </td>
       <td>
-       20180908 15:33:21.201
-      </td>
-      <td>
-       20180908 15:33:21.367
-      </td>
-      <td>
        0.166
       </td>
      </tr>
@@ -969,12 +867,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:33:21.200
-      </td>
-      <td>
-       20180908 15:33:31.390
       </td>
       <td>
        10.19
@@ -991,12 +883,6 @@
        PASS
       </td>
       <td>
-       20180908 15:33:21.151
-      </td>
-      <td>
-       20180908 15:33:21.200
-      </td>
-      <td>
        0.049
       </td>
      </tr>
@@ -1009,12 +895,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:53.672
-      </td>
-      <td>
-       20180908 15:33:21.200
       </td>
       <td>
        27.528
@@ -1031,12 +911,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:53.672
-      </td>
-      <td>
-       20180908 15:33:31.525
-      </td>
-      <td>
        37.853
       </td>
      </tr>
@@ -1049,12 +923,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:50.399
-      </td>
-      <td>
-       20180908 15:32:53.654
       </td>
       <td>
        3.255
@@ -1071,12 +939,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:50.399
-      </td>
-      <td>
-       20180908 15:32:53.654
-      </td>
-      <td>
        3.255
       </td>
      </tr>
@@ -1089,12 +951,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:50.289
-      </td>
-      <td>
-       20180908 15:32:50.397
       </td>
       <td>
        0.108
@@ -1111,12 +967,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:42.318
-      </td>
-      <td>
-       20180908 15:32:50.398
-      </td>
-      <td>
        8.08
       </td>
      </tr>
@@ -1129,12 +979,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:42.163
-      </td>
-      <td>
-       20180908 15:32:42.317
       </td>
       <td>
        0.154
@@ -1151,12 +995,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:33.807
-      </td>
-      <td>
-       20180908 15:32:42.317
-      </td>
-      <td>
        8.51
       </td>
      </tr>
@@ -1169,12 +1007,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:33.706
-      </td>
-      <td>
-       20180908 15:32:33.806
       </td>
       <td>
        0.1
@@ -1191,12 +1023,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:25.356
-      </td>
-      <td>
-       20180908 15:32:33.806
-      </td>
-      <td>
        8.45
       </td>
      </tr>
@@ -1211,12 +1037,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:25.262
-      </td>
-      <td>
-       20180908 15:32:25.355
-      </td>
-      <td>
        0.093
       </td>
      </tr>
@@ -1229,12 +1049,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:17.198
-      </td>
-      <td>
-       20180908 15:32:25.356
       </td>
       <td>
        8.158
@@ -1251,12 +1065,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:17.104
-      </td>
-      <td>
-       20180908 15:32:17.198
-      </td>
-      <td>
        0.094
       </td>
      </tr>
@@ -1269,12 +1077,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:09.351
-      </td>
-      <td>
-       20180908 15:32:17.198
       </td>
       <td>
        7.847
@@ -1291,12 +1093,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:09.257
-      </td>
-      <td>
-       20180908 15:32:09.350
-      </td>
-      <td>
        0.093
       </td>
      </tr>
@@ -1309,12 +1105,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:32:01.038
-      </td>
-      <td>
-       20180908 15:32:09.350
       </td>
       <td>
        8.312
@@ -1331,12 +1121,6 @@
        PASS
       </td>
       <td>
-       20180908 15:32:00.943
-      </td>
-      <td>
-       20180908 15:32:01.037
-      </td>
-      <td>
        0.094
       </td>
      </tr>
@@ -1349,12 +1133,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:31:52.878
-      </td>
-      <td>
-       20180908 15:32:01.037
       </td>
       <td>
        8.159
@@ -1371,12 +1149,6 @@
        PASS
       </td>
       <td>
-       20180908 15:31:52.782
-      </td>
-      <td>
-       20180908 15:31:52.878
-      </td>
-      <td>
        0.096
       </td>
      </tr>
@@ -1389,12 +1161,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:31:44.301
-      </td>
-      <td>
-       20180908 15:31:52.878
       </td>
       <td>
        8.577
@@ -1411,12 +1177,6 @@
        PASS
       </td>
       <td>
-       20180908 15:31:44.153
-      </td>
-      <td>
-       20180908 15:31:44.300
-      </td>
-      <td>
        0.147
       </td>
      </tr>
@@ -1429,12 +1189,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:31:36.020
-      </td>
-      <td>
-       20180908 15:31:44.300
       </td>
       <td>
        8.28
@@ -1451,12 +1205,6 @@
        PASS
       </td>
       <td>
-       20180908 15:31:35.835
-      </td>
-      <td>
-       20180908 15:31:36.020
-      </td>
-      <td>
        0.185
       </td>
      </tr>
@@ -1469,12 +1217,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:31:27.472
-      </td>
-      <td>
-       20180908 15:31:36.020
       </td>
       <td>
        8.548
@@ -1491,12 +1233,6 @@
        PASS
       </td>
       <td>
-       20180908 15:31:27.377
-      </td>
-      <td>
-       20180908 15:31:27.472
-      </td>
-      <td>
        0.095
       </td>
      </tr>
@@ -1509,12 +1245,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:31:19.166
-      </td>
-      <td>
-       20180908 15:31:27.472
       </td>
       <td>
        8.306
@@ -1531,12 +1261,6 @@
        PASS
       </td>
       <td>
-       20180908 15:31:19.052
-      </td>
-      <td>
-       20180908 15:31:19.164
-      </td>
-      <td>
        0.112
       </td>
      </tr>
@@ -1549,12 +1273,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:56.909
-      </td>
-      <td>
-       20180908 15:31:19.166
       </td>
       <td>
        22.257
@@ -1571,12 +1289,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:56.813
-      </td>
-      <td>
-       20180908 15:30:56.908
-      </td>
-      <td>
        0.095
       </td>
      </tr>
@@ -1589,12 +1301,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:48.324
-      </td>
-      <td>
-       20180908 15:30:56.908
       </td>
       <td>
        8.584
@@ -1611,12 +1317,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:48.312
-      </td>
-      <td>
-       20180908 15:30:48.323
-      </td>
-      <td>
        0.011
       </td>
      </tr>
@@ -1629,12 +1329,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:34.195
-      </td>
-      <td>
-       20180908 15:30:48.311
       </td>
       <td>
        14.116
@@ -1651,12 +1345,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:31.637
-      </td>
-      <td>
-       20180908 15:30:34.194
-      </td>
-      <td>
        2.557
       </td>
      </tr>
@@ -1669,12 +1357,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:31.448
-      </td>
-      <td>
-       20180908 15:30:31.637
       </td>
       <td>
        0.189
@@ -1691,12 +1373,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:31.254
-      </td>
-      <td>
-       20180908 15:30:31.448
-      </td>
-      <td>
        0.194
       </td>
      </tr>
@@ -1709,12 +1385,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:31.254
-      </td>
-      <td>
-       20180908 15:30:34.195
       </td>
       <td>
        2.941
@@ -1731,12 +1401,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:31.207
-      </td>
-      <td>
-       20180908 15:30:31.254
-      </td>
-      <td>
        0.047
       </td>
      </tr>
@@ -1749,12 +1413,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:10.258
-      </td>
-      <td>
-       20180908 15:30:31.254
       </td>
       <td>
        20.996
@@ -1771,12 +1429,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:10.258
-      </td>
-      <td>
-       20180908 15:30:48.311
-      </td>
-      <td>
        38.053
       </td>
      </tr>
@@ -1789,12 +1441,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:30:06.773
-      </td>
-      <td>
-       20180908 15:30:10.065
       </td>
       <td>
        3.292
@@ -1811,12 +1457,6 @@
        PASS
       </td>
       <td>
-       20180908 15:30:06.773
-      </td>
-      <td>
-       20180908 15:30:10.065
-      </td>
-      <td>
        3.292
       </td>
      </tr>
@@ -1829,12 +1469,6 @@
       </td>
       <td>
        FAIL
-      </td>
-      <td>
-       20180908 15:29:26.064
-      </td>
-      <td>
-       20180908 15:30:06.771
       </td>
       <td>
        40.707
@@ -1851,12 +1485,6 @@
        PASS
       </td>
       <td>
-       20180908 15:29:22.139
-      </td>
-      <td>
-       20180908 15:29:22.185
-      </td>
-      <td>
        0.046
       </td>
      </tr>
@@ -1869,12 +1497,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:29:20.466
-      </td>
-      <td>
-       20180908 15:29:20.584
       </td>
       <td>
        0.118
@@ -1891,12 +1513,6 @@
        PASS
       </td>
       <td>
-       20180908 15:29:12.100
-      </td>
-      <td>
-       20180908 15:29:20.465
-      </td>
-      <td>
        8.365
       </td>
      </tr>
@@ -1909,12 +1525,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:29:11.935
-      </td>
-      <td>
-       20180908 15:29:12.100
       </td>
       <td>
        0.165
@@ -1931,12 +1541,6 @@
        PASS
       </td>
       <td>
-       20180908 15:29:11.742
-      </td>
-      <td>
-       20180908 15:29:11.935
-      </td>
-      <td>
        0.193
       </td>
      </tr>
@@ -1949,12 +1553,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:29:11.741
-      </td>
-      <td>
-       20180908 15:29:20.465
       </td>
       <td>
        8.724
@@ -1971,12 +1569,6 @@
        PASS
       </td>
       <td>
-       20180908 15:29:11.691
-      </td>
-      <td>
-       20180908 15:29:11.740
-      </td>
-      <td>
        0.049
       </td>
      </tr>
@@ -1989,12 +1581,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:28:49.078
-      </td>
-      <td>
-       20180908 15:29:11.741
       </td>
       <td>
        22.663
@@ -2011,12 +1597,6 @@
        PASS
       </td>
       <td>
-       20180908 15:28:49.075
-      </td>
-      <td>
-       20180908 15:29:11.741
-      </td>
-      <td>
        22.666
       </td>
      </tr>
@@ -2029,12 +1609,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:28:45.571
-      </td>
-      <td>
-       20180908 15:28:49.056
       </td>
       <td>
        3.485
@@ -2051,12 +1625,6 @@
        PASS
       </td>
       <td>
-       20180908 15:28:45.570
-      </td>
-      <td>
-       20180908 15:28:49.057
-      </td>
-      <td>
        3.487
       </td>
      </tr>
@@ -2069,12 +1637,6 @@
       </td>
       <td>
        FAIL
-      </td>
-      <td>
-       20180908 15:28:05.207
-      </td>
-      <td>
-       20180908 15:28:45.569
       </td>
       <td>
        40.362
@@ -2091,12 +1653,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:58.219
-      </td>
-      <td>
-       20180908 15:28:05.207
-      </td>
-      <td>
        6.988
       </td>
      </tr>
@@ -2109,12 +1665,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:58.053
-      </td>
-      <td>
-       20180908 15:27:58.219
       </td>
       <td>
        0.166
@@ -2131,12 +1681,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:57.865
-      </td>
-      <td>
-       20180908 15:27:58.053
-      </td>
-      <td>
        0.188
       </td>
      </tr>
@@ -2149,12 +1693,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:57.865
-      </td>
-      <td>
-       20180908 15:28:05.207
       </td>
       <td>
        7.342
@@ -2171,12 +1709,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:57.812
-      </td>
-      <td>
-       20180908 15:27:57.864
-      </td>
-      <td>
        0.052
       </td>
      </tr>
@@ -2189,12 +1721,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:34.189
-      </td>
-      <td>
-       20180908 15:27:57.865
       </td>
       <td>
        23.676
@@ -2211,12 +1737,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:34.188
-      </td>
-      <td>
-       20180908 15:27:57.865
-      </td>
-      <td>
        23.677
       </td>
      </tr>
@@ -2229,12 +1749,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:30.789
-      </td>
-      <td>
-       20180908 15:27:34.170
       </td>
       <td>
        3.381
@@ -2251,12 +1765,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:30.788
-      </td>
-      <td>
-       20180908 15:27:34.170
-      </td>
-      <td>
        3.382
       </td>
      </tr>
@@ -2269,12 +1777,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:30.758
-      </td>
-      <td>
-       20180908 15:27:30.787
       </td>
       <td>
        0.029
@@ -2291,12 +1793,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:30.693
-      </td>
-      <td>
-       20180908 15:27:30.757
-      </td>
-      <td>
        0.064
       </td>
      </tr>
@@ -2309,12 +1805,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:30.591
-      </td>
-      <td>
-       20180908 15:27:30.693
       </td>
       <td>
        0.102
@@ -2331,12 +1821,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:30.462
-      </td>
-      <td>
-       20180908 15:27:30.590
-      </td>
-      <td>
        0.128
       </td>
      </tr>
@@ -2349,12 +1833,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:30.247
-      </td>
-      <td>
-       20180908 15:27:30.462
       </td>
       <td>
        0.215
@@ -2371,12 +1849,6 @@
        PASS
       </td>
       <td>
-       20180908 15:27:30.246
-      </td>
-      <td>
-       20180908 15:27:30.693
-      </td>
-      <td>
        0.447
       </td>
      </tr>
@@ -2389,12 +1861,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:27:30.141
-      </td>
-      <td>
-       20180908 15:27:30.245
       </td>
       <td>
        0.104
@@ -2411,12 +1877,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:58.506
-      </td>
-      <td>
-       20180908 15:27:30.246
-      </td>
-      <td>
        31.74
       </td>
      </tr>
@@ -2431,12 +1891,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:58.506
-      </td>
-      <td>
-       20180908 15:27:30.246
-      </td>
-      <td>
        31.74
       </td>
      </tr>
@@ -2449,12 +1903,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:26:55.224
-      </td>
-      <td>
-       20180908 15:26:58.490
       </td>
       <td>
        3.266
@@ -2471,12 +1919,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:55.224
-      </td>
-      <td>
-       20180908 15:26:58.491
-      </td>
-      <td>
        3.267
       </td>
      </tr>
@@ -2489,12 +1931,6 @@
       </td>
       <td>
        FAIL
-      </td>
-      <td>
-       20180908 15:26:55.172
-      </td>
-      <td>
-       20180908 15:26:55.223
       </td>
       <td>
        0.051
@@ -2511,12 +1947,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:54.599
-      </td>
-      <td>
-       20180908 15:26:55.170
-      </td>
-      <td>
        0.571
       </td>
      </tr>
@@ -2529,12 +1959,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:26:54.436
-      </td>
-      <td>
-       20180908 15:26:54.599
       </td>
       <td>
        0.163
@@ -2551,12 +1975,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:54.296
-      </td>
-      <td>
-       20180908 15:26:54.436
-      </td>
-      <td>
        0.14
       </td>
      </tr>
@@ -2569,12 +1987,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:26:54.296
-      </td>
-      <td>
-       20180908 15:26:55.171
       </td>
       <td>
        0.875
@@ -2591,12 +2003,6 @@
        PASS
       </td>
       <td>
-       20180908 15:26:54.246
-      </td>
-      <td>
-       20180908 15:26:54.296
-      </td>
-      <td>
        0.05
       </td>
      </tr>
@@ -2609,12 +2015,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:25:58.325
-      </td>
-      <td>
-       20180908 15:26:54.296
       </td>
       <td>
        55.971
@@ -2631,12 +2031,6 @@
        PASS
       </td>
       <td>
-       20180908 15:25:58.323
-      </td>
-      <td>
-       20180908 15:26:54.296
-      </td>
-      <td>
        55.973
       </td>
      </tr>
@@ -2649,12 +2043,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:25:55.027
-      </td>
-      <td>
-       20180908 15:25:58.303
       </td>
       <td>
        3.276
@@ -2671,12 +2059,6 @@
        PASS
       </td>
       <td>
-       20180908 15:25:55.025
-      </td>
-      <td>
-       20180908 15:25:58.303
-      </td>
-      <td>
        3.278
       </td>
      </tr>
@@ -2689,12 +2071,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:25:14.031
-      </td>
-      <td>
-       20180908 15:25:14.122
       </td>
       <td>
        0.091
@@ -2711,12 +2087,6 @@
        PASS
       </td>
       <td>
-       20180908 15:25:13.892
-      </td>
-      <td>
-       20180908 15:25:14.031
-      </td>
-      <td>
        0.139
       </td>
      </tr>
@@ -2729,12 +2099,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:25:13.765
-      </td>
-      <td>
-       20180908 15:25:13.892
       </td>
       <td>
        0.127
@@ -2751,12 +2115,6 @@
        PASS
       </td>
       <td>
-       20180908 15:25:13.764
-      </td>
-      <td>
-       20180908 15:25:14.122
-      </td>
-      <td>
        0.358
       </td>
      </tr>
@@ -2769,12 +2127,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:25:13.716
-      </td>
-      <td>
-       20180908 15:25:13.763
       </td>
       <td>
        0.047
@@ -2791,12 +2143,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:49.686
-      </td>
-      <td>
-       20180908 15:25:13.763
-      </td>
-      <td>
        24.077
       </td>
      </tr>
@@ -2811,12 +2157,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:49.686
-      </td>
-      <td>
-       20180908 15:25:13.763
-      </td>
-      <td>
        24.077
       </td>
      </tr>
@@ -2829,12 +2169,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:46.425
-      </td>
-      <td>
-       20180908 15:24:49.670
       </td>
       <td>
        3.245
@@ -2851,12 +2185,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:46.424
-      </td>
-      <td>
-       20180908 15:24:49.670
-      </td>
-      <td>
        3.246
       </td>
      </tr>
@@ -2869,12 +2197,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:41.350
-      </td>
-      <td>
-       20180908 15:24:46.424
       </td>
       <td>
        5.074
@@ -2891,12 +2213,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:40.842
-      </td>
-      <td>
-       20180908 15:24:41.344
-      </td>
-      <td>
        0.502
       </td>
      </tr>
@@ -2909,12 +2225,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:40.649
-      </td>
-      <td>
-       20180908 15:24:40.842
       </td>
       <td>
        0.193
@@ -2931,12 +2241,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:40.429
-      </td>
-      <td>
-       20180908 15:24:40.648
-      </td>
-      <td>
        0.219
       </td>
      </tr>
@@ -2949,12 +2253,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:40.429
-      </td>
-      <td>
-       20180908 15:24:41.344
       </td>
       <td>
        0.915
@@ -2971,12 +2269,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:40.378
-      </td>
-      <td>
-       20180908 15:24:40.427
-      </td>
-      <td>
        0.049
       </td>
      </tr>
@@ -2989,12 +2281,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:10.384
-      </td>
-      <td>
-       20180908 15:24:40.427
       </td>
       <td>
        30.043
@@ -3011,12 +2297,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:10.384
-      </td>
-      <td>
-       20180908 15:24:40.427
-      </td>
-      <td>
        30.043
       </td>
      </tr>
@@ -3029,12 +2309,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:07.115
-      </td>
-      <td>
-       20180908 15:24:10.369
       </td>
       <td>
        3.254
@@ -3051,12 +2325,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:07.115
-      </td>
-      <td>
-       20180908 15:24:10.369
-      </td>
-      <td>
        3.254
       </td>
      </tr>
@@ -3069,12 +2337,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:06.964
-      </td>
-      <td>
-       20180908 15:24:07.115
       </td>
       <td>
        0.151
@@ -3091,12 +2353,6 @@
        PASS
       </td>
       <td>
-       20180908 15:24:00.428
-      </td>
-      <td>
-       20180908 15:24:06.962
-      </td>
-      <td>
        6.534
       </td>
      </tr>
@@ -3109,12 +2365,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:24:00.258
-      </td>
-      <td>
-       20180908 15:24:00.427
       </td>
       <td>
        0.169
@@ -3131,12 +2381,6 @@
        PASS
       </td>
       <td>
-       20180908 15:23:59.927
-      </td>
-      <td>
-       20180908 15:24:00.258
-      </td>
-      <td>
        0.331
       </td>
      </tr>
@@ -3149,12 +2393,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:23:59.926
-      </td>
-      <td>
-       20180908 15:24:06.963
       </td>
       <td>
        7.037
@@ -3171,12 +2409,6 @@
        PASS
       </td>
       <td>
-       20180908 15:23:59.805
-      </td>
-      <td>
-       20180908 15:23:59.924
-      </td>
-      <td>
        0.119
       </td>
      </tr>
@@ -3189,12 +2421,6 @@
       </td>
       <td>
        PASS
-      </td>
-      <td>
-       20180908 15:23:28.628
-      </td>
-      <td>
-       20180908 15:23:59.924
       </td>
       <td>
        31.296
@@ -3362,25 +2588,7 @@ Following are the last build execution statistics.
         })();
 </script>
 <script>
- function createPieChart(passed_count,failed_count,ChartID,ChartName){
-        var status = [];
-        status.push(['Status', 'Percentage']);
-        status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
-        var data = google.visualization.arrayToDataTable(status);
-
-        var options = {
-        pieHole: 0.7,
-        legend: 'none',
-        chartArea: {width: "95%",height: "90%"},
-        colors: ['green', 'red'],
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById(ChartID));
-        chart.draw(data, options);
-    }
-</script>
-<script>
- function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName,type){
+ function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,Label,type){
 		var status = [];
 		css_selector_locator = tableID + ' tbody >tr'
 		var rows = $(css_selector_locator);
@@ -3397,7 +2605,7 @@ Following are the last build execution statistics.
             '#76A032',
             '#34558B'
 		];
-		status.push([type, 'Elapsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
+		status.push([type, Label,{ role: 'annotation'}, {role: 'style'}]);
 		for (var i = 0; i < rows.length; i++) {
 			if (i == Number(limit)){
 				break;
