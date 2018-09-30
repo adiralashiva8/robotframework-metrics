@@ -16,7 +16,7 @@ Creates HTML Metrics report based on robotframework output.xml
 
 1. Download __robotmetrics.py__ from here 
 
-    v3.1 - ALPHA - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.1/robotmetrics.py)
+    v3.1 - ALPHA - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3-1/robotmetrics.py)
 
     v3.0 - STABLE - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.0/robotmetrics.py)
 
