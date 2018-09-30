@@ -56,9 +56,12 @@ Creates HTML Metrics report based on robotframework output.xml
 
 ---
 
+ V3.1 Sample report [link](https://robotframework-metrics-v-3-1.netlify.com/#)
+ 
  V3.0 Sample report [link](https://robotframework-metrics-report.netlify.com/#)
-
- V3.1 Sample Screenshot:
+ 
+ v3.1 Screenshot:
+ 
   ![Screenshot](Dashboard.JPG)
 
 ---
