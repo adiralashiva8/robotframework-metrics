@@ -14,7 +14,11 @@ Creates HTML Metrics report based on robotframework output.xml
 
 *How to use in project:*
 
-1. Download __robotmetrics.py__ from here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.0/robotmetrics.py)
+1. Download __robotmetrics.py__ from here 
+
+    v3.1 - ALPHA - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.1/robotmetrics.py)
+
+    v3.0 - STABLE - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.0/robotmetrics.py)
 
     > Repo has some extra files (.html and .xml for testing) - I suggest to download from link
 
@@ -46,11 +50,16 @@ Creates HTML Metrics report based on robotframework output.xml
     python robotmetrics.py -inputpath .\Result\ -output voutput.xml -report vreport.html -log vlog.html
     ```
     
-5. RobotFramework Metrics Report __metric-<timestamp>.html__ file will be created in current folder | `-inputpath` if specified
+5. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
+
+6. Email will be sent to mentioned recepient with __metric-timestamp.html__ file ( v3-1 feature )
 
 ---
 
- Sample report [link](https://robotframework-metrics-report.netlify.com/#)
+ V3.0 Sample report [link](https://robotframework-metrics-report.netlify.com/#)
+
+ V3.1 Sample Screenshot:
+  ![Screenshot](Dashboard.JPG)
 
 ---
 
