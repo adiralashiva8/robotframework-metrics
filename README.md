@@ -66,6 +66,22 @@ Creates HTML Metrics report based on robotframework output.xml
 
 ---
 
+*How to Specifiy EMAIL recepients (v3.1 feature)*
+ - In __robotmetrics.py__ file add specific to, from, subject and email server info
+    ```
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    msg = email.message.Message()
+    msg['Subject'] = 'Automation Status'
+
+    sender = 'me@gmail.com'
+    recipients = ['user1@gmail.com', 'user2@yahoo.com','user3@hotmail.com']
+
+    msg['From'] = sender
+    msg['To'] = ", ".join(recipients)
+    password = "xxxxxxxxxxxxxxxxxx"
+    ``` 
+---
+
 *How to Ignore Library Keywords in Metrics Report*
  - In __robotmetrics.py__ file add specific library keywords to tuple __ignore_library__ to ignore in report
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
