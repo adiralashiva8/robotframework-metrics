@@ -1,17 +1,18 @@
 #!/usr/bin/env python
-from bs4 import BeautifulSoup
+from __future__ import print_function
 import sys
 import os
 import math
+import smtplib
+import time
+from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta
 from robot.api import ExecutionResult, ResultVisitor
-import smtplib 
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
-from email import encoders 
-import time
+from email import encoders
 
 # ======= START OF EMAIL SETUP CONTENT ====== #
 server = smtplib.SMTP('smtp.gmail.com:587')
@@ -102,6 +103,9 @@ result_file = os.path.join(path,result_file_name)
 result = ExecutionResult(output_name)
 result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
+
+							  
+print("Started converting .xml to .html file")
 
 head_content = """
 <!doctype html>
@@ -225,74 +229,29 @@ head_content = """
 		  width: 100%;
 		  float: left;
 		  margin: 0px;
-		  color: black;
+		  list-style: none;
+		  font-size: 30px;
+		  color: #FFF;
 		  -moz-border-radius: 5px;
-		  -webkit-border-radius: 15px;
-		  margin-bottom: 0px;
+		  -webkit-border-radius: 5px;
+		  margin-bottom: 5px;
 		  position: relative;
+		  text-align: center;
 		  color: white!important;
 		}
 
 		.tile.tile-fail {
-		  background: #212F3D!important;
+		  background: #f44336!important;
 		}
 		.tile.tile-pass {
-		  background: #117864!important;
+		  background: #4CAF50!important;
 		}
 		.tile.tile-info {
-		  background: #1A5276!important;
+		  background: #009688!important;
 		}
-
-        .sm-data-box-1 .cus-sat-stat {
-            font-size: 42px;
-        }
-
-        .weight-500 {
-            font-weight: 500 !important;
-        }
-
-        .block {
-            display: block !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-       .mt-8 {
-        margin-top: 8px !important;
-        }
-
-        .mt-5 {
-        margin-top: 5px !important;
-        }
-
-        /*Small graph*/
-        .flex-stat {
-        overflow: hidden;
-        }
-
-        .flex-stat li {
-        float: left;
-        width: 33.33%;
-        text-align: center;
-        }
-
-        .flex-stat li > span {
-        text-transform: capitalize;
-        }
-
-        .font-14 {
-        font-size: 14px !important;
-        }
-
-        .font-15 {
-        font-size: 15px !important;
-        }
-
-        ul {
-        list-style: none;
-        }
+		.tile.tile-head {
+		  background: #616161!important;
+		}
 
     </style>
 </head>
@@ -325,17 +284,17 @@ icons_txt= """
 							</a>
                         </li>
                         <li class="nav-item">
-                            <a class="tablink nav-link" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',4)" >
+                            <a class="tablink nav-link" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',5)" >
 								<i class="fa fa-th-large"></i> Suite Metrics
 							</a>
                         </li>
                         <li class="nav-item">
-                            <a class="tablink nav-link" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',5)">
+                            <a class="tablink nav-link" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',3)">
 							  <i class="fa fa-list-alt"></i> Test Metrics
 							</a>
                         </li>
                         <li class="nav-item">
-                            <a class="tablink nav-link" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',5)">
+                            <a class="tablink nav-link" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',3)">
 							  <i class="fa fa-table"></i> Keyword Metrics
 							</a>
                         </li>
@@ -379,6 +338,7 @@ page_content_div["role"] = "main"
 page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
 body.insert(50, page_content_div)
 
+print("Capturing dashboard content...")
 ### ============================ START OF DASHBOARD ======================================= ####
 total_suite = 0
 passed_suite = 0
@@ -402,7 +362,6 @@ class SuiteResults(ResultVisitor):
                 failed_suite += 1
 
 result.visit(SuiteResults())
-
 suitepp = math.ceil(passed_suite*100.0/total_suite)
 
 elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
@@ -449,7 +408,6 @@ class KeywordResults(ResultVisitor):
                     failed_keywords += 1
 
 result.visit(KeywordResults())
-
 kwpp = round(passed_keywords*100.0/total_keywords,2)
 
 dashboard_content="""
@@ -462,82 +420,105 @@ dashboard_content="""
 					<a class="p-2"><b style="color:black;cursor: pointer;" data-toggle="tooltip" title=".xml file is created by">Generated By: </b>%s</a>
 				  </nav>                  
 				</div>
-
-                <div class="row">
-
-                <div class="col-md-4" onclick="openPage('suiteMetrics', this, '')" data-toggle="tooltip" title="Click to view Suite metrics" style="cursor: pointer;">
-                    <div class="panel-body sm-data-box-1 tile tile-fail">
-                        <span class="weight-500 block text-center txt-dark mt-8">SUITE STATISTICS</span>	
-                        <div class="cus-sat-stat weight-500 txt-success text-center mt-5">
-                            <span>%s</span><span style="font-size:15px">%%</span>
-                        </div>
-                        <ul class="flex-stat mt-5">
-                            <li>
-                                <span class="block">Total</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                            <li>
-                                <span class="block">Pass</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                            <li>
-                                <span class="block">Fail</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-4" onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">
-                    <div class="panel-body sm-data-box-1  tile tile-pass">
-                        <span class="weight-500 block text-center txt-dark mt-8">TEST STATISTICS</span>
-                        <div class="cus-sat-stat weight-500 txt-success text-center mt-5">
-                            <span>%s</span><span style="font-size:15px">%%</span>
-                        </div>
-                        <ul class="flex-stat mt-5">
-                            <li>
-                                <span class="block">Total</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                            <li>
-                                <span class="block">Pass</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                            <li>
-                                <span class="block">Fail</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-4" onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">
-                    <div class="panel-body sm-data-box-1  tile tile-info">
-                        <span class="weight-500 block text-center txt-dark mt-8">KEYWORD STATISTICS</span>	
-                        <div class="cus-sat-stat weight-500 txt-success text-center mt-5">
-                            <span>%s</span><span style="font-size:15px">%%</span>
-                        </div>
-                        <ul class="flex-stat mt-5">
-                            <li>
-                                <span class="block">Total</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                            <li>
-                                <span class="block">Pass</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                            <li>
-                                <span class="block">Fail</span>
-                                <span class="block txt-dark weight-500 font-15">%s</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
+			
+				<div class="row">
+					<div class="col-md-3"  onclick="openPage('suiteMetrics', this, '')" data-toggle="tooltip" title="Click to view Suite metrics" style="cursor: pointer;">                        
+						<a class="tile tile-head">
+							Suite
+							<p style="font-size:12px">Statistics</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-info">
+							%s
+							<p style="font-size:12px">Total</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-pass">
+							%s
+							<p style="font-size:12px">Pass</p>
+						</a>
+					</div>						
+					<div class="col-md-3">                        
+						<a class="tile tile-fail">
+							%s
+							<p style="font-size:12px">Fail</p>
+						</a>
+					</div>
                 </div>
 				
+				<div class="row">
+					<div class="col-md-3"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">                        
+						<a class="tile tile-head">
+							Test
+							<p style="font-size:12px">Statistics</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-info">
+							%s
+							<p style="font-size:12px">Total</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-pass">
+							%s
+							<p style="font-size:12px">Pass</p>
+						</a>
+					</div>						
+					<div class="col-md-3">                        
+						<a class="tile tile-fail">
+							%s
+							<p style="font-size:12px">Fail</p>
+						</a>
+					</div>
+                </div>
+				
+				<div class="row">
+					<div class="col-md-3"  onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">                        
+						<a class="tile tile-head">
+							Keyword
+							<p style="font-size:12px">Statistics</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-info">
+							%s
+							<p style="font-size:12px">Total</p>
+						</a>
+					</div>
+					<div class="col-md-3">                        
+						<a class="tile tile-pass">
+							%s
+							<p style="font-size:12px">Pass</p>
+						</a>
+					</div>						
+					<div class="col-md-3">                        
+						<a class="tile tile-fail">
+							%s
+							<p style="font-size:12px">Fail</p>
+						</a>
+					</div>
+                </div>
 				
 				<hr></hr>
+				<div class="row">
+					<div class="col-md-4" style="background-color:white;height:280px;width:auto;border:groove;">
+						<span style="font-weight:bold">Suite Status:</span>
+                        <div id="suiteChartID" style="height:250px;width:auto;"></div>
+					</div>
+					<div class="col-md-4" style="background-color:white;height:280px;width:auto;border:groove;">
+						<span style="font-weight:bold">Test Status:</span>
+                        <div id="testChartID" style="height:250px;width:auto;"></div>
+					</div>
+					<div class="col-md-4" style="background-color:white;height:280px;width:auto;border:groove;">
+						<span style="font-weight:bold">Keyword Status:</span>
+                        <div id="keywordChartID" style="height:250px;width:auto;"></div>
+					</div>
+				</div>
+
+                <hr></hr>
 				<div class="row">
 					<div class="col-md-12" style="background-color:white;height:450px;width:auto;border:groove;">
 						<span style="font-weight:bold">Top 10 Suite Performance(sec):</span>
@@ -554,7 +535,7 @@ dashboard_content="""
 				</div>
 				<div class="row">
 				<div class="col-md-12" style="height:25px;width:auto;">
-					<p class="text-muted" style="text-align:center;font-size:9px">@Robotframework Metrics Report</p>
+					<p class="text-muted" style="text-align:center;font-size:9px">robotframework-metrics</p>
 				</div>
 				</div>
    
@@ -562,10 +543,13 @@ dashboard_content="""
     window.onload = function(){
     executeDataTable('#sm',5);
     executeDataTable('#tm',3);
-    executeDataTable('#km',3);    
-    createBarGraph('#sm',0,5,10,'suiteBarID','Elapsed Time(s): ','Suite');    
-    createBarGraph('#tm',1,3,10,'testsBarID','Elapsed Time(s): ','Test');    
-    createBarGraph('#km',1,3,10,'keywordsBarID','Elapsed Time(s): ','Keyword');
+    executeDataTable('#km',3);
+	createPieChart(%s,%s,'suiteChartID','Suite Status:');
+	createBarGraph('#sm',0,5,10,'suiteBarID','Elapsed Time(s): ','Suite');	
+	createPieChart(%s,%s,'testChartID','Tests Status:');	
+	createBarGraph('#tm',1,3,10,'testsBarID','Elapsed Time(s): ','Test'); 
+	createPieChart(%s,%s,'keywordChartID','Keywords Status:');
+	createBarGraph('#km',1,3,10,'keywordsBarID','Elapsed Time(s): ','Keyword');
 	};
    </script>
    <script>
@@ -577,11 +561,11 @@ function openInNewTab(url,element_id) {
 }
 </script>
   </div>
-""" % (elapsedtime,generator,suitepp,total_suite,passed_suite,failed_suite,testpp,total,passed,failed,kwpp,total_keywords,passed_keywords,failed_keywords)
+""" % (elapsedtime,generator,total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
-
+print("Capturing suite metrics...")
 ### ============================ START OF SUITE METRICS ======================================= ####
 
 # Tests div
@@ -685,8 +669,7 @@ test_icon_txt="""
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF SUITE METRICS ============================================ ####
-
-
+print("Capturing test metrics...")
 ### ============================ START OF TEST METRICS ======================================= ####
 # Tests div
 tm_div = soup.new_tag('div')
@@ -769,7 +752,7 @@ test_icon_txt="""
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF TEST METRICS ============================================ ####
-
+print("Capturing keyword metrics...")
 ### ============================ START OF KEYWORD METRICS ======================================= ####
 
 # Keywords div
@@ -873,7 +856,6 @@ test_icon_txt="""
 """
 km_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF KEYWORD METRICS ======================================= ####
-
 
 ### ============================ START OF LOGS ====================================== ###
 
@@ -1032,6 +1014,24 @@ script_text="""
             link.style.display = 'block';
           }, false);
         })();
+    </script>
+	<script>
+        function createPieChart(passed_count,failed_count,ChartID,ChartName){
+        var status = [];
+        status.push(['Status', 'Percentage']);
+        status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
+        var data = google.visualization.arrayToDataTable(status);
+
+        var options = {
+        pieHole: 0.6,
+        legend: 'none',
+        chartArea: {width: "95%",height: "90%"},
+        colors: ['green', 'red'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById(ChartID));
+        chart.draw(data, options);
+    }
     </script>
     <script>
        function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,Label,type){
@@ -1263,10 +1263,11 @@ msg.attach(rfmetrics)
 
 # Start server
 server.starttls()
- 
+print("Sending email with robotmetrics.html...")
 # Login Credentials for sending the mail
 server.login(msg['From'], password)
  
 server.sendmail(sender, recipients, msg.as_string())
-
+print("Email sent successfully!")
+print("robotframework-metrics.html is created successfully")
 # ==== END OF EMAIL CONTENT ====== #

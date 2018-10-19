@@ -7,7 +7,7 @@ Creates HTML Metrics report based on robotframework output.xml
 *How it Works:*
 
 1. Read output.xml file using robotframework API
-2. Get Suite, Test Case , Keyword , Status, Start Time, End Time and Elapsed time values using api
+2. Get Suite, Test Case , Keyword , Status, Start Time, End Time and Elapsed time values
 3. Convert data to html report using Beautifulsoup
 
 ---
@@ -16,11 +16,9 @@ Creates HTML Metrics report based on robotframework output.xml
 
 1. Download __robotmetrics.py__ from here 
 
-    v3.1 - ALPHA - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3-1/robotmetrics.py)
+    v3.1 - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3-1/robotmetrics.py)
 
-    v3.0 - STABLE - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.0/robotmetrics.py)
-
-    > Repo has some extra files (.html and .xml for testing) - I suggest to download from link
+    > Repo has some extra files (.html and .xml for testing) - suggest to download from link
 
 2. Copy __robotmetrics.py__ file to project
 
@@ -52,22 +50,41 @@ Creates HTML Metrics report based on robotframework output.xml
     
 5. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
 
-6. Email will be sent to mentioned recepient with __metric-timestamp.html__ file ( v3-1 feature )
+6. Email will be sent to mentioned recepient with __metric-timestamp.html__ file
 
 ---
 
  V3.1 Sample report [link](https://robotframework-metrics-v-3-1.netlify.com/#)
  
- V3.0 Sample report [link](https://robotframework-metrics-report.netlify.com/#)
- 
- v3.1 Screenshot:
- 
-  ![Screenshot](Dashboard.JPG)
-
 ---
+*Customize Report*
 
-*How to Specifiy EMAIL recepients (v3.1 feature)*
- - In __robotmetrics.py__ file add specific to, from, subject and email server info
+Specify Logo and custom links in Robotframework metrics: 
+
+ - Custom Logo: Customize your logo by specifying logo link by modifying __robotmetrics.py__ file at line no: 37
+ ```
+ logo = "https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg"
+ ```
+ 
+ - Custom Links: You can customize your links in report by modifying __robotmetrics.py__ file at line no: 312-323. Modify href and text
+ ```
+ <ul class="nav flex-column mb-2">
+	<li class="nav-item">
+		<a style="color:blue;" class="tablink nav-link" target="_blank" href="https://www.github.com">
+		  <i class="fa fa-external-link"></i> Git Hub
+		</a>
+	</li>
+	<li class="nav-item">
+		<a style="color:blue;" class="tablink nav-link" target="_blank" href="https://www.jira.com">
+		  <i class="fa fa-external-link"></i> JIRA
+		</a>
+	</li>
+ </ul>
+ ```
+ 
+---
+*How to Specifiy EMAIL recepients*
+ - In __robotmetrics.py__ file add specific TO, FROM, SUBJECT and EMAIL server info
     ```
     server = smtplib.SMTP('smtp.gmail.com:587')
     msg = email.message.Message()
@@ -83,7 +100,7 @@ Creates HTML Metrics report based on robotframework output.xml
 ---
 
 *How to Ignore Library Keywords in Metrics Report*
- - In __robotmetrics.py__ file add specific library keywords to tuple __ignore_library__ to ignore in report
+ - In __robotmetrics.py__ file add specific library keywords __ignore_library__
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
  - Following library keywords are ignored in Metrics Report
     ```
