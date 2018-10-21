@@ -1,6 +1,14 @@
-# Robot Framework Metrics Report
+# Robot Framework Metrics Report 
 
-Creates HTML Metrics report based on robotframework output.xml
+Creates HTML Metrics report based on robotframework output.xml. Sample report [link](https://robotframework-metrics-v-3-1.netlify.com/#)
+
+---
+[![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-metrics.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-metrics)
+
+![Github All Releases](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/total.svg)
+![GitHub release](https://img.shields.io/github/release/adiralashiva8/robotframework-metrics.svg)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/adiralashiva8/robotframework-metrics.svg)
+
 
 ---
 
@@ -14,11 +22,7 @@ Creates HTML Metrics report based on robotframework output.xml
 
 *How to use in project:*
 
-1. Download __robotmetrics.py__ from here 
-
-    v3.1 - [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3-1/robotmetrics.py)
-
-    > Repo has some extra files (.html and .xml for testing) - suggest to download from link
+1. Download __robotmetrics.py__ from here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3-1/robotmetrics.py)
 
 2. Copy __robotmetrics.py__ file to project
 
@@ -54,19 +58,16 @@ Creates HTML Metrics report based on robotframework output.xml
 
 ---
 
- V3.1 Sample report [link](https://robotframework-metrics-v-3-1.netlify.com/#)
- 
----
 *Customize Report*
 
 Specify Logo and custom links in Robotframework metrics: 
 
- - Custom Logo: Customize your logo by specifying logo link by modifying __robotmetrics.py__ file at line no: 37
+ - __Custom Logo__ : Customize your logo by modifying __robotmetrics.py__ file at line no: 37
  ```
  logo = "https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg"
  ```
  
- - Custom Links: You can customize your links in report by modifying __robotmetrics.py__ file at line no: 312-323. Modify href and text
+ - __Custom Links__ : You can customize your links in report by modifying __robotmetrics.py__ file at line no: 312-323. Modify href and text
  ```
  <ul class="nav flex-column mb-2">
 	<li class="nav-item">
@@ -84,7 +85,7 @@ Specify Logo and custom links in Robotframework metrics:
  
 ---
 *How to Specifiy EMAIL recepients*
- - In __robotmetrics.py__ file add specific TO, FROM, SUBJECT and EMAIL server info
+ - In __robotmetrics.py__ file add specific TO, FROM, SUBJECT, EMAIL server and etc., info (line no:18-30)
     ```
     server = smtplib.SMTP('smtp.gmail.com:587')
     msg = email.message.Message()
@@ -114,6 +115,14 @@ Specify Logo and custom links in Robotframework metrics:
     ``` 
 ---
 
+Thanks for using robotframework-metrics!
+
+ - What is your opinion of this report?
+ - What’s one the most important feature we should add?
+
+If you have any questions/suggestions/comments on the report, please feel free to reach me on adiralashiva8@gmail.com  
+
+---
 *Credits:*
 
 1. Robotframework [link](https://robot-framework.readthedocs.io/en/v3.0.4/autodoc/robot.result.html)
