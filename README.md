@@ -127,6 +127,28 @@ Thanks for using robotframework-metrics! [![saythanks](https://img.shields.io/ba
 If you have any questions/suggestions/comments on the report, please feel free to reach me on adiralashiva8@gmail.com  
 
 ---
+
+*Generate robotframework-metrics after execution*
+
+We need to execute .py file after suite | test execution. We can achieve this by executing robot command and python one after other. This can be acheieved as follows
+
+ - Create .bat (or) .sh file with following snippet
+
+```
+# execute test case first
+robot test.robot &&
+
+# execute robotmetrics.py after test case execution
+python robotmetrics.py [arguments]
+```
+
+ > && is used to execute multiple command's in .bat file
+
+  - Modify robot command as required and execute .bat file
+  
+  - Robotframework metrics will be created
+
+---
 *Credits:*
 
 1. Robotframework [link](https://robot-framework.readthedocs.io/en/v3.0.4/autodoc/robot.result.html)
