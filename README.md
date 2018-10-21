@@ -1,6 +1,6 @@
 # Robot Framework Metrics Report 
 
-Creates HTML Metrics report based on robotframework output.xml. Sample report [link](https://robotframework-metrics-v-3-1.netlify.com/#)
+Creates HTML Metrics report based on robotframework output.xml. Sample report [link](https://robotframework-metrics.netlify.com/)
 
 [![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-metrics.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-metrics)
 ![Github All Releases](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/total.svg)
