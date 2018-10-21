@@ -6,6 +6,7 @@ Creates HTML Metrics report based on robotframework output.xml. Sample report [l
 ![Github All Releases](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/total.svg)
 ![GitHub release](https://img.shields.io/github/release/adiralashiva8/robotframework-metrics.svg)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/adiralashiva8/robotframework-metrics.svg)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ---
 
@@ -112,7 +113,7 @@ Specify Logo and custom links in Robotframework metrics:
     ``` 
 ---
 
-Thanks for using robotframework-metrics!
+Thanks for using robotframework-metrics! [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/adiralashiva8)
 
  - What is your opinion of this report?
  - What’s one the most important feature we should add?
