@@ -2647,12 +2647,54 @@ Following are the last build execution statistics.
  </script>
  <script>
   function executeDataTable(tabname,sortCol) {
+    var fileTitle;
+    switch(tabname) {
+        case "#sm":
+            fileTitle = "SuiteMetrics";
+            break;
+        case "#tm":
+            fileTitle =  "TestMetrics";
+            break;
+        case "#km":
+            fileTitle =  "KeywordMetrics";
+            break;
+        default:
+            fileTitle =  "metrics";
+    }
+
     $(tabname).DataTable(
         {
-        retrieve: true,
-        "order": [[ Number(sortCol), "desc" ]],
-		dom: 'Bfrtip',
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            retrieve: true,
+            "order": [[ Number(sortCol), "desc" ]],
+            dom: 'Bfrtip',
+            buttons: [
+                'copy',
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        return fileTitle + '-' + new Date().toLocaleString();
+                    },
+                    title : '',
+                },
+                {
+                    extend: 'excel',
+                    filename: function() {
+                        return fileTitle + '-' + new Date().toLocaleString();
+                    },
+                    title : '',
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        return fileTitle + '-' + new Date().toLocaleString();
+                    },
+                    title : '',
+                },
+                {
+                    extend: 'print',
+                    title : '',
+                },
+            ],
         } 
     );
 }

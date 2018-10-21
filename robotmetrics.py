@@ -105,7 +105,7 @@ result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
 							  
-print("Started converting .xml to .html file")
+print("Converting .xml to .html file. This may take few minutes...")
 
 head_content = """
 <!doctype html>
@@ -338,7 +338,7 @@ page_content_div["role"] = "main"
 page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
 body.insert(50, page_content_div)
 
-print("Capturing dashboard content...")
+print("1 of 6: Capturing dashboard content...")
 ### ============================ START OF DASHBOARD ======================================= ####
 total_suite = 0
 passed_suite = 0
@@ -565,7 +565,7 @@ function openInNewTab(url,element_id) {
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
-print("Capturing suite metrics...")
+print("2 of 6: Capturing suite metrics...")
 ### ============================ START OF SUITE METRICS ======================================= ####
 
 # Tests div
@@ -613,7 +613,7 @@ th.string = "Fail"
 tr.insert(4, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed (s)"
+th.string = "Time (s)"
 tr.insert(5, th)
 
 tbody = soup.new_tag('tbody')
@@ -669,7 +669,7 @@ test_icon_txt="""
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF SUITE METRICS ============================================ ####
-print("Capturing test metrics...")
+print("3 of 6: Capturing test metrics...")
 ### ============================ START OF TEST METRICS ======================================= ####
 # Tests div
 tm_div = soup.new_tag('div')
@@ -708,7 +708,7 @@ th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed (s)"
+th.string = "Time (s)"
 tr.insert(3, th)
 
 tbody = soup.new_tag('tbody')
@@ -752,7 +752,7 @@ test_icon_txt="""
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF TEST METRICS ============================================ ####
-print("Capturing keyword metrics...")
+print("4 of 6: Capturing keyword metrics...")
 ### ============================ START OF KEYWORD METRICS ======================================= ####
 
 # Keywords div
@@ -793,7 +793,7 @@ th.string = "Status"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th.string = "Elapsed (s)"
+th.string = "Time (s)"
 tr.insert(3, th)
 
 tbody = soup.new_tag('tbody')
@@ -1105,12 +1105,54 @@ script_text="""
 
  <script>
   function executeDataTable(tabname,sortCol) {
+    var fileTitle;
+    switch(tabname) {
+        case "#sm":
+            fileTitle = "SuiteMetrics";
+            break;
+        case "#tm":
+            fileTitle =  "TestMetrics";
+            break;
+        case "#km":
+            fileTitle =  "KeywordMetrics";
+            break;
+        default:
+            fileTitle =  "metrics";
+    }
+
     $(tabname).DataTable(
         {
-        retrieve: true,
-        "order": [[ Number(sortCol), "desc" ]],
-		dom: 'Bfrtip',
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            retrieve: true,
+            "order": [[ Number(sortCol), "desc" ]],
+            dom: 'Bfrtip',
+            buttons: [
+                'copy',
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        return fileTitle + '-' + new Date().toLocaleString();
+                    },
+                    title : '',
+                },
+                {
+                    extend: 'excel',
+                    filename: function() {
+                        return fileTitle + '-' + new Date().toLocaleString();
+                    },
+                    title : '',
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        return fileTitle + '-' + new Date().toLocaleString();
+                    },
+                    title : '',
+                },
+                {
+                    extend: 'print',
+                    title : '',
+                },
+            ],
         } 
     );
 }
@@ -1263,11 +1305,11 @@ msg.attach(rfmetrics)
 
 # Start server
 server.starttls()
-print("Sending email with robotmetrics.html...")
+print("5 of 6: Sending email with robotmetrics.html...")
 # Login Credentials for sending the mail
 server.login(msg['From'], password)
  
 server.sendmail(sender, recipients, msg.as_string())
-print("Email sent successfully!")
+print("6 of 6: Email sent successfully!")
 print("robotframework-metrics.html is created successfully")
 # ==== END OF EMAIL CONTENT ====== #
