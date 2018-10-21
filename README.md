@@ -12,6 +12,10 @@ Creates HTML Metrics report based on robotframework output.xml. Sample report [l
 
 ---
 
+What's new in __v3.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3-1)
+
+---
+
 *How it Works:*
 
 1. Read output.xml file using robotframework API
