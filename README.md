@@ -16,7 +16,7 @@ What's new in __v3.1__ [link](https://github.com/adiralashiva8/robotframework-me
 
 ---
 
-*How it Works:*
+#### How it Works:
 
 1. Read output.xml file using robotframework API
 2. Get Suite, Test Case , Keyword , Status, Start Time, End Time and Elapsed time values
@@ -24,7 +24,7 @@ What's new in __v3.1__ [link](https://github.com/adiralashiva8/robotframework-me
 
 ---
 
-*How to use in project:*
+#### How to use in project:
 
 1. Download __robotmetrics.py__ from here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3-1/robotmetrics.py)
 
@@ -62,7 +62,7 @@ What's new in __v3.1__ [link](https://github.com/adiralashiva8/robotframework-me
 
 ---
 
-*Customize Report*
+#### Customize Report
 
 Specify Logo and custom links in Robotframework metrics: 
 
@@ -88,7 +88,7 @@ Specify Logo and custom links in Robotframework metrics:
  ```
  
 ---
-*How to Specifiy EMAIL recepients*
+#### How to Specifiy EMAIL recepients
  - In __robotmetrics.py__ file add specific TO, FROM, SUBJECT, EMAIL server and etc., info (line no:18-30)
     ```
     server = smtplib.SMTP('smtp.gmail.com:587')
@@ -104,7 +104,7 @@ Specify Logo and custom links in Robotframework metrics:
     ``` 
 ---
 
-*How to Ignore Library Keywords in Metrics Report*
+#### How to Ignore Library Keywords in Metrics Report
  - In __robotmetrics.py__ file add specific library keywords __ignore_library__
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
  - Following library keywords are ignored in Metrics Report
@@ -119,7 +119,7 @@ Specify Logo and custom links in Robotframework metrics:
     ``` 
 ---
 
-*Generate robotframework-metrics after execution*
+#### Generate robotframework-metrics after execution
 
 We need to execute .py file after suite | test execution. We can achieve this by executing robot command and python one after other. This can be acheieved as follows
 
