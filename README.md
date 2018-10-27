@@ -1,9 +1,10 @@
-# Robot Framework Metrics Report 
+# Robot Framework Metrics Report [link](https://robotframework-metrics.netlify.com/)
 
-Creates HTML Metrics report based on robotframework output.xml. Sample report [link](https://robotframework-metrics.netlify.com/)
+Creates HTML Metrics report based on robotframework output.xml.
 
 [![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-metrics.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-metrics)
 ![Github All Releases](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/total.svg)
+![Github Releases (by Release)](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/v3-1/total.svg)
 ![GitHub release](https://img.shields.io/github/release/adiralashiva8/robotframework-metrics.svg)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/adiralashiva8/robotframework-metrics.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -121,16 +122,14 @@ Specify Logo and custom links in Robotframework metrics:
 
 #### Generate robotframework-metrics after execution
 
-We need to execute .py file after suite | test execution. We can achieve this by executing robot command and python one after other. This can be acheieved as follows
+We need to execute .py file after suite or test execution. We can achieve this by executing robot command and python one after other as follows:
 
  - Create .bat (or) .sh file with following snippet
 
 ```
-# execute test case first
 robot test.robot &&
 
-# execute robotmetrics.py after test case execution
-python robotmetrics.py [arguments]
+python robotmetrics.py
 ```
 
  > && is used to execute multiple command's in .bat file
@@ -147,8 +146,6 @@ Thanks for using robotframework-metrics! [![saythanks](https://img.shields.io/ba
  - What’s one the most important feature we should add?
 
 If you have any questions/suggestions/comments on the report, please feel free to reach me on adiralashiva8@gmail.com  
-
- > __Star__ to appreciate author 
  
 ---
 
