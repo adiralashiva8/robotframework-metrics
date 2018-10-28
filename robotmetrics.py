@@ -14,24 +14,6 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase 
 from email import encoders
 
-# ======= START OF EMAIL SETUP CONTENT ====== #
-server = smtplib.SMTP('smtp.gmail.com:587')
-msg = MIMEMultipart() 
-msg['Subject'] = 'MyProject Automation Status'
-
-sender = 'me@gmail.com'
-recipients = ['user1@gmail.com', 'user2@yahoo.com']
-ccrecipients = ['user3@gmail.com', 'user4@yahoo.com']
-
-msg['From'] = sender
-msg['To'] = ", ".join(recipients)
-msg['Cc'] = ", ".join(ccrecipients)
-password = "*************"
-msg.add_header('Content-Type', 'text/html')
-
-# ======= END OF EMAIL SETUP CONTENT ====== #
-
-
 # ======================== START OF CUSTOMIZE REPORT ================================== #
 
 # URL or filepath of your company logo
@@ -93,6 +75,12 @@ if '-output' in myargs:
 else:
     output_name = os.path.join(path,'output.xml')
 
+# email status
+if '-email' in myargs:
+    send_email = myargs['-email'][0]
+else:
+    send_email = True
+
 mtTime = datetime.now().strftime('%Y%m%d-%H%M%S')
 # Output result file location
 result_file_name = 'metrics-'+ mtTime + '.html'
@@ -105,6 +93,25 @@ result.configure(stat_config={'suite_stat_level': 2,
 
 							  
 print("Converting .xml to .html file. This may take few minutes...")
+
+# ======= START OF EMAIL SETUP CONTENT ====== #
+if send_email in ['true', '1', 't', 'y', 'yes']:
+    server = smtplib.SMTP('smtp.gmail.com:587')
+
+msg = MIMEMultipart() 
+msg['Subject'] = 'MyProject Automation Status'
+
+sender = 'me@gmail.com'
+recipients = ['user1@gmail.com', 'user2@yahoo.com']
+ccrecipients = ['user3@gmail.com', 'user4@yahoo.com']
+
+msg['From'] = sender
+msg['To'] = ", ".join(recipients)
+msg['Cc'] = ", ".join(ccrecipients)
+password = "*************"
+msg.add_header('Content-Type', 'text/html')
+
+# ======= END OF EMAIL SETUP CONTENT ====== #
 
 head_content = """
 <!doctype html>
@@ -123,28 +130,13 @@ head_content = """
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
-   <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript">
-   </script>
+   <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+   
+    <!-- Bootstrap core Googleccharts -->
+   <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+   <script type="text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
 
-     <!-- Bootstrap core JavaScript
-    ================================================== -->
-   <!-- Placed at the end of the document so the pages load faster -->
-   <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
-   </script>
-   <script crossorigin="anonymous" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
-   </script>
-   <script crossorigin="anonymous" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">
-   </script>
-    <!-- Bootstrap core Googleccharts
-    ================================================== -->
-   <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript">
-   </script>
-   <script type="text/javascript">
-    google.charts.load('current', {packages: ['corechart']});
-   </script>
-   <!-- Bootstrap core Datatable
-    ================================================== -->
-
+   <!-- Bootstrap core Datatable-->
 	<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
@@ -154,7 +146,6 @@ head_content = """
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" type="text/javascript"></script>
 	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js" type="text/javascript"></script>
 	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js" type="text/javascript"></script>
-
 
     <style>        
         .sidebar {
@@ -251,7 +242,9 @@ head_content = """
 		.tile.tile-head {
 		  background: #616161!important;
 		}
-
+        .dt-buttons {
+            margin-left: 5px;
+        }
     </style>
 </head>
 """
@@ -1128,7 +1121,7 @@ script_text="""
         {
             retrieve: true,
             "order": [[ Number(sortCol), "desc" ]],
-            dom: 'Bfrtip',
+            dom: 'l<".margin" B>frtip',
             buttons: [
                 'copy',
                 {
@@ -1240,6 +1233,9 @@ email_content = """
 		 td {
             height: 25px;
          }
+        .dt-buttons {
+            margin-left: 30px;
+        }
       </style>
    </head>
    <body>
@@ -1307,13 +1303,17 @@ attachmentName = 'attachment; filename=%s'%(result_file_name)
 rfmetrics.add_header('Content-Disposition',attachmentName)
 msg.attach(rfmetrics)
 
-# Start server
-server.starttls()
-print("5 of 6: Sending email with robotmetrics.html...")
-# Login Credentials for sending the mail
-server.login(msg['From'], password)
- 
-server.sendmail(sender, recipients, msg.as_string())
-print("6 of 6: Email sent successfully!")
+if send_email in ['true', '1', 't', 'y', 'yes']:
+    # Start server
+    server.starttls()
+    print("5 of 6: Sending email with robotmetrics.html...")
+    # Login Credentials for sending the mail
+    server.login(msg['From'], password)
+    
+    server.sendmail(sender, recipients, msg.as_string())
+    print("6 of 6: Email sent successfully!")
+else:
+    print("6 of 6: Skipping step 5 (send email) !")
+
 print("robotframework-metrics.html is created successfully")
 # ==== END OF EMAIL CONTENT ====== #
