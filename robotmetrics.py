@@ -52,7 +52,6 @@ ignore_type = [
     'for',
     ]
 
-
 # ======================== END OF CUSTOMIZE REPORT ================================== #
 
 # Report to support file location as arguments
@@ -408,7 +407,12 @@ class KeywordResults(ResultVisitor):
                     failed_keywords += 1
 
 result.visit(KeywordResults())
-kwpp = round(passed_keywords*100.0/total_keywords,2)
+
+# Handling ZeroDivisionError exception when no keywords are found
+if total_keywords > 0:
+    kwpp = round(passed_keywords*100.0/total_keywords,2)
+else:
+    kwpp = 0
 
 dashboard_content="""
 <div class="tabcontent" id="dashboard">
