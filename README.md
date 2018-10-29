@@ -1,4 +1,4 @@
-# Robot Framework Metrics Report [link](https://robotframework-metrics.netlify.com/)
+# Robot Framework Metrics Report
 
 Creates HTML Metrics report based on robotframework output.xml.
 
@@ -12,7 +12,7 @@ Creates HTML Metrics report based on robotframework output.xml.
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ---
-
+__Sample Report__ [link](https://robotframework-metrics.netlify.com/)
 What's new in __v3.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3-1)
 
 ---
