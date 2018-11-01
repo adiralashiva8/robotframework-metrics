@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import print_function
 import sys
 import os
 import math
@@ -13,6 +12,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
 from email import encoders
+
+writer = sys.stdout.write
 
 # ======================== START OF CUSTOMIZE REPORT ================================== #
 
@@ -92,7 +93,7 @@ result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
 							  
-print("Converting .xml to .html file. This may take few minutes...")
+writer("Converting .xml to .html file. This may take few minutes...")
 
 # ======= START OF EMAIL SETUP CONTENT ====== #
 if send_email in ['true', '1', 't', 'y', 'yes']:
@@ -330,7 +331,7 @@ page_content_div["role"] = "main"
 page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
 body.insert(50, page_content_div)
 
-print("1 of 6: Capturing dashboard content...")
+writer('\n' + "1 of 6: Capturing dashboard content...")
 ### ============================ START OF DASHBOARD ======================================= ####
 total_suite = 0
 passed_suite = 0
@@ -562,7 +563,7 @@ function openInNewTab(url,element_id) {
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
-print("2 of 6: Capturing suite metrics...")
+writer('\n' + "2 of 6: Capturing suite metrics...")
 ### ============================ START OF SUITE METRICS ======================================= ####
 
 # Tests div
@@ -666,7 +667,7 @@ test_icon_txt="""
 """
 suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF SUITE METRICS ============================================ ####
-print("3 of 6: Capturing test metrics...")
+writer('\n' + "3 of 6: Capturing test metrics...")
 ### ============================ START OF TEST METRICS ======================================= ####
 # Tests div
 tm_div = soup.new_tag('div')
@@ -749,7 +750,7 @@ test_icon_txt="""
 """
 tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 ### ============================ END OF TEST METRICS ============================================ ####
-print("4 of 6: Capturing keyword metrics...")
+writer('\n' + "4 of 6: Capturing keyword metrics...")
 ### ============================ START OF KEYWORD METRICS ======================================= ####
 
 # Keywords div
@@ -1306,14 +1307,14 @@ msg.attach(rfmetrics)
 if send_email in ['true', '1', 't', 'y', 'yes']:
     # Start server
     server.starttls()
-    print("5 of 6: Sending email with robotmetrics.html...")
+    writer('\n' + "5 of 6: Sending email with robotmetrics.html...")
     # Login Credentials for sending the mail
     server.login(msg['From'], password)
     
     server.sendmail(sender, recipients, msg.as_string())
-    print("6 of 6: Email sent successfully!")
+    writer('\n' + "6 of 6: Email sent successfully!")
 else:
-    print("6 of 6: Skipping step 5 (send email) !")
+    writer('\n' + "6 of 6: Skipping step 5 (send email)!")
 
-print("robotframework-metrics.html is created successfully")
+writer('\n' + "robotframework-metrics.html is created successfully")
 # ==== END OF EMAIL CONTENT ====== #
