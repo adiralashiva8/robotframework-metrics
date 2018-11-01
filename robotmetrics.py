@@ -80,7 +80,7 @@ else:
 if '-email' in myargs:
     send_email = myargs['-email'][0]
 else:
-    send_email = True
+    send_email = 'true'
 
 mtTime = datetime.now().strftime('%Y%m%d-%H%M%S')
 # Output result file location
