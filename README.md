@@ -20,7 +20,7 @@ Creates HTML Metrics report based on robotframework output.xml.
 #### How it Works:
 
 1. Read output.xml file using robotframework API
-2. Get Suite, Test Case , Keyword , Status, Start Time, End Time and Elapsed time values
+2. Get Suite, Test Case , Keyword , Status and Elapsed time values
 3. Convert data to html report using Beautifulsoup
 
 ---
@@ -159,7 +159,7 @@ Execute .py file after suite or test execution as follows:
 
 ---
 
-Thanks for using robotframework-metrics! [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/adiralashiva8)
+Thanks for using robotframework-metrics!
 
  - What is your opinion of this report?
  - What’s the feature I should add?
