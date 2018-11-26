@@ -6,7 +6,6 @@ Creates HTML Metrics report based on robotframework output.xml.
 ![Github All Releases](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/total.svg)
 ![Github Releases (by Release)](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/v3.1.1/total.svg)
 ![GitHub release](https://img.shields.io/github/release/adiralashiva8/robotframework-metrics.svg)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/adiralashiva8/robotframework-metrics.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
