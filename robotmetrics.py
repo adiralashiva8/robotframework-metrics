@@ -8,12 +8,14 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta
 from robot.api import ExecutionResult, ResultVisitor
-from email.mime.multipart import MIMEMultipart 
-from email.mime.text import MIMEText 
-from email.mime.base import MIMEBase 
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
 from email import encoders
+from gevent.pool import Group
 
 writer = sys.stdout.write
+group = Group()
 
 # ======================== START OF CUSTOMIZE REPORT ================================== #
 
@@ -27,28 +29,30 @@ ignore_library = [
     'String',
     'Collections',
     'DateTime',
-    ]
+]
 
 # Ignores following type keywords in metrics report
 ignore_type = [
     'foritem',
     'for',
-    ]
+]
+
 
 # ======================== END OF CUSTOMIZE REPORT ================================== #
 
 # Report to support file location as arguments
 # Source Code Contributed By : Ruud Prijs
 def getopts(argv):
-        opts = {}
-        while argv:
-            if argv[0][0] == '-':
-                if argv[0] in opts:
-                    opts[argv[0]].append(argv[1])
-                else:
-                    opts[argv[0]] = [argv[1]]
-            argv = argv[1:]
-        return opts
+    opts = {}
+    while argv:
+        if argv[0][0] == '-':
+            if argv[0] in opts:
+                opts[argv[0]].append(argv[1])
+            else:
+                opts[argv[0]] = [argv[1]]
+        argv = argv[1:]
+    return opts
+
 
 myargs = getopts(sys.argv)
 
@@ -72,9 +76,9 @@ else:
 
 # output.xml file
 if '-output' in myargs:
-    output_name = os.path.join(path,myargs['-output'][0])
+    output_name = os.path.join(path, myargs['-output'][0])
 else:
-    output_name = os.path.join(path,'output.xml')
+    output_name = os.path.join(path, 'output.xml')
 
 # email status
 if '-email' in myargs:
@@ -84,22 +88,21 @@ else:
 
 mtTime = datetime.now().strftime('%Y%m%d-%H%M%S')
 # Output result file location
-result_file_name = 'metrics-'+ mtTime + '.html'
-result_file = os.path.join(path,result_file_name)
+result_file_name = 'metrics-' + mtTime + '.html'
+result_file = os.path.join(path, result_file_name)
 
 # Read output.xml file
 result = ExecutionResult(output_name)
 result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
-							  
 writer("Converting .xml to .html file. This may take few minutes...")
 
 # ======= START OF EMAIL SETUP CONTENT ====== #
 if send_email in ['true', '1', 't', 'y', 'yes']:
     server = smtplib.SMTP('smtp.gmail.com:587')
 
-msg = MIMEMultipart() 
+msg = MIMEMultipart()
 msg['Subject'] = 'MyProject Automation Status'
 
 sender = 'me@gmail.com'
@@ -130,9 +133,9 @@ head_content = """
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    
+
    <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-   
+
     <!-- Bootstrap core Googleccharts -->
    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
    <script type="text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
@@ -157,7 +160,7 @@ head_content = """
           z-index: 100; /* Behind the navbar */
           box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
         }
-        
+
         .sidebar-sticky {
           position: relative;
           top: 0;
@@ -166,22 +169,22 @@ head_content = """
           overflow-x: hidden;
           overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
         }
-        
+
         @supports ((position: -webkit-sticky) or (position: sticky)) {
           .sidebar-sticky {
             position: -webkit-sticky;
             position: sticky;
           }
         }
-        
+
         .sidebar .nav-link {
           color: black;
         }
-        
+
         .sidebar .nav-link.active {
           color: #007bff;
         }
-        
+
         .sidebar .nav-link:hover .feather,
         .sidebar .nav-link.active .feather {
           color: inherit;
@@ -190,7 +193,7 @@ head_content = """
         [role="main"] {
           padding-top: 8px;
         }
-        
+
 		/* Set height of body and the document to 100% */
 		body {
 			height: 100%;
@@ -203,7 +206,7 @@ head_content = """
 		.tablinkLog {
 			cursor: pointer;
 		}
-		
+
         @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 		.loader {
 			position: fixed;
@@ -250,12 +253,12 @@ head_content = """
 </head>
 """
 
-soup = BeautifulSoup(head_content,"html.parser")
+soup = BeautifulSoup(head_content, "html.parser")
 
 body = soup.new_tag('body')
 soup.insert(20, body)
 
-icons_txt= """
+icons_txt = """
 <div class="loader"></div>
  <div class="container-fluid">
         <div class="row">
@@ -263,9 +266,9 @@ icons_txt= """
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">                            
                   <img src="%s" style="height:18vh!important;width:95%%;"/>
-                
+
 				<br>
-				
+
 				<h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
                         <span>Metrics</span>
                         <a class="d-flex align-items-center text-muted" href="#"></a>
@@ -321,10 +324,9 @@ icons_txt= """
                 </div>
             </nav>
         </div>
-"""%(logo)
+""" % (logo)
 
 body.append(BeautifulSoup(icons_txt, 'html.parser'))
-
 
 page_content_div = soup.new_tag('div')
 page_content_div["role"] = "main"
@@ -337,25 +339,28 @@ total_suite = 0
 passed_suite = 0
 failed_suite = 0
 
+
 class SuiteResults(ResultVisitor):
-    
-    def start_suite(self,suite):
-       
+
+    def start_suite(self, suite):
+
         suite_test_list = suite.tests
         if not suite_test_list:
             pass
-        else:        
+        else:
             global total_suite
-            total_suite+= 1
-            if suite.status== "PASS":
+            total_suite += 1
+            if suite.status == "PASS":
                 global passed_suite
-                passed_suite+= 1
+                passed_suite += 1
             else:
                 global failed_suite
                 failed_suite += 1
 
+
 result.visit(SuiteResults())
-suitepp = math.ceil(passed_suite*100.0/total_suite)
+
+suitepp = math.ceil(passed_suite * 100.0 / total_suite)
 
 elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
 elapsedtime = elapsedtime.strftime("%X")
@@ -363,54 +368,56 @@ elapsedtime = elapsedtime.strftime("%X")
 myResult = result.generated_by_robot
 
 if myResult:
-	generator = "Robot"
+    generator = "Robot"
 else:
-	generator = "Rebot"
-	
-stats = result.statistics
-total= stats.total.all.total
-passed= stats.total.all.passed
-failed= stats.total.all.failed
+    generator = "Rebot"
 
-testpp = round(passed*100.0/total,2)
+stats = result.statistics
+total = stats.total.all.total
+passed = stats.total.all.passed
+failed = stats.total.all.failed
+
+testpp = round(passed * 100.0 / total, 2)
 
 total_keywords = 0
 passed_keywords = 0
 failed_keywords = 0
 
+
 class KeywordResults(ResultVisitor):
-    
-    def start_keyword(self,kw):
+
+    def start_keyword(self, kw):
         # Ignore library keywords
         keyword_library = kw.libname
 
-        if any (library in keyword_library for library in ignore_library):
+        if any(library in keyword_library for library in ignore_library):
             pass
         else:
-            keyword_type = kw.type            
-            if any (library in keyword_type for library in ignore_type):
+            keyword_type = kw.type
+            if any(library in keyword_type for library in ignore_type):
                 pass
             else:
                 global total_keywords
-                total_keywords+= 1
-                if kw.status== "PASS":
+                total_keywords += 1
+                if kw.status == "PASS":
                     global passed_keywords
-                    passed_keywords+= 1
+                    passed_keywords += 1
                 else:
                     global failed_keywords
                     failed_keywords += 1
+
 
 result.visit(KeywordResults())
 
 # Handling ZeroDivisionError exception when no keywords are found
 if total_keywords > 0:
-    kwpp = round(passed_keywords*100.0/total_keywords,2)
+    kwpp = round(passed_keywords * 100.0 / total_keywords, 2)
 else:
     kwpp = 0
 
-dashboard_content="""
+dashboard_content = """
 <div class="tabcontent" id="dashboard">
-			
+
 				<div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
 				  <h5 class="my-0 mr-md-auto font-weight-normal"><i class="fa fa-dashboard"></i> Dashboard</h5>
 				  <nav class="my-2 my-md-0 mr-md-3" style="color:red">
@@ -418,7 +425,7 @@ dashboard_content="""
 					<a class="p-2"><b style="color:black;cursor: pointer;" data-toggle="tooltip" title=".xml file is created by">Generated By: </b>%s</a>
 				  </nav>                  
 				</div>
-			
+
 				<div class="row">
 					<div class="col-md-3"  onclick="openPage('suiteMetrics', this, '')" data-toggle="tooltip" title="Click to view Suite metrics" style="cursor: pointer;">                        
 						<a class="tile tile-head">
@@ -445,7 +452,7 @@ dashboard_content="""
 						</a>
 					</div>
                 </div>
-				
+
 				<div class="row">
 					<div class="col-md-3"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">                        
 						<a class="tile tile-head">
@@ -472,7 +479,7 @@ dashboard_content="""
 						</a>
 					</div>
                 </div>
-				
+
 				<div class="row">
 					<div class="col-md-3"  onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">                        
 						<a class="tile tile-head">
@@ -499,7 +506,7 @@ dashboard_content="""
 						</a>
 					</div>
                 </div>
-				
+
 				<hr></hr>
 				<div class="row">
 					<div class="col-md-4" style="background-color:white;height:280px;width:auto;border:groove;">
@@ -536,7 +543,7 @@ dashboard_content="""
 					<p class="text-muted" style="text-align:center;font-size:9px">robotframework-metrics</p>
 				</div>
 				</div>
-   
+
    <script>
     window.onload = function(){
     executeDataTable('#sm',5);
@@ -559,7 +566,9 @@ function openInNewTab(url,element_id) {
 }
 </script>
   </div>
-""" % (elapsedtime,generator,total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
+""" % (
+elapsedtime, generator, total_suite, passed_suite, failed_suite, total, passed, failed, total_keywords, passed_keywords,
+failed_keywords, passed_suite, failed_suite, passed, failed, passed_keywords, failed_keywords)
 page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
 ### ============================ END OF DASHBOARD ============================================ ####
@@ -572,7 +581,7 @@ suite_div["id"] = "suiteMetrics"
 suite_div["class"] = "tabcontent"
 page_content_div.insert(50, suite_div)
 
-test_icon_txt="""
+test_icon_txt = """
 <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
 <hr></hr>
 """
@@ -614,8 +623,9 @@ th = soup.new_tag('th')
 th.string = "Time (s)"
 tr.insert(5, th)
 
-tbody = soup.new_tag('tbody')
-table.insert(11, tbody)
+suite_tbody = soup.new_tag('tbody')
+table.insert(11, suite_tbody)
+
 
 ### =============== GET SUITE METRICS =============== ###
 
@@ -629,13 +639,14 @@ class SuiteResults(ResultVisitor):
         else:
             stats = suite.statistics
             table_tr = soup.new_tag('tr')
-            tbody.insert(0, table_tr)
+            suite_tbody.insert(0, table_tr)
 
-            table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 250px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
+            table_td = soup.new_tag('td',
+                                    style="word-wrap: break-word;max-width: 250px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
             table_td.string = str(suite)
-            table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_name,'#',suite.id,'#',suite.id)
-            table_td['data-toggle']="tooltip"
-            table_td['title']="Click to view '%s' logs"% suite
+            table_td['onclick'] = "openInNewTab('%s%s%s','%s%s')" % (log_name, '#', suite.id, '#', suite.id)
+            table_td['data-toggle'] = "tooltip"
+            table_td['title'] = "Click to view '%s' logs" % suite
             table_tr.insert(0, table_td)
 
             table_td = soup.new_tag('td')
@@ -655,11 +666,13 @@ class SuiteResults(ResultVisitor):
             table_tr.insert(4, table_td)
 
             table_td = soup.new_tag('td')
-            table_td.string = str(suite.elapsedtime/float(1000))
+            table_td.string = str(suite.elapsedtime / float(1000))
             table_tr.insert(5, table_td)
 
-result.visit(SuiteResults())
-test_icon_txt="""
+
+group.spawn(result.visit, SuiteResults())
+
+test_icon_txt = """
 <div class="row">
 <div class="col-md-12" style="height:25px;width:auto;">
 </div>
@@ -675,7 +688,7 @@ tm_div["id"] = "testMetrics"
 tm_div["class"] = "tabcontent"
 page_content_div.insert(100, tm_div)
 
-test_icon_txt="""
+test_icon_txt = """
 <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
 <hr></hr>
 """
@@ -709,27 +722,28 @@ th = soup.new_tag('th')
 th.string = "Time (s)"
 tr.insert(3, th)
 
-tbody = soup.new_tag('tbody')
-table.insert(11, tbody)
+test_tbody = soup.new_tag('tbody')
+table.insert(11, test_tbody)
+
 
 ### =============== GET TEST METRICS =============== ###
 
 class TestCaseResults(ResultVisitor):
 
     def visit_test(self, test):
-
         table_tr = soup.new_tag('tr')
-        tbody.insert(0, table_tr)
+        test_tbody.insert(0, table_tr)
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 200px; white-space: normal")
+        table_td = soup.new_tag('td', style="word-wrap: break-word;max-width: 200px; white-space: normal")
         table_td.string = str(test.parent)
         table_tr.insert(0, table_td)
 
-        table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 250px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
+        table_td = soup.new_tag('td',
+                                style="word-wrap: break-word;max-width: 250px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
         table_td.string = str(test)
-        table_td['onclick']="openInNewTab('%s%s%s','%s%s')"%(log_name,'#',test.id,'#',test.id)
-        table_td['data-toggle']="tooltip"
-        table_td['title']="Click to view '%s' logs"% test
+        table_td['onclick'] = "openInNewTab('%s%s%s','%s%s')" % (log_name, '#', test.id, '#', test.id)
+        table_td['data-toggle'] = "tooltip"
+        table_td['title'] = "Click to view '%s' logs" % test
         table_tr.insert(1, table_td)
 
         table_td = soup.new_tag('td')
@@ -737,12 +751,13 @@ class TestCaseResults(ResultVisitor):
         table_tr.insert(2, table_td)
 
         table_td = soup.new_tag('td')
-        table_td.string = str(test.elapsedtime/float(1000))
+        table_td.string = str(test.elapsedtime / float(1000))
         table_tr.insert(3, table_td)
 
-result.visit(TestCaseResults())
 
-test_icon_txt="""
+group.spawn(result.visit, TestCaseResults())
+
+test_icon_txt = """
 <div class="row">
 <div class="col-md-12" style="height:25px;width:auto;">
 </div>
@@ -759,7 +774,7 @@ km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
 page_content_div.insert(150, km_div)
 
-keyword_icon_txt="""
+keyword_icon_txt = """
 <h4><b><i class="fa fa-table"></i> Keyword Metrics</b></h4>
   <hr></hr>
 """
@@ -794,8 +809,9 @@ th = soup.new_tag('th')
 th.string = "Time (s)"
 tr.insert(3, th)
 
-tbody = soup.new_tag('tbody')
-table.insert(1, tbody)
+kw_tbody = soup.new_tag('tbody')
+table.insert(1, kw_tbody)
+
 
 class KeywordResults(ResultVisitor):
 
@@ -808,32 +824,32 @@ class KeywordResults(ResultVisitor):
     def end_test(self, test):
         self.test = None
 
-    def start_keyword(self,kw):
+    def start_keyword(self, kw):
         # Get test case name (Credits: Robotframework author - Pekke)
         test_name = self.test.name if self.test is not None else ''
 
-         # Ignore library keywords
+        # Ignore library keywords
         keyword_library = kw.libname
 
-        if any (library in keyword_library for library in ignore_library):
+        if any(library in keyword_library for library in ignore_library):
             pass
         else:
-            keyword_type = kw.type            
-            if any (library in keyword_type for library in ignore_type):
+            keyword_type = kw.type
+            if any(library in keyword_type for library in ignore_type):
                 pass
             else:
                 table_tr = soup.new_tag('tr')
-                tbody.insert(1, table_tr)
+                kw_tbody.insert(1, table_tr)
 
-                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 250px; white-space: normal")
-                
+                table_td = soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal")
+
                 if keyword_type != "kw":
                     table_td.string = str(kw.parent)
                 else:
                     table_td.string = str(test_name)
                 table_tr.insert(0, table_td)
 
-                table_td = soup.new_tag('td',style="word-wrap: break-word;max-width: 250px; white-space: normal")
+                table_td = soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal")
                 table_td.string = str(kw.kwname)
                 table_tr.insert(1, table_td)
 
@@ -842,11 +858,13 @@ class KeywordResults(ResultVisitor):
                 table_tr.insert(2, table_td)
 
                 table_td = soup.new_tag('td')
-                table_td.string =str(kw.elapsedtime/float(1000))
+                table_td.string = str(kw.elapsedtime / float(1000))
                 table_tr.insert(3, table_td)
 
-result.visit(KeywordResults())
-test_icon_txt="""
+
+group.spawn(result.visit, KeywordResults())
+
+test_icon_txt = """
 <div class="row">
 <div class="col-md-12" style="height:25px;width:auto;">
 </div>
@@ -863,12 +881,12 @@ log_div["id"] = "log"
 log_div["class"] = "tabcontent"
 page_content_div.insert(200, log_div)
 
-test_icon_txt="""
+test_icon_txt = """
     <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in order to display here</p>
   <div class="embed-responsive embed-responsive-4by3">
     <iframe class="embed-responsive-item" src=%s></iframe>
   </div>
-"""%(log_name)
+""" % (log_name)
 log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
 ### ============================ END OF LOGS ======================================= ####
@@ -880,7 +898,7 @@ statisitcs_div["id"] = "statistics"
 statisitcs_div["class"] = "tabcontent"
 page_content_div.insert(300, statisitcs_div)
 
-emailStatistics="""
+emailStatistics = """
 <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
 <hr></hr>
 <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
@@ -981,16 +999,13 @@ Following are the last build execution statistics.
 
 </textarea>
 
-""" % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
+""" % (total_suite, passed_suite, failed_suite, total, passed, failed, total_keywords, passed_keywords, failed_keywords)
 statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
-
-
 
 ### ============================ END OF EMAIL STATISTICS ================================== ###
 
 
-
-script_text="""
+script_text = """
 
     <script>
         (function () {
@@ -1003,7 +1018,7 @@ script_text="""
             textFile = window.URL.createObjectURL(data);
             return textFile;
           };
-        
+
           var create = document.getElementById('create'),
             textbox = document.getElementById('textbox');
           create.addEventListener('click', function () {
@@ -1056,7 +1071,7 @@ script_text="""
 			}
 			//status = [];
 			name_value = $(rows[i]).find('td'); 
-		  
+
 			time=($(name_value[Number(time_column)]).html()).trim();
 			keyword=($(name_value[Number(keyword_column)]).html()).trim();
 			status.push([keyword,parseFloat(time),parseFloat(time),myColors[i]]);
@@ -1183,6 +1198,7 @@ $(window).on('load',function(){$('.loader').fadeOut();});
 """
 
 body.append(BeautifulSoup(script_text, 'html.parser'))
+group.join()
 
 ### ====== WRITE TO RF_METRICS_REPORT.HTML ===== ###
 
@@ -1291,17 +1307,18 @@ email_content = """
 <span style="text-align: left;font-weight: normal;"><br>Please refer robotframework-metrics report for detailed info.<br><br>Regards,<br>QA Team</span>
 
 </body></html> 
-"""%(total_suite,passed_suite,failed_suite,suitepp,total,passed,failed,testpp,total_keywords,passed_keywords,failed_keywords,kwpp,elapsedtime,generator)
+""" % (total_suite, passed_suite, failed_suite, suitepp, total, passed, failed, testpp, total_keywords, passed_keywords,
+       failed_keywords, kwpp, elapsedtime, generator)
 
-#msg.set_payload(email_content)
+# msg.set_payload(email_content)
 msg.attach(MIMEText(email_content, 'html'))
 
 # Attach robotframework file
 rfmetrics = MIMEBase('application', "octet-stream")
 rfmetrics.set_payload(open(result_file, "rb").read())
 encoders.encode_base64(rfmetrics)
-attachmentName = 'attachment; filename=%s'%(result_file_name)
-rfmetrics.add_header('Content-Disposition',attachmentName)
+attachmentName = 'attachment; filename=%s' % (result_file_name)
+rfmetrics.add_header('Content-Disposition', attachmentName)
 msg.attach(rfmetrics)
 
 if send_email in ['true', '1', 't', 'y', 'yes']:
@@ -1310,7 +1327,7 @@ if send_email in ['true', '1', 't', 'y', 'yes']:
     writer('\n' + "5 of 6: Sending email with robotmetrics.html...")
     # Login Credentials for sending the mail
     server.login(msg['From'], password)
-    
+
     server.sendmail(sender, recipients, msg.as_string())
     writer('\n' + "6 of 6: Email sent successfully!")
 else:
