@@ -28,7 +28,7 @@ setup(name='robotframework-metrics',
       ],
       entry_points={
           'console_scripts': [
-              'robotmetrics=robotframework_metrics.script:main',
+              'robotmetrics=robotframework_metrics.runner:main',
           ]
       },
       )
