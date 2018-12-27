@@ -33,7 +33,7 @@ def parse_options():
     parser.add_option(
         '-E', '--email',
         dest='email',
-        default=True
+        default='True'
     )
 
     opts, args = parser.parse_args()

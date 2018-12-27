@@ -18,9 +18,18 @@ from .suite_results import SuiteResults
 from .test_results import TestResults
 from .keyword_results import KeywordResults
 
+try:
+    from gevent.pool import Group
+    FAILED_IMPORT = False
+    
+except ImportError:
+    FAILED_IMPORT = True
+
 
 def generate_report(opts):
     writer = sys.stdout.write
+
+    group = Group() if not FAILED_IMPORT else ''
 
     # ======================== START OF CUSTOMIZE REPORT ================================== #
 
@@ -568,7 +577,10 @@ def generate_report(opts):
     table.insert(11, suite_tbody)
 
     ### =============== GET SUITE METRICS =============== ###
-    result.visit(SuiteResults(soup, suite_tbody, log_name))
+    if group:
+        group.spawn(result.visit, SuiteResults(soup, suite_tbody, log_name))
+    else:
+        result.visit(SuiteResults(soup, suite_tbody, log_name))
 
     test_icon_txt="""
     <div class="row">
@@ -624,7 +636,10 @@ def generate_report(opts):
     table.insert(11, test_tbody)
 
     ### =============== GET TEST METRICS =============== ###
-    result.visit(TestResults(soup, test_tbody, log_name))
+    if group:
+        group.spawn(result.visit, TestResults(soup, test_tbody, log_name))
+    else:
+        result.visit(TestResults(soup, test_tbody, log_name))
 
     test_icon_txt = """
     <div class="row">
@@ -681,7 +696,11 @@ def generate_report(opts):
     kw_tbody = soup.new_tag('tbody')
     table.insert(1, kw_tbody)
 
-    result.visit(KeywordResults(soup, kw_tbody))
+    if group:
+        group.spawn(result.visit, KeywordResults(soup, kw_tbody))
+        group.join()
+    else:
+        result.visit(KeywordResults(soup, kw_tbody))
 
     test_icon_txt="""
     <div class="row">
