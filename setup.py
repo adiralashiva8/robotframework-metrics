@@ -24,7 +24,6 @@ setup(name='robotframework-metrics',
       install_requires=[
           'robotframework',
           'beautifulsoup4',
-          'gevent'
       ],
       entry_points={
           'console_scripts': [
