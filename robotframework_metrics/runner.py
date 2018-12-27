@@ -7,6 +7,48 @@ def parse_options():
     parser = OptionParser()
 
     parser.add_option(
+        '--logo',
+        dest='logo',
+        default='https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg'
+    )
+
+    parser.add_option(
+        '--ignorelib',
+        dest='ignore',
+        default=None,
+    )
+
+    parser.add_option(
+        '--to',
+        dest='to',
+        default=None,
+    )
+
+    parser.add_option(
+        '--from',
+        dest='sender',
+        default=None,
+    )
+
+    parser.add_option(
+        '--cc',
+        dest='cc',
+        default=None,
+    )
+
+    parser.add_option(
+        '--pwd',
+        dest='pwd',
+        default=None,
+    )
+
+    parser.add_option(
+        '--ignoretype',
+        dest='ignoretype',
+        default=None,
+    )
+
+    parser.add_option(
         '-I', '--inputpath',
         dest='path',
         default=None

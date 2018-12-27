@@ -34,7 +34,7 @@ def generate_report(opts):
     # ======================== START OF CUSTOMIZE REPORT ================================== #
 
     # URL or filepath of your company logo
-    logo = "https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg"
+    logo = opts.logo
 
     # Ignores following library keywords in metrics report
     ignore_library = [
@@ -45,11 +45,18 @@ def generate_report(opts):
         'DateTime',
         ]
 
+    ignore_list = opts.ignore.split(',') if opts.ignore else ''
+    ignore_library.extend(ignore_list)
+
+
     # Ignores following type keywords in metrics report
     ignore_type = [
         'foritem',
         'for',
         ]
+
+    ignore_types = opts.ignoretype.split(',') if opts.ignoretype else ''
+    ignore_type.extend(ignore_types)
 
     # ======================== END OF CUSTOMIZE REPORT ================================== #
 
@@ -97,14 +104,14 @@ def generate_report(opts):
     msg = MIMEMultipart()
     msg['Subject'] = 'MyProject Automation Status'
 
-    sender = 'me@gmail.com'
-    recipients = ['user1@gmail.com', 'user2@yahoo.com']
-    ccrecipients = ['user3@gmail.com', 'user4@yahoo.com']
+    sender = opts.sender
+    recipients = opts.to.split(',')
+    ccrecipients = opts.cc.split(',')
 
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
     msg['Cc'] = ", ".join(ccrecipients)
-    password = "*************"
+    password = opts.pwd
     msg.add_header('Content-Type', 'text/html')
 
     # ======= END OF EMAIL SETUP CONTENT ====== #
@@ -354,7 +361,7 @@ def generate_report(opts):
 
     testpp = round(passed*100.0/total, 2)
 
-    kw_stats = KeywordStats()
+    kw_stats = KeywordStats(ignore_library, ignore_type)
     result.visit(kw_stats)
 
     total_keywords = kw_stats.total_keywords
@@ -697,10 +704,10 @@ def generate_report(opts):
     table.insert(1, kw_tbody)
 
     if group:
-        group.spawn(result.visit, KeywordResults(soup, kw_tbody))
+        group.spawn(result.visit, KeywordResults(soup, kw_tbody, ignore_library, ignore_type))
         group.join()
     else:
-        result.visit(KeywordResults(soup, kw_tbody))
+        result.visit(KeywordResults(soup, kw_tbody, ignore_library, ignore_type))
 
     test_icon_txt="""
     <div class="row">

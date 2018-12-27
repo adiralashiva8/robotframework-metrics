@@ -5,18 +5,10 @@ class KeywordStats(ResultVisitor):
     total_keywords = 0
     passed_keywords = 0
     failed_keywords = 0
-    ignore_type = [
-        'foritem',
-        'for',
-    ]
 
-    ignore_library = [
-        'BuiltIn',
-        'SeleniumLibrary',
-        'String',
-        'Collections',
-        'DateTime',
-    ]
+    def __init__(self, ignore_library, ignore_type):
+        self.ignore_library = ignore_library
+        self.ignore_type = ignore_type
 
     def start_keyword(self, kw):
         # Ignore library keywords

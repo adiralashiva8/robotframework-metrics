@@ -2,22 +2,13 @@ from robot.api import ResultVisitor
 
 
 class KeywordResults(ResultVisitor):
-    ignore_library = [
-        'BuiltIn',
-        'SeleniumLibrary',
-        'String',
-        'Collections',
-        'DateTime',
-    ]
-    ignore_type = [
-        'foritem',
-        'for',
-    ]
 
-    def __init__(self, soup, tbody):
+    def __init__(self, soup, tbody, ignore_lib, ignore_type):
         self.test = None
         self.soup = soup
         self.tbody = tbody
+        self.ignore_library = ignore_lib
+        self.ignore_type = ignore_type
 
     def start_test(self, test):
         self.test = test
