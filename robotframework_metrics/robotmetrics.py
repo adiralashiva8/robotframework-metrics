@@ -12,7 +12,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
 from email import encoders
-from gevent.pool import Group
 from .test_stats import TestStats
 from .keyword_stats import KeywordStats
 from .suite_results import SuiteResults
@@ -22,7 +21,7 @@ from .keyword_results import KeywordResults
 
 def generate_report(opts):
     writer = sys.stdout.write
-    group = Group()
+
     # ======================== START OF CUSTOMIZE REPORT ================================== #
 
     # URL or filepath of your company logo
@@ -569,7 +568,7 @@ def generate_report(opts):
     table.insert(11, suite_tbody)
 
     ### =============== GET SUITE METRICS =============== ###
-    group.spawn(result.visit, SuiteResults(soup, suite_tbody, log_name))
+    result.visit(SuiteResults(soup, suite_tbody, log_name))
 
     test_icon_txt="""
     <div class="row">
@@ -625,7 +624,7 @@ def generate_report(opts):
     table.insert(11, test_tbody)
 
     ### =============== GET TEST METRICS =============== ###
-    group.spawn(result.visit, TestResults(soup, test_tbody, log_name))
+    result.visit(TestResults(soup, test_tbody, log_name))
 
     test_icon_txt = """
     <div class="row">
@@ -682,8 +681,7 @@ def generate_report(opts):
     kw_tbody = soup.new_tag('tbody')
     table.insert(1, kw_tbody)
 
-    group.spawn(result.visit, KeywordResults(soup, kw_tbody))
-    group.join()
+    result.visit(KeywordResults(soup, kw_tbody))
 
     test_icon_txt="""
     <div class="row">
