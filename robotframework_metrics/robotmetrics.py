@@ -7,7 +7,7 @@ import time
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta
-from robot.api import ExecutionResult
+from robot.api import ExecutionResult, ResultVisitor
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
@@ -45,9 +45,11 @@ def generate_report(opts):
         'DateTime',
         ]
 
-    ignore_list = opts.ignore.split(',') if opts.ignore else ''
-    ignore_library.extend(ignore_list)
-
+    if opts.ignore is None:
+        pass
+    else:
+        ignore_list = opts.ignore.split(',') if opts.ignore else ''
+        ignore_library.extend(ignore_list)
 
     # Ignores following type keywords in metrics report
     ignore_type = [
@@ -55,8 +57,11 @@ def generate_report(opts):
         'for',
         ]
 
-    ignore_types = opts.ignoretype.split(',') if opts.ignoretype else ''
-    ignore_type.extend(ignore_types)
+    if opts.ignoretype is None:
+        pass
+    else:
+        ignore_types = opts.ignoretype.split(',') if opts.ignoretype else ''
+        ignore_type.extend(ignore_types)
 
     # ======================== END OF CUSTOMIZE REPORT ================================== #
 
@@ -102,11 +107,19 @@ def generate_report(opts):
         server = smtplib.SMTP('smtp.gmail.com:587')
 
     msg = MIMEMultipart()
-    msg['Subject'] = 'MyProject Automation Status'
+    msg['Subject'] = 'Robotframework Automation Status'
 
     sender = opts.sender
-    recipients = opts.to.split(',')
-    ccrecipients = opts.cc.split(',')
+
+    if opts.to is None:
+        recipients = ''
+    else:
+        recipients = opts.to.split(',')
+
+    if opts.cc is None:
+        ccrecipients = ''
+    else:
+        ccrecipients = opts.cc.split(',')
 
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
@@ -761,88 +774,88 @@ def generate_report(opts):
     }
     </script>
     
-    <textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
-    To: myemail1234@email.com
-    Subject: Automation Execution Status
-    X-Unsent: 1
-    Content-Type: text/html
-    
-    
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    <title>Test Email Sample</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-          <style>
-             body {
-                 background-color:#F2F2F2; 
-             }
-             body, html, table,pre,b {
-                 font-family: Calibri, Arial, sans-serif;
-                 font-size: 1em; 
-             }
-             .pastdue { color: crimson; }
-             table {
-                 border: 1px solid silver;
-                 padding: 6px;
-                 margin-left: 30px;
-                 width: 600px;
-             }
-             thead {
-                 text-align: center;
-                 font-size: 1.1em;        
-                 background-color: #B0C4DE;
-                 font-weight: bold;
-                 color: #2D2C2C;
-             }
-             tbody {
+<textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
+To: myemail1234@email.com
+Subject: Automation Execution Status
+X-Unsent: 1
+Content-Type: text/html
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Test Email Sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+        <style>
+            body {
+                background-color:#F2F2F2; 
+            }
+            body, html, table,pre,b {
+                font-family: Calibri, Arial, sans-serif;
+                font-size: 1em; 
+            }
+            .pastdue { color: crimson; }
+            table {
+                border: 1px solid silver;
+                padding: 6px;
+                margin-left: 30px;
+                width: 600px;
+            }
+            thead {
                 text-align: center;
-             }
-             th {
-                width: 25%%;
-                word-wrap:break-word;
-             }
-          </style>
-       </head>
-       <body><pre>Hi Team,
-    Following are the last build execution statistics.
-    
-    <b>Metrics:<b>
-    
-    </pre>
-          <table>
-             <thead>
-                <th style="width: 25%%;">Statistics</th>
-                <th style="width: 25%%;">Total</th>
-                <th style="width: 25%%;">Pass</th>
-                <th style="width: 25%%;">Fail</th>
-             </thead>
-             <tbody>
-                <tr>
-                   <td style="text-align: left;font-weight: bold;"> SUITE </td>
-                   <td style="background-color: #F5DEB3;text-align: center;">%s</td>
-                   <td style="background-color: #90EE90;text-align: center;">%s</td>
-                   <td style="background-color: #F08080;text-align: center;">%s</td>
-                </tr>
-                <tr>
-                   <td style="text-align: left;font-weight: bold;"> TESTS </td>
-                   <td style="background-color: #F5DEB3;text-align: center;">%s</td>
-                   <td style="background-color: #90EE90;text-align: center;">%s</td>
-                   <td style="background-color: #F08080;text-align: center;">%s</td>
-                </tr>
-                <tr>
-                   <td style="text-align: left;font-weight: bold;"> KEYWORDS </td>
-                   <td style="background-color: #F5DEB3;text-align: center;">%s</td>
-                   <td style="background-color: #90EE90;text-align: center;">%s</td>
-                   <td style="background-color: #F08080;text-align: center;">%s</td>
-                </tr>
-             </tbody>
-          </table>
-    
-    
-    </textarea>
+                font-size: 1.1em;        
+                background-color: #B0C4DE;
+                font-weight: bold;
+                color: #2D2C2C;
+            }
+            tbody {
+            text-align: center;
+            }
+            th {
+            width: 25%%;
+            word-wrap:break-word;
+            }
+        </style>
+    </head>
+    <body><pre>Hi Team,
+Following are the last build execution statistics.
+
+<b>Metrics:<b>
+
+</pre>
+        <table>
+            <thead>
+            <th style="width: 25%%;">Statistics</th>
+            <th style="width: 25%%;">Total</th>
+            <th style="width: 25%%;">Pass</th>
+            <th style="width: 25%%;">Fail</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td style="text-align: left;font-weight: bold;"> SUITE </td>
+                <td style="background-color: #F5DEB3;text-align: center;">%s</td>
+                <td style="background-color: #90EE90;text-align: center;">%s</td>
+                <td style="background-color: #F08080;text-align: center;">%s</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;font-weight: bold;"> TESTS </td>
+                <td style="background-color: #F5DEB3;text-align: center;">%s</td>
+                <td style="background-color: #90EE90;text-align: center;">%s</td>
+                <td style="background-color: #F08080;text-align: center;">%s</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;font-weight: bold;"> KEYWORDS </td>
+                <td style="background-color: #F5DEB3;text-align: center;">%s</td>
+                <td style="background-color: #90EE90;text-align: center;">%s</td>
+                <td style="background-color: #F08080;text-align: center;">%s</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+</textarea>
     
     """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
     statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
