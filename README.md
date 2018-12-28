@@ -26,106 +26,73 @@ Creates HTML Metrics report based on robotframework output.xml.
 
 #### How to use in project:
 
-1. Download __robotmetrics.py__ from here [link](https://github.com/adiralashiva8/robotframework-metrics/releases/download/v3.1.1/robotmetrics.py)
+1. Install robotmetrics 
 
-2. Copy __robotmetrics.py__ file to project
-
-3. Install beautifulsoup: (to create html report - one time activity)
-
+    > Case 1: Using pip
     ```
-    pip install beautifulsoup4
+    pip install robotmetrics
     ```
-
-4. Execute __robotmetrics.py__ file
-
-    > Case 1: robotmetrics.py is copied where output.xml is available
-
+    > Case 2: Clone project
     ```
-    python robotmetrics.py
+    python setup.py install
     ```
 
-    > Case 2: Specify output.xml file path. (When .xml and .html file names are same)
+2. Execute robotmetrics command to generate report
 
     ```
-    python robotmetrics.py -inputpath .\Result\
+    robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html" --report "report1.html" --email false 
     ```
-    
-    > Case 3: Specify file name. (When .xml and .html file names are altered)
+
+    > For help:
 
     ```
-    python robotmetrics.py -inputpath .\Result\ -output voutput.xml -report vreport.html -log vlog.html
+    robotmetrics --help
     ```
     
-5. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
+3. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
 
-6. Email will be sent to mentioned recepient with __metric-timestamp.html__ file
+4. Email will be sent to mentioned recepient with __metric-timestamp.html__ file
 
 ---
 
 #### Customize Report
 
-Specify Logo and custom links in Robotframework metrics: 
+Specify Logo in Robotframework metrics: 
 
- - __Custom Logo__ : Customize your logo by modifying __robotmetrics.py__ file at line no: 21
+ - __Custom Logo__ : Customize your logo by using --logo command line option
 
      ```
-     logo = "https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg"
+     --logo "https://encrypted-tbn0.gstatic.com/images"
      ```
- 
- - __Custom Links__ : You can customize your links in report by modifying __robotmetrics.py__ file at line no: 309-320. Modify href and text
-
-    ```
-    <ul class="nav flex-column mb-2">
-        <li class="nav-item">
-            <a style="color:blue;" class="tablink nav-link" target="_blank" href="https://www.github.com">
-            <i class="fa fa-external-link"></i> Git Hub
-            </a>
-        </li>
-        <li class="nav-item">
-            <a style="color:blue;" class="tablink nav-link" target="_blank" href="https://www.jira.com">
-            <i class="fa fa-external-link"></i> JIRA
-            </a>
-        </li>
-    </ul>
-    ```
- 
 ---
 #### How to Specifiy EMAIL recepients
- - In __robotmetrics.py__ file add specific TO, FROM, SUBJECT, EMAIL server and etc., info (line no:98-113)
+ - Default robotmetrics uses gmail server. From command line users have to specific FROM, PWD, TO and CC
 
     ```
-    if send_email in ['true', '1', 't', 'y', 'yes']:
-      server = smtplib.SMTP('smtp.gmail.com:587')
-
-    msg = MIMEMultipart() 
-    msg['Subject'] = 'MyProject Automation Status'
-
-    sender = 'me@gmail.com'
-    recipients = ['user1@gmail.com', 'user2@yahoo.com']
-    ccrecipients = ['user3@gmail.com', 'user4@yahoo.com']
-
-    msg['From'] = sender
-    msg['To'] = ", ".join(recipients)
-    msg['Cc'] = ", ".join(ccrecipients)
-    password = "*************"
+    robotmetrics --email true --from "user1@gmail.com" --pwd "***********" --to "user2@gmail.com,user3@yahoo.com"
+     --cc "user4@yahoo.com,user5@gmail.com" 
+    
     ``` 
 
 ---
 #### How to Disable EMAIL
- - By default email will be sent to mentioned recpients when .py file is executed. Using -email false (or) -email f can disable send email.
+ - By default email will be sent to mentioned recipients when robotmetrics command is executed. Using --email false can disable email
 
     ```
-    python robotmetrics.py -email false
+    robotmetrics --email false
     ```
 
  - Email will be sent when following condition is met 
     ```
-    -email true | 1 | t | y | yes
+    --email true | True
     ``` 
 ---
 
 #### How to Ignore Library Keywords in Metrics Report
- - In __robotmetrics.py__ file add specific library keywords __ignore_library__
+ - Use command line options to ignore library keywords
+    ``` 
+    --ignore "Collections,Selenium2Library"
+    ```
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
  - Following library keywords are ignored in Metrics Report
     ```
@@ -141,13 +108,13 @@ Specify Logo and custom links in Robotframework metrics:
 
 #### Generate robotframework-metrics after execution
 
-Execute .py file after suite or test execution as follows:
+Execute robotmetrics command after suite or test execution as follows:
 
  - Create .bat (or) .sh file with following snippet
 
     ```
     robot test.robot &&
-    python robotmetrics.py
+    robotmetrics [:options]
     ```
 
     > && is used to execute multiple command's in .bat file
@@ -178,5 +145,26 @@ If you have any questions / suggestions / comments on the report, please feel fr
 7. Bootstrap [link](http://getbootstrap.com/docs/4.1/examples/dashboard/)
 8. Icons8 [link](https://icons8.com/)
 9. FontAwesome [link](https://fontawesome.com)
+
+---
+
+*Special Thanks To:*
+
+*Contributors:*
+
+1. Pekka Klarck
+    > - Contributed source to get 'Test Case' name from keyword 
+    > - Suggested to use robotframework api for output.xml content 
+2. Ruud Prijs
+    > - Contributed source to use command line options for report
+3. Jesse Zacharias
+    > - Made robotmetrics installable
+    > - Contributed source to improve performance
+
+*Feedback:*
+
+1. Mantri Sri
+2. Prasad Ozarkar
+3. And Others
 
 ---
