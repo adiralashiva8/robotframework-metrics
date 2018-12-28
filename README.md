@@ -39,8 +39,6 @@ Creates HTML Metrics report based on robotframework output.xml.
 
 2. Execute robotmetrics command to generate report
 
-    > Specifying all command options
-
     ```
     robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html" --report "report1.html" --email false 
     ```
@@ -93,7 +91,7 @@ Specify Logo in Robotframework metrics:
 #### How to Ignore Library Keywords in Metrics Report
  - Use command line options to ignore library keywords
     ``` 
-    --ignore Collections
+    --ignore "Collections,Selenium2Library"
     ```
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
  - Following library keywords are ignored in Metrics Report

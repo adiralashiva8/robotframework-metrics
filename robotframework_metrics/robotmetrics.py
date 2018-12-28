@@ -45,11 +45,8 @@ def generate_report(opts):
         'DateTime',
         ]
 
-    if opts.ignore is None:
-        pass
-    else:
-        ignore_list = opts.ignore.split(',') if opts.ignore else ''
-        ignore_library.extend(ignore_list)
+    ignore_list = opts.ignore.split(',') if opts.ignore else ''
+    ignore_library.extend(ignore_list)
 
     # Ignores following type keywords in metrics report
     ignore_type = [
@@ -57,11 +54,8 @@ def generate_report(opts):
         'for',
         ]
 
-    if opts.ignoretype is None:
-        pass
-    else:
-        ignore_types = opts.ignoretype.split(',') if opts.ignoretype else ''
-        ignore_type.extend(ignore_types)
+    ignore_types = opts.ignoretype.split(',') if opts.ignoretype else ''
+    ignore_type.extend(ignore_types)
 
     # ======================== END OF CUSTOMIZE REPORT ================================== #
 
@@ -111,15 +105,9 @@ def generate_report(opts):
 
     sender = opts.sender
 
-    if opts.to is None:
-        recipients = ''
-    else:
-        recipients = opts.to.split(',')
+    recipients = opts.to.split(',') if opts.to else ''
 
-    if opts.cc is None:
-        ccrecipients = ''
-    else:
-        ccrecipients = opts.cc.split(',')
+    ccrecipients = opts.cc.split(',') if opts.cc else ''
 
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
