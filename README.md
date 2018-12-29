@@ -32,7 +32,7 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     pip install robotmetrics
     ```
-    > Case 2: Clone project
+    > Case 2: Using setup.py
     ```
     python setup.py install
     ```
