@@ -3,9 +3,7 @@
 Creates HTML Metrics report based on robotframework output.xml.
 
 [![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-metrics.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-metrics)
-![Github All Releases](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/total.svg)
-![Github Releases (by Release)](https://img.shields.io/github/downloads/adiralashiva8/robotframework-metrics/v3.1.1/total.svg)
-![GitHub release](https://img.shields.io/github/release/adiralashiva8/robotframework-metrics.svg)
+[![PyPI version](https://badge.fury.io/py/robotframework-metrics.svg)](https://badge.fury.io/py/robotframework-metrics)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
@@ -32,18 +30,23 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     pip install robotmetrics
     ```
-    > Case 2: Using setup.py
+    > Case 2: Using setup.py (clone project and run command within root)
     ```
     python setup.py install
     ```
 
 2. Execute robotmetrics command to generate report
 
+    > Case 1: No change in output.xml, log.html file name's and user is in same folder
     ```
-    robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html" --report "report1.html" --email false 
+    robotmetrics
+    ```
+    > Case 2: Change in output.xml, log.html file name's And .xml and .html files are under 'Result' folder
+    ```
+    robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html"
     ```
 
-    > For help:
+    > For more info on command line options use:
 
     ```
     robotmetrics --help
@@ -82,10 +85,6 @@ Specify Logo in Robotframework metrics:
     robotmetrics --email false
     ```
 
- - Email will be sent when following condition is met 
-    ```
-    --email true | True
-    ``` 
 ---
 
 #### How to Ignore Library Keywords in Metrics Report
@@ -119,9 +118,17 @@ Execute robotmetrics command after suite or test execution as follows:
 
     > && is used to execute multiple command's in .bat file
 
-  - Modify robot command as required and execute .bat file
+  - Modify robotmetrics command as required and execute .bat file
   
   - Robotframework metrics will be created after execution
+
+---
+
+*Performance Improvement (Beta) *
+
+ - Do you feel robotmetrics command taking more time to capture metrics? Robotframework-metrics have ability to process metrics in parallel using gevent (which helps in saving time)
+ > - Step 1: Install gevent
+ > - Step 2: Execute robotmetrics command
 
 ---
 
@@ -131,7 +138,7 @@ Thanks for using robotframework-metrics!
  - What’s the feature I should add?
 
 If you have any questions / suggestions / comments on the report, please feel free to reach me on adiralashiva8@gmail.com  
- 
+
 ---
 
 *Credits:*
@@ -152,19 +159,21 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
 *Contributors:*
 
-1. Pekka Klarck
+1. [Pekka Klarck](https://www.linkedin.com/in/pekkaklarck/) [Author of robotframework]
     > - Contributed source to get 'Test Case' name from keyword 
     > - Suggested to use robotframework api for output.xml content 
-2. Ruud Prijs
+
+2. [Ruud Prijs](https://www.linkedin.com/in/ruudprijs/)
     > - Contributed source to use command line options for report
-3. Jesse Zacharias
+
+3. [Jesse Zacharias](https://www.linkedin.com/in/jesse-zacharias-7926ba50/)
     > - Made robotmetrics installable
     > - Contributed source to improve performance
 
 *Feedback:*
 
-1. Mantri Sri
-2. Prasad Ozarkar
-3. And Others
+1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
+2. [Prasad Ozarkar](https://www.linkedin.com/in/prasad-ozarkar-b4a61017/)
+3. And few more users
 
 ---
