@@ -162,7 +162,7 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
 1. [Pekka Klarck](https://www.linkedin.com/in/pekkaklarck/) [Author of robotframework]
     > - Contributed source to get 'Test Case' name from keyword 
-    > - Suggested to use robotframework api for output.xml content 
+    > - Suggested to use robotframework api to parse output.xml content 
 
 2. [Ruud Prijs](https://www.linkedin.com/in/ruudprijs/)
     > - Contributed source to use command line options for report
@@ -175,6 +175,6 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
 1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
 2. [Prasad Ozarkar](https://www.linkedin.com/in/prasad-ozarkar-b4a61017/)
-3. And few more users
+3. [Robotframework community users] (https://groups.google.com/forum/#!forum/robotframework-users)
 
 ---
