@@ -175,6 +175,6 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
 1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
 2. [Prasad Ozarkar](https://www.linkedin.com/in/prasad-ozarkar-b4a61017/)
-3. [Robotframework community users] (https://groups.google.com/forum/#!forum/robotframework-users)
+3. [Robotframework community users](https://groups.google.com/forum/#!forum/robotframework-users)
 
 ---
