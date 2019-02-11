@@ -139,7 +139,9 @@ Thanks for using robotframework-metrics!
  - What is your opinion of this report?
  - What’s the feature I should add?
 
-If you have any questions / suggestions / comments on the report, please feel free to reach me on adiralashiva8@gmail.com  
+If you have any questions / suggestions / comments on the report, please feel free to reach me on
+ - Email <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a>Email: 
+ - Slack: [robotframeworkmetrics](https://robotframework.slack.com/messages/robotframeworkmetrics)
 
 ---
 
