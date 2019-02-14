@@ -25,6 +25,18 @@ try:
 except ImportError:
     FAILED_IMPORT = True
 
+IGNORE_LIBRARIES =[
+    'BuiltIn',
+    'SeleniumLibrary',
+    'String',
+    'Collections',
+    'DateTime',
+]
+IGNORE_TYPES = [
+    'foritem',
+    'for',
+]
+
 
 def generate_report(opts):
     writer = sys.stdout.write
@@ -37,25 +49,14 @@ def generate_report(opts):
     logo = opts.logo
 
     # Ignores following library keywords in metrics report
-    ignore_library = [
-        'BuiltIn',
-        'SeleniumLibrary',
-        'String',
-        'Collections',
-        'DateTime',
-        ]
-
-    ignore_list = opts.ignore.split(',') if opts.ignore else ''
-    ignore_library.extend(ignore_list)
+    ignore_library = IGNORE_LIBRARIES
+    if opts.ignore:
+        ignore_library.extend(opts.ignore)
 
     # Ignores following type keywords in metrics report
-    ignore_type = [
-        'foritem',
-        'for',
-        ]
-
-    ignore_types = opts.ignoretype.split(',') if opts.ignoretype else ''
-    ignore_type.extend(ignore_types)
+    ignore_type = IGNORE_TYPES
+    if opts.ignoretype:
+        ignore_type.extend(opts.ignoretype )
 
     # ======================== END OF CUSTOMIZE REPORT ================================== #
 
@@ -63,22 +64,27 @@ def generate_report(opts):
     # Source Code Contributed By : Ruud Prijs
 
     # input directory
-    if opts.path:
-        path = os.path.abspath(os.path.expanduser(opts.path))
-    else:
-        path = os.path.curdir
+    path = os.path.abspath(os.path.expanduser(opts.path))
 
     # output.xml file
-    if opts.output:
-        output_name = os.path.join(path, opts.output)
-    else:
-        output_name = os.path.join(path, 'output.xml')
+    output_name = os.path.join(path, opts.output)
 
     # report.html file
     report_name = opts.report_name
 
     # log.html file
     log_name = opts.log_name
+
+    required_files = (
+        output_name,
+        # report_name,
+        # log_name,
+    )
+    missing_files = [filename for filename in required_files if not os.path.exists(filename)]
+    if missing_files:
+        # We have files missing.
+        writer("The following files are missing: {}\n".format(", ".join(missing_files)))
+        exit(1)
 
     # email status
     send_email = opts.email
@@ -334,7 +340,7 @@ def generate_report(opts):
     page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
     body.insert(50, page_content_div)
 
-    writer('\n' + "1 of 6: Capturing dashboard content...")
+    writer("\n1 of 6: Capturing dashboard content...")
     ### ============================ START OF DASHBOARD ======================================= ####
     test_stats = TestStats()
     result.visit(test_stats)
@@ -530,7 +536,7 @@ def generate_report(opts):
     page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
     ### ============================ END OF DASHBOARD ============================================ ####
-    writer('\n' + "2 of 6: Capturing suite metrics...")
+    writer("\n2 of 6: Capturing suite metrics...")
     ### ============================ START OF SUITE METRICS ======================================= ####
 
     # Tests div
@@ -598,7 +604,7 @@ def generate_report(opts):
     """
     suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
     ### ============================ END OF SUITE METRICS ============================================ ####
-    writer('\n' + "3 of 6: Capturing test metrics...")
+    writer("\n3 of 6: Capturing test metrics...")
     ### ============================ START OF TEST METRICS ======================================= ####
     # Tests div
     tm_div = soup.new_tag('div')
@@ -657,7 +663,7 @@ def generate_report(opts):
     """
     tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
     ### ============================ END OF TEST METRICS ============================================ ####
-    writer('\n' + "4 of 6: Capturing keyword metrics...")
+    writer("\n4 of 6: Capturing keyword metrics...")
     ### ============================ START OF KEYWORD METRICS ======================================= ####
 
     # Keywords div
@@ -1168,17 +1174,17 @@ Following are the last build execution statistics.
     rfmetrics.add_header('Content-Disposition',attachmentName)
     msg.attach(rfmetrics)
 
-    if send_email in ['True', 'true']:
+    if send_email:
         # Start server
         server.starttls()
-        writer('\n' + "5 of 6: Sending email with robotmetrics.html...")
+        writer("\n5 of 6: Sending email with robotmetrics.html...")
         # Login Credentials for sending the mail
         server.login(msg['From'], password)
 
         server.sendmail(sender, recipients, msg.as_string())
-        writer('\n' + "6 of 6: Email sent successfully!")
+        writer("\n6 of 6: Email sent successfully!")
     else:
-        writer('\n' + "6 of 6: Skipping step 5 (send email)!")
+        writer("\n6 of 6: Skipping step 5 (send email)!")
 
-    writer('\n' + "robotframework-metrics.html is created successfully")
+    writer("\nResults file created successfully and can be found at {}\n".format(result_file))
     # ==== END OF EMAIL CONTENT ====== #

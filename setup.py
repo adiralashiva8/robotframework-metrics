@@ -2,10 +2,11 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = '3.1.1'
+filename = 'robotframework_metrics/version.py'
+exec(compile(open(filename, 'rb').read(), filename, 'exec'))
 
 setup(name='robotframework-metrics',
-      version=version,
+      version=__version__,
       description='Custom metrics based report for robot framework',
       long_description='Custom metrics based report for robot framework',
       classifiers=[
