@@ -168,6 +168,8 @@ If you have any questions / suggestions / comments on the report, please feel fr
 8. Icons8 [link](https://icons8.com/)
 9. FontAwesome [link](https://fontawesome.com)
 
+> Note: Robotframework-metrics uses above open source libraries for generating report.
+
 ---
 
 *Special Thanks To:*
