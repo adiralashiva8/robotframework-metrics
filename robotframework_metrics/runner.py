@@ -1,102 +1,116 @@
 import os
+import argparse
 from optparse import OptionParser
 from .robotmetrics import generate_report
-
+from .robotmetrics import IGNORE_TYPES
+from .robotmetrics import IGNORE_LIBRARIES
+from .version import __version__
 
 def parse_options():
-    parser = OptionParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_option(
+    general = parser.add_argument_group("General")
+    parser.add_argument(
+        '-v', '--version',
+        action='store_true',
+        dest='version',
+        help='Display application version information'
+    )
+    general.add_argument(
         '--logo',
         dest='logo',
         default='https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg',
         help="User logo (default: dummy wifi image )"
     )
 
-    parser.add_option(
+    general.add_argument(
         '--ignorelib',
         dest='ignore',
-        default=None,
-        help="""Ignore keywords of specified library in report 
-        (default: 'BuiltIn', 'SeleniumLibrary', 'String', 'Collections', 'DateTime')"""
+        default=IGNORE_LIBRARIES,
+        nargs="+",
+        help="Ignore keywords of specified library in report"
     )
 
-    parser.add_option(
-        '--to',
-        dest='to',
-        default=None,
-        help="To address (default: None )"
-    )
-
-    parser.add_option(
-        '--from',
-        dest='sender',
-        default=None,
-        help="From address (default: None )"
-    )
-
-    parser.add_option(
-        '--cc',
-        dest='cc',
-        default=None,
-        help="CC address (default: None )"
-    )
-
-    parser.add_option(
-        '--pwd',
-        dest='pwd',
-        default=None,
-        help="Password of email (default: None )"
-    )
-
-    parser.add_option(
+    general.add_argument(
         '--ignoretype',
         dest='ignoretype',
-        default=None,
-        help="""Ignore keywords with specified type in report
-        (default: foritem, for )"""
+        default=IGNORE_TYPES,
+        nargs="+",
+        help="Ignore keywords with specified type in report"
     )
 
-    parser.add_option(
+    general.add_argument(
         '-I', '--inputpath',
         dest='path',
-        default=None,
-        help="Path of result files (default: current folder)"
+        default=os.path.curdir,
+        help="Path of result files"
     )
 
-    parser.add_option(
+    general.add_argument(
         '-R', '--report',
         dest='report_name',
         default='report.html',
-        help="Name of report.html (default: report.html)"
+        help="Name of report.html"
     )
 
-    parser.add_option(
+    general.add_argument(
         '-L', '--log',
         dest='log_name',
         default='log.html',
-        help="Name of log.html (default: log.html)"
+        help="Name of log.html"
     )
 
-    parser.add_option(
+    general.add_argument(
         '-O', '--output',
         dest='output',
-        default=None,
-        help="Name of output.xml (default: output.xml)"
+        default="output.xml",
+        help="Name of output.xml"
     )
 
-    parser.add_option(
+    email_parser = parser.add_argument_group("Sending email",)
+    email_parser.add_argument(
         '-E', '--email',
         dest='email',
-        default='True',
-        help="Send email with metrics report when -E or --email is True (default: True)"
+        action="store_true",
+        help="Sends email with metrics report"
+    )
+    email_parser.add_argument(
+        '--to',
+        dest='to',
+        default=None,
+        help="To address"
     )
 
-    opts, args = parser.parse_args()
-    return parser, opts, args
+    email_parser.add_argument(
+        '--from',
+        dest='sender',
+        default=None,
+        help="From address"
+    )
+
+    email_parser.add_argument(
+        '--cc',
+        dest='cc',
+        default=None,
+        help="CC address"
+    )
+
+    email_parser.add_argument(
+        '--pwd',
+        dest='pwd',
+        default=None,
+        help="Password of email"
+    )
+
+    args = parser.parse_args()
+    return args
 
 
 def main():
-    parser, opts, arguments = parse_options()
+    args = parse_options()
 
-    generate_report(opts)
+    if args.version:
+        print(__version__)
+        exit(0)
+
+    generate_report(args)
