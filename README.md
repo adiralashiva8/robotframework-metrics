@@ -79,6 +79,14 @@ Specify Logo in Robotframework metrics:
     
     ``` 
 
+- From 3.1.2: -E or --email in command line is considered as true
+    > (3.1.2 is in developement - can get by cloning master)
+    ```
+    robotmetrics --email --from "user1@gmail.com" --pwd "***********" --to "user2@gmail.com,user3@yahoo.com"
+     --cc "user4@yahoo.com,user5@gmail.com"
+
+    ```
+
 ---
 #### How to Disable EMAIL
  - By default email will be sent to mentioned recipients when robotmetrics command is executed. Using --email false can disable email
@@ -174,8 +182,12 @@ If you have any questions / suggestions / comments on the report, please feel fr
     > - Contributed source to use command line options for report
 
 3. [Jesse Zacharias](https://www.linkedin.com/in/jesse-zacharias-7926ba50/)
-    > - Made robotmetrics installable
+    > - Made robotmetrics installable (pip)
     > - Contributed source to improve performance
+
+4. [Bassam Khouri](https://www.linkedin.com/in/bassamkhouri/)
+    > - Contributed source to use ArgParser
+    > - Contributed source to provide a human readable error if output.xml does not exist
 
 *Feedback:*
 

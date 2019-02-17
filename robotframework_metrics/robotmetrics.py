@@ -83,7 +83,8 @@ def generate_report(opts):
     missing_files = [filename for filename in required_files if not os.path.exists(filename)]
     if missing_files:
         # We have files missing.
-        writer("The following files are missing: {}\n".format(", ".join(missing_files)))
+        # writer("The following files are missing: {}\n".format(", ".join(missing_files)))
+        writer("output.xml file is missing: {}".format(", ".join(missing_files)))
         exit(1)
 
     # email status
@@ -103,7 +104,7 @@ def generate_report(opts):
     writer("Converting .xml to .html file. This may take few minutes...")
 
     # ======= START OF EMAIL SETUP CONTENT ====== #
-    if send_email in ['True', 'true']:
+    if send_email:
         server = smtplib.SMTP('smtp.gmail.com:587')
 
     msg = MIMEMultipart()
