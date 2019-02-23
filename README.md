@@ -12,7 +12,7 @@ Creates HTML Metrics report based on robotframework output.xml.
 ---
  - __Sample Report__ [link](https://robotframework-metrics.netlify.com/)
  - What's new in __v3.1.1_ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.1)
- - Source Code used in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
+ - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
 
 ---
 
