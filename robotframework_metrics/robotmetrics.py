@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import sys
 import os
 import math
 import smtplib
 import time
+import logging
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta
@@ -39,8 +39,7 @@ IGNORE_TYPES = [
 
 
 def generate_report(opts):
-    writer = sys.stdout.write
-
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
     group = Group() if not FAILED_IMPORT else ''
 
     # ======================== START OF CUSTOMIZE REPORT ================================== #
@@ -84,7 +83,7 @@ def generate_report(opts):
     if missing_files:
         # We have files missing.
         # writer("The following files are missing: {}\n".format(", ".join(missing_files)))
-        writer("output.xml file is missing: {}".format(", ".join(missing_files)))
+        logging.info("output.xml file is missing: {}".format(", ".join(missing_files)))
         exit(1)
 
     # email status
@@ -101,7 +100,7 @@ def generate_report(opts):
                                   'tag_stat_combine': 'tagANDanother'})
 
 
-    writer("Converting .xml to .html file. This may take few minutes...")
+    logging.info("Converting .xml to .html file. This may take few minutes...")
 
     # ======= START OF EMAIL SETUP CONTENT ====== #
     if send_email:
@@ -341,7 +340,7 @@ def generate_report(opts):
     page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
     body.insert(50, page_content_div)
 
-    writer("\n1 of 6: Capturing dashboard content...")
+    logging.info("1 of 6: Capturing dashboard content...")
     ### ============================ START OF DASHBOARD ======================================= ####
     test_stats = TestStats()
     result.visit(test_stats)
@@ -537,7 +536,7 @@ def generate_report(opts):
     page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
     ### ============================ END OF DASHBOARD ============================================ ####
-    writer("\n2 of 6: Capturing suite metrics...")
+    logging.info("2 of 6: Capturing suite metrics...")
     ### ============================ START OF SUITE METRICS ======================================= ####
 
     # Tests div
@@ -605,7 +604,7 @@ def generate_report(opts):
     """
     suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
     ### ============================ END OF SUITE METRICS ============================================ ####
-    writer("\n3 of 6: Capturing test metrics...")
+    logging.info("3 of 6: Capturing test metrics...")
     ### ============================ START OF TEST METRICS ======================================= ####
     # Tests div
     tm_div = soup.new_tag('div')
@@ -664,7 +663,7 @@ def generate_report(opts):
     """
     tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
     ### ============================ END OF TEST METRICS ============================================ ####
-    writer("\n4 of 6: Capturing keyword metrics...")
+    logging.info("4 of 6: Capturing keyword metrics...")
     ### ============================ START OF KEYWORD METRICS ======================================= ####
 
     # Keywords div
@@ -1178,14 +1177,14 @@ Following are the last build execution statistics.
     if send_email:
         # Start server
         server.starttls()
-        writer("\n5 of 6: Sending email with robotmetrics.html...")
+        logging.info("5 of 6: Sending email with robotmetrics.html...")
         # Login Credentials for sending the mail
         server.login(msg['From'], password)
 
         server.sendmail(sender, recipients, msg.as_string())
-        writer("\n6 of 6: Email sent successfully!")
+        logging.info("6 of 6: Email sent successfully!")
     else:
-        writer("\n6 of 6: Skipping step 5 (send email)!")
+        logging.info("6 of 6: Skipping step 5 (send email)!")
 
-    writer("\nResults file created successfully and can be found at {}\n".format(result_file))
+    logging.info("Results file created successfully and can be found at {}".format(result_file))
     # ==== END OF EMAIL CONTENT ====== #
