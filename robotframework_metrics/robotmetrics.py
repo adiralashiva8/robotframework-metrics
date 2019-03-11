@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import sys
 import os
 import math
@@ -7,10 +6,10 @@ import time
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta
-from robot.api import ExecutionResult, ResultVisitor
-from email.mime.multipart import MIMEMultipart 
-from email.mime.text import MIMEText 
-from email.mime.base import MIMEBase 
+from robot.api import ExecutionResult
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
 from email import encoders
 from .test_stats import TestStats
 from .keyword_stats import KeywordStats
@@ -20,31 +19,21 @@ from .keyword_results import KeywordResults
 
 try:
     from gevent.pool import Group
+
     FAILED_IMPORT = False
-    
+
 except ImportError:
     FAILED_IMPORT = True
 
-IGNORE_LIBRARIES =[
-    'BuiltIn',
-    'SeleniumLibrary',
-    'String',
-    'Collections',
-    'DateTime',
-]
-IGNORE_TYPES = [
-    'foritem',
-    'for',
-]
+IGNORE_LIBRARIES = ['BuiltIn', 'SeleniumLibrary', 'String', 'Collections', 'DateTime']
+IGNORE_TYPES = ['foritem', 'for']
 
 
 def generate_report(opts):
     writer = sys.stdout.write
-
     group = Group() if not FAILED_IMPORT else ''
 
-    # ======================== START OF CUSTOMIZE REPORT ================================== #
-
+    # START OF CUSTOMIZE REPORT
     # URL or filepath of your company logo
     logo = opts.logo
 
@@ -56,108 +45,97 @@ def generate_report(opts):
     # Ignores following type keywords in metrics report
     ignore_type = IGNORE_TYPES
     if opts.ignoretype:
-        ignore_type.extend(opts.ignoretype )
+        ignore_type.extend(opts.ignoretype)
 
-    # ======================== END OF CUSTOMIZE REPORT ================================== #
-
+    # END OF CUSTOMIZE REPORT
     # Report to support file location as arguments
     # Source Code Contributed By : Ruud Prijs
-
     # input directory
     path = os.path.abspath(os.path.expanduser(opts.path))
 
     # output.xml file
     output_name = os.path.join(path, opts.output)
 
-    # report.html file
-    report_name = opts.report_name
-
     # log.html file
     log_name = opts.log_name
 
-    required_files = (
-        output_name,
-        # report_name,
-        # log_name,
-    )
+    required_files = [output_name]
     missing_files = [filename for filename in required_files if not os.path.exists(filename)]
     if missing_files:
         # We have files missing.
-        # writer("The following files are missing: {}\n".format(", ".join(missing_files)))
         writer("output.xml file is missing: {}".format(", ".join(missing_files)))
         exit(1)
 
     # email status
     send_email = opts.email
+    mt_time = datetime.now().strftime('%Y%m%d-%H%M%S')
 
-    mtTime = datetime.now().strftime('%Y%m%d-%H%M%S')
     # Output result file location
-    result_file_name = 'metrics-'+ mtTime + '.html'
-    result_file = os.path.join(path,result_file_name)
+    result_file_name = 'metrics-' + mt_time + '.html'
+    result_file = os.path.join(path, result_file_name)
 
     # Read output.xml file
     result = ExecutionResult(output_name)
     result.configure(stat_config={'suite_stat_level': 2,
                                   'tag_stat_combine': 'tagANDanother'})
 
-
     writer("Converting .xml to .html file. This may take few minutes...")
 
-    # ======= START OF EMAIL SETUP CONTENT ====== #
+    # START OF EMAIL SETUP CONTENT
     if send_email:
         server = smtplib.SMTP('smtp.gmail.com:587')
-
     msg = MIMEMultipart()
     msg['Subject'] = 'Robotframework Automation Status'
-
     sender = opts.sender
-
     recipients = opts.to.split(',') if opts.to else ''
-
-    ccrecipients = opts.cc.split(',') if opts.cc else ''
+    cc_reciptients = opts.cc.split(',') if opts.cc else ''
 
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
-    msg['Cc'] = ", ".join(ccrecipients)
+    msg['Cc'] = ", ".join(cc_reciptients)
     password = opts.pwd
     msg.add_header('Content-Type', 'text/html')
 
-    # ======= END OF EMAIL SETUP CONTENT ====== #
-
+    # END OF EMAIL SETUP CONTENT
     head_content = """
     <!doctype html>
     <html lang="en">
-    
+
     <head>
         <link rel="shortcut icon" href="https://png.icons8.com/windows/50/000000/bot.png" type="image/x-icon" />
         <title>RF Metrics Report</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
         <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet"/>
-    
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" 
+            rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" 
+            rel="stylesheet">
+
        <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-       
+
         <!-- Bootstrap core Googleccharts -->
        <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
        <script type="text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
-    
+
        <!-- Bootstrap core Datatable-->
         <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" type="text/javascript">
+            </script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js" type="text/javascript">
+            </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" type="text/javascript">
+            </script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js" type="text/javascript"></script>
-    
+
         <style>        
             .sidebar {
               position: fixed;
@@ -167,7 +145,7 @@ def generate_report(opts):
               z-index: 100; /* Behind the navbar */
               box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
             }
-            
+
             .sidebar-sticky {
               position: relative;
               top: 0;
@@ -176,31 +154,31 @@ def generate_report(opts):
               overflow-x: hidden;
               overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
             }
-            
+
             @supports ((position: -webkit-sticky) or (position: sticky)) {
               .sidebar-sticky {
                 position: -webkit-sticky;
                 position: sticky;
               }
             }
-            
+
             .sidebar .nav-link {
               color: black;
             }
-            
+
             .sidebar .nav-link.active {
               color: #007bff;
             }
-            
+
             .sidebar .nav-link:hover .feather,
             .sidebar .nav-link.active .feather {
               color: inherit;
             }
-    
+
             [role="main"] {
               padding-top: 8px;
             }
-            
+
             /* Set height of body and the document to 100% */
             body {
                 height: 100%;
@@ -208,12 +186,12 @@ def generate_report(opts):
                 //font-family:  Comic Sans MS;
                 background-color: white;
             }
-    
+
             /* Style tab links */
             .tablinkLog {
                 cursor: pointer;
             }
-            
+
             @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
             .loader {
                 position: fixed;
@@ -222,9 +200,10 @@ def generate_report(opts):
                 width: 100%;
                 height: 100%;
                 z-index: 9999;
-                background: url('http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif?e44397') 50% 50% no-repeat rgb(249,249,249);
+                background: url('http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif?e44397') 
+                    50% 50% no-repeat rgb(249,249,249);
             }
-    
+
             /* TILES */
             .tile {
               width: 100%;
@@ -240,7 +219,7 @@ def generate_report(opts):
               text-align: center;
               color: white!important;
             }
-    
+
             .tile.tile-fail {
               background: #f44336!important;
             }
@@ -260,12 +239,10 @@ def generate_report(opts):
     </head>
     """
 
-    soup = BeautifulSoup(head_content,"html.parser")
-
+    soup = BeautifulSoup(head_content, "html.parser")
     body = soup.new_tag('body')
     soup.insert(20, body)
-
-    icons_txt= """
+    icons_txt = """
     <div class="loader"></div>
      <div class="container-fluid">
             <div class="row">
@@ -273,31 +250,35 @@ def generate_report(opts):
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">                            
                       <img src="%s" style="height:18vh!important;width:95%%;"/>
-                    
+
                     <br>
-                    
+
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
                             <span>Metrics</span>
                             <a class="d-flex align-items-center text-muted" href="#"></a>
                         </h6>
-    
+
                             <li class="nav-item">
-                                <a class="tablink nav-link" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')">
+                                <a class="tablink nav-link" href="#" id="defaultOpen" onclick="openPage('dashboard', 
+                                    this, 'orange')">
                                     <i class="fa fa-dashboard"></i> Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="tablink nav-link" href="#" onclick="openPage('suiteMetrics', this, 'orange');executeDataTable('#sm',5)" >
+                                <a class="tablink nav-link" href="#" onclick="openPage('suiteMetrics', this, 'orange');
+                                    executeDataTable('#sm',5)" >
                                     <i class="fa fa-th-large"></i> Suite Metrics
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="tablink nav-link" href="#" onclick="openPage('testMetrics', this, 'orange');executeDataTable('#tm',3)">
+                                <a class="tablink nav-link" href="#" onclick="openPage('testMetrics', this, 'orange');
+                                    executeDataTable('#tm',3)">
                                   <i class="fa fa-list-alt"></i> Test Metrics
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="tablink nav-link" href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',3)">
+                                <a class="tablink nav-link" href="#" onclick="openPage('keywordMetrics', this, 'orange')
+                                ;executeDataTable('#km',3)">
                                   <i class="fa fa-table"></i> Keyword Metrics
                                 </a>
                             </li>
@@ -318,12 +299,14 @@ def generate_report(opts):
                         </h6>
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
-                                <a style="color:blue;" class="tablink nav-link" target="_blank" href="https://www.github.com">
+                                <a style="color:blue;" class="tablink nav-link" target="_blank" 
+                                    href="https://www.github.com">
                                   <i class="fa fa-external-link"></i> Git Hub
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a style="color:blue;" class="tablink nav-link" target="_blank" href="https://www.jira.com">
+                                <a style="color:blue;" class="tablink nav-link" target="_blank" 
+                                    href="https://www.jira.com">
                                   <i class="fa fa-external-link"></i> JIRA
                                 </a>
                             </li>
@@ -331,10 +314,9 @@ def generate_report(opts):
                     </div>
                 </nav>
             </div>
-    """%(logo)
+    """ % logo
 
     body.append(BeautifulSoup(icons_txt, 'html.parser'))
-
 
     page_content_div = soup.new_tag('div')
     page_content_div["role"] = "main"
@@ -342,7 +324,7 @@ def generate_report(opts):
     body.insert(50, page_content_div)
 
     writer("\n1 of 6: Capturing dashboard content...")
-    ### ============================ START OF DASHBOARD ======================================= ####
+    # START OF DASHBOARD
     test_stats = TestStats()
     result.visit(test_stats)
 
@@ -350,24 +332,22 @@ def generate_report(opts):
     passed_suite = test_stats.passed_suite
     failed_suite = test_stats.failed_suite
 
-    suitepp = math.ceil(passed_suite*100.0/total_suite)
-
+    suitepp = math.ceil(passed_suite * 100.0 / total_suite)
     elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
     elapsedtime = elapsedtime.strftime("%X")
+    my_results = result.generated_by_robot
 
-    myResult = result.generated_by_robot
-
-    if myResult:
+    if my_results:
         generator = "Robot"
     else:
         generator = "Rebot"
 
     stats = result.statistics
-    total= stats.total.all.total
-    passed= stats.total.all.passed
-    failed= stats.total.all.failed
+    total = stats.total.all.total
+    passed = stats.total.all.passed
+    failed = stats.total.all.failed
 
-    testpp = round(passed*100.0/total, 2)
+    testpp = round(passed * 100.0 / total, 2)
 
     kw_stats = KeywordStats(ignore_library, ignore_type)
     result.visit(kw_stats)
@@ -378,23 +358,26 @@ def generate_report(opts):
 
     # Handling ZeroDivisionError exception when no keywords are found
     if total_keywords > 0:
-        kwpp = round(passed_keywords*100.0/total_keywords, 2)
+        kwpp = round(passed_keywords * 100.0 / total_keywords, 2)
     else:
         kwpp = 0
 
-    dashboard_content="""
+    dashboard_content = """
     <div class="tabcontent" id="dashboard">
-                
-                    <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
+
+                    <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light 
+                        border-bottom shadow-sm">
                       <h5 class="my-0 mr-md-auto font-weight-normal"><i class="fa fa-dashboard"></i> Dashboard</h5>
                       <nav class="my-2 my-md-0 mr-md-3" style="color:red">
                         <a class="p-2"><b style="color:black;">Execution Time: </b>%s h</a>
-                        <a class="p-2"><b style="color:black;cursor: pointer;" data-toggle="tooltip" title=".xml file is created by">Generated By: </b>%s</a>
+                        <a class="p-2"><b style="color:black;cursor: pointer;" data-toggle="tooltip" title=".xml 
+                        file is created by">Generated By: </b>%s</a>
                       </nav>                  
                     </div>
-                
+
                     <div class="row">
-                        <div class="col-md-3"  onclick="openPage('suiteMetrics', this, '')" data-toggle="tooltip" title="Click to view Suite metrics" style="cursor: pointer;">                        
+                        <div class="col-md-3"  onclick="openPage('suiteMetrics', this, '')" data-toggle="tooltip" 
+                            title="Click to view Suite metrics" style="cursor: pointer;">                        
                             <a class="tile tile-head">
                                 Suite
                                 <p style="font-size:12px">Statistics</p>
@@ -419,9 +402,10 @@ def generate_report(opts):
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="row">
-                        <div class="col-md-3"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" title="Click to view Test metrics" style="cursor: pointer;">                        
+                        <div class="col-md-3"  onclick="openPage('testMetrics', this, '')" data-toggle="tooltip" 
+                        title="Click to view Test metrics" style="cursor: pointer;">                        
                             <a class="tile tile-head">
                                 Test
                                 <p style="font-size:12px">Statistics</p>
@@ -446,9 +430,10 @@ def generate_report(opts):
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="row">
-                        <div class="col-md-3"  onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" title="Click to view Keyword metrics" style="cursor: pointer;">                        
+                        <div class="col-md-3"  onclick="openPage('keywordMetrics', this, '')" data-toggle="tooltip" 
+                            title="Click to view Keyword metrics" style="cursor: pointer;">                        
                             <a class="tile tile-head">
                                 Keyword
                                 <p style="font-size:12px">Statistics</p>
@@ -473,7 +458,7 @@ def generate_report(opts):
                             </a>
                         </div>
                     </div>
-                    
+
                     <hr></hr>
                     <div class="row">
                         <div class="col-md-4" style="background-color:white;height:280px;width:auto;border:groove;">
@@ -489,7 +474,7 @@ def generate_report(opts):
                             <div id="keywordChartID" style="height:250px;width:auto;"></div>
                         </div>
                     </div>
-    
+
                     <hr></hr>
                     <div class="row">
                         <div class="col-md-12" style="background-color:white;height:450px;width:auto;border:groove;">
@@ -510,7 +495,7 @@ def generate_report(opts):
                         <p class="text-muted" style="text-align:center;font-size:9px">robotframework-metrics</p>
                     </div>
                     </div>
-       
+
        <script>
         window.onload = function(){
         executeDataTable('#sm',5);
@@ -533,12 +518,15 @@ def generate_report(opts):
     }
     </script>
       </div>
-    """ % (elapsedtime,generator,total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords,passed_suite,failed_suite,passed,failed,passed_keywords,failed_keywords)
+    """ % (elapsedtime, generator, total_suite, passed_suite, failed_suite, total, passed, failed, total_keywords,
+           passed_keywords, failed_keywords, passed_suite, failed_suite, passed, failed, passed_keywords,
+           failed_keywords)
+
     page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
-    ### ============================ END OF DASHBOARD ============================================ ####
+    # END OF DASHBOARD
     writer("\n2 of 6: Capturing suite metrics...")
-    ### ============================ START OF SUITE METRICS ======================================= ####
+    # START OF SUITE METRICS
 
     # Tests div
     suite_div = soup.new_tag('div')
@@ -546,10 +534,10 @@ def generate_report(opts):
     suite_div["class"] = "tabcontent"
     page_content_div.insert(50, suite_div)
 
-    test_icon_txt="""
-    <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
-    <hr></hr>
-    """
+    test_icon_txt = """
+                    <h4><b><i class="fa fa-table"></i> Suite Metrics</b></h4>
+                    <hr></hr>
+                    """
     suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
     # Create table tag
@@ -591,29 +579,29 @@ def generate_report(opts):
     suite_tbody = soup.new_tag('tbody')
     table.insert(11, suite_tbody)
 
-    ### =============== GET SUITE METRICS =============== ###
+    # GET SUITE METRICS
     if group:
         group.spawn(result.visit, SuiteResults(soup, suite_tbody, log_name))
     else:
         result.visit(SuiteResults(soup, suite_tbody, log_name))
 
-    test_icon_txt="""
+    test_icon_txt = """
     <div class="row">
     <div class="col-md-12" style="height:25px;width:auto;">
     </div>
     </div>
     """
     suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
-    ### ============================ END OF SUITE METRICS ============================================ ####
+    # END OF SUITE METRICS
     writer("\n3 of 6: Capturing test metrics...")
-    ### ============================ START OF TEST METRICS ======================================= ####
+    # START OF TEST METRICS
     # Tests div
     tm_div = soup.new_tag('div')
     tm_div["id"] = "testMetrics"
     tm_div["class"] = "tabcontent"
     page_content_div.insert(100, tm_div)
 
-    test_icon_txt="""
+    test_icon_txt = """
     <h4><b><i class="fa fa-table"></i> Test Metrics</b></h4>
     <hr></hr>
     """
@@ -650,7 +638,7 @@ def generate_report(opts):
     test_tbody = soup.new_tag('tbody')
     table.insert(11, test_tbody)
 
-    ### =============== GET TEST METRICS =============== ###
+    # GET TEST METRICS
     if group:
         group.spawn(result.visit, TestResults(soup, test_tbody, log_name))
     else:
@@ -663,9 +651,9 @@ def generate_report(opts):
     </div>
     """
     tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
-    ### ============================ END OF TEST METRICS ============================================ ####
+    # END OF TEST METRICS
     writer("\n4 of 6: Capturing keyword metrics...")
-    ### ============================ START OF KEYWORD METRICS ======================================= ####
+    # START OF KEYWORD METRICS
 
     # Keywords div
     km_div = soup.new_tag('div')
@@ -673,7 +661,7 @@ def generate_report(opts):
     km_div["class"] = "tabcontent"
     page_content_div.insert(150, km_div)
 
-    keyword_icon_txt="""
+    keyword_icon_txt = """
     <h4><b><i class="fa fa-table"></i> Keyword Metrics</b></h4>
       <hr></hr>
     """
@@ -717,16 +705,16 @@ def generate_report(opts):
     else:
         result.visit(KeywordResults(soup, kw_tbody, ignore_library, ignore_type))
 
-    test_icon_txt="""
+    test_icon_txt = """
     <div class="row">
     <div class="col-md-12" style="height:25px;width:auto;">
     </div>
     </div>
     """
     km_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
-    ### ============================ END OF KEYWORD METRICS ======================================= ####
+    # END OF KEYWORD METRICS
 
-    ### ============================ START OF LOGS ====================================== ###
+    # START OF LOGS
 
     # Logs div
     log_div = soup.new_tag('div')
@@ -734,41 +722,45 @@ def generate_report(opts):
     log_div["class"] = "tabcontent"
     page_content_div.insert(200, log_div)
 
-    test_icon_txt="""
-        <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in order to display here</p>
+    test_icon_txt = """
+        <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in 
+        order to display here</p>
       <div class="embed-responsive embed-responsive-4by3">
         <iframe class="embed-responsive-item" src=%s></iframe>
       </div>
-    """%(log_name)
+    """ % log_name
     log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
-    ### ============================ END OF LOGS ======================================= ####
+    # END OF LOGS
 
-    ### ============================ EMAIL STATISTICS ================================== ###
+    # EMAIL STATISTICS
     # Statistics div
     statisitcs_div = soup.new_tag('div')
     statisitcs_div["id"] = "statistics"
     statisitcs_div["class"] = "tabcontent"
     page_content_div.insert(300, statisitcs_div)
 
-    emailStatistics="""
+    email_statistics = """
     <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
     <hr></hr>
-    <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
-    <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+    <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();
+    this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
+    <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" 
+    style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
     <script>
     function updateTextArea() {
         var suite = "<b>Top 10 Suite Performance:</b><br><br>" + $("#suiteBarID table")[0].outerHTML;
         var test = "<b>Top 10 Test Performance:</b><br><br>" + $("#testsBarID table")[0].outerHTML;
         var keyword ="<b>Top 10 Keyword Performance:</b><br><br>" + $("#keywordsBarID table")[0].outerHTML;
-        var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre></body></html>";
+        var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre>
+        </body></html>";
         document.getElementById("textbox").value += "<br>" + suite + "<br>" + test + "<br>" + keyword + saluation;
         $("#create").click(function(){
         $(this).remove();
         });
     }
     </script>
-    
+
 <textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
 To: myemail1234@email.com
 Subject: Automation Execution Status
@@ -776,7 +768,8 @@ X-Unsent: 1
 Content-Type: text/html
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Test Email Sample</title>
@@ -851,18 +844,13 @@ Following are the last build execution statistics.
 
 
 </textarea>
-    
-    """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
-    statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
 
+    """ % (total_suite, passed_suite, failed_suite, total, passed, failed, total_keywords, passed_keywords,
+           failed_keywords)
+    statisitcs_div.append(BeautifulSoup(email_statistics, 'html.parser'))
 
-
-    ### ============================ END OF EMAIL STATISTICS ================================== ###
-
-
-
-    script_text="""
-    
+    # END OF EMAIL STATISTICS
+    script_text = """
         <script>
             (function () {
             var textFile = null,
@@ -874,7 +862,7 @@ Following are the last build execution statistics.
                 textFile = window.URL.createObjectURL(data);
                 return textFile;
               };
-            
+
               var create = document.getElementById('create'),
                 textbox = document.getElementById('textbox');
               create.addEventListener('click', function () {
@@ -890,14 +878,14 @@ Following are the last build execution statistics.
             status.push(['Status', 'Percentage']);
             status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
             var data = google.visualization.arrayToDataTable(status);
-    
+
             var options = {
             pieHole: 0.6,
             legend: 'none',
             chartArea: {width: "95%",height: "90%"},
             colors: ['green', 'red'],
             };
-    
+
             var chart = new google.visualization.PieChart(document.getElementById(ChartID));
             chart.draw(data, options);
         }
@@ -927,13 +915,13 @@ Following are the last build execution statistics.
                 }
                 //status = [];
                 name_value = $(rows[i]).find('td'); 
-              
+
                 time=($(name_value[Number(time_column)]).html()).trim();
                 keyword=($(name_value[Number(keyword_column)]).html()).trim();
                 status.push([keyword,parseFloat(time),parseFloat(time),myColors[i]]);
               }
               var data = google.visualization.arrayToDataTable(status);
-    
+
               var options = {
                 legend: 'none',
                 chartArea: {width: "92%",height: "75%"},
@@ -964,14 +952,14 @@ Following are the last build execution statistics.
                     }
                 },
               };  
-    
+
                 // Instantiate and draw the chart.
                 var chart = new google.visualization.ColumnChart(document.getElementById(ChartID));
                 chart.draw(data, options);
              }
-    
+
         </script>
-    
+
      <script>
       function executeDataTable(tabname,sortCol) {
         var fileTitle;
@@ -988,7 +976,7 @@ Following are the last build execution statistics.
             default:
                 fileTitle =  "metrics";
         }
-    
+
         $(tabname).DataTable(
             {
                 retrieve: true,
@@ -1039,7 +1027,7 @@ Following are the last build execution statistics.
         }
         document.getElementById(pageName).style.display = "block";
         elmnt.style.backgroundColor = color;
-    
+
     }
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
@@ -1055,7 +1043,7 @@ Following are the last build execution statistics.
 
     body.append(BeautifulSoup(script_text, 'html.parser'))
 
-    ### ====== WRITE TO RF_METRICS_REPORT.HTML ===== ###
+    # WRITE TO RF_METRICS_REPORT.HTML
 
     # Write output as html file
     with open(result_file, 'w') as outfile:
@@ -1064,10 +1052,11 @@ Following are the last build execution statistics.
     # Wait for 2 seconds - File is generated
     time.sleep(2)
 
-    # ====== EMAIL CONTENT ========== #
+    # EMAIL CONTENT
 
     email_content = """
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     <title>Robotframework Metrics</title>
@@ -1144,7 +1133,7 @@ Following are the last build execution statistics.
                 </tr>
              </tbody>
           </table>
-    
+
     <span><br><b>Info:<b><br><br></span>
      <table>
              <tbody>
@@ -1158,21 +1147,22 @@ Following are the last build execution statistics.
                 </tr>
              </tbody>
           </table>
-    
-    <span style="text-align: left;font-weight: normal;"><br>Please refer robotframework-metrics report for detailed info.<br><br>Regards,<br>QA Team</span>
-    
-    </body></html> 
-    """%(total_suite,passed_suite,failed_suite,suitepp,total,passed,failed,testpp,total_keywords,passed_keywords,failed_keywords,kwpp,elapsedtime,generator)
 
-    #msg.set_payload(email_content)
+    <span style="text-align: left;font-weight: normal;">
+    <br>Please refer robotframework-metrics report for detailed info.<br><br>Regards,<br>QA Team</span>
+
+    </body></html> 
+    """ % (total_suite, passed_suite, failed_suite, suitepp, total, passed, failed, testpp, total_keywords,
+           passed_keywords, failed_keywords, kwpp, elapsedtime, generator)
+
     msg.attach(MIMEText(email_content, 'html'))
 
     # Attach robotframework file
     rfmetrics = MIMEBase('application', "octet-stream")
     rfmetrics.set_payload(open(result_file, "rb").read())
     encoders.encode_base64(rfmetrics)
-    attachmentName = 'attachment; filename=%s'%(result_file_name)
-    rfmetrics.add_header('Content-Disposition',attachmentName)
+    attachment_name = 'attachment; filename=%s' % result_file_name
+    rfmetrics.add_header('Content-Disposition', attachment_name)
     msg.attach(rfmetrics)
 
     if send_email:
@@ -1188,4 +1178,4 @@ Following are the last build execution statistics.
         writer("\n6 of 6: Skipping step 5 (send email)!")
 
     writer("\nResults file created successfully and can be found at {}\n".format(result_file))
-    # ==== END OF EMAIL CONTENT ====== #
+    # END OF EMAIL CONTENT

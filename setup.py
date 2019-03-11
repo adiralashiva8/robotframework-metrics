@@ -1,6 +1,4 @@
 from setuptools import setup, find_packages
-import os
-import sys
 
 filename = 'robotframework_metrics/version.py'
 exec(compile(open(filename, 'rb').read(), filename, 'exec'))
@@ -25,6 +23,7 @@ setup(name='robotframework-metrics',
       install_requires=[
           'robotframework',
           'beautifulsoup4',
+          'gevent'
       ],
       entry_points={
           'console_scripts': [
