@@ -1,8 +1,8 @@
-import sys
 import os
 import math
 import smtplib
 import time
+import logging
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta
@@ -30,7 +30,7 @@ IGNORE_TYPES = ['foritem', 'for']
 
 
 def generate_report(opts):
-    writer = sys.stdout.write
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
     group = Group() if not FAILED_IMPORT else ''
 
     # START OF CUSTOMIZE REPORT
@@ -63,7 +63,7 @@ def generate_report(opts):
     missing_files = [filename for filename in required_files if not os.path.exists(filename)]
     if missing_files:
         # We have files missing.
-        writer("output.xml file is missing: {}".format(", ".join(missing_files)))
+        logging.info("output.xml file is missing: {}".format(", ".join(missing_files)))
         exit(1)
 
     # email status
@@ -79,7 +79,7 @@ def generate_report(opts):
     result.configure(stat_config={'suite_stat_level': 2,
                                   'tag_stat_combine': 'tagANDanother'})
 
-    writer("Converting .xml to .html file. This may take few minutes...")
+    logging.info("Converting .xml to .html file. This may take few minutes...")
 
     # START OF EMAIL SETUP CONTENT
     if send_email:
@@ -323,8 +323,7 @@ def generate_report(opts):
     page_content_div["class"] = "col-md-9 ml-sm-auto col-lg-10 px-4"
     body.insert(50, page_content_div)
 
-    writer("\n1 of 6: Capturing dashboard content...")
-    # START OF DASHBOARD
+    logging.info("1 of 6: Capturing dashboard content...")
     test_stats = TestStats()
     result.visit(test_stats)
 
@@ -524,9 +523,9 @@ def generate_report(opts):
 
     page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
 
-    # END OF DASHBOARD
-    writer("\n2 of 6: Capturing suite metrics...")
-    # START OF SUITE METRICS
+    ### ============================ END OF DASHBOARD ============================================ ####
+    logging.info("2 of 6: Capturing suite metrics...")
+    ### ============================ START OF SUITE METRICS ======================================= ####
 
     # Tests div
     suite_div = soup.new_tag('div')
@@ -592,9 +591,11 @@ def generate_report(opts):
     </div>
     """
     suite_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
-    # END OF SUITE METRICS
-    writer("\n3 of 6: Capturing test metrics...")
-    # START OF TEST METRICS
+
+    ### ============================ END OF SUITE METRICS ============================================ ####
+    logging.info("3 of 6: Capturing test metrics...")
+    ### ============================ START OF TEST METRICS ======================================= ####
+
     # Tests div
     tm_div = soup.new_tag('div')
     tm_div["id"] = "testMetrics"
@@ -651,9 +652,10 @@ def generate_report(opts):
     </div>
     """
     tm_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
-    # END OF TEST METRICS
-    writer("\n4 of 6: Capturing keyword metrics...")
-    # START OF KEYWORD METRICS
+    
+    ### ============================ END OF TEST METRICS ============================================ ####
+    logging.info("4 of 6: Capturing keyword metrics...")
+    ### ============================ START OF KEYWORD METRICS ======================================= ####
 
     # Keywords div
     km_div = soup.new_tag('div')
@@ -1168,14 +1170,14 @@ Following are the last build execution statistics.
     if send_email:
         # Start server
         server.starttls()
-        writer("\n5 of 6: Sending email with robotmetrics.html...")
+        logging.info("5 of 6: Sending email with robotmetrics.html...")
         # Login Credentials for sending the mail
         server.login(msg['From'], password)
 
         server.sendmail(sender, recipients, msg.as_string())
-        writer("\n6 of 6: Email sent successfully!")
+        logging.info("6 of 6: Email sent successfully!")
     else:
-        writer("\n6 of 6: Skipping step 5 (send email)!")
+        logging.info("6 of 6: Skipping step 5 (send email)!")
 
-    writer("\nResults file created successfully and can be found at {}\n".format(result_file))
-    # END OF EMAIL CONTENT
+    logging.info("Results file created successfully and can be found at {}".format(result_file))
+    # ==== END OF EMAIL CONTENT ====== #
