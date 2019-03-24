@@ -1,10 +1,10 @@
 import os
 import argparse
-from optparse import OptionParser
 from .robotmetrics import generate_report
 from .robotmetrics import IGNORE_TYPES
 from .robotmetrics import IGNORE_LIBRARIES
 from .version import __version__
+
 
 def parse_options():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
