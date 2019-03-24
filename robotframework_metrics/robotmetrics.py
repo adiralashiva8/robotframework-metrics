@@ -293,24 +293,6 @@ def generate_report(opts):
                                 </a>
                             </li>
                         </ul>
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center text-muted">
-                            <span>Project</span>
-                            <a class="d-flex align-items-center text-muted" href="#"></a>
-                        </h6>
-                        <ul class="nav flex-column mb-2">
-                            <li class="nav-item">
-                                <a style="color:blue;" class="tablink nav-link" target="_blank" 
-                                    href="https://www.github.com">
-                                  <i class="fa fa-external-link"></i> Git Hub
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color:blue;" class="tablink nav-link" target="_blank" 
-                                    href="https://www.jira.com">
-                                  <i class="fa fa-external-link"></i> JIRA
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </nav>
             </div>
@@ -491,7 +473,9 @@ def generate_report(opts):
                     </div>
                     <div class="row">
                     <div class="col-md-12" style="height:25px;width:auto;">
-                        <p class="text-muted" style="text-align:center;font-size:9px">robotframework-metrics</p>
+                        <p class="text-muted" style="text-align:center;font-size:9px">
+                            <a target="_blank" href="https://github.com/adiralashiva8/robotframework-metrics"> robotframework-metrics </a>
+                        </p>
                     </div>
                     </div>
 
@@ -742,36 +726,30 @@ def generate_report(opts):
     statisitcs_div["class"] = "tabcontent"
     page_content_div.insert(300, statisitcs_div)
 
-    email_statistics = """
+    emailStatistics="""
     <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
     <hr></hr>
-    <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();
-    this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
-    <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" 
-    style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+    <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
+    <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
     <script>
     function updateTextArea() {
         var suite = "<b>Top 10 Suite Performance:</b><br><br>" + $("#suiteBarID table")[0].outerHTML;
         var test = "<b>Top 10 Test Performance:</b><br><br>" + $("#testsBarID table")[0].outerHTML;
         var keyword ="<b>Top 10 Keyword Performance:</b><br><br>" + $("#keywordsBarID table")[0].outerHTML;
-        var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre>
-        </body></html>";
+        var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre></body></html>";
         document.getElementById("textbox").value += "<br>" + suite + "<br>" + test + "<br>" + keyword + saluation;
         $("#create").click(function(){
         $(this).remove();
         });
     }
     </script>
-
+    
 <textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
 To: myemail1234@email.com
 Subject: Automation Execution Status
 X-Unsent: 1
 Content-Type: text/html
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Test Email Sample</title>
@@ -783,7 +761,7 @@ Content-Type: text/html
                 background-color:#F2F2F2; 
             }
             body, html, table,pre,b {
-                font-family: Calibri, Arial, sans-serif;
+                font-family: Courier New, Arial, sans-serif;
                 font-size: 1em; 
             }
             .pastdue { color: crimson; }
@@ -843,13 +821,10 @@ Following are the last build execution statistics.
             </tr>
             </tbody>
         </table>
-
-
 </textarea>
-
-    """ % (total_suite, passed_suite, failed_suite, total, passed, failed, total_keywords, passed_keywords,
-           failed_keywords)
-    statisitcs_div.append(BeautifulSoup(email_statistics, 'html.parser'))
+    
+    """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
+    statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
 
     # END OF EMAIL STATISTICS
     script_text = """
