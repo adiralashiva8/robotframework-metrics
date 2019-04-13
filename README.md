@@ -89,6 +89,12 @@ Specify Logo in Robotframework metrics:
 
     ```
 
+EMAIL TROUBLE SHOOT:
+
+   - If you facing authorization issues while using gmail.
+     - Turn off 'Allow less secure apps' [link](https://myaccount.google.com/lesssecureapps?pli=1)
+     - Turn off 2-setp verification (use test account instead of personal)
+
 ---
 #### How to Disable EMAIL
  - By default email will be sent to mentioned recipients when robotmetrics command is executed. Using --email false can disable email
