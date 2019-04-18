@@ -54,8 +54,12 @@ def generate_report(opts):
     path = os.path.abspath(os.path.expanduser(opts.path))
 
     # output.xml file
-    output_name = os.path.join(path, opts.output)
-
+    #output_name = os.path.join(path, opts.output)
+    output_names = []
+    for curr_name in opts.output.split(","):
+        curr_path = os.path.join(path, curr_name)
+        output_names.append(curr_path)
+    
     # log.html file
     log_name = opts.log_name
 
@@ -75,7 +79,7 @@ def generate_report(opts):
     result_file = os.path.join(path, result_file_name)
 
     # Read output.xml file
-    result = ExecutionResult(output_name)
+    result = ExecutionResult(*output_names)
     result.configure(stat_config={'suite_stat_level': 2,
                                   'tag_stat_combine': 'tagANDanother'})
 
