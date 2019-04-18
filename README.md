@@ -49,7 +49,11 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html"
     ```
-
+    From 3.1.2 (in development) robotframework-metrics can parse multiple xmls. Following is the command
+    ```
+    robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log "log1.html"
+    ```
+    
     > For more info on command line options use:
 
     ```
