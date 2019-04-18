@@ -53,13 +53,18 @@ def generate_report(opts):
     # input directory
     path = os.path.abspath(os.path.expanduser(opts.path))
 
-    # output.xml file
-    output_name = os.path.join(path, opts.output)
-
+    # output.xml files
+    output_names = []
+    for curr_name in opts.output.split(","):
+        curr_path = os.path.join(path, curr_name)
+        output_names.append(curr_path)
+    
     # log.html file
     log_name = opts.log_name
 
-    required_files = [output_name]
+    # copy the list of output_names onto the one of required_files; the latter may (in the future) 
+    # contain files that should not be processed as output_names
+    required_files = list(output_names) 
     missing_files = [filename for filename in required_files if not os.path.exists(filename)]
     if missing_files:
         # We have files missing.
@@ -75,7 +80,7 @@ def generate_report(opts):
     result_file = os.path.join(path, result_file_name)
 
     # Read output.xml file
-    result = ExecutionResult(output_name)
+    result = ExecutionResult(*output_names)
     result.configure(stat_config={'suite_stat_level': 2,
                                   'tag_stat_combine': 'tagANDanother'})
 
@@ -249,7 +254,7 @@ def generate_report(opts):
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="font-size:16px;">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">                            
-                      <img src="%s" style="height:18vh!important;width:95%%;"/>
+                      <img src="%s" style="max-height:18vh;max-width:95%%;"/>
 
                     <br>
 
