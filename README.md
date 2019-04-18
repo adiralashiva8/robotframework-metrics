@@ -199,6 +199,10 @@ If you have any questions / suggestions / comments on the report, please feel fr
     > - Contributed source to use ArgParser
     > - Contributed source to provide a human readable error if output.xml does not exist
 
+5. [Francesco Spegni](https://www.linkedin.com/in/francesco-spegni-34b39b61/)
+    > - Contributed source to parse multiple xml's
+    > - Fixed distorted image
+
 *Feedback:*
 
 1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
