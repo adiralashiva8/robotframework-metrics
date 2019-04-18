@@ -254,7 +254,7 @@ def generate_report(opts):
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="font-size:16px;">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">                            
-                      <img src="%s" style="height:18vh!important;"/>
+                      <img src="%s" style="max-height:18vh;max-width:95%%;"/>
 
                     <br>
 
