@@ -53,8 +53,7 @@ def generate_report(opts):
     # input directory
     path = os.path.abspath(os.path.expanduser(opts.path))
 
-    # output.xml file
-    #output_name = os.path.join(path, opts.output)
+    # output.xml files
     output_names = []
     for curr_name in opts.output.split(","):
         curr_path = os.path.join(path, curr_name)
@@ -63,7 +62,9 @@ def generate_report(opts):
     # log.html file
     log_name = opts.log_name
 
-    required_files = [output_name]
+    # copy the list of output_names onto the one of required_files; the latter may (in the future) 
+    # contain files that should not be processed as output_names
+    required_files = list(output_names) 
     missing_files = [filename for filename in required_files if not os.path.exists(filename)]
     if missing_files:
         # We have files missing.
