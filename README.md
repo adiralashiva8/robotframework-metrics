@@ -5,8 +5,6 @@ Creates HTML Metrics report based on robotframework output.xml.
 [![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-metrics.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-metrics)
 [![PyPI version](https://badge.fury.io/py/robotframework-metrics.svg)](https://badge.fury.io/py/robotframework-metrics)
 [![Downloads](https://pepy.tech/badge/robotframework-metrics)](https://pepy.tech/project/robotframework-metrics)
-[![Downloads](https://pepy.tech/badge/robotframework-metrics/month)](https://pepy.tech/project/robotframework-metrics)
-[![Downloads](https://pepy.tech/badge/robotframework-metrics/week)](https://pepy.tech/project/robotframework-metrics)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
@@ -204,7 +202,7 @@ If you have any questions / suggestions / comments on the report, please feel fr
     > - Contributed source to provide a human readable error if output.xml does not exist
 
 5. [Francesco Spegni](https://www.linkedin.com/in/francesco-spegni-34b39b61/)
-    > - Contributed source to parse multiple xml's
+    > - Contributed source to parse multiple xml's (3.1.2)
     > - Fixed distorted image
 
 *Feedback:*
