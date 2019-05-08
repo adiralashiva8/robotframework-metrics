@@ -25,8 +25,14 @@ class SuiteResults(ResultVisitor):
             table_td['title'] = "Click to view '%s' logs" % suite
             table_tr.insert(0, table_td)
 
-            table_td = self.soup.new_tag('td')
-            table_td.string = str(suite.status)
+            suite_status = str(suite.status)
+            if suite_status == "PASS":
+                table_td = self.soup.new_tag('td', style="color: green")
+                table_td.string = suite_status
+            else:
+                table_td = self.soup.new_tag('td', style="color: red")
+                table_td.string = suite_status
+
             table_tr.insert(1, table_td)
 
             table_td = self.soup.new_tag('td')

@@ -45,8 +45,14 @@ class KeywordResults(ResultVisitor):
                 table_td.string = str(kw.kwname)
                 table_tr.insert(1, table_td)
 
-                table_td = self.soup.new_tag('td')
-                table_td.string = str(kw.status)
+                kw_status = str(kw.status)
+                if kw_status == "PASS":
+                    table_td = self.soup.new_tag('td', style="color: green")
+                    table_td.string = kw_status
+                else:
+                    table_td = self.soup.new_tag('td', style="color: red")
+                    table_td.string = kw_status
+
                 table_tr.insert(2, table_td)
 
                 table_td = self.soup.new_tag('td')
