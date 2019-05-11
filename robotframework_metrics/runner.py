@@ -67,41 +67,6 @@ def parse_options():
         help="Name of output.xml"
     )
 
-    email_parser = parser.add_argument_group("Sending email",)
-    email_parser.add_argument(
-        '-E', '--email',
-        dest='email',
-        action="store_true",
-        help="Sends email with metrics report"
-    )
-    email_parser.add_argument(
-        '--to',
-        dest='to',
-        default=None,
-        help="To address"
-    )
-
-    email_parser.add_argument(
-        '--from',
-        dest='sender',
-        default=None,
-        help="From address"
-    )
-
-    email_parser.add_argument(
-        '--cc',
-        dest='cc',
-        default=None,
-        help="CC address"
-    )
-
-    email_parser.add_argument(
-        '--pwd',
-        dest='pwd',
-        default=None,
-        help="Password of email"
-    )
-
     args = parser.parse_args()
     return args
 
