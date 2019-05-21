@@ -37,3 +37,7 @@ class TestResults(ResultVisitor):
         table_td = self.soup.new_tag('td')
         table_td.string = str(test.elapsedtime / float(1000))
         table_tr.insert(3, table_td)
+
+        table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal;")
+        table_td.string = str(test.message)
+        table_tr.insert(4, table_td)

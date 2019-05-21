@@ -523,6 +523,10 @@ def generate_report(opts):
     th.string = "Time (s)"
     tr.insert(3, th)
 
+    th = soup.new_tag('th')
+    th.string = "Error Message"
+    tr.insert(4, th)
+
     test_tbody = soup.new_tag('tbody')
     table.insert(11, test_tbody)
 
