@@ -193,7 +193,7 @@ def generate_report(opts):
     icons_txt = """
     <div class="loader"></div>
     <div class="sidenav">
-        <a> <img src="%s" style="max-height:20vh;max-width:98%%;"/> </a>
+        <a> <img src="%s" style="height:20vh;max-width:98%%;"/> </a>
         <a class="tablink" href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')"><i class="fa fa-dashboard"></i> Dashboard</a>
         <a class="tablink" href="#" onclick="openPage('suiteMetrics', this, 'orange'); executeDataTable('#sm',5)"><i class="fa fa-th-large"></i> Suite Metrics</a>
         <a class="tablink" href="#" onclick="openPage('testMetrics', this, 'orange'); executeDataTable('#tm',3)"><i class="fa fa-list-alt"></i> Test Metrics</a>
@@ -218,6 +218,7 @@ def generate_report(opts):
     failed_suite = test_stats.failed_suite
 
     suitepp = math.ceil(passed_suite * 100.0 / total_suite)
+    suitefp = math.ceil(failed_suite * 100.0 / total_suite)
     elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
     elapsedtime = elapsedtime.strftime("%X")
     my_results = result.generated_by_robot
@@ -233,6 +234,7 @@ def generate_report(opts):
     failed = stats.total.all.failed
 
     testpp = round(passed * 100.0 / total, 2)
+    testfp = round(failed * 100.0 / total, 2)
 
     kw_stats = KeywordStats(ignore_library, ignore_type)
     result.visit(kw_stats)
@@ -244,8 +246,10 @@ def generate_report(opts):
     # Handling ZeroDivisionError exception when no keywords are found
     if total_keywords > 0:
         kwpp = round(passed_keywords * 100.0 / total_keywords, 2)
+        kwfp = round(failed_keywords * 100.0 / total_keywords, 2)
     else:
         kwpp = 0
+        kwfp = 0
 
     dashboard_content = """
     <div class="tabcontent" id="dashboard">
@@ -388,11 +392,11 @@ def generate_report(opts):
         executeDataTable('#tm',3);
         executeDataTable('#km',3);
         createPieChart(%s,%s,'suiteChartID','Suite Status:');
-        createBarGraph('#sm',0,5,10,'suiteBarID','Elapsed Time(s): ','Suite');	
+        createBarGraph('#sm',0,5,10,'suiteBarID','Elapsed Time (s) ','Suite');	
         createPieChart(%s,%s,'testChartID','Tests Status:');	
-        createBarGraph('#tm',1,3,10,'testsBarID','Elapsed Time(s): ','Test'); 
+        createBarGraph('#tm',1,3,10,'testsBarID','Elapsed Time (s) ','Test'); 
         createPieChart(%s,%s,'keywordChartID','Keywords Status:');
-        createBarGraph('#km',1,3,10,'keywordsBarID','Elapsed Time(s): ','Keyword');
+        createBarGraph('#km',1,3,10,'keywordsBarID','Elapsed Time (s) ','Keyword');
         };
        </script>
        <script>
@@ -636,33 +640,8 @@ def generate_report(opts):
     emailStatistics="""
     <h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
     <hr></hr>
-    <button id="create" class="btn btn-primary active inner" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
-    <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>
-    <script>
-    function updateTextArea() {
-        try{
-			var suite = "<b>Top 10 Suite Performance:</b><br><br>" + $("#suiteBarID table")[0].outerHTML;
-		} catch(err) {
-			var suite = ""
-		}
-		try{
-			var test = "<b>Top 10 Test Performance:</b><br><br>" + $("#testsBarID table")[0].outerHTML;
-		} catch(err) {
-			var test = ""
-		}
-		try{
-			var keyword ="<b>Top 10 Keyword Performance:</b><br><br>" + $("#keywordsBarID table")[0].outerHTML;
-		} catch(err) {
-			var keyword = ""
-		}
-        var saluation="<pre><br>Please refer RF Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre></body></html>";
-        document.getElementById("textbox").value += "<br>" + suite + "<br>" + test + "<br>" + keyword + saluation;
-        $("#create").click(function(){
-        $(this).remove();
-        });
-    }
-    </script>
-    
+    <button id="create" class="btn btn-primary active inner" role="button" onclick="this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
+    <a download="message.eml" class="btn btn-primary active inner" role="button" id="downloadlink" style="display: none; width: 300px;"><i class="fa fa-download"></i> Click Here To Download Email</a>   
 <textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
 To: myemail1234@email.com
 Subject: Automation Execution Status
@@ -675,74 +654,259 @@ Content-Type: text/html
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-        <style>
-            body {
-                background-color:#F2F2F2; 
-            }
-            body, html, table,pre,b {
-                font-family: Courier New, Arial, sans-serif;
-                font-size: 1em; 
-            }
-            .pastdue { color: crimson; }
-            table {
-                border: 1px solid silver;
-                padding: 6px;
-                margin-left: 30px;
-                width: 600px;
-            }
-            thead {
-                text-align: center;
-                font-size: 1.1em;        
-                background-color: #B0C4DE;
-                font-weight: bold;
-                color: #2D2C2C;
-            }
-            tbody {
+    <style>
+        body {
+            background-color:#F2F2F2; 
+        }
+        body, html, table {
+            font-family: Courier New, Arial, sans-serif;
+            font-size: 1em; 
+        }
+        .pastdue { color: crimson; }
+        table {
+            padding: 5px;
+            margin-left: 30px;
+            width: 800px;
+        }
+        thead {
             text-align: center;
-            }
-            th {
-            width: 25%%;
+            font-size: 1.1em;        
+            background-color: #B0C4DE;
+            font-weight: bold;
+            color: #2D2C2C;
+        }
+        tbody {
+            text-align: center;
+        }
+        th {
+            width: 25%;
             word-wrap:break-word;
-            }
-        </style>
-    </head>
-    <body><pre>Hi Team,
-Following are the last build execution statistics.
+        }
+    </style>
+</head>
+<body>
+    <p>Hi Team,</p>
+    <p>Following are the last build execution status</p>
+    <p></p>
+    <table>
+        <tbody>
+            <tr>
+                <td style="text-align:left; padding-left:5px;color:#0b6690;">
+                    <h2>Test Automation Report</h2>
+                </td>
+                <td style="text-align:right; padding-right:10px;color:#0b6690;">
+                    <h3>Duration: elapsed_time</h3>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <table>
+        <tbody>
+        <tr>
+            <td style="background-color:#616161; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">Suite</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Statistics</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#009688; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">suite_total</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Total</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#4CAF50; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">suite_pass</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Pass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#f44336; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">suite_fail</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Fail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color:#616161; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">Test</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Statistics</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#009688; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">test_total</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Total</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#4CAF50; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">test_pass</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Pass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#f44336; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">test_fail</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Fail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color:#616161; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">Keyword</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Statistics</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#009688; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">keyword_total</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Total</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#4CAF50; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">keyword_pass</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Pass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="background-color:#f44336; color:white; width:25%">
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 30px;">keyword_fail</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; color:white;font-size: 12px;">Fail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:33%;color:#0b6690;"><h3>Suite Status</h3></td>
+                <td style="width:33%;color:#0b6690;"><h3>Test Status</h3></td>
+                <td style="width:33%;color:#0b6690;"><h3>Keyword Status</h3></td>
+            </tr>
+            <tr>
+                <td>
+                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:suite_pass,suite_fail&chs=250x200&chco=3BB032|bc2d29&chdl=suite-pass-perc-pass|suite-fail-perc-fail'/>
+                </td>
+                <td>
+                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:test_pass,test_fail&chs=250x200&chco=3BB032|bc2d29&chdl=test-pass-perc-pass|test-fail-perc-fail'/>
+                </td>
+                <td>
+                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:keyword_pass,keyword_fail&chs=250x200&chco=3BB032|bc2d29&chdl=keyword-pass-perc-pass|keyword-fail-perc-fail'/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Please refer RF Metrics report for detailed statistics.<p>
+    <strong>Team QA</strong>
+</body></html></textarea>
 
-<b>Metrics:<b>
+    """ 
 
-</pre>
-        <table>
-            <thead>
-            <th style="width: 25%%;">Statistics</th>
-            <th style="width: 25%%;">Total</th>
-            <th style="width: 25%%;">Pass</th>
-            <th style="width: 25%%;">Fail</th>
-            </thead>
-            <tbody>
-            <tr>
-                <td style="text-align: left;font-weight: bold;"> SUITE </td>
-                <td style="background-color: #F5DEB3;text-align: center;">%s</td>
-                <td style="background-color: #90EE90;text-align: center;">%s</td>
-                <td style="background-color: #F08080;text-align: center;">%s</td>
-            </tr>
-            <tr>
-                <td style="text-align: left;font-weight: bold;"> TESTS </td>
-                <td style="background-color: #F5DEB3;text-align: center;">%s</td>
-                <td style="background-color: #90EE90;text-align: center;">%s</td>
-                <td style="background-color: #F08080;text-align: center;">%s</td>
-            </tr>
-            <tr>
-                <td style="text-align: left;font-weight: bold;"> KEYWORDS </td>
-                <td style="background-color: #F5DEB3;text-align: center;">%s</td>
-                <td style="background-color: #90EE90;text-align: center;">%s</td>
-                <td style="background-color: #F08080;text-align: center;">%s</td>
-            </tr>
-            </tbody>
-        </table>
-</textarea>
+    emailStatistics = emailStatistics.replace("suite_total",str(total_suite))
+    emailStatistics = emailStatistics.replace("suite_pass",str(passed_suite))
+    emailStatistics = emailStatistics.replace("suite_fail",str(failed_suite))
+    emailStatistics = emailStatistics.replace("test_total",str(total))
+    emailStatistics = emailStatistics.replace("test_pass",str(passed))
+    emailStatistics = emailStatistics.replace("test_fail",str(failed))
+    emailStatistics = emailStatistics.replace("keyword_total",str(total_keywords))
+    emailStatistics = emailStatistics.replace("keyword_pass",str(passed_keywords))
+    emailStatistics = emailStatistics.replace("keyword_fail",str(failed_keywords))
+    emailStatistics = emailStatistics.replace("elapsed_time",str(elapsedtime))
+    emailStatistics = emailStatistics.replace("suite-pass-perc",str(suitepp))
+    emailStatistics = emailStatistics.replace("suite-fail-perc",str(suitefp))
+    emailStatistics = emailStatistics.replace("test-pass-perc",str(testpp))
+    emailStatistics = emailStatistics.replace("test-fail-perc",str(testfp))
+    emailStatistics = emailStatistics.replace("keyword-pass-perc",str(kwpp))
+    emailStatistics = emailStatistics.replace("keyword-fail-perc",str(kwfp))
     
-    """ % (total_suite,passed_suite,failed_suite,total,passed,failed,total_keywords,passed_keywords,failed_keywords)
     statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
 
     # END OF EMAIL STATISTICS
