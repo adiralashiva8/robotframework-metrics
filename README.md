@@ -10,8 +10,8 @@ Creates HTML Metrics report based on robotframework output.xml.
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ---
- - __Sample Report__ [link](https://robotframework-metrics.netlify.com/)
- - What's new in __v3.1.1_ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.1)
+ - __Sample Report__ [link](https://robotmetrics.netlify.com/)
+ - What's new in __v3.1.2_ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.2)
  - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
 
 ---
@@ -30,7 +30,7 @@ Creates HTML Metrics report based on robotframework output.xml.
 
     > Case 1: Using pip
     ```
-    pip install robotframework-metrics
+    pip install robotframework-metrics==3.1.2
     ```
     > Case 2: Using setup.py (clone project and run command within root)
     ```
@@ -47,7 +47,7 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html"
     ```
-    From 3.1.2 (in development) robotframework-metrics can parse multiple xmls. Following is the command
+    robotframework-metrics can parse multiple xmls at a time. Following is the command
     ```
     robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log "log1.html"
     ```
@@ -60,8 +60,6 @@ Creates HTML Metrics report based on robotframework output.xml.
     
 3. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
 
-4. Email will be sent to mentioned recepient with __metric-timestamp.html__ file
-
 ---
 
 #### Customize Report
@@ -73,32 +71,6 @@ Specify Logo in Robotframework metrics:
      ```
      --logo "https://mycompany/logo.jpg"
      ```
----
-#### How to Specifiy EMAIL recepients
- - Default robotmetrics uses gmail server. From command line users have to specific FROM, PWD, TO and CC
-
-    ```
-    robotmetrics --email true --from "user1@gmail.com" --pwd "***********" --to "user2@gmail.com,user3@yahoo.com"
-     --cc "user4@yahoo.com,user5@gmail.com" 
-    
-    ``` 
-
-- From 3.1.2: DEPRECATING send email functionality
-
-EMAIL TROUBLE SHOOT:
-
-   - If you facing authorization issues while using gmail.
-     - Turn off 'Allow less secure apps' [link](https://myaccount.google.com/lesssecureapps?pli=1)
-     - Turn off 2-setp verification (use test account instead of personal)
-
----
-#### How to Disable EMAIL
- - By default email will be sent to mentioned recipients when robotmetrics command is executed. Using --email false can disable email
-
-    ```
-    robotmetrics --email false
-    ```
-
 ---
 
 #### How to Ignore Library Keywords in Metrics Report
@@ -154,7 +126,7 @@ Thanks for using robotframework-metrics!
 If you have any questions / suggestions / comments on the report, please feel free to reach me at
 
  - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a> 
- - Slack: [robotframeworkmetrics](https://robotframework.slack.com/messages/robotframeworkmetrics)
+ - Slack: <a href="https://robotframework.slack.com/messages/robotframeworkmetrics" target="_blank">`robotframeworkmetrics`</a>
  - LinkedIn: <a href="https://www.linkedin.com/in/shivaprasadadirala/" target="_blank">`shivaprasadadirala`</a>
  - Twitter: <a href="https://twitter.com/ShivaAdirala" target="_blank">`@ShivaAdirala`</a>
 
@@ -196,7 +168,7 @@ If you have any questions / suggestions / comments on the report, please feel fr
     > - Contributed source to provide a human readable error if output.xml does not exist
 
 5. [Francesco Spegni](https://www.linkedin.com/in/francesco-spegni-34b39b61/)
-    > - Contributed source to parse multiple xml's (3.1.2)
+    > - Contributed source to parse multiple xml's
     > - Fixed distorted image
 
 *Feedback:*
