@@ -217,8 +217,8 @@ def generate_report(opts):
     passed_suite = test_stats.passed_suite
     failed_suite = test_stats.failed_suite
 
-    suitepp = math.ceil(passed_suite * 100.0 / total_suite)
-    suitefp = math.ceil(failed_suite * 100.0 / total_suite)
+    suitepp = round(passed_suite * 100.0 / total_suite, 1)
+    suitefp = round(failed_suite * 100.0 / total_suite, 1)
     elapsedtime = datetime(1970, 1, 1) + timedelta(milliseconds=result.suite.elapsedtime)
     elapsedtime = elapsedtime.strftime("%X")
     my_results = result.generated_by_robot
@@ -233,8 +233,8 @@ def generate_report(opts):
     passed = stats.total.all.passed
     failed = stats.total.all.failed
 
-    testpp = round(passed * 100.0 / total, 2)
-    testfp = round(failed * 100.0 / total, 2)
+    testpp = round(passed * 100.0 / total, 1)
+    testfp = round(failed * 100.0 / total, 1)
 
     kw_stats = KeywordStats(ignore_library, ignore_type)
     result.visit(kw_stats)
@@ -245,8 +245,8 @@ def generate_report(opts):
 
     # Handling ZeroDivisionError exception when no keywords are found
     if total_keywords > 0:
-        kwpp = round(passed_keywords * 100.0 / total_keywords, 2)
-        kwfp = round(failed_keywords * 100.0 / total_keywords, 2)
+        kwpp = round(passed_keywords * 100.0 / total_keywords, 1)
+        kwfp = round(failed_keywords * 100.0 / total_keywords, 1)
     else:
         kwpp = 0
         kwfp = 0
@@ -873,13 +873,13 @@ Content-Type: text/html
             </tr>
             <tr>
                 <td>
-                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:suite_pass,suite_fail&chs=250x200&chco=3BB032|bc2d29&chdl=suite-pass-perc-pass|suite-fail-perc-fail'/>
+                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:suite-pass-perc,suite-fail-perc&chs=250x200&chco=3BB032|bc2d29&chdl=suite-pass-perc-pass|suite-fail-perc-fail'/>
                 </td>
                 <td>
-                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:test_pass,test_fail&chs=250x200&chco=3BB032|bc2d29&chdl=test-pass-perc-pass|test-fail-perc-fail'/>
+                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:test-pass-perc,test-fail-perc&chs=250x200&chco=3BB032|bc2d29&chdl=test-pass-perc-pass|test-fail-perc-fail'/>
                 </td>
                 <td>
-                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:keyword_pass,keyword_fail&chs=250x200&chco=3BB032|bc2d29&chdl=keyword-pass-perc-pass|keyword-fail-perc-fail'/>
+                    <img src='https://chart.googleapis.com/chart?cht=p3&chd=t:keyword-pass-perc,keyword-fail-perc&chs=250x200&chco=3BB032|bc2d29&chdl=keyword-pass-perc-pass|keyword-fail-perc-fail'/>
                 </td>
             </tr>
         </tbody>
