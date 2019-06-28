@@ -69,7 +69,10 @@ def generate_report(opts):
     mt_time = datetime.now().strftime('%Y%m%d-%H%M%S')
 
     # Output result file location
-    result_file_name = 'metrics-' + mt_time + '.html'
+    if opts.metrics_report_name:
+        result_file_name = opts.metrics_report_name
+    else:
+        result_file_name = 'metrics-' + mt_time + '.html'
     result_file = os.path.join(path, result_file_name)
 
     # Read output.xml file
