@@ -35,6 +35,10 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     python setup.py install
     ```
+    > Case 3: For latest changes use following command (pre-release or changes in master)
+    ```
+    pip install git+https://github.com/adiralashiva8/robotframework-metrics
+    ```
 
 2. Execute robotmetrics command to generate report
 
@@ -58,6 +62,11 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     
 3. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
+
+Note: From v3.1.4 users can specify __custom_report_name__ instead of __metrics-timestamp.html__ (changes in master)
+```
+robotmetrics -M regression_metrics.html
+```
 
 ---
 
@@ -170,11 +179,20 @@ If you have any questions / suggestions / comments on the report, please feel fr
     > - Contributed source to parse multiple xml's
     > - Fixed distorted image
 
+6. [Sreelesh Kunnath](https://www.linkedin.com/in/kunnathsree/)
+    > - Contributed source to specify custom metrics file name (changes will be from v3.1.4)
+
+
 *Feedback:*
 
 1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
 2. [Prasad Ozarkar](https://www.linkedin.com/in/prasad-ozarkar-b4a61017/)
 3. [Suresh Parimi](https://www.linkedin.com/in/sparimi/)
 4. [Robotframework community users](https://groups.google.com/forum/#!forum/robotframework-users)
+
+*Thank you for your guidance, support and Idea:*
+
+ - Steve
+ - [Goutham Duduka](https://www.linkedin.com/in/goutham-kumar-duduka-45154718/)
 
 ---
