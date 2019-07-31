@@ -49,8 +49,7 @@ def parse_options():
     general.add_argument(
         '-M', '--metrics-report-name',
         dest='metrics_report_name',
-        default='metrics-<timestamp>.html',
-        help="Ouput name of the generate metrics report"
+        help="Output name of the generate metrics report"
     )
 
     general.add_argument(
