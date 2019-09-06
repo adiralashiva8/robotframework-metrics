@@ -1,12 +1,14 @@
 # Robot Framework Metrics Report
 
-Creates HTML Metrics report based on robotframework output.xml.
+Creates awesome HTML (dashboard view) report by parsing robotframework output.xml file
 
 [![PyPI version](https://badge.fury.io/py/robotframework-metrics.svg)](https://badge.fury.io/py/robotframework-metrics)
 [![Downloads](https://pepy.tech/badge/robotframework-metrics)](https://pepy.tech/project/robotframework-metrics)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
+[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/0)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/0)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/1)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/1)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/2)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/2)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/3)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/3)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/4)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/4)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/5)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/5)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/6)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/6)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/7)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/7)
 
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
@@ -48,11 +50,11 @@ Creates HTML Metrics report based on robotframework output.xml.
     ```
     > Case 2: Change in output.xml, log.html file name's And .xml and .html files are under 'Result' folder
     ```
-    robotmetrics --inputpath ./Result/ --output "output1.xml" --log "log1.html"
+    robotmetrics --inputpath ./Result/ --output output1.xml --log log1.html
     ```
     robotframework-metrics can parse multiple xmls at a time. Following is the command
     ```
-    robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log "log1.html"
+    robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log log1.html
     ```
     
     > For more info on command line options use:
@@ -152,11 +154,17 @@ If you have any questions / suggestions / comments on the report, please feel fr
 8. Icons8 [link](https://icons8.com/)
 9. FontAwesome [link](https://fontawesome.com)
 
-> Note: Robotframework-metrics uses above open source libraries for generating report.
+> Note: Report uses above open source libraries for generating report and its not offline compatible
 
 ---
 
 *Special Thanks To:*
+
+*Idea, Guidance and Support:*
+
+ - Steve Fisher
+ - [Goutham Duduka](https://www.linkedin.com/in/goutham-kumar-duduka-45154718/)
+
 
 *Contributors:*
 
@@ -190,9 +198,6 @@ If you have any questions / suggestions / comments on the report, please feel fr
 3. [Suresh Parimi](https://www.linkedin.com/in/sparimi/)
 4. [Robotframework community users](https://groups.google.com/forum/#!forum/robotframework-users)
 
-*Thank you for your guidance, support and Idea:*
-
- - Steve
- - [Goutham Duduka](https://www.linkedin.com/in/goutham-kumar-duduka-45154718/)
-
 ---
+
+> STAR to appreciate us
