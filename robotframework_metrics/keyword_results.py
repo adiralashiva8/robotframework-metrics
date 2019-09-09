@@ -42,7 +42,7 @@ class KeywordResults(ResultVisitor):
                 table_tr.insert(0, table_td)
 
                 table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal")
-                table_td.string = str(kw.kwname)
+                table_td.string = kw.kwname
                 table_tr.insert(1, table_td)
 
                 kw_status = str(kw.status)

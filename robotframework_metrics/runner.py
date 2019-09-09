@@ -19,8 +19,8 @@ def parse_options():
     general.add_argument(
         '--logo',
         dest='logo',
-        default='https://cdn.pixabay.com/photo/2016/08/02/10/42/wifi-1563009_960_720.jpg',
-        help="User logo (default: dummy wifi image )"
+        default='https://i.ibb.co/P1ZKMSJ/RFMetrics.jpg',
+        help="User logo (default: dummy image )"
     )
 
     general.add_argument(

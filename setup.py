@@ -6,7 +6,7 @@ exec(compile(open(filename, 'rb').read(), filename, 'exec'))
 setup(name='robotframework-metrics',
       version=__version__,
       description='Custom metrics based report for robot framework',
-      long_description='Custom metrics based report for robot framework',
+      long_description='Dashboard view of robotframework results created by parsing output.xml using robot.result api',
       classifiers=[
           'Framework :: Robot Framework',
           'Programming Language :: Python',

@@ -39,5 +39,5 @@ class TestResults(ResultVisitor):
         table_tr.insert(3, table_td)
 
         table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal;")
-        table_td.string = str(test.message)
+        table_td.string = test.message
         table_tr.insert(4, table_td)
