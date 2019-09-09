@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 filename = 'robotframework_metrics/version.py'
-exec(compile(open(filename, 'rb').read().decode("utf-8"), filename, 'exec'))
+exec(compile(open(filename, 'rb').read(), filename, 'exec'))
 
 setup(name='robotframework-metrics',
       version=__version__,
