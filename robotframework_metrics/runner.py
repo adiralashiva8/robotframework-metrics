@@ -19,7 +19,7 @@ def parse_options():
     general.add_argument(
         '--logo',
         dest='logo',
-        default='https://i.ibb.co/k4YktNP/testingfox.jpg',
+        default='https://i.ibb.co/9qBkwDF/Testing-Fox-Logo.png',
         help="User logo (default: dummy image )"
     )
 
