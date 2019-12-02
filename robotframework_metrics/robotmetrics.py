@@ -51,9 +51,15 @@ def generate_report(opts):
 
     # output.xml files
     output_names = []
-    for curr_name in opts.output.split(","):
-        curr_path = os.path.join(path, curr_name)
-        output_names.append(curr_path)
+    # support "*.xml" of output files
+    if ( opts.output == "*.xml" ):
+        for item in os.listdir(path): 
+            if os.path.isfile(item) and item.endswith('.xml'):
+                output_names.append(item)
+    else:
+        for curr_name in opts.output.split(","):
+            curr_path = os.path.join(path, curr_name)
+            output_names.append(curr_path)
     
     # log.html file
     log_name = opts.log_name
