@@ -201,12 +201,10 @@ def generate_report(opts):
         </style>
     </head>
     """
-    logging.info(opts.ignorekeywords)
     if opts.ignorekeywords == "True":
         hide_keyword = "hidden"
     else:
         hide_keyword = ""
-    logging.info(hide_keyword)
 
     soup = BeautifulSoup(head_content, "html.parser")
     body = soup.new_tag('body')
