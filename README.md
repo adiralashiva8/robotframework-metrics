@@ -91,7 +91,7 @@ Specify Logo in Robotframework metrics:
  - From `v3.1.6` users can exclude keywords in metrics report using `--ignorekeywords` or `-k` command
 
    ```
-   robotmetric -k True
+   robotmetrics -k True
    ```
    > By default `--ignorekeywords` is `False`
 
