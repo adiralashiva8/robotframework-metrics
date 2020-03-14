@@ -13,6 +13,8 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
 
+ - Whats new in __v3.1.6__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.6)
+
  - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
 
 ---
