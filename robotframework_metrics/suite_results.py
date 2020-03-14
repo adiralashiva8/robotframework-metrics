@@ -17,8 +17,7 @@ class SuiteResults(ResultVisitor):
             table_tr = self.soup.new_tag('tr')
             self.tbody.insert(0, table_tr)
 
-            table_td = self.soup.new_tag('td',
-                                    style="word-wrap: break-word;max-width: 250px; white-space: normal;cursor: pointer; text-decoration: underline; color:blue")
+            table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal;cursor: pointer; color:blue; text-align:left")
             table_td.string = str(suite)
             table_td['onclick'] = "openInNewTab('%s%s%s','%s%s')" % (self.log_name, '#', suite.id, '#', suite.id)
             table_td['data-toggle'] = "tooltip"

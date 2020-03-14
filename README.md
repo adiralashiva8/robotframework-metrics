@@ -7,13 +7,12 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
-[![Gitter](https://badges.gitter.im/robotframework-metrics/community.svg)](https://gitter.im/robotframework-metrics/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/0)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/0)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/1)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/1)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/2)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/2)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/3)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/3)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/4)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/4)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/5)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/5)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/6)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/6)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/7)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/7)
 
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
- - What's new in __v3.1.2_ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.2)
+
  - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
 
 ---
@@ -21,7 +20,9 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 #### How it Works:
 
 1. Read output.xml file using robotframework API
+
 2. Get Suite, Test Case , Keyword , Status and Elapsed time values
+
 3. Convert data to html report using Beautifulsoup
 
 ---
@@ -32,7 +33,7 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 
     > Case 1: Using pip
     ```
-    pip install robotframework-metrics==3.1.2
+    pip install robotframework-metrics==3.1.6
     ```
     > Case 2: Using setup.py (clone project and run command within root)
     ```
@@ -57,20 +58,19 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
     ```
     robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log log1.html
     ```
-    
+
     > For more info on command line options use:
 
     ```
     robotmetrics --help
     ```
-    
+
 3. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
 
-Note: From v3.1.4 users can specify __custom_report_name__ instead of __metrics-timestamp.html__ (changes in master)
-```
-robotmetrics -M regression_metrics.html
-```
-
+    Note: From v3.1.6 users can specify __custom_report_name__ instead of __metrics-timestamp.html__
+    ```
+    robotmetrics -M regression_metrics.html
+    ```
 ---
 
 #### Customize Report
@@ -84,12 +84,25 @@ Specify Logo in Robotframework metrics:
      ```
 ---
 
+#### Exclude Keywords in Metrics Report
+
+ - From `v3.1.6` users can exclude keywords in metrics report using `--ignorekeywords` or `-k` command
+
+   ```
+   robotmetric -k True
+   ```
+   > By default `--ignorekeywords` is `False`
+
+
 #### How to Ignore Library Keywords in Metrics Report
+
  - Use command line options to ignore library keywords
-    ``` 
+    ```
     --ignore "Collections,Selenium2Library"
     ```
+
  - In Metric report, keywords with type value 'for' and 'foritem' are ignored
+
  - Following library keywords are ignored in Metrics Report
     ```
     ignore_library = [
@@ -116,29 +129,25 @@ Execute robotmetrics command after suite or test execution as follows:
     > && is used to execute multiple command's in .bat file
 
   - Modify robotmetrics command as required and execute .bat file
-  
+
   - Robotframework metrics will be created after execution
-
----
-
-*Performance Improvement (Beta) *
-
- - Do you feel robotmetrics command taking more time to capture metrics? Robotframework-metrics have ability to process metrics in parallel using gevent (which helps in saving time)
- > - Step 1: Install gevent
- > - Step 2: Execute robotmetrics command
 
 ---
 
 Thanks for using robotframework-metrics!
 
  - What is your opinion of this report?
+
  - What’s the feature I should add?
 
 If you have any questions / suggestions / comments on the report, please feel free to reach me at
 
  - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a> 
+
  - Slack: <a href="https://robotframework.slack.com/messages/robotframeworkmetrics" target="_blank">`robotframeworkmetrics`</a>
+
  - LinkedIn: <a href="https://www.linkedin.com/in/shivaprasadadirala/" target="_blank">`shivaprasadadirala`</a>
+
  - Twitter: <a href="https://twitter.com/ShivaAdirala" target="_blank">`@ShivaAdirala`</a>
 
 ---
@@ -189,7 +198,7 @@ If you have any questions / suggestions / comments on the report, please feel fr
     > - Fixed distorted image
 
 6. [Sreelesh Kunnath](https://www.linkedin.com/in/kunnathsree/)
-    > - Contributed source to specify custom metrics file name (changes will be from v3.1.4)
+    > - Contributed source to specify custom metrics file name
 
 
 *Feedback:*
@@ -201,4 +210,4 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
 ---
 
-> STAR to appreciate us
+:star: repo if you like it

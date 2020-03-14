@@ -73,6 +73,13 @@ def parse_options():
         help="Name of output.xml"
     )
 
+    general.add_argument(
+        '-k', '--ignorekeywords',
+        dest='ignorekeywords',
+        default="False",
+        help="Ignore keywords in metrics report"
+    )
+
     args = parser.parse_args()
     return args
 

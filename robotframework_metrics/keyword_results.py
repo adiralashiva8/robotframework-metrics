@@ -33,7 +33,7 @@ class KeywordResults(ResultVisitor):
                 table_tr = self.soup.new_tag('tr')
                 self.tbody.insert(1, table_tr)
 
-                table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal")
+                table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align:left")
 
                 if keyword_type != "kw":
                     table_td.string = str(kw.parent)
@@ -41,7 +41,7 @@ class KeywordResults(ResultVisitor):
                     table_td.string = str(test_name)
                 table_tr.insert(0, table_td)
 
-                table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal")
+                table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align:left")
                 table_td.string = kw.kwname
                 table_tr.insert(1, table_td)
 
