@@ -29,48 +29,48 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 
 #### How to use in project:
 
-__Step 1__. Install robotmetrics 
+__Step 1__ Install robotmetrics 
 
-    > Case 1: Using pip
-    ```
-    pip install robotframework-metrics==3.1.6
-    ```
-    > Case 2: Using setup.py (clone project and run command within root)
-    ```
-    python setup.py install
-    ```
-    > Case 3: For latest changes use following command (pre-release or changes in master)
-    ```
-    pip install git+https://github.com/adiralashiva8/robotframework-metrics
-    ```
+   > Case 1: Using pip
+   ```
+   pip install robotframework-metrics==3.1.6
+   ```
+   > Case 2: Using setup.py (clone project and run command within root)
+   ```
+   python setup.py install
+   ```
+   > Case 3: For latest changes use following command (pre-release or changes in master)
+   ```
+   pip install git+https://github.com/adiralashiva8/robotframework-metrics
+   ```
 
-__Step 2__. Execute robotmetrics command to generate report
+__Step 2__ Execute robotmetrics command to generate report
 
-    > Case 1: No change in output.xml, log.html file name's and user is in same folder
-    ```
-    robotmetrics
-    ```
-    > Case 2: Change in output.xml, log.html file name's And .xml and .html files are under 'Result' folder
-    ```
-    robotmetrics --inputpath ./Result/ --output output1.xml --log log1.html
-    ```
-    robotframework-metrics can parse multiple xmls at a time. Following is the command
-    ```
-    robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log log1.html
-    ```
+   > Case 1: No change in output.xml, log.html file name's and user is in same folder
+   ```
+   robotmetrics
+   ```
+   > Case 2: Change in output.xml, log.html file name's And .xml and .html files are under 'Result' folder
+   ```
+   robotmetrics --inputpath ./Result/ --output output1.xml --log log1.html
+   ```
+   robotframework-metrics can parse multiple xmls at a time. Following is the command
+   ```
+   robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml" --log log1.html
+   ```
 
-    > For more info on command line options use:
+   > For more info on command line options use:
 
-    ```
-    robotmetrics --help
-    ```
+   ```
+   robotmetrics --help
+   ```
 
-__Step 3__. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
+__Step 3__ RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
 
-    Note: From v3.1.6 users can specify __custom_report_name__ instead of __metrics-timestamp.html__
-    ```
-    robotmetrics -M regression_metrics.html
-    ```
+   Note: From v3.1.6 users can specify __custom_report_name__ instead of __metrics-timestamp.html__
+   ```
+   robotmetrics -M regression_metrics.html
+   ```
 ---
 
 #### Customize Report
