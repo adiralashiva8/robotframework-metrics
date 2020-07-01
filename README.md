@@ -8,8 +8,6 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/0)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/0)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/1)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/1)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/2)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/2)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/3)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/3)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/4)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/4)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/5)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/5)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/6)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/6)[![](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/images/7)](https://sourcerer.io/fame/adiralashiva8/adiralashiva8/robotframework-metrics/links/7)
-
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
 
@@ -31,7 +29,7 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 
 #### How to use in project:
 
-1. Install robotmetrics 
+__Step 1__. Install robotmetrics 
 
     > Case 1: Using pip
     ```
@@ -46,7 +44,7 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
     pip install git+https://github.com/adiralashiva8/robotframework-metrics
     ```
 
-2. Execute robotmetrics command to generate report
+__Step 2__. Execute robotmetrics command to generate report
 
     > Case 1: No change in output.xml, log.html file name's and user is in same folder
     ```
@@ -67,7 +65,7 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
     robotmetrics --help
     ```
 
-3. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
+__Step 3__. RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
 
     Note: From v3.1.6 users can specify __custom_report_name__ instead of __metrics-timestamp.html__
     ```
@@ -124,11 +122,11 @@ Execute robotmetrics command after suite or test execution as follows:
  - Create .bat (or) .sh file with following snippet
 
     ```
-    robot test.robot &&
+    robot test.robot &
     robotmetrics [:options]
     ```
 
-    > && is used to execute multiple command's in .bat file
+    > & is used to execute multiple command's in .bat file
 
   - Modify robotmetrics command as required and execute .bat file
 
@@ -136,37 +134,11 @@ Execute robotmetrics command after suite or test execution as follows:
 
 ---
 
-Thanks for using robotframework-metrics!
-
- - What is your opinion of this report?
-
- - What’s the feature I should add?
-
 If you have any questions / suggestions / comments on the report, please feel free to reach me at
 
  - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a> 
 
- - Slack: <a href="https://robotframework.slack.com/messages/robotframeworkmetrics" target="_blank">`robotframeworkmetrics`</a>
-
- - LinkedIn: <a href="https://www.linkedin.com/in/shivaprasadadirala/" target="_blank">`shivaprasadadirala`</a>
-
- - Twitter: <a href="https://twitter.com/ShivaAdirala" target="_blank">`@ShivaAdirala`</a>
-
----
-
-*Credits:*
-
-1. Robotframework [link](https://robot-framework.readthedocs.io/en/v3.0.4/autodoc/robot.result.html)
-2. Stackoverflow [link](http://stackoverflow.com)
-3. Google charts [link](https://developers.google.com/chart/)
-4. DataTable [link](https://datatables.net/examples/basic_init/table_sorting.html)
-5. BeautifulSoup [link](http://beautiful-soup-4.readthedocs.io)
-6. Jquery | JavaScript [link](https://www.jqueryscript.net)
-7. Bootstrap [link](http://getbootstrap.com/docs/4.1/examples/dashboard/)
-8. Icons8 [link](https://icons8.com/)
-9. FontAwesome [link](https://fontawesome.com)
-
-> Note: Report uses above open source libraries for generating report and its not offline compatible
+ - Survey [Link](https://forms.gle/t3krEXyegDFnCzoW7)
 
 ---
 
@@ -213,3 +185,5 @@ If you have any questions / suggestions / comments on the report, please feel fr
 ---
 
 :star: repo if you like it
+
+---
