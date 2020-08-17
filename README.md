@@ -11,7 +11,7 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
 
- - Whats new in __v3.1.6__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.6)
+ - Whats new in __v3.1.7__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.1.7)
 
  - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
 
@@ -92,6 +92,28 @@ Specify Logo in Robotframework metrics:
    robotmetrics -k True
    ```
    > By default `--ignorekeywords` is `False`
+
+---
+
+#### Exclude Logs in Metrics Report
+
+ - From `v3.1.7` users can exclude Logs tab in metrics report using `--ignorelogs` or `-l` command
+
+   ```
+   robotmetrics -l True
+   ```
+   > By default `--ignorelogs` is `False`
+
+---
+
+#### Include Full Suite Name in Metrics Report
+
+ - From `v3.1.7` users can include full suite name in metrics report using `--fullsuitename` or `-s` command
+
+   ```
+   robotmetrics -s True
+   ```
+   > By default `--fullsuitename` is `False`
 
 
 #### How to Ignore Library Keywords in Metrics Report

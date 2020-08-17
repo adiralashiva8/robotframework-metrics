@@ -80,6 +80,20 @@ def parse_options():
         help="Ignore keywords in metrics report"
     )
 
+    general.add_argument(
+        '-l', '--ignorelogs',
+        dest='ignorelogs',
+        default="False",
+        help="Ignore logs in metrics report"
+    )
+
+    general.add_argument(
+        '-s', '--fullsuitename',
+        dest='fullsuitename',
+        default="False",
+        help="Use full suite name in report"
+    )
+
     args = parser.parse_args()
     return args
 

@@ -125,7 +125,7 @@ def generate_report(opts):
 
             .sidenav {
                 height: 100%;
-                width: 240px;
+                width: 220px;
                 position: fixed;
                 z-index: 1;
                 top: 0;
@@ -205,6 +205,11 @@ def generate_report(opts):
         hide_keyword = "hidden"
     else:
         hide_keyword = ""
+    
+    if opts.ignorelogs == "True":
+        hide_logs = "hidden"
+    else:
+        hide_logs = ""
 
     soup = BeautifulSoup(head_content, "html.parser")
     body = soup.new_tag('body')
@@ -217,9 +222,9 @@ def generate_report(opts):
         <a class="tablink" href="#" onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',5)"><i class="fa fa-th-large" style="color:CADETBLUE"></i> Suite Metrics</a>
         <a class="tablink" href="#" onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',3)"><i class="fa fa-list-alt" style="color:PALEVIOLETRED"></i> Test Metrics</a>
         <a %s class="tablink" href="#" onclick="openPage('keywordMetrics', this, '#fc6666'); executeDataTable('#km',3)"><i class="fa fa-table" style="color:STEELBLUE"></i> Keyword Metrics</a>
-        <a class="tablink" href="#" onclick="openPage('log', this, '#fc6666');"><i class="fa fa-wpforms" style="color:CHOCOLATE"></i> Logs</a>
+        <a %s class="tablink" href="#" onclick="openPage('log', this, '#fc6666');"><i class="fa fa-wpforms" style="color:CHOCOLATE"></i> Logs</a>
     </div>
-    """ % (logo, hide_keyword)
+    """ % (logo, hide_keyword, hide_logs)
 
     body.append(BeautifulSoup(icons_txt, 'html.parser'))
 
@@ -541,9 +546,9 @@ def generate_report(opts):
 
     # GET SUITE METRICS
     if group:
-        group.spawn(result.visit, SuiteResults(soup, suite_tbody, log_name))
+        group.spawn(result.visit, SuiteResults(soup, suite_tbody, log_name, opts.fullsuitename))
     else:
-        result.visit(SuiteResults(soup, suite_tbody, log_name))
+        result.visit(SuiteResults(soup, suite_tbody, log_name, opts.fullsuitename))
 
     test_icon_txt = """
     <div class="row">
@@ -600,14 +605,18 @@ def generate_report(opts):
     th.string = "Error Message"
     tr.insert(4, th)
 
+    th = soup.new_tag('th')
+    th.string = "Tags"
+    tr.insert(5, th)
+
     test_tbody = soup.new_tag('tbody')
     table.insert(11, test_tbody)
 
     # GET TEST METRICS
     if group:
-        group.spawn(result.visit, TestResults(soup, test_tbody, log_name))
+        group.spawn(result.visit, TestResults(soup, test_tbody, log_name, opts.fullsuitename))
     else:
-        result.visit(TestResults(soup, test_tbody, log_name))
+        result.visit(TestResults(soup, test_tbody, log_name, opts.fullsuitename))
 
     test_icon_txt = """
     <div class="row">
@@ -684,19 +693,22 @@ def generate_report(opts):
     # START OF LOGS
 
     # Logs div
-    log_div = soup.new_tag('div')
-    log_div["id"] = "log"
-    log_div["class"] = "tabcontent"
-    page_content_div.insert(200, log_div)
+    if opts.ignorelogs == "True":
+        pass
+    else:
+        log_div = soup.new_tag('div')
+        log_div["id"] = "log"
+        log_div["class"] = "tabcontent"
+        page_content_div.insert(200, log_div)
 
-    test_icon_txt = """
-        <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in 
-        order to display here</p>
-      <div class="embed-responsive embed-responsive-4by3">
-        <iframe class="embed-responsive-item" src=%s></iframe>
-      </div>
-    """ % log_name
-    log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
+        test_icon_txt = """
+            <p style="text-align:right">** <b>Report.html</b> and <b>Log.html</b> need to be in current folder in 
+            order to display here</p>
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe class="embed-responsive-item" src=%s></iframe>
+        </div>
+        """ % log_name
+        log_div.append(BeautifulSoup(test_icon_txt, 'html.parser'))
 
     # END OF LOGS
     script_text = """
