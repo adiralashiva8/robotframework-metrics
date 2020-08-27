@@ -173,7 +173,7 @@ def generate_report(opts):
 
             .tablecard {
                 background-color: white;
-                font-size: 15px;
+                font-size: 14px;
             }
 
             tr {
@@ -605,18 +605,19 @@ def generate_report(opts):
     th.string = "Error Message"
     tr.insert(4, th)
 
-    th = soup.new_tag('th')
-    th.string = "Tags"
-    tr.insert(5, th)
+    if opts.showtags == "True":
+        th = soup.new_tag('th')
+        th.string = "Tags"
+        tr.insert(5, th)
 
     test_tbody = soup.new_tag('tbody')
     table.insert(11, test_tbody)
 
     # GET TEST METRICS
     if group:
-        group.spawn(result.visit, TestResults(soup, test_tbody, log_name, opts.fullsuitename))
+        group.spawn(result.visit, TestResults(soup, test_tbody, log_name, opts.fullsuitename, opts.showtags))
     else:
-        result.visit(TestResults(soup, test_tbody, log_name, opts.fullsuitename))
+        result.visit(TestResults(soup, test_tbody, log_name, opts.fullsuitename, opts.showtags))
 
     test_icon_txt = """
     <div class="row">

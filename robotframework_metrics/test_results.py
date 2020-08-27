@@ -3,11 +3,12 @@ from robot.api import ResultVisitor
 
 class TestResults(ResultVisitor):
 
-    def __init__(self, soup, tbody, logname, full_suite_name):
+    def __init__(self, soup, tbody, logname, full_suite_name, showtags):
         self.soup = soup
         self.tbody = tbody
         self.log_name = logname
         self.full_suite_name = full_suite_name
+        self.showtags = showtags
 
     def visit_test(self, test):
         table_tr = self.soup.new_tag('tr')
@@ -49,6 +50,7 @@ class TestResults(ResultVisitor):
         table_td.string = test.message
         table_tr.insert(4, table_td)
 
-        table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width:100px; white-space: normal;text-align:left")
-        table_td.string = str(test.tags)
-        table_tr.insert(5, table_td)
+        if self.showtags == "True":
+            table_td = self.soup.new_tag('td', style="word-wrap: break-word;max-width:100px; white-space: normal;text-align:left")
+            table_td.string = str(test.tags)
+            table_tr.insert(5, table_td)

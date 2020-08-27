@@ -94,6 +94,13 @@ def parse_options():
         help="Use full suite name in report"
     )
 
+    general.add_argument(
+        '-t', '--showtags',
+        dest='showtags',
+        default="False",
+        help="Display tag name is test metrics"
+    )
+
     args = parser.parse_args()
     return args
 
