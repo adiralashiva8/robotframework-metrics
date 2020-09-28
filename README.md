@@ -33,7 +33,7 @@ __Step 1__ Install robotmetrics
 
    > Case 1: Using pip
    ```
-   pip install robotframework-metrics==3.1.6
+   pip install robotframework-metrics==3.1.7
    ```
    > Case 2: Using setup.py (clone project and run command within root)
    ```
