@@ -11,7 +11,7 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
 
- - Whats new in __v3.2.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.2.1)
+ - Whats new in __v3.2.2__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.2.2)
 
  - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
 
@@ -33,7 +33,7 @@ __Step 1__ Install robotmetrics
 
    > Case 1: Using pip
    ```
-   pip install robotframework-metrics==3.2.1
+   pip install robotframework-metrics==3.2.2
    ```
    > Case 2: Using setup.py (clone project and run command within root)
    ```

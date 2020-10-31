@@ -2,6 +2,7 @@ import os
 import argparse
 from .robotmetrics import generate_report
 from .robotmetrics import IGNORE_TYPES
+from .robotmetrics import IGNORE_LIBRARIES
 from .version import __version__
 
 
@@ -20,6 +21,14 @@ def parse_options():
         dest='logo',
         default='https://i.ibb.co/9qBkwDF/Testing-Fox-Logo.png',
         help="User logo (default: dummy image )"
+    )
+
+    general.add_argument(
+        '--ignorelib',
+        dest='ignore',
+        default=IGNORE_LIBRARIES,
+        nargs="+",
+        help="Ignore keywords of specified library in report"
     )
 
     general.add_argument(
