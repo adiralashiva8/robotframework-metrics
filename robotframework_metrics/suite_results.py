@@ -14,7 +14,10 @@ class SuiteResults(ResultVisitor):
         if not suite_test_list:
             pass
         else:
-            stats = suite.statistics
+            try:
+                stats = suite.statistics.all
+            except:
+                stats = suite.statistics
             table_tr = self.soup.new_tag('tr')
             self.tbody.insert(0, table_tr)
 
@@ -32,24 +35,35 @@ class SuiteResults(ResultVisitor):
             if suite_status == "PASS":
                 table_td = self.soup.new_tag('td', style="color: green")
                 table_td.string = suite_status
-            else:
+            elif suite_status == "FAIL":
                 table_td = self.soup.new_tag('td', style="color: red")
+                table_td.string = suite_status
+            else:
+                table_td = self.soup.new_tag('td', style="color: orange")
                 table_td.string = suite_status
 
             table_tr.insert(1, table_td)
 
             table_td = self.soup.new_tag('td')
-            table_td.string = str(stats.all.total)
+            table_td.string = str(stats.total)
             table_tr.insert(2, table_td)
 
-            table_td = self.soup.new_tag('td')
-            table_td.string = str(stats.all.passed)
+            table_td = self.soup.new_tag('td', style="color: green")
+            table_td.string = str(stats.passed)
             table_tr.insert(3, table_td)
 
-            table_td = self.soup.new_tag('td')
-            table_td.string = str(stats.all.failed)
+            table_td = self.soup.new_tag('td', style="color: red")
+            table_td.string = str(stats.failed)
             table_tr.insert(4, table_td)
+
+            table_td = self.soup.new_tag('td', style="color: orange")
+            try:
+                skip_count = stats.skipped
+            except:
+                skip_count = 0
+            table_td.string = str(skip_count)
+            table_tr.insert(5, table_td)
 
             table_td = self.soup.new_tag('td')
             table_td.string = str(suite.elapsedtime / float(1000))
-            table_tr.insert(5, table_td)
+            table_tr.insert(6, table_td)

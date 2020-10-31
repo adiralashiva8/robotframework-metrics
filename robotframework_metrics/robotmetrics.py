@@ -236,9 +236,17 @@ def generate_report(opts):
     test_stats = TestStats()
     result.visit(test_stats)
 
-    total_suite = test_stats.total_suite
-    passed_suite = test_stats.passed_suite
-    failed_suite = test_stats.failed_suite
+    try:
+        test_stats_obj = test_stats.all
+    except:
+        test_stats_obj = test_stats
+    total_suite = test_stats_obj.total_suite
+    passed_suite = test_stats_obj.passed_suite
+    failed_suite = test_stats_obj.failed_suite
+    try:
+        skipped_suite = test_stats_obj.skipped_suite
+    except:
+        skipped_suite = 0
 
     #suitepp = round(passed_suite * 100.0 / total_suite, 1)
     #suitefp = round(failed_suite * 100.0 / total_suite, 1)
@@ -252,9 +260,17 @@ def generate_report(opts):
         generator = "Rebot"
 
     stats = result.statistics
-    total = stats.total.all.total
-    passed = stats.total.all.passed
-    failed = stats.total.all.failed
+    try:
+        stats_obj = stats.total.all
+    except:
+        stats_obj = stats.total
+    total = stats_obj.total
+    passed = stats_obj.passed
+    failed = stats_obj.failed
+    try:
+        skipped = stats_obj.skipped
+    except:
+        skipped = 0
 
     #testpp = round(passed * 100.0 / total, 1)
     #testfp = round(failed * 100.0 / total, 1)
@@ -265,6 +281,10 @@ def generate_report(opts):
     total_keywords = kw_stats.total_keywords
     passed_keywords = kw_stats.passed_keywords
     failed_keywords = kw_stats.failed_keywords
+    try:
+        skipped_keywords = kw_stats.skipped_keywords
+    except:
+        skipped_keywords = 0
 
     # Handling ZeroDivisionError exception when no keywords are found
     # if total_keywords > 0:
@@ -313,10 +333,12 @@ def generate_report(opts):
                                     <tbody>
                                         <tr style="height:70%;font-size:25px" align="center" valign="middle">
                                             <td style="width: 33%; color:brown">__STOTAL__</td>
+                                            <td style="width: 33%; color:orange">__SSKIP__</td>
                                             <td style="width: 33%; color:#fc6666">__SFAIL__</td>
                                         </tr>
                                         <tr style="height:30%" align="center" valign="top">
                                             <td style="width: 33%"><span style="color: #999999;font-size:10px">Total</span></td>
+                                            <td style="width: 33%"><span style="color: #999999;font-size:10px">Skip</span></td>
                                             <td style="width: 33%"><span style="color: #999999;font-size:10px">Fail</span></td>
                                         </tr>
                                     </tbody>
@@ -352,10 +374,12 @@ def generate_report(opts):
                                     <tbody>
                                         <tr style="height:70%;font-size:25px" align="center" valign="middle">
                                             <td style="width: 33%; color:brown">__TTOTAL__</td>
+                                            <td style="width: 33%; color:orange">__TSKIP__</td>
                                             <td style="width: 33%; color:#fc6666">__TFAIL__</td>
                                         </tr>
                                         <tr style="height:30%" align="center" valign="top">
                                             <td style="width: 33%"><span style="color: #999999;font-size:10px">Total</span></td>
+                                            <td style="width: 33%"><span style="color: #999999;font-size:10px">Skip</span></td>
                                             <td style="width: 33%"><span style="color: #999999;font-size:10px">Fail</span></td>
                                         </tr>
                                     </tbody>
@@ -391,10 +415,12 @@ def generate_report(opts):
                                     <tbody>
                                         <tr style="height:70%;font-size:25px" align="center" valign="middle">
                                             <td style="width: 33%; color:brown">__KTOTAL__</td>
+                                            <td style="width: 33%; color:orange">__KSKIP__</td>
                                             <td style="width: 33%; color:#fc6666">__KFAIL__</td>
                                         </tr>
                                         <tr style="height:30%" align="center" valign="top">
                                             <td style="width: 33%"><span style="color: #999999;font-size:10px">Total</span></td>
+                                            <td style="width: 33%"><span style="color: #999999;font-size:10px">Skip</span></td>
                                             <td style="width: 33%"><span style="color: #999999;font-size:10px">Fail</span></td>
                                         </tr>
                                     </tbody>
@@ -452,14 +478,14 @@ def generate_report(opts):
 
        <script>
             window.onload = function(){
-                executeDataTable('#sm',5);
+                executeDataTable('#sm',6);
                 executeDataTable('#tm',3);
                 executeDataTable('#km',3);
-                createPieChart(__SPASS__,__SFAIL__,'suiteChartID','Suite Status:');
-                createBarGraph('#sm',0,5,10,'suiteBarID','Elapsed Time (s) ','Suite');
-                createPieChart(__TPASS__,__TFAIL__,'testChartID','Tests Status:');
+                createPieChart(__SPASS__,__SFAIL__,__SSKIP__,'suiteChartID','Suite Status:');
+                createBarGraph('#sm',0,6,10,'suiteBarID','Elapsed Time (s) ','Suite');
+                createPieChart(__TPASS__,__TFAIL__,__TSKIP__,'testChartID','Tests Status:');
                 createBarGraph('#tm',1,3,10,'testsBarID','Elapsed Time (s) ','Test');
-                createPieChart(__KPASS__,__KFAIL__,'keywordChartID','Keywords Status:');
+                createPieChart(__KPASS__,__KFAIL__,__KSKIP__,'keywordChartID','Keywords Status:');
                 createBarGraph('#km',1,3,10,'keywordsBarID','Elapsed Time (s) ','Keyword');
             };
        </script>
@@ -479,12 +505,15 @@ def generate_report(opts):
     dashboard_content = dashboard_content.replace("__STOTAL__", str(total_suite))
     dashboard_content = dashboard_content.replace("__SPASS__", str(passed_suite))
     dashboard_content = dashboard_content.replace("__SFAIL__", str(failed_suite))
+    dashboard_content = dashboard_content.replace("__SSKIP__", str(skipped_suite))
     dashboard_content = dashboard_content.replace("__TTOTAL__", str(total))
     dashboard_content = dashboard_content.replace("__TPASS__", str(passed))
     dashboard_content = dashboard_content.replace("__TFAIL__", str(failed))
+    dashboard_content = dashboard_content.replace("__TSKIP__", str(skipped))
     dashboard_content = dashboard_content.replace("__KTOTAL__", str(total_keywords))
     dashboard_content = dashboard_content.replace("__KPASS__", str(passed_keywords))
     dashboard_content = dashboard_content.replace("__KFAIL__", str(failed_keywords))
+    dashboard_content = dashboard_content.replace("__KSKIP__", str(skipped_keywords))
     dashboard_content = dashboard_content.replace("__KHIDE__", str(hide_keyword))
 
     page_content_div.append(BeautifulSoup(dashboard_content, 'html.parser'))
@@ -538,17 +567,17 @@ def generate_report(opts):
     tr.insert(4, th)
 
     th = soup.new_tag('th')
-    th.string = "Time (s)"
+    th.string = "Fail"
     tr.insert(5, th)
+
+    th = soup.new_tag('th')
+    th.string = "Time (s)"
+    tr.insert(6, th)
 
     suite_tbody = soup.new_tag('tbody')
     table.insert(11, suite_tbody)
 
-    # GET SUITE METRICS
-    if group:
-        group.spawn(result.visit, SuiteResults(soup, suite_tbody, log_name, opts.fullsuitename))
-    else:
-        result.visit(SuiteResults(soup, suite_tbody, log_name, opts.fullsuitename))
+    result.visit(SuiteResults(soup, suite_tbody, log_name, opts.fullsuitename))
 
     test_icon_txt = """
     <div class="row">
@@ -614,10 +643,7 @@ def generate_report(opts):
     table.insert(11, test_tbody)
 
     # GET TEST METRICS
-    if group:
-        group.spawn(result.visit, TestResults(soup, test_tbody, log_name, opts.fullsuitename, opts.showtags))
-    else:
-        result.visit(TestResults(soup, test_tbody, log_name, opts.fullsuitename, opts.showtags))
+    result.visit(TestResults(soup, test_tbody, log_name, opts.fullsuitename, opts.showtags))
 
     test_icon_txt = """
     <div class="row">
@@ -714,17 +740,17 @@ def generate_report(opts):
     # END OF LOGS
     script_text = """
         <script>
-            function createPieChart(passed_count,failed_count,ChartID,ChartName){
+            function createPieChart(passed_count, failed_count, skipped_count, ChartID, ChartName){
             var status = [];
             status.push(['Status', 'Percentage']);
-            status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
+            status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)],['SKIP',parseInt(skipped_count)]);
             var data = google.visualization.arrayToDataTable(status);
 
             var options = {
             pieHole: 0.6,
             legend: 'none',
             chartArea: {width: "95%",height: "90%"},
-            colors: ['#2ecc71', '#fc6666'],
+            colors: ['#2ecc71', '#fc6666', '#ffa500'],
             };
 
             var chart = new google.visualization.PieChart(document.getElementById(ChartID));
@@ -824,6 +850,12 @@ def generate_report(opts):
                 retrieve: true,
                 "order": [[ Number(sortCol), "desc" ]],
                 dom: 'l<".margin" B>frtip',
+                "aoColumnDefs": [ {
+                    "aTargets": [ -1 ],
+                    "mRender": function ( data, type, full ) {
+                        return $("<div/>").html(data).text(); 
+                    }
+                } ],
                 buttons: [
                     {
                         extend:    'copyHtml5',
