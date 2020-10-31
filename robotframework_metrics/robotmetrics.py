@@ -851,7 +851,7 @@ def generate_report(opts):
                 "order": [[ Number(sortCol), "desc" ]],
                 dom: 'l<".margin" B>frtip',
                 "aoColumnDefs": [ {
-                    "aTargets": [ -1 ],
+                    "aTargets": [ -1, -2 ],
                     "mRender": function ( data, type, full ) {
                         return $("<div/>").html(data).text(); 
                     }
