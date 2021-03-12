@@ -140,8 +140,6 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
  - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a> 
 
- - Survey [Link](https://forms.gle/t3krEXyegDFnCzoW7)
-
 ---
 
 *Special Thanks To:*
