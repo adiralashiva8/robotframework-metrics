@@ -7,25 +7,19 @@ class KeywordStats(ResultVisitor):
     failed_keywords = 0
     skipped_keywords = 0
 
-    def __init__(self, ignore_library, ignore_type):
-        self.ignore_library = ignore_library
+    def __init__(self, ignore_type):
         self.ignore_type = ignore_type
 
     def start_keyword(self, kw):
-        # Ignore library keywords
-        keyword_library = kw.libname
 
-        if any(library in keyword_library for library in self.ignore_library):
+        keyword_type = kw.type
+        if any(library in keyword_type for library in self.ignore_type):
             pass
         else:
-            keyword_type = kw.type
-            if any(library in keyword_type for library in self.ignore_type):
-                pass
+            self.total_keywords += 1
+            if kw.status == "PASS":
+                self.passed_keywords += 1
+            elif kw.status == "FAIL":
+                self.failed_keywords += 1
             else:
-                self.total_keywords += 1
-                if kw.status == "PASS":
-                    self.passed_keywords += 1
-                elif kw.status == "FAIL":
-                    self.failed_keywords += 1
-                else:
-                    self.skipped_keywords += 1
+                self.skipped_keywords += 1

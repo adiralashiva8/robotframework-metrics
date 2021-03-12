@@ -21,7 +21,6 @@ try:
 except ImportError:
     FAILED_IMPORT = True
 
-IGNORE_LIBRARIES = ['BuiltIn', 'SeleniumLibrary', 'String', 'Collections', 'DateTime']
 IGNORE_TYPES = ['foritem', 'for']
 
 
@@ -32,11 +31,6 @@ def generate_report(opts):
     # START OF CUSTOMIZE REPORT
     # URL or filepath of your company logo
     logo = opts.logo
-
-    # Ignores following library keywords in metrics report
-    ignore_library = IGNORE_LIBRARIES
-    if opts.ignore:
-        ignore_library.extend(opts.ignore)
 
     # Ignores following type keywords in metrics report
     ignore_type = IGNORE_TYPES
@@ -275,7 +269,7 @@ def generate_report(opts):
     #testpp = round(passed * 100.0 / total, 1)
     #testfp = round(failed * 100.0 / total, 1)
 
-    kw_stats = KeywordStats(ignore_library, ignore_type)
+    kw_stats = KeywordStats(ignore_type)
     result.visit(kw_stats)
 
     total_keywords = kw_stats.total_keywords
@@ -704,10 +698,10 @@ def generate_report(opts):
         pass
     else:
         if group:
-            group.spawn(result.visit, KeywordResults(soup, kw_tbody, ignore_library, ignore_type))
+            group.spawn(result.visit, KeywordResults(soup, kw_tbody, ignore_type))
             group.join()
         else:
-            result.visit(KeywordResults(soup, kw_tbody, ignore_library, ignore_type))
+            result.visit(KeywordResults(soup, kw_tbody, ignore_type))
 
     test_icon_txt = """
     <div class="row">
