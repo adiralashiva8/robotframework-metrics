@@ -54,6 +54,7 @@ def generate_report(opts):
     # support "*.xml" of output files
     if ( opts.output == "*.xml" ):
         for item in os.listdir(path): 
+            item = os.path.join(path, item)
             if os.path.isfile(item) and item.endswith('.xml'):
                 output_names.append(item)
     else:
