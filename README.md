@@ -13,8 +13,6 @@ Creates awesome HTML (dashboard view) report by parsing robotframework output.xm
 
  - Whats new in __v3.2.2__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.2.2)
 
- - Source Code used to parse output.xml in metrics report [link](https://adiralashivaprasad.blogspot.com/2019/01/how-to-get-suite-test-and-keyword.html)
-
 ---
 
 #### How it Works:
@@ -148,7 +146,7 @@ If you have any questions / suggestions / comments on the report, please feel fr
 *Idea, Guidance and Support:*
 
  - Steve Fisher
- - [Goutham Duduka](https://www.linkedin.com/in/goutham-kumar-duduka-45154718/)
+ - Goutham Duduka
 
 
 *Contributors:*
