@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RF Metrics</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <style>
+      body {
+        /* min-height: 2000px; */
+        padding-top: 70px;
+      }
+      th, td {
+        text-align: center;
+      }
+      .loader {
+          position: fixed;
+          left: 0px;
+          top: 0px;
+          width: 100%;
+          height: 100%;
+          z-index: 9999;
+          background: url('https://i.ibb.co/cXnKsNR/Cube-1s-200px.gif') 50% 50% no-repeat rgb(249, 249, 249);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">RF Metrics</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#" class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, '#fc6666')">Dashboard</a></li>
+            <li><a href="#" class="tablink" onclick="openPage('suiteMetrics', this, '#fc6666');">Suite</a></li>
+            <li><a href="#" class="tablink" onclick="openPage('testMetrics', this, '#fc6666');">Test</a></li>
+            <li><a href="#" class="tablink" onclick="openPage('keywordMetrics', this, '#fc6666');">Keyword</a></li>
+            <li><a href="#" class="tablink" onclick="openPage('keywordMetricsTime', this, '#fc6666');">KW Times</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>Execution Time: 10h</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <!-- Dashboard Data -->
+      <div class="tabcontent" id="dashboard">
+        <h2>Dashboard</h2>
+      </div>
+
+      <!-- Suite Data -->
+      <div class="tabcontent" id="suiteMetrics">
+        <table id="sm" class="display" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <th>Pass</th>
+                  <th>Fail</th>
+                  <th>Skip</th>
+                  <th>Time (ms)</th>
+              </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>7</td>
+                <td style="color: green">3</td>
+                <td style="color: red">4</td>
+                <td style="color: orange">0</td>
+                <td>401765</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Manager Dashboard</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>2</td>
+                <td style="color: green">1</td>
+                <td style="color: red">1</td>
+                <td style="color: orange">0</td>
+                <td>205178</td>
+              </tr>
+            
+          </tbody>
+        </table> 
+      </div>
+
+      <!-- Test Case Data -->
+      <div class="tabcontent" id="testMetrics">
+        <table id="tm" class="display" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Time (ms)</th>
+                  <th>Message</th>
+                  <th>Tags</th>
+              </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>41744</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"></td>
+                <td>[smoke-test, test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>39301</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"></td>
+                <td>[test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>68635</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Alert not found in 40 seconds.</td>
+                <td>[test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>60174</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">UnexpectedAlertPresentException: Alert Text: None
+Message: unexpected alert open: {Alert text : User or Password is not valid}
+  (Session info: chrome=69.0.3497.81)
+  (Driver info: chromedriver=2.35.528161 (5b82f2d2aae0ca24b877009200ced9065a772e73),platform=Windows NT 10.0.17134 x86_64)
+</td>
+                <td>[test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>35664</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"></td>
+                <td>[test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>74876</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Element 'name:uid' not visible after 40 seconds.</td>
+                <td>[test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Login</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>80999</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Element 'css:input[value="LOGIN"]' not visible after 40 seconds.</td>
+                <td>[test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Manager Dashboard</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>163398</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"></td>
+                <td>[smoke-test, test-case]</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login & Manager Dashboard.Manager Dashboard</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>41609</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Lengths are different: 20 != 15</td>
+                <td>[test-case]</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Keyword Data -->
+      <div class="tabcontent" id="keywordMetrics">
+        <table id="km" class="display" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Test Name</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Time (ms)</th>
+              </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>31296</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>119</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>7037</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>331</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>169</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>6534</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>151</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Valid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3254</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>30043</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>49</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>915</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>219</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>193</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>502</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>5074</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With InValid Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3245</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>24077</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>47</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>358</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>127</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>139</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>91</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Credentials</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3276</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>55971</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>50</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>875</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>140</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>163</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>571</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.User Name Mandatory Text Should Be</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>51</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank User Name</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3266</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>31740</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>104</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>447</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>215</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>128</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>102</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Password Mandatory Text Should Be</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>64</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>29</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Login To Guuru99 Bank With Blank Password</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3381</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>23676</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>52</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>7342</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>188</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>166</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>6988</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>40362</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Reset In Login</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3485</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>22663</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>49</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8724</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>193</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>165</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8365</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>118</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>46</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: red"> FAIL</td>
+                
+                <td>40707</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Logout From Guru99 Bank When Navigate Back</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3292</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>20996</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>47</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>2941</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>194</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>189</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>2557</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>14116</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Remember Manager Home Page URL</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>11</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8584</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>95</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>22257</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>112</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8306</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>95</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8548</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>185</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8280</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>147</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8577</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>96</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8159</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>94</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8312</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>93</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>7847</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>94</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8158</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>93</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8450</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>100</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8510</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>154</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Links In Manager Homepage</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>8080</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>108</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3255</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Launch Guru99 Bank Application</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>27528</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Guru99 Bank Login Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>49</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Login To Guru99 Bank</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>10190</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter User Name</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>166</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Enter Password</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>173</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">login_page_locator.Click Login</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>9849</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Guru99 Bank Manager Home Page Should Be Loaded</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>134</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Remember Manager Home Page URL</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>9</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">manager_home_page_locators.Get Available Links In Page</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>490</td>
+              </tr>
+            
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">Validate Available Links Order In Manager Dashboard</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">util.Quit Sessions</td>
+                
+                  <td style="color: green"> PASS</td>
+                
+                <td>3248</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Keyword Average -->
+      <div class="tabcontent" id="keywordMetricsTime">
+        <h2>KW Times</h2>
+      </div>
+
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+      function openPage(pageName,elmnt,color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.color = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.color = color;
+    
+        }
+        document.getElementById("defaultOpen").click();
+     </script>
+     <script>
+        document.getElementById("defaultOpen").click();
+     </script>
+
+    <script>
+      $(document).ready(function() {
+          $('#sm').DataTable();
+      } );
+    </script>
+    <script>
+      $(document).ready(function() {
+          $('#tm').DataTable();
+      } );
+    </script>
+    <script>
+      $(document).ready(function() {
+          $('#km').DataTable();
+      } );
+    </script>
+  </body>
+</html>

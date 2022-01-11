@@ -30,3 +30,6 @@ setup(name='robotframework-metrics',
           ]
       },
       )
+
+# suite_data_frame = pd.DataFrame(suite_list)
+# print(suite_data_frame)
