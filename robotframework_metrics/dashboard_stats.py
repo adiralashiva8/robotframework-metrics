@@ -39,12 +39,20 @@ class Dashboard:
     @classmethod
     def get_keyword_statistics(self, kw_list):
         kw_data_frame = pd.DataFrame.from_records(kw_list)
-        kw_stats = {
-            "Total" : (kw_data_frame.Status).count(),
-            "Pass"  : (kw_data_frame.Status == 'PASS').sum(),
-            "Fail"  : (kw_data_frame.Status == 'FAIL').sum(),
-            "Skip"  : (kw_data_frame.Status == 'SKIP').sum()
-        }
+        if not kw_data_frame.empty:
+            kw_stats = {
+                "Total" : (kw_data_frame.Status).count(),
+                "Pass"  : (kw_data_frame.Status == 'PASS').sum(),
+                "Fail"  : (kw_data_frame.Status == 'FAIL').sum(),
+                "Skip"  : (kw_data_frame.Status == 'SKIP').sum()
+            }
+        else:
+            kw_stats = {
+                "Total" : 0,
+                "Pass"  : 0,
+                "Fail"  : 0,
+                "Skip"  : 0,
+            }
         return kw_stats
     
     def group_error_messages(self, test_list):

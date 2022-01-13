@@ -5,8 +5,8 @@ exec(compile(open(filename, 'rb').read(), filename, 'exec'))
 
 setup(name='robotframework-metrics',
       version=__version__,
-      description='Custom metrics based report for robot framework',
-      long_description='Dashboard view of robotframework results created by parsing output.xml using robot.result api',
+      description='Custom report for robot framework',
+      long_description='Custom html report generator using robot.result api',
       classifiers=[
           'Framework :: Robot Framework',
           'Programming Language :: Python',
@@ -22,7 +22,8 @@ setup(name='robotframework-metrics',
       zip_safe=True,
       install_requires=[
           'robotframework',
-          'beautifulsoup4',
+          'jinja2',
+          'pandas',
       ],
       entry_points={
           'console_scripts': [
@@ -30,6 +31,3 @@ setup(name='robotframework-metrics',
           ]
       },
       )
-
-# suite_data_frame = pd.DataFrame(suite_list)
-# print(suite_data_frame)
