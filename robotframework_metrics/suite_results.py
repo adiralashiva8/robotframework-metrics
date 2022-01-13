@@ -12,13 +12,19 @@ class SuiteResults(ResultVisitor):
                 stats = suite.statistics.all
             except:
                 stats = suite.statistics
+            
+            try:
+                skipped = stats.skipped
+            except:
+                skipped = 0
+
             suite_json = {
                 "Name" : suite.longname,
                 "Status" : suite.status,
                 "Total" : stats.total,
                 "Pass" : stats.passed,
                 "Fail" : stats.failed,
-                "Skip" : stats.skipped if stats.skipped is not None else 0,
+                "Skip" : skipped,
                 "Time" : suite.elapsedtime,
             }
             self.suite_list.append(suite_json)

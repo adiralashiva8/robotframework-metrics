@@ -119,7 +119,7 @@
             <li><a href="#" class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, '#fc6666')">Dashboard</a></li>
             <li><a href="#" class="tablink" onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',6)">Suite</a></li>
             <li><a href="#" class="tablink" onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',3)">Test</a></li>
-            <li class="{{ hide_keyword_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetrics', this, '#fc6666'); executeDataTable('#km',3)">Keyword</a></li>
+            <!-- <li class="{{ hide_keyword_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetrics', this, '#fc6666'); executeDataTable('#km',3)">Keyword</a></li> -->
             <li class="{{ hide_kw_times_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetricsTime', this, '#fc6666'); executeDataTable('#kmt',1)">KW Times</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -351,7 +351,7 @@
       </div>
 
       <!-- Keyword Data -->
-      <div class="tabcontent" id="keywordMetrics">
+      <!-- <div class="tabcontent" id="keywordMetrics">
         <table id="km" class="display tablecard" style="width:100%">
           <thead>
               <tr>
@@ -378,7 +378,7 @@
             {% endfor %}
           </tbody>
         </table>
-      </div>
+      </div> -->
 
       <!-- Keyword Average -->
       <div class="tabcontent" id="keywordMetricsTime">
