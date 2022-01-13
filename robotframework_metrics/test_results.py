@@ -3,8 +3,6 @@ from robot.api import ResultVisitor
 
 class TestResults(ResultVisitor):
 
-    # referece - https://robot-framework.readthedocs.io/en/stable/autodoc/robot.result.html
-
     def __init__(self, test_list):
         self.test_list = test_list
     

@@ -1,11 +1,10 @@
-from pandas import json_normalize
+import pandas as pd
 
 class KeywordTimes():
 
-    def __init__(self, kw_list, kw_times):
-        self.kw_list = kw_list
-        self.kw_times = kw_times
-    
-    def capture_times(self):
-        df = json_normalize(self.kw_list)
-        print(df)
+    def get_keyword_times(self, kw_list):
+        keywords_data_frame = pd.DataFrame.from_records(kw_list)
+        kw_times = (keywords_data_frame.groupby("Name").agg(times = ("Time", "count"), time_min = ("Time", min),
+         time_max = ("Time", max), time_mean = ("Time", "mean")).reset_index())
+        
+        return kw_times

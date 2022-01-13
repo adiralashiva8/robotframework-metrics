@@ -3,8 +3,6 @@ from robot.api import ResultVisitor
 
 class KeywordResults(ResultVisitor):
 
-    # referece - https://robot-framework.readthedocs.io/en/stable/autodoc/robot.result.html
-
     def __init__(self, kw_list, ignore_library):
         self.kw_list = kw_list
         self.ignore_library = ignore_library

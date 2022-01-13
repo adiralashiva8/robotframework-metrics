@@ -3,8 +3,6 @@ from robot.api import ResultVisitor
 
 class SuiteResults(ResultVisitor):
 
-    # referece - https://robot-framework.readthedocs.io/en/stable/autodoc/robot.result.html
-
     def __init__(self, suite_list):
         self.suite_list = suite_list
     
