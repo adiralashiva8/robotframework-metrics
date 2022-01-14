@@ -55,6 +55,7 @@
 
       .ecard-table tr{
         height: 35px;
+        padding-left: 5px;
       }
 
       .ecard-table tr:nth-child(even){
@@ -532,9 +533,6 @@
     </script>
   </body>
   <script>
-    $(window).on('load',function(){$('.loader').fadeOut();});
-  </script>
-  <script>
     window.onload = function(){
       pieChart('#suitePie', "{{suite_stats['Pass']}}", "{{suite_stats['Fail']}}", "{{suite_stats['Skip']}}");
       pieChart('#testPie', "{{test_stats['Pass']}}", "{{test_stats['Fail']}}", "{{test_stats['Skip']}}");
@@ -559,5 +557,8 @@
       var chart = new ApexCharts(document.querySelector(chartID), options);
       chart.render();
     }
+  </script>
+  <script>
+    $(window).on('load',function(){$('.loader').fadeOut();});
   </script>
 </html>

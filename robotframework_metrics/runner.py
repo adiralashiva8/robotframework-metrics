@@ -2,6 +2,7 @@ import os
 import argparse
 from .robotmetrics import generate_report
 from .robotmetrics import IGNORE_LIBRARIES
+from .robotmetrics import IGNORE_TYPES
 from .version import __version__
 
 
@@ -25,6 +26,14 @@ def parse_options():
     )
 
     general.add_argument(
+        '--ignoretype',
+        dest='ignoretype',
+        default=IGNORE_TYPES,
+        nargs="+",
+        help="Ignore keywords of specified type in report"
+    )
+
+    general.add_argument(
         '-I', '--inputpath',
         dest='path',
         default=os.path.curdir,
@@ -44,12 +53,12 @@ def parse_options():
         help="Name of output.xml"
     )
 
-    general.add_argument(
-        '-sk', '--showkeyword',
-        dest='showkeyword',
-        default="True",
-        help="Display keywords in metrics report"
-    )
+    # general.add_argument(
+    #     '-sk', '--showkeyword',
+    #     dest='showkeyword',
+    #     default="True",
+    #     help="Display keywords in metrics report"
+    # )
 
     general.add_argument(
         '-skt', '--showkwtimes',

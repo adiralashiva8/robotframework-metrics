@@ -18,6 +18,8 @@ IGNORE_LIBRARIES = ["SeleniumLibrary", "BuiltIn",
  "Collections", "DateTime", "Dialogs", "OperatingSystem"
  "Process", "Screenshot", "String", "Telnet", "XML"]
 
+IGNORE_TYPES = ['FOR ITERATION', 'FOR']
+
 suite_list, test_list, kw_list, kw_times = [], [], [], []
 
 def generate_report(opts):
@@ -27,6 +29,11 @@ def generate_report(opts):
     ignore_library = IGNORE_LIBRARIES
     if opts.ignore:
         ignore_library.extend(opts.ignore)
+
+    # Ignores following type keywords in metrics report
+    ignore_type = IGNORE_TYPES
+    if opts.ignoretype:
+        ignore_type.extend(opts.ignoretype)
 
     # Report to support file location as arguments
     path = os.path.abspath(os.path.expanduser(opts.path))
@@ -83,7 +90,7 @@ def generate_report(opts):
 
     if opts.showkwtimes == "True":
         logging.info(" 3 of 4: Capturing keyword times metrics")
-        result.visit(KeywordResults(kw_list, IGNORE_LIBRARIES))
+        result.visit(KeywordResults(kw_list, ignore_library, ignore_type))
         kw_times = KeywordTimes().get_keyword_times(kw_list)
         hide_kw_times_menu = ""
     else:
