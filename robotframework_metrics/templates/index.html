@@ -579,7 +579,7 @@
     {% for key, value in suite_error_stats.iterrows() %}
       {% if (value['Name'] != "") %}
         catgArray.push("{{value['Name']}}");
-        passArray.push({{value['percent']}});
+        passArray.push({{value['percent']|round(2)}});
         failArray.push({{value['Fail']}});
       {% endif %}
     {% endfor %}
