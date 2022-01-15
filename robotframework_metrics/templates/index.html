@@ -102,7 +102,9 @@
           width: 100%;
           height: 100%;
           z-index: 9999;
-          background: url('https://i.ibb.co/cXnKsNR/Cube-1s-200px.gif') 50% 50% no-repeat rgb(249, 249, 249);
+          /* background: url('https://i.ibb.co/cXnKsNR/Cube-1s-200px.gif') 50% 50% no-repeat rgb(249, 249, 249); */
+          background: url('https://i.ibb.co/wR1s7Wq/giphy-1.gif') 50% 50% no-repeat rgb(249, 249, 249);
+          
       }
 
       .hide{
@@ -282,7 +284,18 @@
             </div>
           </div>
         </div>
-        
+        <div class="row"></div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Top 5 Suite Failures:</span>
+              <div class="col-md-12">
+                <div id="suiteFailureLineID"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row"></div>
+
       </div>
 
       <!-- Suite Data -->
@@ -557,6 +570,70 @@
       var chart = new ApexCharts(document.querySelector(chartID), options);
       chart.render();
     }
+  </script>
+  <script>
+    var passArray = [];
+    var failArray = [];
+    var catgArray = [];
+
+    {% for key, value in suite_error_stats.iterrows() %}
+      {% if (value['Name'] != "") %}
+        catgArray.push('{{value['Name']}}');
+        passArray.push({{value['Pass']}});
+        failArray.push({{value['Fail']}});
+      {% endif %}
+    {% endfor %}
+    
+    var options = {
+        series: [{
+          name: 'Pass',
+          data: passArray
+        }, {
+          name: 'Fail',
+          data: failArray
+        }],
+        chart: {
+          type: 'bar',
+          height: 350,
+          stacked: true,
+        },
+        
+        plotOptions: {
+        bar: {
+          dataLabels: {
+          position: 'center',
+          hideOverflowingLabels: false
+        }
+        },
+      },
+      colors: ['#2ecc71','#fc6666'],
+      xaxis: {
+          categories: catgArray,
+          tickPlacement: 'on'
+      },
+      yaxis: {
+          title: {
+              text: 'Suite'
+          }
+      },
+      fill: {
+          opacity: 0.9
+      },
+      tooltip: {
+          y: {
+              formatter: function (val) {
+              return val + " Suite"
+              }
+          },
+          x: {
+              show: false
+          }
+      }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
+    chart.render();
+  
   </script>
   <script>
     $(window).on('load',function(){$('.loader').fadeOut();});

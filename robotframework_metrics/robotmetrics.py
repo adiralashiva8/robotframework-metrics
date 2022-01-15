@@ -18,7 +18,7 @@ IGNORE_LIBRARIES = ["SeleniumLibrary", "BuiltIn",
  "Collections", "DateTime", "Dialogs", "OperatingSystem"
  "Process", "Screenshot", "String", "Telnet", "XML"]
 
-IGNORE_TYPES = ['FOR ITERATION', 'FOR']
+IGNORE_TYPES = ['FOR ITERATION', 'FOR', 'for', 'foritem ']
 
 suite_list, test_list, kw_list, kw_times = [], [], [], []
 
@@ -108,6 +108,8 @@ def generate_report(opts):
     test_stats = dashboard_obj.get_test_statistics(test_list)
     kw_stats = dashboard_obj.get_keyword_statistics(kw_list)
     error_stats = dashboard_obj.group_error_messages(test_list)
+    suite_error_stats = dashboard_obj.suite_error_statistics(suite_list)
+    print(suite_error_stats)
 
     logging.info(" Writing results to html file")
     with open(result_file_name, 'w') as fh:
@@ -122,6 +124,7 @@ def generate_report(opts):
             tests = test_list,
             # keywords = kw_list,
             keyword_times = kw_times,
-            error_stats = error_stats
+            error_stats = error_stats,
+            suite_error_stats = suite_error_stats,
         ))
     logging.info(" Results file created successfully and can be found at {}".format(result_file))
