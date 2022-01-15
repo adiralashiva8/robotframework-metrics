@@ -586,7 +586,7 @@
     
     var options = {
         series: [{
-          name: 'Fail %',
+          name: 'Fail Percentage',
           data: passArray,
           type: "line"
         }, {
@@ -608,7 +608,7 @@
         }
         },
       },
-      colors: ['#fc6666', '#2ecc71'],
+      colors: ['#2ecc71', '#fc6666'],
       xaxis: {
           categories: catgArray,
           tickPlacement: 'off',
@@ -617,6 +617,17 @@
             trim: true
           }
       },
+      yaxis: [{
+        title: {
+          text: 'Suite Fail Percentage',
+        },
+      
+      }, {
+        opposite: true,
+        title: {
+          text: 'Suite Fail Count'
+        }
+      }],
       fill: {
           opacity: 0.9
       },
