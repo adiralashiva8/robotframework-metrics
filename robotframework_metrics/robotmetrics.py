@@ -109,7 +109,7 @@ def generate_report(opts):
     kw_stats = dashboard_obj.get_keyword_statistics(kw_list)
     error_stats = dashboard_obj.group_error_messages(test_list)
     suite_error_stats = dashboard_obj.suite_error_statistics(suite_list)
-    print(suite_error_stats)
+    # print(suite_error_stats)
 
     logging.info(" Writing results to html file")
     with open(result_file_name, 'w') as fh:
