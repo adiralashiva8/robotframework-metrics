@@ -57,11 +57,8 @@ class Dashboard:
     
     def group_error_messages(self, test_list):
         test_data_frame = pd.DataFrame.from_records(test_list)
-        return test_data_frame.groupby("Message").agg(times = ("Status", "count")).head(5).reset_index()
+        return test_data_frame.groupby("Message").agg(times = ("Status", "count")).head(6).reset_index()
     
     def suite_error_statistics(self, suite_list):
-        pd.set_option('display.max_rows', 500)
-        pd.set_option('display.max_columns', 500)
-        pd.set_option('display.width', 1000)
         suite_data_frame = pd.DataFrame.from_records(suite_list)
         return suite_data_frame.sort_values(by = ['Total', 'Fail'], ascending = [False, False], ignore_index=True).head(5).reset_index()
