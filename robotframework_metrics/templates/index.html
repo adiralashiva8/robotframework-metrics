@@ -578,7 +578,7 @@
 
     {% for key, value in suite_error_stats.iterrows() %}
       {% if (value['Name'] != "") %}
-        catgArray.push('{{value['Name']}}');
+        catgArray.push("{{value['Name']}}");
         passArray.push({{value['Pass']}});
         failArray.push({{value['Fail']}});
       {% endif %}
@@ -611,11 +611,11 @@
           categories: catgArray,
           tickPlacement: 'on'
       },
-      yaxis: {
-          title: {
-              text: 'Suite'
-          }
-      },
+      // yaxis: {
+      //     title: {
+      //         text: 'Suite'
+      //     }
+      // },
       fill: {
           opacity: 0.9
       },
@@ -626,7 +626,7 @@
               }
           },
           x: {
-              show: false
+              show: true
           }
       }
     };

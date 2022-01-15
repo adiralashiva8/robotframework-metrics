@@ -124,3 +124,4 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/python
 *.xml
+metrics.html
