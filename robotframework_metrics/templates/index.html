@@ -586,14 +586,16 @@
     
     var options = {
         series: [{
-          name: 'Pass',
+          name: 'Fail %',
           data: passArray
+          type: "column"
         }, {
           name: 'Fail',
-          data: failArray
+          data: failArray,
+          type: "line"
         }],
         chart: {
-          type: 'bar',
+          type: 'line',
           height: 350,
           // stacked: true,
         },
@@ -606,16 +608,11 @@
         }
         },
       },
-      colors: ['#2ecc71','#fc6666'],
+      colors: ['#fc6666', '#2ecc71'],
       xaxis: {
           categories: catgArray,
           tickPlacement: 'on'
       },
-      // yaxis: {
-      //     title: {
-      //         text: 'Suite'
-      //     }
-      // },
       fill: {
           opacity: 0.9
       },

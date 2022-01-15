@@ -63,5 +63,5 @@ class Dashboard:
         suite_data_frame = pd.DataFrame.from_records(suite_list)
         required_data_frame = pd.DataFrame(suite_data_frame, columns = ['Name', 'Total', 'Fail'])
         required_data_frame['percent'] = (required_data_frame['Fail'] / required_data_frame['Total'])*100
-        print(required_data_frame)
-        return required_data_frame.sort_values(by = ['percent', 'Total'], ascending = [False, False], ignore_index=True).head(5).reset_index()
+        # print(required_data_frame)
+        return required_data_frame.sort_values(by = ['percent', 'Total'], ascending = [False, False], ignore_index=True).head(10).reset_index()
