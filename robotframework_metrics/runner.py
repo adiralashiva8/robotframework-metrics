@@ -1,8 +1,8 @@
 import os
 import argparse
 from .robotmetrics import generate_report
-from .robotmetrics import IGNORE_TYPES
 from .robotmetrics import IGNORE_LIBRARIES
+from .robotmetrics import IGNORE_TYPES
 from .version import __version__
 
 
@@ -15,12 +15,6 @@ def parse_options():
         action='store_true',
         dest='version',
         help='Display application version information'
-    )
-    general.add_argument(
-        '--logo',
-        dest='logo',
-        default='https://i.ibb.co/9qBkwDF/Testing-Fox-Logo.png',
-        help="User logo (default: dummy image )"
     )
 
     general.add_argument(
@@ -36,7 +30,7 @@ def parse_options():
         dest='ignoretype',
         default=IGNORE_TYPES,
         nargs="+",
-        help="Ignore keywords with specified type in report"
+        help="Ignore keywords of specified type in report"
     )
 
     general.add_argument(
@@ -53,52 +47,31 @@ def parse_options():
     )
 
     general.add_argument(
-        '-R', '--report',
-        dest='report_name',
-        default='report.html',
-        help="Name of report.html"
-    )
-
-    general.add_argument(
-        '-L', '--log',
-        dest='log_name',
-        default='log.html',
-        help="Name of log.html"
-    )
-
-    general.add_argument(
         '-O', '--output',
         dest='output',
         default="output.xml",
         help="Name of output.xml"
     )
 
-    general.add_argument(
-        '-k', '--ignorekeywords',
-        dest='ignorekeywords',
-        default="False",
-        help="Ignore keywords in metrics report"
-    )
+    # general.add_argument(
+    #     '-sk', '--showkeyword',
+    #     dest='showkeyword',
+    #     default="True",
+    #     help="Display keywords in metrics report"
+    # )
 
     general.add_argument(
-        '-l', '--ignorelogs',
-        dest='ignorelogs',
-        default="False",
-        help="Ignore logs in metrics report"
-    )
-
-    general.add_argument(
-        '-s', '--fullsuitename',
-        dest='fullsuitename',
-        default="False",
-        help="Use full suite name in report"
+        '-skt', '--showkwtimes',
+        dest='showkwtimes',
+        default="True",
+        help="Display keyword times in metrics report"
     )
 
     general.add_argument(
         '-t', '--showtags',
         dest='showtags',
         default="False",
-        help="Display tag name is test metrics"
+        help="Display test case tags in test metrics"
     )
 
     args = parser.parse_args()

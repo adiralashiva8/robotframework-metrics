@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RF Metrics</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <style>
+      body {
+        padding-top: 70px;
+        font-family: -apple-system, sans-serif;
+        background-color: #eeeeee;
+      }
+      
+      .tablecard {
+        background-color: white;
+        font-size: 14px;
+      }
+      
+      th, td {
+        text-align: center;
+      }
+      
+      .dt-buttons {
+        margin-left: 5px;
+      }
+
+      .row {
+        padding: 5px;
+      }
+
+      .rowcard {
+        padding: 10px;
+        border-radius: 15px;
+        background-color: white;
+      }
+      
+      .card-header {
+        font-weight:bold;
+        color:gray;
+        padding-left: 5px;
+      }
+
+      .card-table{
+        width: 100%;
+      }
+
+      .ecard-table {
+        width: 100%;
+      }
+
+      .ecard-table tr{
+        height: 35px;
+        padding-left: 5px;
+      }
+
+      .ecard-table tr:nth-child(even){
+        background-color: #f2f2f2;
+      }
+
+      .card-table tr{
+        height: 25px;
+      }
+
+      .card-table td{
+        width: 50%;
+      }
+
+      .card-table tr:first-child{
+        font-size: 30px;
+      }
+
+      .card-table tr:last-child{
+        font-size: 10px;
+        color: gray;
+      }
+
+      .total {
+        color: brown;
+      }
+
+      .pass {
+        color: green;
+      }
+
+      .fail {
+        color: red;
+      }
+
+      .skip {
+        color: orange;
+      }
+      
+      .loader {
+          position: fixed;
+          left: 0px;
+          top: 0px;
+          width: 100%;
+          height: 100%;
+          z-index: 9999;
+          /* background: url('https://i.ibb.co/cXnKsNR/Cube-1s-200px.gif') 50% 50% no-repeat rgb(249, 249, 249); */
+          background: url('https://i.ibb.co/wR1s7Wq/giphy-1.gif') 50% 50% no-repeat rgb(249, 249, 249);
+          
+      }
+
+      .hide{
+          display:none;  
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="loader"></div>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">Metrics</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#" class="tablink" id="defaultOpen" onclick="openPage('dashboard', this, '#fc6666')">Dashboard</a></li>
+            <li><a href="#" class="tablink" onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',6)">Suite</a></li>
+            <li><a href="#" class="tablink" onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',3)">Test</a></li>
+            <!-- <li class="{{ hide_keyword_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetrics', this, '#fc6666'); executeDataTable('#km',3)">Keyword</a></li> -->
+            <li class="{{ hide_kw_times_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetricsTime', this, '#fc6666'); executeDataTable('#kmt',1)">KW Times</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>Execution Time(m): {{ (suite_stats['Time']/60000)|round(2) }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <!-- Dashboard Data -->
+      <div class="tabcontent" id="dashboard">
+        
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Suite Statistics:</span>
+              <div class="col-md-12">
+                  <div id="suitePie"></div>
+              </div>
+              <div class="col-md-12">
+                  <table class="card-table">
+                    <tr>
+                      <td class="total">{{suite_stats['Total']}}</td>
+                      <td class="pass">{{suite_stats['Pass']}}</td>
+                    </tr>
+                    <tr>
+                      <td>Total</td>
+                      <td>Pass</td>
+                    </tr>
+                  </table>
+                  <table class="card-table">
+                    <tr>
+                      <td class="fail">{{suite_stats['Fail']}}</td>
+                      <td class="skip">{{suite_stats['Skip']}}</td>
+                    </tr>
+                    <tr>
+                      <td>Fail</td>
+                      <td>Skip</td>
+                    </tr>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Test Statistics:</span>
+              <div class="col-md-12">
+                  <div id="testPie"></div>
+              </div>
+              <div class="col-md-12">
+                  <table class="card-table">
+                    <tr>
+                      <td class="total">{{test_stats['Total']}}</td>
+                      <td class="pass">{{test_stats['Pass']}}</td>
+                    </tr>
+                    <tr>
+                      <td>Total</td>
+                      <td>Pass</td>
+                    </tr>
+                  </table>
+                  <table class="card-table">
+                    <tr>
+                      <td class="fail">{{test_stats['Fail']}}</td>
+                      <td class="skip">{{test_stats['Skip']}}</td>
+                    </tr>
+                    <tr>
+                      <td>Fail</td>
+                      <td>Skip</td>
+                    </tr>
+                  </table>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Keyword Statistics:</span>
+              <div class="col-md-12">
+                  <div id="keywordPie"></div>
+              </div>
+              <div class="col-md-12">
+                  <table class="card-table">
+                    <tr>
+                      <td class="total">{{kw_stats['Total']}}</td>
+                      <td class="pass">{{kw_stats['Pass']}}</td>
+                    </tr>
+                    <tr>
+                      <td>Total</td>
+                      <td>Pass</td>
+                    </tr>
+                  </table>
+                  <table class="card-table">
+                    <tr>
+                      <td class="fail">{{kw_stats['Fail']}}</td>
+                      <td class="skip">{{kw_stats['Skip']}}</td>
+                    </tr>
+                    <tr>
+                      <td>Fail</td>
+                      <td>Skip</td>
+                    </tr>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Top 5 Common Failures:</span>
+              <table class="ecard-table">
+                <tr>
+                  <th>Error Message</th>
+                  <th>Occurence</th>
+                </tr>
+                {% for key, value in error_stats.iterrows() %}
+                  {% if (value['Message'] != "") %}
+                    <tr>
+                      <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{value['Message']}}</td>
+                      <td>{{value['times']}}</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Execution Duration(m):</span>
+              <table class="ecard-table">
+                <tr>
+                  <th>Type</th>
+                  <th>Min</th>
+                  <th>Max</th>
+                  <th>Avg</th>
+                </tr>
+                <tr>
+                  <td style="text-align: left;">Suite</td>
+                  <td>{{(suite_stats['Min']/60000)|round(2)}}</td>
+                  <td>{{(suite_stats['Max']/60000)|round(2)}}</td>
+                  <td>{{(suite_stats['Avg']/60000)|round(2)}}</td>
+                </tr>
+                <tr>
+                  <td style="text-align: left;">Test</td>
+                  <td>{{(test_stats['Min']/60000)|round(2)}}</td>
+                  <td>{{(test_stats['Max']/60000)|round(2)}}</td>
+                  <td>{{(test_stats['Avg']/60000)|round(2)}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12 rowcard">
+              <span class="card-header">Top 10 Suite Failures:</span>
+              <div class="col-md-12">
+                <div id="suiteFailureLineID"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row"></div>
+        </div>
+      </div>
+
+      <!-- Suite Data -->
+      <div class="tabcontent" id="suiteMetrics">
+        <table id="sm" class="display tablecard" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <th>Pass</th>
+                  <th>Fail</th>
+                  <th>Skip</th>
+                  <th>Time (s)</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for suite in suites %}
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ suite['Name'] }}</td>
+                {% if (suite['Status'] == "PASS") %}
+                  <td style="color: green"> {{ suite['Status'] }}</td>
+                {% elif (suite['Status'] == "FAIL") %}
+                  <td style="color: red"> {{ suite['Status'] }}</td>
+                {% else %}
+                  <td style="color: orange"> {{ suite['Status'] }}</td>
+                {% endif %}
+                <td>{{ suite['Total'] }}</td>
+                <td style="color: green">{{ suite['Pass'] }}</td>
+                <td style="color: red">{{ suite['Fail'] }}</td>
+                <td style="color: orange">{{ suite['Skip'] }}</td>
+                <td>{{ (suite['Time']/1000)|round(2) }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table> 
+      </div>
+
+      <!-- Test Case Data -->
+      <div class="tabcontent" id="testMetrics">
+        <table id="tm" class="display tablecard" style="width:100%">
+          <thead>
+              <tr>
+                <th>Suite Name</th>
+                <th>Test Name</th>
+                <th>Status</th>
+                <th>Time (s)</th>
+                <th>Message</th>
+                <th class="{{hide_tags}}">Tags</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for test in tests %}
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Suite Name'] }}</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Test Name'] }}</td>
+                {% if (test['Status'] == "PASS") %}
+                  <td style="color: green"> {{ test['Status'] }}</td>
+                {% elif (test['Status'] == "FAIL") %}
+                  <td style="color: red"> {{ test['Status'] }}</td>
+                {% else %}
+                  <td style="color: orange"> {{ test['Status'] }}</td>
+                {% endif %}
+                <td>{{ (test['Time']/1000)|round(2) }}</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Message'] }}</td>
+                <td class="{{hide_tags}}" style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Tags'] }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Keyword Data -->
+      <!-- <div class="tabcontent" id="keywordMetrics">
+        <table id="km" class="display tablecard" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Test Name</th>
+                  <th>Keyword Name</th>
+                  <th>Status</th>
+                  <th>Time (s)</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for keyword in keywords %}
+              <tr>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ keyword['TestName'] }}</td>
+                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ keyword['Name'] }}</td>
+                {% if (keyword['Status'] == "PASS") %}
+                  <td style="color: green"> {{ keyword['Status'] }}</td>
+                {% elif (keyword['Status'] == "FAIL") %}
+                  <td style="color: red"> {{ keyword['Status'] }}</td>
+                {% else %}
+                  <td style="color: orange"> {{ keyword['Status'] }}</td>
+                {% endif %}
+                <td>{{ (keyword['Time']/1000)|round(2) }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div> -->
+
+      <!-- Keyword Average -->
+      <div class="tabcontent" id="keywordMetricsTime">
+        <table id="kmt" class="display tablecard" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Keyword Name</th>
+                  <th>Times</th>
+                  <th>Min Duration(s)</th>
+                  <th>Max Duration(s)</th>
+                  <th>Average Duration(s)</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% if not keyword_times.empty %}
+              {% for key, value in keyword_times.iterrows() %}
+                <tr>
+                  <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ value['Name'] }}</td>
+                  <td>{{ value['times'] }}</td>
+                  <td>{{ (value['time_min']/1000)|round(2) }}</td>
+                  <td>{{ (value['time_max']/1000)|round(2) }}</td>
+                  <td>{{ (value['time_mean']/1000)|round(2) }}</td>
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+      function openPage(pageName,elmnt,color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.color = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.color = color;
+    
+        }
+        document.getElementById("defaultOpen").click();
+     </script>
+     <script>
+        document.getElementById("defaultOpen").click();
+     </script>
+
+    <script>
+      function executeDataTable(tabname, sortCol) {
+        var fileTitle;
+        switch(tabname) {
+          case "#sm":
+            fileTitle = "SuiteMetrics";
+            break;
+          case "#tm":
+            fileTitle = "TestMetrics";
+            break;
+          case "#km":
+            fileTitle = "KeywordMetrics";
+            break;
+          default:
+            fileTitle = "Metrics";
+        }
+        $(tabname).DataTable(
+          {
+            retrieve: true,
+            "order": [[ Number(sortCol), "desc" ]],
+            dom: 'l<".margin" B>frtip',
+            buttons: [
+              {
+                extend:'copyHtml5',
+                text: '<i class="fa fa-files-o"></i>',
+                filename: function() {
+                  return fileTitle + '-' + new Date().toLocaleString();
+                },
+                titleAttr: 'Copy',
+                exportOptions: {
+                  columns: ':visible'
+                }
+              },
+              {
+                extend:'csvHtml5',
+                text:'<i class="fa fa-file-text-o"></i>',
+                titleAttr:'CSV',
+                filename: function() {
+                  return fileTitle + '-' + new Date().toLocaleString();
+                },
+                exportOptions: {
+                  columns: ':visible'
+                }
+              },
+              {
+                extend: 'excelHtml5',
+                text:'<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel',
+                filename: function() {
+                  return fileTitle + '-' + new Date().toLocaleString();
+                },
+                exportOptions: {
+                  columns: ':visible'
+                }
+              },
+              {
+                extend: 'print',
+                text: '<i class="fa fa-print"></i>',
+                titleAttr: 'Print',
+                exportOptions: {
+                  columns: ':visible',
+                  alignment: 'left',
+                }
+              },
+              {
+                extend: 'colvis',
+                collectionLayout: 'fixed two-column',
+                text: '<i class="fa fa-low-vision"></i>',
+                titleAttr: 'Hide Column',
+                exportOptions: {
+                  columns:':visible'
+                },
+                postfixButtons: [ 'colvisRestore' ]
+              },
+            ],
+            columnDefs: [ {
+              visible: false,
+            } ]
+          }
+        );
+      }
+    </script>
+  </body>
+  <script>
+    window.onload = function(){
+      pieChart('#suitePie', "{{suite_stats['Pass']}}", "{{suite_stats['Fail']}}", "{{suite_stats['Skip']}}");
+      pieChart('#testPie', "{{test_stats['Pass']}}", "{{test_stats['Fail']}}", "{{test_stats['Skip']}}");
+      pieChart('#keywordPie', "{{kw_stats['Pass']}}", "{{kw_stats['Fail']}}", "{{kw_stats['Skip']}}");
+    };
+  </script>
+  <script>
+    function pieChart(chartID, passed, failed, skipped) {
+      var options = {
+        series: [parseInt(passed), parseInt(failed), parseInt(skipped)],
+        chart: {
+          type: 'donut',
+          width: 270,
+        },
+        labels: ["Pass", "Fail", "Skip"],
+        legend: {
+          show: false,
+        },
+        colors: ['#2ecc71', '#fc6666', '#ffa500'],
+      };
+
+      var chart = new ApexCharts(document.querySelector(chartID), options);
+      chart.render();
+    }
+  </script>
+  <script>
+    var passArray = [];
+    var failArray = [];
+    var catgArray = [];
+
+    {% for key, value in suite_error_stats.iterrows() %}
+      {% if (value['Name'] != "") %}
+        catgArray.push("{{value['Name']}}");
+        passArray.push({{value['percent']|round(2)}});
+        failArray.push({{value['Fail']}});
+      {% endif %}
+    {% endfor %}
+    
+    var options = {
+        series: [{
+          name: 'Fail Percentage',
+          data: passArray,
+          type: "line"
+        }, {
+          name: 'Fail',
+          data: failArray,
+          type: "column"
+        }],
+        chart: {
+          type: 'line',
+          height: 350,
+          // stacked: true,
+        },
+        
+        plotOptions: {
+        bar: {
+          dataLabels: {
+          position: 'center',
+          hideOverflowingLabels: true
+        }
+        },
+      },
+      colors: ['#2ecc71', '#fc6666'],
+      xaxis: {
+          categories: catgArray,
+          tickPlacement: 'off',
+          labels: {
+            show: false,
+            trim: true
+          }
+      },
+      yaxis: [{
+        title: {
+          text: 'Suite Fail Percentage',
+        },
+      
+      }, {
+        opposite: true,
+        title: {
+          text: 'Suite Fail Count'
+        }
+      }],
+      fill: {
+          opacity: 0.9
+      },
+      tooltip: {
+          y: {
+              formatter: function (val) {
+              return val
+              }
+          },
+          x: {
+              show: true
+          }
+      }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
+    chart.render();
+  
+  </script>
+  <script>
+    $(window).on('load',function(){$('.loader').fadeOut();});
+  </script>
+</html>
