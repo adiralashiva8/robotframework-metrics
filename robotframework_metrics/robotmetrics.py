@@ -18,7 +18,7 @@ IGNORE_LIBRARIES = ["SeleniumLibrary", "BuiltIn",
  "Collections", "DateTime", "Dialogs", "OperatingSystem"
  "Process", "Screenshot", "String", "Telnet", "XML"]
 
-IGNORE_TYPES = ['FOR ITERATION', 'FOR', 'for', 'foritem ']
+IGNORE_TYPES = ['FOR ITERATION', 'FOR', 'for', 'foritem']
 
 suite_list, test_list, kw_list, kw_times = [], [], [], []
 
