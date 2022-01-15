@@ -587,7 +587,7 @@
     var options = {
         series: [{
           name: 'Fail %',
-          data: passArray
+          data: passArray,
           type: "column"
         }, {
           name: 'Fail',
@@ -604,14 +604,14 @@
         bar: {
           dataLabels: {
           position: 'center',
-          hideOverflowingLabels: false
+          hideOverflowingLabels: true
         }
         },
       },
       colors: ['#fc6666', '#2ecc71'],
       xaxis: {
           categories: catgArray,
-          tickPlacement: 'on'
+          tickPlacement: 'off'
       },
       fill: {
           opacity: 0.9
