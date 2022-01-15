@@ -579,7 +579,7 @@
     {% for key, value in suite_error_stats.iterrows() %}
       {% if (value['Name'] != "") %}
         catgArray.push("{{value['Name']}}");
-        passArray.push({{value['Pass']}});
+        passArray.push({{value['percent']}});
         failArray.push({{value['Fail']}});
       {% endif %}
     {% endfor %}
@@ -595,7 +595,7 @@
         chart: {
           type: 'bar',
           height: 350,
-          stacked: true,
+          // stacked: true,
         },
         
         plotOptions: {

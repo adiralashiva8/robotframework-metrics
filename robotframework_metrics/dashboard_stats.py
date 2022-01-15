@@ -57,8 +57,11 @@ class Dashboard:
     
     def group_error_messages(self, test_list):
         test_data_frame = pd.DataFrame.from_records(test_list)
-        return test_data_frame.groupby("Message").agg(times = ("Status", "count")).head(6).reset_index()
+        return (test_data_frame.groupby("Message").agg(times = ("Status", "count")).head(6).reset_index()).sort_values(by = ['times'], ascending = [False], ignore_index=True)
     
     def suite_error_statistics(self, suite_list):
         suite_data_frame = pd.DataFrame.from_records(suite_list)
-        return suite_data_frame.sort_values(by = ['Total', 'Fail'], ascending = [False, False], ignore_index=True).head(5).reset_index()
+        required_data_frame = pd.DataFrame(suite_data_frame, columns = ['Name', 'Total', 'Fail'])
+        required_data_frame['percent'] = (required_data_frame['Fail'] / required_data_frame['Total'])*100
+        print(required_data_frame)
+        return required_data_frame.sort_values(by = ['percent', 'Total'], ascending = [False, False], ignore_index=True).head(5).reset_index()
