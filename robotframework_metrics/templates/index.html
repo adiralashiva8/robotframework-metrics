@@ -288,7 +288,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="col-md-12 rowcard">
-              <span class="card-header">Top 5 Suite Failures:</span>
+              <span class="card-header">Top 10 Suite Failures:</span>
               <div class="col-md-12">
                 <div id="suiteFailureLineID"></div>
               </div>
@@ -588,11 +588,11 @@
         series: [{
           name: 'Fail %',
           data: passArray,
-          type: "column"
+          type: "line"
         }, {
           name: 'Fail',
           data: failArray,
-          type: "line"
+          type: "column"
         }],
         chart: {
           type: 'line',
@@ -611,7 +611,11 @@
       colors: ['#fc6666', '#2ecc71'],
       xaxis: {
           categories: catgArray,
-          tickPlacement: 'off'
+          tickPlacement: 'off',
+          labels: {
+            // show: false,
+            trim: true
+          }
       },
       fill: {
           opacity: 0.9
