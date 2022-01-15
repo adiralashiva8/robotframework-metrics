@@ -9,7 +9,7 @@ Creates custom HTML report (dashboard view) by parsing robotframework output.xml
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ---
- - __Sample Report__ [link](https://robotmetrics.netlify.com/)
+ - __Sample Report__ [link](https://rfmetrics.netlify.com/)
 
  - Whats new in __v3.3.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.3.1)
 
