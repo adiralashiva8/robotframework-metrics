@@ -68,10 +68,9 @@ def generate_report(opts):
         result_file_name = 'metrics-' + mt_time + '.html'
     result_file = os.path.join(path, result_file_name)
 
+    logging.info(" Converting .xml to .html file. This may take few minutes...")
     # Read output.xml file
     result = ExecutionResult(*output_names)
-
-    logging.info(" Converting .xml to .html file. This may take few minutes...")
 
     logging.info(" 1 of 4: Capturing suite metrics")
     result.visit(SuiteResults(suite_list))
