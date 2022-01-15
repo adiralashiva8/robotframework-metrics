@@ -11,7 +11,7 @@ Creates custom HTML report (dashboard view) by parsing robotframework output.xml
 ---
  - __Sample Report__ [link](https://robotmetrics.netlify.com/)
 
- - Whats new in __v3.3__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.2.2)
+ - Whats new in __v3.3.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.3.1)
 
 ---
 
@@ -31,8 +31,7 @@ __Step 1__ Install robotmetrics
 
    > Case 1: Using pip
    ```
-   pip install robotframework-metrics==3.2.2 (from RF4.0)
-   pip install robotframework-metrics==3.2.0 (below RF4.0)
+   pip install robotframework-metrics==3.3.1
    ```
    > Case 2: Using setup.py (clone project and run command within root)
    ```
@@ -53,33 +52,12 @@ __Step 2__ Execute robotmetrics command to generate report
    ```
    robotmetrics --inputpath ./Result/ --output output1.xml
    ```
-   robotframework-metrics can parse multiple xmls at a time. Following is the command
-   ```
-   robotmetrics --inputpath ./Result/ --output "output1.xml,output2.xml"
-   ```
 
    > For more info on command line options use:
 
    ```
    robotmetrics --help
    ```
-
-__Step 3__ RobotFramework Metrics Report __metric-timestamp.html__ file will be created in current folder | `-inputpath` if specified
-
-   Note: From v3.1.6 users can specify __custom_report_name__ instead of __metrics-timestamp.html__
-   ```
-   robotmetrics -M regression_metrics.html
-   ```
----
-
-#### Exclude Keywords in Metrics Report
-
- - User can exclude keywords in metrics report using `--ignorekeywords` or `-k` command
-
-   ```
-   robotmetrics -k True
-   ```
-   > By default `--ignorekeywords` is `False`
 
 ---
 
@@ -119,26 +97,17 @@ If you have any questions / suggestions / comments on the report, please feel fr
 *Contributors:*
 
 1. [Pekka Klarck](https://www.linkedin.com/in/pekkaklarck/) [Author of robotframework]
-    > - Contributed source to get 'Test Case' name from keyword 
-    > - Suggested to use robotframework api to parse output.xml content 
 
 2. [Ruud Prijs](https://www.linkedin.com/in/ruudprijs/)
-    > - Contributed source to use command line options for report
+
 
 3. [Jesse Zacharias](https://www.linkedin.com/in/jesse-zacharias-7926ba50/)
-    > - Made robotmetrics installable (pip)
-    > - Contributed source to improve performance
 
 4. [Bassam Khouri](https://www.linkedin.com/in/bassamkhouri/)
-    > - Contributed source to use ArgParser
-    > - Contributed source to provide a human readable error if output.xml does not exist
 
 5. [Francesco Spegni](https://www.linkedin.com/in/francesco-spegni-34b39b61/)
-    > - Contributed source to parse multiple xml's
-    > - Fixed distorted image
 
 6. [Sreelesh Kunnath](https://www.linkedin.com/in/kunnathsree/)
-    > - Contributed source to specify custom metrics file name
 
 
 *Feedback:*
