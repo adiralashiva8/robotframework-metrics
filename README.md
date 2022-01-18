@@ -31,7 +31,7 @@ __Step 1__ Install robotmetrics
 
    > Case 1: Using pip
    ```
-   pip install robotframework-metrics==3.3.1
+   pip install robotframework-metrics==3.3.2
    ```
    > Case 2: Using setup.py (clone project and run command within root)
    ```
@@ -115,7 +115,8 @@ If you have any questions / suggestions / comments on the report, please feel fr
 1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
 2. [Prasad Ozarkar](https://www.linkedin.com/in/prasad-ozarkar-b4a61017/)
 3. [Suresh Parimi](https://www.linkedin.com/in/sparimi/)
-4. [Robotframework community users](https://groups.google.com/forum/#!forum/robotframework-users)
+4. [Amit Lohar](https://github.com/amitlohar)
+5. [Robotframework community users](https://groups.google.com/forum/#!forum/robotframework-users)
 
 ---
 

@@ -1,5 +1,6 @@
 import os
 import logging
+import codecs
 from datetime import datetime
 from robot.api import ExecutionResult
 from jinja2 import Environment, FileSystemLoader, Template
@@ -111,7 +112,7 @@ def generate_report(opts):
     # print(suite_error_stats)
 
     logging.info(" Writing results to html file")
-    with open(result_file_name, 'w') as fh:
+    with codecs.open(result_file_name,'w','utf-8') as fh:
         fh.write(template.render(
             hide_tags = hide_tags,
             # hide_keyword_menu = hide_keyword_menu,
