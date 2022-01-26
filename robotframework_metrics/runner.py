@@ -74,6 +74,13 @@ def parse_options():
         help="Display test case tags in test metrics"
     )
 
+    general.add_argument(
+        '-L', '--log',
+        dest='log_name',
+        default='log.html',
+        help="Name of log.html"
+    )
+
     args = parser.parse_args()
     return args
 

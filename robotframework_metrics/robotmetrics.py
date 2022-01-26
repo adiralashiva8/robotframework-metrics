@@ -52,6 +52,8 @@ def generate_report(opts):
             curr_path = os.path.join(path, curr_name)
             output_names.append(curr_path)
 
+    log_name = opts.log_name
+
     # copy the list of output_names onto the one of required_files; the latter may (in the future)
     # contain files that should not be processed as output_names
     required_files = list(output_names)
@@ -118,6 +120,7 @@ def generate_report(opts):
             # hide_keyword_menu = hide_keyword_menu,
             hide_kw_times_menu = hide_kw_times_menu,
             suite_stats = suite_stats,
+            log_name = log_name,
             test_stats = test_stats,
             kw_stats = kw_stats,
             suites = suite_list,

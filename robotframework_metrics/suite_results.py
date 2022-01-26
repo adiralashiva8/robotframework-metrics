@@ -20,6 +20,7 @@ class SuiteResults(ResultVisitor):
 
             suite_json = {
                 "Name" : suite.longname,
+                "Id" : suite.id,
                 "Status" : suite.status,
                 "Total" : stats.total,
                 "Pass" : stats.passed,
