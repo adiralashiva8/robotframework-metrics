@@ -10,6 +10,7 @@ class TestResults(ResultVisitor):
         test_json = {
             "Suite Name" : test.parent,
             "Test Name" : test,
+            "Test Id" : test.id,
             "Status" : test.status,
             "Time" : test.elapsedtime,
             "Message" : test.message,

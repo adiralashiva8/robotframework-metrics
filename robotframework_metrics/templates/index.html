@@ -315,7 +315,7 @@
           <tbody>
             {% for suite in suites %}
               <tr>
-                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ suite['Name'] }}</td>
+                <td data-toggle="tooltip" title="{{ suite['Name'] }}" onclick="openInNewTab('{{ log_name }}#{{ suite['Id'] }}','#{{ suite['Id'] }}')" style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">{{ suite['Name'] }}</td>
                 {% if (suite['Status'] == "PASS") %}
                   <td style="color: green"> {{ suite['Status'] }}</td>
                 {% elif (suite['Status'] == "FAIL") %}
@@ -351,7 +351,7 @@
             {% for test in tests %}
               <tr>
                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Suite Name'] }}</td>
-                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Test Name'] }}</td>
+                <td data-toggle="tooltip" title="{{ test['Test Name'] }}" onclick="openInNewTab('{{ log_name }}#{{ test['Test Id'] }}','#{{ test['Test Id'] }}')" style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">{{ test['Test Name'] }}</td>
                 {% if (test['Status'] == "PASS") %}
                   <td style="color: green"> {{ test['Status'] }}</td>
                 {% elif (test['Status'] == "FAIL") %}
@@ -646,6 +646,14 @@
     var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
     chart.render();
   
+  </script>
+  <script>
+    function openInNewTab(url,element_id) {
+      var element_id= element_id;
+      var win = window.open(url, '_blank');
+      win.focus();
+      $('body').scrollTo(element_id);
+    }
   </script>
   <script>
     $(window).on('load',function(){$('.loader').fadeOut();});

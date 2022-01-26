@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
       name='robotframework-metrics',
-      version="3.3.2",
+      version="3.3.3",
       description='Custom report for robot framework',
       long_description='Custom html report generator using robot.result api',
       classifiers=[
