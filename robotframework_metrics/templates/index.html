@@ -305,7 +305,7 @@
               <tr>
                   <th>Name</th>
                   <th>Status</th>
-                  <th>Documentation</th>
+                  <th class="{{hide_docs}}">Documentation</th>
                   <th>Total</th>
                   <th>Pass</th>
                   <th>Fail</th>
@@ -324,7 +324,7 @@
                 {% else %}
                   <td style="color: orange"> {{ suite['Status'] }}</td>
                 {% endif %}
-                <td>{{ suite['Documentation'] }}</td>
+                <td class="{{hide_docs}}">{{ suite['Documentation'] }}</td>
                 <td>{{ suite['Total'] }}</td>
                 <td style="color: green">{{ suite['Pass'] }}</td>
                 <td style="color: red">{{ suite['Fail'] }}</td>
@@ -344,7 +344,7 @@
                 <th>Suite Name</th>
                 <th>Test Name</th>
                 <th>Status</th>
-                <th>Documentation</th>
+                <th class="{{hide_docs}}">Documentation</th>
                 <th>Time (s)</th>
                 <th>Message</th>
                 <th class="{{hide_tags}}">Tags</th>
@@ -362,7 +362,7 @@
                 {% else %}
                   <td style="color: orange"> {{ test['Status'] }}</td>
                 {% endif %}
-                <td>{{ test['Documentation'] }}</td>
+                <td class="{{hide_docs}}">{{ test['Documentation'] }}</td>
                 <td>{{ (test['Time']/1000)|round(2) }}</td>
                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Message'] }}</td>
                 <td class="{{hide_tags}}" style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Tags'] }}</td>
