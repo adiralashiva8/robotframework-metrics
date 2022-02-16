@@ -15,7 +15,7 @@ class TestResults(ResultVisitor):
             "Status" : test.status,
             "Documentation" : html_format(test.doc),
             "Time" : test.elapsedtime,
-            "Message" : test.message,
+            "Message" : html_format(test.message),
             "Tags" : test.tags 
         }
         self.test_list.append(test_json)
