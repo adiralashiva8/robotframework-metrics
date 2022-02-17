@@ -104,6 +104,11 @@ def generate_report(opts):
     else:
         hide_tags = "hide"
 
+    if opts.showdocs == "True":
+        hide_docs = ""
+    else:
+        hide_docs = "hide"
+
     logging.info(" 4 of 4: Preparing data for dashboard")
     dashboard_obj = Dashboard()
     suite_stats = dashboard_obj.get_suite_statistics(suite_list)
@@ -117,6 +122,7 @@ def generate_report(opts):
     with codecs.open(result_file_name,'w','utf-8') as fh:
         fh.write(template.render(
             hide_tags = hide_tags,
+            hide_docs = hide_docs,
             # hide_keyword_menu = hide_keyword_menu,
             hide_kw_times_menu = hide_kw_times_menu,
             suite_stats = suite_stats,

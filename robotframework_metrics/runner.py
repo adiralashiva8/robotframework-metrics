@@ -75,6 +75,13 @@ def parse_options():
     )
 
     general.add_argument(
+        '-d', '--showdocs',
+        dest='showdocs',
+        default="False",
+        help="Display test case documentation in test metrics"
+    )
+
+    general.add_argument(
         '-L', '--log',
         dest='log_name',
         default='log.html',
