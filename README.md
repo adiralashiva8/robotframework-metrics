@@ -12,6 +12,7 @@ Creates custom HTML report (dashboard view) by parsing robotframework output.xml
  - __Sample Report__ [link](https://rfmetrics.netlify.com/)
 
  - Whats new in __v3.3.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.3.1)
+ - __v3.5.0__ supports RF7 (need to be installed as mentioned in _Step 1, case 3_)
 
 ---
 
@@ -37,7 +38,7 @@ __Step 1__ Install robotmetrics
    ```
    python setup.py install
    ```
-   > Case 3: For latest changes use following command (pre-release or changes in master)
+   > Case 3: For latest changes use following command (pre-release or changes in master: RF7 support added in master)
    ```
    pip install git+https://github.com/adiralashiva8/robotframework-metrics
    ```
