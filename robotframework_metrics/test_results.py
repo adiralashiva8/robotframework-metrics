@@ -9,8 +9,8 @@ class TestResults(ResultVisitor):
     
     def visit_test(self, test):
         test_json = {
-            "Suite Name" : test.parent,
-            "Test Name" : test,
+            "Suite Name" : test.parent.name,
+            "Test Name" : test.name,
             "Test Id" : test.id,
             "Status" : test.status,
             "Documentation" : html_format(test.doc),
