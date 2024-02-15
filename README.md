@@ -38,7 +38,7 @@ __Step 1__ Install robotmetrics
    ```
    python setup.py install
    ```
-   > Case 3: For latest changes use following command (pre-release or changes in master: RF7 support added in master)
+   > Case 3: For latest changes (pre-release or changes in master: RF7 support added in master)
    ```
    pip install git+https://github.com/adiralashiva8/robotframework-metrics
    ```
