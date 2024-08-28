@@ -42,16 +42,16 @@
 <!-- Table of Contents -->
 # 📔 Table of Contents
 
-- [About the Project](#about-the-project)
-  * [Screenshots](#screenshots)
-  * [Tech Stack](#tech-stack)
-  * [Features](#features)
-- [Getting Started](#getting-started)
-  * [Installation](#installation)
+- [About the Project](#-about-the-project)
+  * [Screenshots](#-screenshots)
+  * [Tech Stack](#-tech-stack)
+  * [Features](#-features)
+- [Getting Started](#-getting-started)
+  * [Installation](#-installation)
 - [Usage](#usage)
-  * [Continuous Integration (CI) Setup](#cisetup)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+  * [Continuous Integration (CI) Setup](#-cisetup)
+- [Contact](#-contact)
+- [Acknowledgements](#-acknowledgements)
 
 <!-- About the Project -->
 ## 🌟 About the Project
