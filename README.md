@@ -80,10 +80,10 @@
 <!-- Features -->
 ### 🎯 Features
 
-- __Custom HTML Report:__ Create visually appealing and informative dashboard.
-- __Detailed Metrics:__ Access suite, test case, keyword statistics, status, and elapsed time.
-- __Support for RF7:__ Fully compatible with Robot Framework 7 (from v3.5.0 onwards).
-- __Command-Line Interface:__ Easy-to-use CLI for report generation.
+- *Custom HTML Report:* Create visually appealing and informative dashboard.
+- *Detailed Metrics:* Access suite, test case, keyword statistics, status, and elapsed time.
+- *Support for RF7:* Fully compatible with Robot Framework 7 (from v3.5.0 onwards).
+- *Command-Line Interface:* Easy-to-use CLI for report generation.
 
 
 <!-- Getting Started -->
