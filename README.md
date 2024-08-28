@@ -1,118 +1,173 @@
-# Robot Framework Metrics Report
+<div align="center">
+  <h1>Robotframework Metrics</h1>
+  <p>
+     Custom HTML report (dashboard view) by parsing robotframework output.xml file
+  </p>
 
-Creates custom HTML report (dashboard view) by parsing robotframework output.xml file
+<!-- Badges -->
+<p>
+  <a href="https://github.com/adiralashiva8/robotframework-metrics/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/adiralashiva8/robotframework-metrics" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/adiralashiva8/robotframework-metrics" alt="last update" />
+  </a>
+  <a href="https://github.com/adiralashiva8/robotframework-metrics/network/members">
+    <img src="https://img.shields.io/github/forks/adiralashiva8/robotframework-metrics" alt="forks" />
+  </a>
+  <a href="https://github.com/adiralashiva8/robotframework-metrics/stargazers">
+    <img src="https://img.shields.io/github/stars/adiralashiva8/robotframework-metrics" alt="stars" />
+  </a>
+  <a href="https://github.com/adiralashiva8/robotframework-metrics/issues/">
+    <img src="https://img.shields.io/github/issues/adiralashiva8/robotframework-metrics" alt="open issues" />
+  </a>
+  <a href="https://github.com/adiralashiva8/robotframework-metrics/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/adiralashiva8/robotframework-metrics.svg" alt="license" />
+  </a>
+</p>
 
-[![PyPI version](https://badge.fury.io/py/robotframework-metrics.svg)](https://badge.fury.io/py/robotframework-metrics)
-[![Downloads](https://pepy.tech/badge/robotframework-metrics)](https://pepy.tech/project/robotframework-metrics)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
-[![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+<h4>
+    <a href="https://github.com/adiralashiva8/robotframework-metrics/">View Demo</a>
+  <span> · </span>
+    <a href="https://github.com/adiralashiva8/robotframework-metrics/blob/master/README.md">Documentation</a>
+  <span> · </span>
+    <a href="https://github.com/adiralashiva8/robotframework-metrics/issues/">Report Bug</a>
+  <span> · </span>
+    <a href="https://github.com/adiralashiva8/robotframework-metrics/issues/">Request Feature</a>
+  </h4>
+</div>
 
----
- - __Sample Report__ [link](https://rfmetrics.netlify.com/)
+<br />
 
- - Whats new in __v3.3.1__ [link](https://github.com/adiralashiva8/robotframework-metrics/releases/tag/v3.3.1)
- - __v3.5.0__ supports RF7 (need to be installed as mentioned in _Step 1, case 3_)
+<!-- Table of Contents -->
+# 📔 Table of Contents
 
----
+- [About the Project](#about-the-project)
+  * [Screenshots](#screenshots)
+  * [Tech Stack](#tech-stack)
+  * [Features](#features)
+- [Getting Started](#getting-started)
+  * [Installation](#installation)
+- [Usage](#usage)
+  * [Continuous Integration (CI) Setup](#cisetup)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-#### How it Works:
+<!-- About the Project -->
+## 🌟 About the Project
 
-1. Read `output.xml` file using `robot.api - ResultVisitor, ExecutionResult` [API Link](https://robot-framework.readthedocs.io/en/stable/autodoc/robot.result.html)
+`Robot Framework Metrics` is a tool designed to generate comprehensive `HTML reports` from Robot Framework's `output.xml` files. These reports provide a __dashboard view__, offering detailed insights into your test executions, including __suite__ statistics, __test case__ results, and __keyword__ performance.
 
-2. Get Suite, Test Case , Keyword , Status and Elapsed time values
+<!-- Screenshots -->
+### 📷 Screenshots
 
-3. Convert data to html report
+<div align="center">
+  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+</div>
 
----
+<!-- TechStack -->
+### 🛠️ Tech Stack
 
-#### How to use in project:
+<details>
+  <ul>
+    <li><a href="https://www.python.org/">Python</a></li>
+    <li><a href="https://robot-framework.readthedocs.io/en/stable/autodoc/robot.result.html">Robotframework results api</a></li>
+    <li><a href="https://pandas.pydata.org/docs/getting_started/index.html">Pandas</a></li>
+    <li><a href="https://jinja.palletsprojects.com/en/2.10.x/">Jinja2</a></li>
+  </ul>
+</details>
 
-__Step 1__ Install robotmetrics 
+<!-- Features -->
+### 🎯 Features
 
-   > Case 1: Using pip
+- __Custom HTML Report:__ Create visually appealing and informative dashboard.
+- __Detailed Metrics:__ Access suite, test case, keyword statistics, status, and elapsed time.
+- __Support for RF7:__ Fully compatible with Robot Framework 7 (from v3.5.0 onwards).
+- __Command-Line Interface:__ Easy-to-use CLI for report generation.
+
+
+<!-- Getting Started -->
+## 🧰 Getting Started
+
+<!-- Installation -->
+### ⚙️ Installation
+
+You can install `robotframework-metrics` using one of the following methods:
+
+__Method 1__: Using pip (Recommended)
+```
+pip install robotframework-metrics==3.3.3
+```
+
+__Method 2__: From Source (clone the repository and install using setup.py)
+```
+git clone https://github.com/adiralashiva8/robotframework-metrics.git
+cd robotframework-metrics
+python setup.py install
+```
+
+__Method 3__: Latest Development Version (for the latest features and RF7 support)
+```
+pip install git+https://github.com/adiralashiva8/robotframework-metrics
+```
+
+<!-- Usage -->
+## 👀 Usage
+
+After executing your Robot Framework tests, you can generate a metrics report by running:
+
+__Default Configuration__: If `output.xml` is in the current directory
+```
+robotmetrics
+```
+
+__Custom Path__: If `output.xml` is located in a different directory
+```
+robotmetrics --inputpath ./Result/ --output output1.xml
+```
+
+For more options:
+```
+robotmetrics --help
+```
+
+### 🧪 Continuous Integration (CI) Setup
+
+To automate report generation in CI/CD pipelines, add the following steps to your pipeline configuration:
+
+1. Run tests with Robot Framework
+2. Generate the metrics report
    ```
-   pip install robotframework-metrics==3.3.3
+   robot test.robot &
+   robotmetrics [:options]
    ```
-   > Case 2: Using setup.py (clone project and run command within root)
-   ```
-   python setup.py install
-   ```
-   > Case 3: For latest changes (pre-release or changes in master: RF7 support added in master)
-   ```
-   pip install git+https://github.com/adiralashiva8/robotframework-metrics
-   ```
+   > & is used to execute multiple command's in .bat file
 
-__Step 2__ Execute robotmetrics command to generate report
+<!-- Contact -->
+## 🤝 Contact
 
-   > Case 1: No change in output.xml file name (assumig user is in same folder)
-   ```
-   robotmetrics
-   ```
-   > Case 2: output.xml under 'Result' folder
-   ```
-   robotmetrics --inputpath ./Result/ --output output1.xml
-   ```
+For any questions, suggestions, or feedback, please contact:
 
-   > For more info on command line options use:
+- Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a> 
 
-   ```
-   robotmetrics --help
-   ```
+<!-- Acknowledgments -->
+## 💎 Acknowledgements
 
----
-
-#### Generate robotframework-metrics after execution
-
-Execute robotmetrics command after suite or test execution as follows:
-
- - Create .bat (or) .sh file with following snippet
-
-    ```
-    robot test.robot &
-    robotmetrics [:options]
-    ```
-
-    > & is used to execute multiple command's in .bat file
-
-  - Modify robotmetrics command as required and execute .bat file
-
-  - Robotframework metrics will be created after execution
-
----
-
-If you have any questions / suggestions / comments on the report, please feel free to reach me at
-
- - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20Metrics" target="_blank">`adiralashiva8@gmail.com`</a> 
-
----
-
-*Special Thanks To:*
+Special thanks to the following individuals for their guidance, contributions, and feedback:
 
 *Idea, Guidance and Support:*
-
  - Steve Fisher
  - Goutham Duduka
 
-
 *Contributors:*
-
 1. [Pekka Klarck](https://www.linkedin.com/in/pekkaklarck/) [Author of robotframework]
-
 2. [Ruud Prijs](https://www.linkedin.com/in/ruudprijs/)
-
-
 3. [Jesse Zacharias](https://www.linkedin.com/in/jesse-zacharias-7926ba50/)
-
 4. [Bassam Khouri](https://www.linkedin.com/in/bassamkhouri/)
-
 5. [Francesco Spegni](https://www.linkedin.com/in/francesco-spegni-34b39b61/)
-
 6. [Sreelesh Kunnath](https://www.linkedin.com/in/kunnathsree/)
 
-
 *Feedback:*
-
 1. [Mantri Sri](https://www.linkedin.com/in/mantri-sri-4a0196133/)
 2. [Prasad Ozarkar](https://www.linkedin.com/in/prasad-ozarkar-b4a61017/)
 3. [Suresh Parimi](https://www.linkedin.com/in/sparimi/)
@@ -121,6 +176,6 @@ If you have any questions / suggestions / comments on the report, please feel fr
 
 ---
 
-:star: repo if you like it
+⭐ Star this repository if you find it useful! (it motivates)
 
 ---
