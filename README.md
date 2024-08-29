@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Robotframework Metrics</h1>
+  <h1>Robot Framework Metrics</h1>
   <p>
      Custom HTML report (dashboard view) by parsing robotframework output.xml file
   </p>
