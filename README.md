@@ -61,9 +61,7 @@
 <!-- Screenshots -->
 ### 📷 Screenshots
 
-<div align="center">
-  <img src="https://i.ibb.co/dDp2h5T/metrics.png" alt="screenshot" />
-</div>
+![Metrics Report](https://adiralashiva8.github.io/robotframework-metrics/metrics.png)
 
 <!-- TechStack -->
 ### 🛠️ Tech Stack
