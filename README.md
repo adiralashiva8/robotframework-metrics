@@ -27,7 +27,7 @@
 </p>
 
 <h4>
-    <a href="https://github.com/adiralashiva8/robotframework-metrics/">View Demo</a>
+    <a href="https://github.com/adiralashiva8/robotframework-metrics/metrics.png" target="_blank">View Demo</a>
   <span> · </span>
     <a href="https://github.com/adiralashiva8/robotframework-metrics/blob/master/README.md">Documentation</a>
   <span> · </span>
