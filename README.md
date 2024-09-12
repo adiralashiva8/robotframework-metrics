@@ -92,7 +92,7 @@
 
 You can install `robotframework-metrics` using one of the following methods:
 
-__Method 1__: Using pip (Recommended)
+__Method 1__: Using pip
 ```
 pip install robotframework-metrics==3.3.3
 ```
