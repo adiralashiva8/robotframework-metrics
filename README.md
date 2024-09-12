@@ -104,7 +104,7 @@ cd robotframework-metrics
 python setup.py install
 ```
 
-__Method 3__: Latest Development Version (for the latest features and RF7 support)
+__Method 3__: Latest Development Version  (**Recommended**) (for the latest features and RF7 support)
 ```
 pip install git+https://github.com/adiralashiva8/robotframework-metrics
 ```
