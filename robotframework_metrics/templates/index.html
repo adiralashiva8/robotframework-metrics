@@ -99,14 +99,20 @@
 
     .loader {
       position: fixed;
-      left: 0px;
-      top: 0px;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
       z-index: 9999;
-      /* background: url('https://i.ibb.co/cXnKsNR/Cube-1s-200px.gif') 50% 50% no-repeat rgb(249, 249, 249); */
-      background: url('https://i.ibb.co/wR1s7Wq/giphy-1.gif') 50% 50% no-repeat rgb(249, 249, 249);
+      background-color: rgb(249, 249, 249);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
+    .loader i {
+      font-size: 60px;
+      color: #333;
     }
 
     .hide {
@@ -116,7 +122,10 @@
 </head>
 
 <body>
-  <div class="loader"></div>
+  <!-- <div class="loader"></div> -->
+  <div class="loader">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -130,13 +139,15 @@
           <li><a href="#" class="tablink"
               onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',6)">Suite</a></li>
           <li><a href="#" class="tablink"
-              onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',3)">Test</a></li>
+              onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',2)">Test</a></li>
           <!-- <li class="{{ hide_keyword_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetrics', this, '#fc6666'); executeDataTable('#km',3)">Keyword</a></li> -->
           <li class="{{ hide_kw_times_menu }}"><a href="#" class="tablink"
               onclick="openPage('keywordMetricsTime', this, '#fc6666'); executeDataTable('#kmt',1)">KW Times</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a>Execution Time(m): {{ (suite_stats['Time']/60000)|round(2) }}</a></li>
+          <li>
+            <!-- <button onclick="toggleDarkMode()">Dark Mode</button> -->
+          </li>
         </ul>
       </div>
     </div>
@@ -187,28 +198,6 @@
               <div class="col-md-12">
                 <div id="suitePie"></div>
               </div>
-              <!-- <div class="col-md-12">
-                <table class="card-table">
-                  <tr>
-                    <td class="total">{{suite_stats['Total']}}</td>
-                    <td class="pass">{{suite_stats['Pass']}}</td>
-                  </tr>
-                  <tr>
-                    <td>Total</td>
-                    <td>Pass</td>
-                  </tr>
-                </table>
-                <table class="card-table">
-                  <tr>
-                    <td class="fail">{{suite_stats['Fail']}}</td>
-                    <td class="skip">{{suite_stats['Skip']}}</td>
-                  </tr>
-                  <tr>
-                    <td>Fail</td>
-                    <td>Skip</td>
-                  </tr>
-                </table>
-              </div> -->
             </div>
           </div>
 
@@ -220,28 +209,6 @@
               <div class="col-md-12">
                 <div id="keywordPie"></div>
               </div>
-              <!-- <div class="col-md-12">
-                <table class="card-table">
-                  <tr>
-                    <td class="total">{{kw_stats['Total']}}</td>
-                    <td class="pass">{{kw_stats['Pass']}}</td>
-                  </tr>
-                  <tr>
-                    <td>Total</td>
-                    <td>Pass</td>
-                  </tr>
-                </table>
-                <table class="card-table">
-                  <tr>
-                    <td class="fail">{{kw_stats['Fail']}}</td>
-                    <td class="skip">{{kw_stats['Skip']}}</td>
-                  </tr>
-                  <tr>
-                    <td>Fail</td>
-                    <td>Skip</td>
-                  </tr>
-                </table>
-              </div> -->
             </div>
           </div>
         </div>
@@ -252,7 +219,7 @@
         <div class="col-md-6">
           <div class="col-md-12 rowcard">
             <span class="card-header">Top 5 Common Failures:</span>
-            <table class="ecard-table">
+            <table class="ecard-table" style="font-size:12px">
               <tr>
                 <th>Error Message</th>
                 <th>Occurence</th>
@@ -353,7 +320,7 @@
       <table id="tm" class="display tablecard" style="width:100%">
         <thead>
           <tr>
-            <th>Suite Name</th>
+            <!-- <th>Suite Name</th> -->
             <th>Test Name</th>
             <th>Status</th>
             <th>Time (s)</th>
@@ -364,8 +331,8 @@
         <tbody>
           {% for test in tests %}
           <tr>
-            <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Suite
-              Name'] }}</td>
+            <!-- <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Suite
+              Name'] }}</td> -->
             <td data-toggle="tooltip" title="{{ test['Test Name'] }}"
               onclick="openInNewTab('{{ log_name }}#{{ test['Test Id'] }}','#{{ test['Test Id'] }}')"
               style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">
@@ -378,7 +345,7 @@
             <td style="color: orange"> {{ test['Status'] }}</td>
             {% endif %}
             <td>{{ (test['Time']/1000)|round(2) }}</td>
-            <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{
+            <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;font-size: 12px">{{
               test['Message'] }}</td>
             <td class="{{hide_tags}}"
               style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Tags'] }}
@@ -388,36 +355,6 @@
         </tbody>
       </table>
     </div>
-
-    <!-- Keyword Data -->
-    <!-- <div class="tabcontent" id="keywordMetrics">
-        <table id="km" class="display tablecard" style="width:100%">
-          <thead>
-              <tr>
-                  <th>Test Name</th>
-                  <th>Keyword Name</th>
-                  <th>Status</th>
-                  <th>Time (s)</th>
-              </tr>
-          </thead>
-          <tbody>
-            {% for keyword in keywords %}
-              <tr>
-                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ keyword['TestName'] }}</td>
-                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ keyword['Name'] }}</td>
-                {% if (keyword['Status'] == "PASS") %}
-                  <td style="color: green"> {{ keyword['Status'] }}</td>
-                {% elif (keyword['Status'] == "FAIL") %}
-                  <td style="color: red"> {{ keyword['Status'] }}</td>
-                {% else %}
-                  <td style="color: orange"> {{ keyword['Status'] }}</td>
-                {% endif %}
-                <td>{{ (keyword['Time']/1000)|round(2) }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div> -->
 
     <!-- Keyword Average -->
     <div class="tabcontent" id="keywordMetricsTime">
@@ -730,6 +667,7 @@
     $('body').scrollTo(element_id);
   }
 </script>
+
 <script>
   $(window).on('load', function () { $('.loader').fadeOut(); });
 </script>
