@@ -118,6 +118,17 @@
     .hide {
       display: none;
     }
+
+    tfoot input {
+      width: 100%;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+
+    tfoot {
+      display: table-header-group;
+    }
+  </style>
   </style>
 </head>
 
@@ -290,6 +301,17 @@
             <th>Time (s)</th>
           </tr>
         </thead>
+        <tfoot>
+          <tr>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Status" /></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
         <tbody>
           {% for suite in suites %}
           <tr>
@@ -328,6 +350,15 @@
             <th class="{{hide_tags}}">Tags</th>
           </tr>
         </thead>
+        <tfoot>
+          <tr>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Status" /></th>
+            <th></th>
+            <th><input type="text" placeholder="Search Message" /></th>
+            <th class="{{hide_tags}}"></th>
+          </tr>
+        </tfoot>
         <tbody>
           {% for test in tests %}
           <tr>
@@ -422,6 +453,7 @@
   </script>
 
   <script>
+
     function executeDataTable(tabname, sortCol) {
       var fileTitle;
       switch (tabname) {
@@ -437,69 +469,91 @@
         default:
           fileTitle = "Metrics";
       }
-      $(tabname).DataTable(
-        {
-          retrieve: true,
-          "order": [[Number(sortCol), "desc"]],
-          dom: 'l<".margin" B>frtip',
-          buttons: [
-            {
-              extend: 'copyHtml5',
-              text: '<i class="fa fa-files-o"></i>',
-              filename: function () {
-                return fileTitle + '-' + new Date().toLocaleString();
-              },
-              titleAttr: 'Copy',
-              exportOptions: {
-                columns: ':visible'
+
+      $(tabname).DataTable({
+
+        initComplete: function () {
+          var api = this.api();
+
+          api.columns().every(function () {
+            var column = this;
+            var title = $(column.footer()).text();
+
+            // Create jQuery input element
+            var $input = $('<input>').attr('placeholder', title);
+
+            // Replace footer content with the input field
+            $(column.footer()).empty().append($input);
+
+            // Event listener for user input
+            $input.on('keyup', function () {
+              if (column.search() !== this.value) {
+                column.search(this.value).draw();
               }
+            });
+          });
+        },
+        retrieve: true,
+        "order": [[Number(sortCol), "desc"]],
+        dom: 'l<".margin" B>frtip',
+        buttons: [
+          {
+            extend: 'copyHtml5',
+            text: '<i class="fa fa-files-o"></i>',
+            filename: function () {
+              return fileTitle + '-' + new Date().toLocaleString();
             },
-            {
-              extend: 'csvHtml5',
-              text: '<i class="fa fa-file-text-o"></i>',
-              titleAttr: 'CSV',
-              filename: function () {
-                return fileTitle + '-' + new Date().toLocaleString();
-              },
-              exportOptions: {
-                columns: ':visible'
-              }
+            titleAttr: 'Copy',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'csvHtml5',
+            text: '<i class="fa fa-file-text-o"></i>',
+            titleAttr: 'CSV',
+            filename: function () {
+              return fileTitle + '-' + new Date().toLocaleString();
             },
-            {
-              extend: 'excelHtml5',
-              text: '<i class="fa fa-file-excel-o"></i>',
-              titleAttr: 'Excel',
-              filename: function () {
-                return fileTitle + '-' + new Date().toLocaleString();
-              },
-              exportOptions: {
-                columns: ':visible'
-              }
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i>',
+            titleAttr: 'Excel',
+            filename: function () {
+              return fileTitle + '-' + new Date().toLocaleString();
             },
-            {
-              extend: 'print',
-              text: '<i class="fa fa-print"></i>',
-              titleAttr: 'Print',
-              exportOptions: {
-                columns: ':visible',
-                alignment: 'left',
-              }
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'print',
+            text: '<i class="fa fa-print"></i>',
+            titleAttr: 'Print',
+            exportOptions: {
+              columns: ':visible',
+              alignment: 'left',
+            }
+          },
+          {
+            extend: 'colvis',
+            collectionLayout: 'fixed two-column',
+            text: '<i class="fa fa-low-vision"></i>',
+            titleAttr: 'Hide Column',
+            exportOptions: {
+              columns: ':visible'
             },
-            {
-              extend: 'colvis',
-              collectionLayout: 'fixed two-column',
-              text: '<i class="fa fa-low-vision"></i>',
-              titleAttr: 'Hide Column',
-              exportOptions: {
-                columns: ':visible'
-              },
-              postfixButtons: ['colvisRestore']
-            },
-          ],
-          columnDefs: [{
-            visible: false,
-          }]
-        }
+            postfixButtons: ['colvisRestore']
+          },
+        ],
+        columnDefs: [{
+          visible: false,
+        }]
+      }
       );
     }
   </script>
