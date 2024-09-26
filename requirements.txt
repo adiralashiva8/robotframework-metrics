@@ -1,3 +1,0 @@
-robotframework
-jinja2
-pandas
