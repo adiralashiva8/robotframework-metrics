@@ -109,6 +109,11 @@ __Method 3__: Latest Development Version  (**Recommended**) (for the latest feat
 pip install git+https://github.com/adiralashiva8/robotframework-metrics
 ```
 
+__DOCKER__:
+```
+docker pull adiralashiva8/robotframework-metrics:latest
+```
+
 <!-- Usage -->
 ## 👀 Usage
 
