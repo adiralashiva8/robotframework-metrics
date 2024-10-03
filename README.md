@@ -18,6 +18,9 @@
   <a href="https://github.com/adiralashiva8/robotframework-metrics/stargazers">
     <img src="https://img.shields.io/github/stars/adiralashiva8/robotframework-metrics" alt="stars" />
   </a>
+  <a href="https://pypi.org/project/robotframework-metrics/">
+    <img src="https://img.shields.io/pypi/dm/robotframework-metrics.svg?logo=pypi&logoColor=aaaaaa&labelColor=333333" alt="downloads" />
+  </a>
   <a href="https://github.com/adiralashiva8/robotframework-metrics/issues/">
     <img src="https://img.shields.io/github/issues/adiralashiva8/robotframework-metrics" alt="open issues" />
   </a>
