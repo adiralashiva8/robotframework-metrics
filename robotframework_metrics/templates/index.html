@@ -128,6 +128,24 @@
     tfoot {
       display: table-header-group;
     }
+
+    .bpass {
+      background-color: rgb(84, 148, 84);
+      border-radius: 5px;
+      color: white;
+    }
+
+    .bfail {
+      background-color: rgb(175, 78, 78);
+      border-radius: 5px;
+      color: white;
+    }
+
+    .bskip {
+      background-color: rgb(145, 114, 57);
+      border-radius: 5px;
+      color: white;
+    }
   </style>
   </style>
 </head>
@@ -320,11 +338,11 @@
               style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">
               {{ suite['Name'] }}</td>
             {% if (suite['Status'] == "PASS") %}
-            <td style="color: green"> {{ suite['Status'] }}</td>
+            <td style="color: green">{{ suite['Status'] }}</td>
             {% elif (suite['Status'] == "FAIL") %}
-            <td style="color: red"> {{ suite['Status'] }}</td>
+            <td style="color: red">{{ suite['Status'] }}</td>
             {% else %}
-            <td style="color: orange"> {{ suite['Status'] }}</td>
+            <td style="color: orange">{{ suite['Status'] }}</td>
             {% endif %}
             <td>{{ suite['Total'] }}</td>
             <td style="color: green">{{ suite['Pass'] }}</td>
@@ -369,11 +387,11 @@
               style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">
               {{ test['Test Name'] }}</td>
             {% if (test['Status'] == "PASS") %}
-            <td style="color: green"> {{ test['Status'] }}</td>
+            <td> <button class="bpass">{{ test['Status'] }}</button></td>
             {% elif (test['Status'] == "FAIL") %}
-            <td style="color: red"> {{ test['Status'] }}</td>
+            <td> <button class="bfail">{{ test['Status'] }}</button></td>
             {% else %}
-            <td style="color: orange"> {{ test['Status'] }}</td>
+            <td> <button class="bskip">{{ test['Status'] }}</button></td>
             {% endif %}
             <td>{{ (test['Time']/1000)|round(2) }}</td>
             <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;font-size: 12px">{{
@@ -495,11 +513,12 @@
         },
         retrieve: true,
         "order": [[Number(sortCol), "desc"]],
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         dom: 'l<".margin" B>frtip',
         buttons: [
           {
             extend: 'copyHtml5',
-            text: '<i class="fa fa-files-o"></i>',
+            text: '<span style="font-size: 15px; color: green;"><i class="fa fa-files-o"></i></span>',
             filename: function () {
               return fileTitle + '-' + new Date().toLocaleString();
             },
@@ -510,7 +529,7 @@
           },
           {
             extend: 'csvHtml5',
-            text: '<i class="fa fa-file-text-o"></i>',
+            text: '<span style="font-size: 15px; color: red;"><i class="fa fa-file-text-o"></i></span>',
             titleAttr: 'CSV',
             filename: function () {
               return fileTitle + '-' + new Date().toLocaleString();
@@ -521,7 +540,7 @@
           },
           {
             extend: 'excelHtml5',
-            text: '<i class="fa fa-file-excel-o"></i>',
+            text: '<span style="font-size: 15px; color: blue;"> <i class="fa fa-file-excel-o"></i></span>',
             titleAttr: 'Excel',
             filename: function () {
               return fileTitle + '-' + new Date().toLocaleString();
@@ -532,7 +551,7 @@
           },
           {
             extend: 'print',
-            text: '<i class="fa fa-print"></i>',
+            text: '<span style="font-size: 15px; color: orange;"><i class="fa fa-print"></i></span>',
             titleAttr: 'Print',
             exportOptions: {
               columns: ':visible',
@@ -542,7 +561,7 @@
           {
             extend: 'colvis',
             collectionLayout: 'fixed two-column',
-            text: '<i class="fa fa-low-vision"></i>',
+            text: '<span style="font-size: 15px; color: indigo;"><i class="fa fa-low-vision"></i></span>',
             titleAttr: 'Hide Column',
             exportOptions: {
               columns: ':visible'
