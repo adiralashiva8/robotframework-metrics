@@ -54,14 +54,22 @@ class Dashboard:
                 "Skip"  : 0,
             }
         return kw_stats
-    
+
     def group_error_messages(self, test_list):
         test_data_frame = pd.DataFrame.from_records(test_list)
-        return (test_data_frame.groupby("Message").agg(times = ("Status", "count")).head(6).reset_index()).sort_values(by = ['times'], ascending = [False], ignore_index=True)
-    
+        grouped_data_frame = (
+            test_data_frame.groupby("Message", as_index=False)  # Keep 'Message' as a column
+            .agg(times=("Status", "count"))  # Count occurrences of each 'Status'
+            .sort_values(by=['times'], ascending=False, ignore_index=True)  # Sort by count
+        )
+
+        return grouped_data_frame.head(6)
+        # return (test_data_frame.groupby("Message", as_index=False).agg(times = ("Status", "count")).head(6).reset_index()).sort_values(by = ['times'], ascending = [False], ignore_index=True)
+
     def suite_error_statistics(self, suite_list):
         suite_data_frame = pd.DataFrame.from_records(suite_list)
         required_data_frame = pd.DataFrame(suite_data_frame, columns = ['Name', 'Total', 'Fail'])
         required_data_frame['percent'] = (required_data_frame['Fail'] / required_data_frame['Total'])*100
+        filtered_data_frame = required_data_frame[required_data_frame['Fail'] > 0]
         # print(required_data_frame)
-        return required_data_frame.sort_values(by = ['Fail'], ascending = [False], ignore_index=True).head(10).reset_index()
+        return filtered_data_frame.sort_values(by = ['Fail'], ascending = [False], ignore_index=True).head(10).reset_index(drop=True)
