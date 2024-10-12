@@ -95,24 +95,25 @@
 
 You can install `robotframework-metrics` using one of the following methods:
 
-__Method 1__: Using pip
+
+__Method 1__: Latest Development Version  (**Recommended**) (for the latest features and RF7 support)
+```
+pip install git+https://github.com/adiralashiva8/robotframework-metrics
+```
+
+__Method 2__: Using pip
 ```
 pip install robotframework-metrics==3.3.3
 ```
 
-__Method 2__: From Source (clone the repository and install using setup.py)
+__Method 3__: From Source (clone the repository and install using setup.py)
 ```
 git clone https://github.com/adiralashiva8/robotframework-metrics.git
 cd robotframework-metrics
 python setup.py install
 ```
 
-__Method 3__: Latest Development Version  (**Recommended**) (for the latest features and RF7 support)
-```
-pip install git+https://github.com/adiralashiva8/robotframework-metrics
-```
-
-__DOCKER__:
+__DOCKER__: (WIP)
 ```
 docker pull adiralashiva8/robotframework-metrics:latest
 ```
