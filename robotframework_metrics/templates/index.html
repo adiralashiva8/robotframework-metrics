@@ -1,20 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RF Metrics</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-  <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robot Metrics</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
   <style>
     body {
-      padding-top: 70px;
       font-family: -apple-system, sans-serif;
       background-color: #eeeeee;
+      display: flex;
+    }
+
+    .tablecard {
+      background-color: white;
+      font-size: 14px;
+    }
+
+    .sidebar {
+      width: 80px;
+      background-color: #343a40;
+      color: white;
+      min-height: 100vh;
+      text-align: center;
+      position: fixed;
+    }
+
+    .section {
+      padding-left: 80px;
+    }
+
+    .sidebar .brand {
+      font-size: 16px;
+      padding: 15px 0;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .sidebar .nav-link {
+      color: #ccc;
+      padding: 15px 0;
+      cursor: pointer;
+    }
+
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+      color: white;
+      background-color: #495057;
+    }
+
+    .sidebar .icon {
+      font-size: 24px;
+    }
+
+    .sidebar .count {
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .loader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background-color: rgb(249, 249, 249);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loader i {
+      font-size: 60px;
+      color: #333;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    tfoot input {
+      width: 100%;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+
+    tfoot {
+      display: table-header-group;
+    }
+
+    .dt-button {
+      border: none;
+      color: #fff;
+      margin: 5px;
+      border-radius: 12px;
+      cursor: pointer;
+      padding-left: 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin: 4px 2px;
+    }
+
+    .dt-button.copyButton {
+      background-color: seashell;
+    }
+
+    .dt-button.csvButton {
+      background-color: cornsilk;
+    }
+
+    .dt-button.excelButton {
+      background-color: lavender;
+    }
+
+    .dt-button.printButton {
+      background-color: whitesmoke;
+    }
+
+    .dt-button.colviButton {
+      background-color: gainsboro;
     }
 
     .tablecard {
@@ -41,7 +156,7 @@
       background-color: white;
     }
 
-    .card-header {
+    .card-header-new {
       font-weight: bold;
       color: gray;
       padding-left: 5px;
@@ -96,102 +211,52 @@
     .skip {
       color: orange;
     }
-
-    .loader {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      background-color: rgb(249, 249, 249);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .loader i {
-      font-size: 60px;
-      color: #333;
-    }
-
-    .hide {
-      display: none;
-    }
-
-    tfoot input {
-      width: 100%;
-      padding: 3px;
-      box-sizing: border-box;
-    }
-
-    tfoot {
-      display: table-header-group;
-    }
-
-    .bpass {
-      background-color: rgb(84, 148, 84);
-      border-radius: 5px;
-      color: white;
-    }
-
-    .bfail {
-      background-color: rgb(175, 78, 78);
-      border-radius: 5px;
-      color: white;
-    }
-
-    .bskip {
-      background-color: rgb(145, 114, 57);
-      border-radius: 5px;
-      color: white;
-    }
-  </style>
   </style>
 </head>
 
 <body>
-  <!-- <div class="loader"></div> -->
   <div class="loader">
     <i class="fa fa-spinner fa-spin"></i>
   </div>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand">Metrics</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="#" class="tablink" id="defaultOpen"
-              onclick="openPage('dashboard', this, '#fc6666')">Dashboard</a></li>
-          <li><a href="#" class="tablink"
-              onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',6)">Suite</a></li>
-          <li><a href="#" class="tablink"
-              onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',2)">Test</a></li>
-          <!-- <li class="{{ hide_keyword_menu }}"><a href="#" class="tablink" onclick="openPage('keywordMetrics', this, '#fc6666'); executeDataTable('#km',3)">Keyword</a></li> -->
-          <li class="{{ hide_kw_times_menu }}"><a href="#" class="tablink"
-              onclick="openPage('keywordMetricsTime', this, '#fc6666'); executeDataTable('#kmt',1)">KW Times</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <!-- <button onclick="toggleDarkMode()">Dark Mode</button> -->
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column">
+    <div class="brand" style="color:darkgoldenrod">Metrics</div>
+    <a class="nav-link" data-target="dashboard" href="#dashboard" style="color:teal">
+      <i class="icon fas fa-tachometer-alt"></i>
+      <div class="count">Dashboard</div>
+    </a>
+    <a class="nav-link" data-target="suite" href="#suite" style="color: skyblue">
+      <i class="icon fas fa-folder"></i>
+      <div class="count">Suite</div>
+    </a>
+    <a class="nav-link" data-target="test" href="#test" style="color:green">
+      <i class="icon fas fa-vial"></i>
+      <div class="count">Test</div>
+    </a>
+    <a class="nav-link" data-target="kwtimes" href="#kwtimes" style="color:tomato">
+      <i class="icon fas fa-stopwatch"></i>
+      <div class="count">KW Times</div>
+    </a>
+  </div>
 
-    <!-- Dashboard Data -->
-    <div class="tabcontent" id="dashboard">
+  <!-- Content Area -->
+  <div class="content">
 
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb" id="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+    </nav>
+
+    <div class="section" id="dashboard">
+      <h2 style="color:silver">Dashboard</h2>
       <div class="row">
-
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="col-md-12 rowcard">
-            <span class="card-header">Test Statistics:</span>
+            <span class="card-header-new">Test Statistics:</span>
             <div class="col-md-12" style="display: flex; align-items: center; justify-content: center;">
               <div id="testPie"></div>
             </div>
@@ -220,21 +285,22 @@
           </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="col-md-12">
-            <div class="col-md-12 rowcard">
-              <span class="card-header">Suite Statistics:</span>
-              <div class="col-md-12">
-                <div id="suitePie"></div>
+            <div class="col-md-12">
+              <div class="col-md-12 rowcard">
+                <span class="card-header-new">Suite Statistics:</span>
+                <div class="col-md-12">
+                  <div id="suitePie"></div>
+                </div>
               </div>
             </div>
           </div>
-
           <div class="row"></div>
 
           <div class="col-md-12">
             <div class="col-md-12 rowcard">
-              <span class="card-header">Keyword Statistics:</span>
+              <span class="card-header-new">Keyword Statistics:</span>
               <div class="col-md-12">
                 <div id="keywordPie"></div>
               </div>
@@ -242,32 +308,9 @@
           </div>
         </div>
 
-      </div>
-      <div class="row"></div>
-      <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="col-md-12 rowcard">
-            <span class="card-header">Top 5 Common Failures:</span>
-            <table class="ecard-table" style="font-size:12px">
-              <tr>
-                <th>Error Message</th>
-                <th>Occurence</th>
-              </tr>
-              {% for key, value in error_stats.iterrows() %}
-              {% if (value['Message'] != "") %}
-              <tr>
-                <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
-                  {{value['Message']}}</td>
-                <td>{{value['times']}}</td>
-              </tr>
-              {% endif %}
-              {% endfor %}
-            </table>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="col-md-12 rowcard">
-            <span class="card-header">Execution Duration(m):</span>
+            <span class="card-header-new">Execution Duration(m):</span>
             <table class="ecard-table">
               <tr>
                 <th>Type</th>
@@ -290,12 +333,38 @@
             </table>
           </div>
         </div>
+
+
+        <div class="row"></div>
+        <!-- <div class="row">
+          <div class="col-md-6">
+            <div class="col-md-12 rowcard">
+              <span class="card-header-new">Top 5 Common Failures:</span>
+              <table class="ecard-table" style="font-size:12px">
+                <tr>
+                  <th>Error Message</th>
+                  <th>Occurence</th>
+                </tr>
+                {% for key, value in error_stats.iterrows() %}
+                {% if (value['Message'] != "") %}
+                <tr>
+                  <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
+                    {{value['Message']}}</td>
+                  <td>{{value['times']}}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+
+        </div> -->
       </div>
       <div class="row"></div>
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-12 rowcard">
-            <span class="card-header">Top 10 Suite Failures:</span>
+            <span class="card-header-new">Top 10 Suite Failures:</span>
             <div class="col-md-12">
               <div id="suiteFailureLineID"></div>
             </div>
@@ -306,7 +375,9 @@
     </div>
 
     <!-- Suite Data -->
-    <div class="tabcontent" id="suiteMetrics">
+    <div class="section" id="suite">
+      <h2 style="color:silver">Suite Metrics</h2>
+      <div class="row"></div>
       <table id="sm" class="display tablecard" style="width:100%">
         <thead>
           <tr>
@@ -356,7 +427,9 @@
     </div>
 
     <!-- Test Case Data -->
-    <div class="tabcontent" id="testMetrics">
+    <div class="section" id="test">
+      <h2 style="color:silver">Test Metrics</h2>
+      <div class="row"></div>
       <table id="tm" class="display tablecard" style="width:100%">
         <thead>
           <tr>
@@ -387,11 +460,11 @@
               style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">
               {{ test['Test Name'] }}</td>
             {% if (test['Status'] == "PASS") %}
-            <td> <button class="bpass">{{ test['Status'] }}</button></td>
+            <td style="color:rgb(84, 148, 84);">{{ test['Status'] }}</td>
             {% elif (test['Status'] == "FAIL") %}
-            <td> <button class="bfail">{{ test['Status'] }}</button></td>
+            <td style="color:rgb(175, 78, 78);">{{ test['Status'] }}</td>
             {% else %}
-            <td> <button class="bskip">{{ test['Status'] }}</button></td>
+            <td style="color:rgb(145, 114, 57);">{{ test['Status'] }}</td>
             {% endif %}
             <td>{{ (test['Time']/1000)|round(2) }}</td>
             <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;font-size: 12px">{{
@@ -406,7 +479,9 @@
     </div>
 
     <!-- Keyword Average -->
-    <div class="tabcontent" id="keywordMetricsTime">
+    <div class="section" id="kwtimes">
+      <h2 style="color:silver">KW Times Metrics</h2>
+      <div class="row"></div>
       <table id="kmt" class="display tablecard" style="width:100%">
         <thead>
           <tr>
@@ -437,122 +512,102 @@
   </div>
 
 
-  <!-- Bootstrap core JavaScript
-    ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script>
-    function openPage(pageName, elmnt, color) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablink");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].style.color = "";
-      }
-      document.getElementById(pageName).style.display = "block";
-      elmnt.style.color = color;
 
+
+
+
+  <script>
+    const breadcrumbMap = {
+      dashboard: "Dashboard",
+      suite: "Suite",
+      test: "Test",
+      kwtimes: "KW Times"
+    };
+
+    function showSection(targetId) {
+      // Remove active class from all links and sections
+      document.querySelectorAll('.sidebar .nav-link').forEach(link => link.classList.remove('active'));
+      document.querySelectorAll('.content .section').forEach(section => section.style.display = 'none');
+
+      // Add active class to the clicked link and show the corresponding section
+      document.querySelector(`.sidebar .nav-link[href="#${targetId}"]`).classList.add('active');
+      document.getElementById(targetId).style.display = 'block';
+
+      // Update the breadcrumb
+      const breadcrumbText = breadcrumbMap[targetId] || "Dashboard";
+      document.getElementById('breadcrumb').innerHTML = `
+      <li class="breadcrumb-item section"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">${breadcrumbText}</li>`;
     }
-    document.getElementById("defaultOpen").click();
-  </script>
-  <script>
-    document.getElementById("defaultOpen").click();
-  </script>
 
-  <script>
+    // Event listener for hash change and initial load
+    window.addEventListener('hashchange', () => {
+      const targetId = window.location.hash.replace('#', '') || 'dashboard';
+      showSection(targetId);
+    });
 
-    function executeDataTable(tabname, sortCol) {
-      var fileTitle;
-      switch (tabname) {
-        case "#sm":
-          fileTitle = "SuiteMetrics";
-          break;
-        case "#tm":
-          fileTitle = "TestMetrics";
-          break;
-        case "#km":
-          fileTitle = "KeywordMetrics";
-          break;
-        default:
-          fileTitle = "Metrics";
-      }
+    // Initial load based on hash or default to 'dashboard'
+    document.addEventListener('DOMContentLoaded', () => {
+      const targetId = window.location.hash.replace('#', '') || 'dashboard';
+      showSection(targetId);
+    });
 
-      $(tabname).DataTable({
-
-        initComplete: function () {
-          var api = this.api();
-
-          api.columns().every(function () {
-            var column = this;
-            var title = $(column.footer()).text();
-
-            // Create jQuery input element
-            var $input = $('<input>').attr('placeholder', title);
-
-            // Replace footer content with the input field
-            $(column.footer()).empty().append($input);
-
-            // Event listener for user input
-            $input.on('keyup', function () {
-              if (column.search() !== this.value) {
-                column.search(this.value).draw();
-              }
-            });
-          });
-        },
-        retrieve: true,
-        "order": [[Number(sortCol), "desc"]],
-        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-        dom: 'l<".margin" B>frtip',
+    // Initialize DataTables
+    $(document).ready(function () {
+      // Initialize DataTables
+      $('#sm, #tm, #kmt').DataTable({
+        dom: '<"top"lfB>rtip',
+        order: [[0, 'asc']],
         buttons: [
           {
-            extend: 'copyHtml5',
-            text: '<span style="font-size: 15px; color: green;"><i class="fa fa-files-o"></i></span>',
+            extend: 'copy',
+            className: 'copyButton dt-button',
+            text: 'Copy',
             filename: function () {
-              return fileTitle + '-' + new Date().toLocaleString();
-            },
-            titleAttr: 'Copy',
-            exportOptions: {
-              columns: ':visible'
-            }
-          },
-          {
-            extend: 'csvHtml5',
-            text: '<span style="font-size: 15px; color: red;"><i class="fa fa-file-text-o"></i></span>',
-            titleAttr: 'CSV',
-            filename: function () {
-              return fileTitle + '-' + new Date().toLocaleString();
+              return "Metrics" + '-' + new Date().toLocaleString();
             },
             exportOptions: {
               columns: ':visible'
             }
           },
           {
-            extend: 'excelHtml5',
-            text: '<span style="font-size: 15px; color: blue;"> <i class="fa fa-file-excel-o"></i></span>',
-            titleAttr: 'Excel',
+            extend: 'csv',
+            className: 'csvButton dt-button',
+            text: 'CSV',
             filename: function () {
-              return fileTitle + '-' + new Date().toLocaleString();
+              return "Metrics" + '-' + new Date().toLocaleString();
             },
             exportOptions: {
               columns: ':visible'
+            }
+          },
+          {
+            extend: 'excel',
+            className: 'excelButton dt-button',
+            text: 'Excel',
+            filename: function () {
+              return "Metrics" + '-' + new Date().toLocaleString();
+            },
+            exportOptions: {
+              columns: ':visible',
             }
           },
           {
             extend: 'print',
-            text: '<span style="font-size: 15px; color: orange;"><i class="fa fa-print"></i></span>',
-            titleAttr: 'Print',
+            className: 'printButton dt-button',
+            text: 'Print',
+            filename: function () {
+              return "Metrics" + '-' + new Date().toLocaleString();
+            },
             exportOptions: {
               columns: ':visible',
               alignment: 'left',
@@ -560,189 +615,194 @@
           },
           {
             extend: 'colvis',
-            collectionLayout: 'fixed two-column',
-            text: '<span style="font-size: 15px; color: indigo;"><i class="fa fa-low-vision"></i></span>',
-            titleAttr: 'Hide Column',
-            exportOptions: {
-              columns: ':visible'
-            },
+            className: 'colviButton dt-button',
+            text: 'Hide',
             postfixButtons: ['colvisRestore']
-          },
+          }
         ],
-        columnDefs: [{
-          visible: false,
-        }]
-      }
-      );
+        lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+        responsive: true,
+        initComplete: function () {
+          this.api().columns().every(function () {
+            var column = this;
+            $('input', this.footer()).on('keyup change', function () {
+              if (column.search() !== this.value) {
+                column.search(this.value).draw();
+              }
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    window.onload = function () {
+      barChart('#suitePie', "{{suite_stats['Pass']}}", "{{suite_stats['Fail']}}", "{{suite_stats['Skip']}}");
+      pieChart('#testPie', "{{test_stats['Pass']}}", "{{test_stats['Fail']}}", "{{test_stats['Skip']}}");
+      barChart('#keywordPie', "{{kw_stats['Pass']}}", "{{kw_stats['Fail']}}", "{{kw_stats['Skip']}}");
+    };
+  </script>
+  <script>
+    function pieChart(chartID, passed, failed, skipped) {
+      var options = {
+        series: [parseInt(passed), parseInt(failed), parseInt(skipped)],
+        chart: {
+          type: 'donut',
+          width: 300,
+        },
+        labels: ["Pass", "Fail", "Skip"],
+        legend: {
+          show: false,
+        },
+        colors: ['#2ecc71', '#fc6666', '#ffa500'],
+      };
+
+      var chart = new ApexCharts(document.querySelector(chartID), options);
+      chart.render();
     }
   </script>
-</body>
-<script>
-  window.onload = function () {
-    barChart('#suitePie', "{{suite_stats['Pass']}}", "{{suite_stats['Fail']}}", "{{suite_stats['Skip']}}");
-    pieChart('#testPie', "{{test_stats['Pass']}}", "{{test_stats['Fail']}}", "{{test_stats['Skip']}}");
-    barChart('#keywordPie', "{{kw_stats['Pass']}}", "{{kw_stats['Fail']}}", "{{kw_stats['Skip']}}");
-  };
-</script>
-<script>
-  function pieChart(chartID, passed, failed, skipped) {
-    var options = {
-      series: [parseInt(passed), parseInt(failed), parseInt(skipped)],
-      chart: {
-        type: 'donut',
-        width: 300,
-      },
-      labels: ["Pass", "Fail", "Skip"],
-      legend: {
-        show: false,
-      },
-      colors: ['#2ecc71', '#fc6666', '#ffa500'],
-    };
-
-    var chart = new ApexCharts(document.querySelector(chartID), options);
-    chart.render();
-  }
-</script>
-<script>
-  function barChart(chartID, passed, failed, skipped) {
-    var options = {
-      series: [{
-        name: 'Pass',
-        data: [parseInt(passed)]
-      },
-      {
-        name: 'Fail',
-        data: [parseInt(failed)]
-      },
-      {
-        name: 'Skip',
-        data: [parseInt(skipped)]
-      }],
-      chart: {
-        type: 'bar',
-        height: 120,
-        stacked: true,
-        toolbar: {
-          show: false
+  <script>
+    function barChart(chartID, passed, failed, skipped) {
+      var options = {
+        series: [{
+          name: 'Pass',
+          data: [parseInt(passed)]
         },
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          dataLabels: {
-            total: {
-              enabled: true,
-              offsetX: 0,
-              style: {
-                fontSize: '12px',
-                fontWeight: 100
+        {
+          name: 'Fail',
+          data: [parseInt(failed)]
+        },
+        {
+          name: 'Skip',
+          data: [parseInt(skipped)]
+        }],
+        chart: {
+          type: 'bar',
+          height: 120,
+          stacked: true,
+          toolbar: {
+            show: false
+          },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            dataLabels: {
+              total: {
+                enabled: true,
+                offsetX: 0,
+                style: {
+                  fontSize: '12px',
+                  fontWeight: 100
+                }
               }
             }
+          },
+        },
+        stroke: {
+          width: 2,
+          colors: ['#fff']
+        },
+        labels: [""],
+        legend: {
+          show: false,
+        },
+        colors: ['#2ecc71', '#fc6666', '#ffa500'],
+      };
+
+      var chart = new ApexCharts(document.querySelector(chartID), options);
+      chart.render();
+    }
+  </script>
+  <script>
+    var passArray = [];
+    var failArray = [];
+    var catgArray = [];
+
+    {% for key, value in suite_error_stats.iterrows() %}
+    {% if (value['Name'] != "") %}
+    catgArray.push("{{value['Name']}}");
+    passArray.push({{ value['percent']| round(2) }});
+    failArray.push({{ value['Fail']}});
+    {% endif %}
+    {% endfor %}
+
+    var options = {
+      series: [{
+        name: 'Fail Percentage',
+        data: passArray,
+        type: "line"
+      }, {
+        name: 'Fail',
+        data: failArray,
+        type: "column"
+      }],
+      chart: {
+        type: 'line',
+        height: 350,
+        // stacked: true,
+      },
+
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: 'center',
+            hideOverflowingLabels: true
           }
         },
       },
-      stroke: {
-        width: 2,
-        colors: ['#fff']
+      colors: ['#2ecc71', '#fc6666'],
+      xaxis: {
+        categories: catgArray,
+        tickPlacement: 'off',
+        labels: {
+          show: false,
+          trim: true
+        }
       },
-      labels: [""],
-      legend: {
-        show: false,
+      yaxis: [{
+        title: {
+          text: 'Suite Fail Percentage',
+        },
+
+      }, {
+        opposite: true,
+        title: {
+          text: 'Suite Fail Count'
+        }
+      }],
+      fill: {
+        opacity: 0.9
       },
-      colors: ['#2ecc71', '#fc6666', '#ffa500'],
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val
+          }
+        },
+        x: {
+          show: true
+        }
+      }
     };
 
-    var chart = new ApexCharts(document.querySelector(chartID), options);
+    var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
     chart.render();
-  }
-</script>
-<script>
-  var passArray = [];
-  var failArray = [];
-  var catgArray = [];
 
-  {% for key, value in suite_error_stats.iterrows() %}
-  {% if (value['Name'] != "") %}
-  catgArray.push("{{value['Name']}}");
-  passArray.push({{ value['percent']| round(2) }});
-  failArray.push({{ value['Fail']}});
-  {% endif %}
-  {% endfor %}
-
-  var options = {
-    series: [{
-      name: 'Fail Percentage',
-      data: passArray,
-      type: "line"
-    }, {
-      name: 'Fail',
-      data: failArray,
-      type: "column"
-    }],
-    chart: {
-      type: 'line',
-      height: 350,
-      // stacked: true,
-    },
-
-    plotOptions: {
-      bar: {
-        dataLabels: {
-          position: 'center',
-          hideOverflowingLabels: true
-        }
-      },
-    },
-    colors: ['#2ecc71', '#fc6666'],
-    xaxis: {
-      categories: catgArray,
-      tickPlacement: 'off',
-      labels: {
-        show: false,
-        trim: true
-      }
-    },
-    yaxis: [{
-      title: {
-        text: 'Suite Fail Percentage',
-      },
-
-    }, {
-      opposite: true,
-      title: {
-        text: 'Suite Fail Count'
-      }
-    }],
-    fill: {
-      opacity: 0.9
-    },
-    tooltip: {
-      y: {
-        formatter: function (val) {
-          return val
-        }
-      },
-      x: {
-        show: true
-      }
+  </script>
+  <script>
+    function openInNewTab(url, element_id) {
+      var element_id = element_id;
+      var win = window.open(url, '_blank');
+      win.focus();
+      $('body').scrollTo(element_id);
     }
-  };
+  </script>
+  <script>
+    $(window).on('load', function () { $('.loader').fadeOut(); });
+  </script>
 
-  var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
-  chart.render();
-
-</script>
-<script>
-  function openInNewTab(url, element_id) {
-    var element_id = element_id;
-    var win = window.open(url, '_blank');
-    win.focus();
-    $('body').scrollTo(element_id);
-  }
-</script>
-
-<script>
-  $(window).on('load', function () { $('.loader').fadeOut(); });
-</script>
+</body>
 
 </html>
