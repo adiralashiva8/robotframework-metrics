@@ -211,6 +211,13 @@
     .skip {
       color: orange;
     }
+
+    .td_left {
+      word-wrap: break-word;
+      max-width: 250px;
+      white-space: normal;
+      text-align: left;
+    }
   </style>
 </head>
 
@@ -242,14 +249,6 @@
 
   <!-- Content Area -->
   <div class="content">
-
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb" id="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-      </ol>
-    </nav>
 
     <div class="section" id="dashboard">
       <h2 style="color:silver">Dashboard</h2>
@@ -404,9 +403,9 @@
         <tbody>
           {% for suite in suites %}
           <tr>
-            <td data-toggle="tooltip" title="{{ suite['Name'] }}"
+            <td class="td_left" data-toggle="tooltip" title="{{ suite['Name'] }}"
               onclick="openInNewTab('{{ log_name }}#{{ suite['Id'] }}','#{{ suite['Id'] }}')"
-              style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">
+              style="cursor: pointer; color:blue;">
               {{ suite['Name'] }}</td>
             {% if (suite['Status'] == "PASS") %}
             <td style="color: green">{{ suite['Status'] }}</td>
@@ -433,7 +432,7 @@
       <table id="tm" class="display tablecard" style="width:100%">
         <thead>
           <tr>
-            <!-- <th>Suite Name</th> -->
+            <th>Suite Name</th>
             <th>Test Name</th>
             <th>Status</th>
             <th>Time (s)</th>
@@ -443,6 +442,7 @@
         </thead>
         <tfoot>
           <tr>
+            <th><input type="text" placeholder="Search Suite" /></th>
             <th><input type="text" placeholder="Search Name" /></th>
             <th><input type="text" placeholder="Search Status" /></th>
             <th></th>
@@ -453,24 +453,22 @@
         <tbody>
           {% for test in tests %}
           <tr>
-            <!-- <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Suite
-              Name'] }}</td> -->
-            <td data-toggle="tooltip" title="{{ test['Test Name'] }}"
+            <td class="td_left">{{ test['Suite Name'] }}</td>
+            <td class="td_left" data-toggle="tooltip" title="{{ test['Test Name'] }}"
               onclick="openInNewTab('{{ log_name }}#{{ test['Test Id'] }}','#{{ test['Test Id'] }}')"
-              style="word-wrap: break-word;max-width: 250px; white-space: normal; cursor: pointer; color:blue; text-align: left;">
+              style="cursor: pointer; color:blue;">
               {{ test['Test Name'] }}</td>
             {% if (test['Status'] == "PASS") %}
-            <td style="color:rgb(84, 148, 84);">{{ test['Status'] }}</td>
+            <td style="color:green">{{ test['Status'] }}</td>
             {% elif (test['Status'] == "FAIL") %}
-            <td style="color:rgb(175, 78, 78);">{{ test['Status'] }}</td>
+            <td style="color:red">{{ test['Status'] }}</td>
             {% else %}
-            <td style="color:rgb(145, 114, 57);">{{ test['Status'] }}</td>
+            <td style="color:orange">{{ test['Status'] }}</td>
             {% endif %}
             <td>{{ (test['Time']/1000)|round(2) }}</td>
-            <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;font-size: 12px">{{
+            <td class="td_left" style="font-size: 12px">{{
               test['Message'] }}</td>
-            <td class="{{hide_tags}}"
-              style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ test['Tags'] }}
+            <td class="{{hide_tags}} td_left">{{ test['Tags'] }}
             </td>
           </tr>
           {% endfor %}
@@ -496,8 +494,7 @@
           {% if not keyword_times.empty %}
           {% for key, value in keyword_times.iterrows() %}
           <tr>
-            <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">{{ value['Name']
-              }}</td>
+            <td class="td_left">{{ value['Name'] }}</td>
             <td>{{ value['times'] }}</td>
             <td>{{ (value['time_min']/1000)|round(2) }}</td>
             <td>{{ (value['time_max']/1000)|round(2) }}</td>
@@ -526,12 +523,6 @@
 
 
   <script>
-    const breadcrumbMap = {
-      dashboard: "Dashboard",
-      suite: "Suite",
-      test: "Test",
-      kwtimes: "KW Times"
-    };
 
     function showSection(targetId) {
       // Remove active class from all links and sections
@@ -542,11 +533,6 @@
       document.querySelector(`.sidebar .nav-link[href="#${targetId}"]`).classList.add('active');
       document.getElementById(targetId).style.display = 'block';
 
-      // Update the breadcrumb
-      const breadcrumbText = breadcrumbMap[targetId] || "Dashboard";
-      document.getElementById('breadcrumb').innerHTML = `
-      <li class="breadcrumb-item section"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">${breadcrumbText}</li>`;
     }
 
     // Event listener for hash change and initial load
