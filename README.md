@@ -113,10 +113,6 @@ cd robotframework-metrics
 python setup.py install
 ```
 
-__DOCKER__: (WIP)
-```
-docker pull adiralashiva8/robotframework-metrics:latest
-```
 
 <!-- Usage -->
 ## 👀 Usage
