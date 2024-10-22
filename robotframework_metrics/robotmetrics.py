@@ -9,6 +9,7 @@ from .test_results import TestResults
 from .keyword_results import KeywordResults
 from .keyword_times import KeywordTimes
 from .dashboard_stats import Dashboard
+from .details import SuiteReportVisitor
 
 templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 file_loader = FileSystemLoader(templates_dir)
@@ -21,7 +22,7 @@ IGNORE_LIBRARIES = ["SeleniumLibrary", "BuiltIn",
 
 IGNORE_TYPES = ['FOR ITERATION', 'FOR', 'for', 'foritem']
 
-suite_list, test_list, kw_list, kw_times = [], [], [], []
+suite_list, test_list, kw_list, kw_times, details_list = [], [], [], [], []
 
 def generate_report(opts):
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
@@ -109,12 +110,15 @@ def generate_report(opts):
     else:
         hide_docs = "hide"
 
-    logging.info(" 4 of 4: Preparing data for dashboard")
+    logging.info(" 4 of 4: Capturing details")
+    result.visit(SuiteReportVisitor(details_list))
+
+    logging.info(" Preparing data for dashboard")
     dashboard_obj = Dashboard()
     suite_stats = dashboard_obj.get_suite_statistics(suite_list)
     test_stats = dashboard_obj.get_test_statistics(test_list)
     kw_stats = dashboard_obj.get_keyword_statistics(kw_list)
-    error_stats = dashboard_obj.group_error_messages(test_list)
+    # error_stats = dashboard_obj.group_error_messages(test_list)
     suite_error_stats = dashboard_obj.suite_error_statistics(suite_list)
     # print(suite_error_stats)
 
@@ -133,7 +137,8 @@ def generate_report(opts):
             tests = test_list,
             # keywords = kw_list,
             keyword_times = kw_times,
-            error_stats = error_stats,
+            # error_stats = error_stats,
             suite_error_stats = suite_error_stats,
+            suites_list = details_list
         ))
     logging.info(" Results file created successfully and can be found at {}".format(result_file))
