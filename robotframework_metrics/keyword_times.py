@@ -6,7 +6,7 @@ class KeywordTimes():
         keywords_data_frame = pd.DataFrame.from_records(kw_list)
         if not keywords_data_frame.empty:
             kw_times = (keywords_data_frame.groupby("Name").agg(times = ("Time", "count"), time_min = ("Time", "min"),
-            time_max = ("Time", "max"), time_mean = ("Time", "mean")).reset_index())
+            time_max = ("Time", "max"), time_mean = ("Time", "mean"), fail_count=("Status", lambda x: (x == "FAIL").sum())).reset_index())
         else:
             kw_times = keywords_data_frame
         return kw_times
