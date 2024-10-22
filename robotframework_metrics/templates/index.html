@@ -109,7 +109,6 @@
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      margin: 4px 2px;
     }
 
     .dt-button.copyButton {
@@ -130,11 +129,6 @@
 
     .dt-button.colviButton {
       background-color: gainsboro;
-    }
-
-    .tablecard {
-      background-color: white;
-      font-size: 14px;
     }
 
     th,
@@ -162,12 +156,15 @@
       padding-left: 5px;
     }
 
-    .card-table {
+    .card-table,
+    .suite-table,
+    .ecard-table {
       width: 100%;
     }
 
-    .ecard-table {
-      width: 100%;
+    .suite-table th {
+      width: 25%;
+      color: #666;
     }
 
     .ecard-table tr {
@@ -200,15 +197,18 @@
       color: brown;
     }
 
-    .pass {
+    .pass,
+    .text-success {
       color: green;
     }
 
-    .fail {
+    .fail,
+    .text-danger {
       color: red;
     }
 
-    .skip {
+    .skip,
+    .text-warning {
       color: orange;
     }
 
@@ -218,7 +218,137 @@
       white-space: normal;
       text-align: left;
     }
+
+    .suite-list,
+    .suite-details {
+      padding: 10px;
+    }
+
+    .scroll {
+      height: 800px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .suite-card,
+    .test-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .suite-card:hover,
+    .test-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .suite-card.pass .card-body,
+    .test-item.pass .card-body {
+      border-left: 5px solid green;
+    }
+
+    .suite-card.fail .card-body,
+    .test-item.fail .card-body {
+      border-left: 5px solid red;
+    }
+
+    .suite-card.skip .card-body,
+    .test-item.skip .card-body {
+      border-left: 5px solid orange;
+    }
+
+    .test-details p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .keyword-item {
+      padding-left: 20px;
+      font-size: 0.85rem;
+      color: #d9534f;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+      overflow-y: auto;
+    }
+
+    .suite-tracker {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .suite-card {
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .suite-card.pass {
+      background-color: #e6f4ea;
+      color: #2e7d32;
+    }
+
+    .suite-card.fail {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+
+    .suite-card.skip {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    .filter-buttons button {
+      padding: 8px 12px;
+      margin-right: 5px;
+      border: 1px solid #ddd;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .filter-buttons button:hover {
+      background-color: #ddd;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .error-message-box {
+      border-left: 5px solid #f5c2c7;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      color: #842029;
+      font-size: 0.85rem;
+    }
+
+    .title {
+      word-wrap: break-word;
+    }
   </style>
+
 </head>
 
 <body>
@@ -244,6 +374,10 @@
     <a class="nav-link" data-target="kwtimes" href="#kwtimes" style="color:tomato">
       <i class="icon fas fa-stopwatch"></i>
       <div class="count">KW Times</div>
+    </a>
+    <a class="nav-link" data-target="details" href="#details" style="color:burlywood">
+      <i class="icon fas fa-info-circle"></i>
+      <div class="count">Details</div>
     </a>
   </div>
 
@@ -335,29 +469,7 @@
 
 
         <div class="row"></div>
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <div class="col-md-12 rowcard">
-              <span class="card-header-new">Top 5 Common Failures:</span>
-              <table class="ecard-table" style="font-size:12px">
-                <tr>
-                  <th>Error Message</th>
-                  <th>Occurence</th>
-                </tr>
-                {% for key, value in error_stats.iterrows() %}
-                {% if (value['Message'] != "") %}
-                <tr>
-                  <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
-                    {{value['Message']}}</td>
-                  <td>{{value['times']}}</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-              </table>
-            </div>
-          </div>
 
-        </div> -->
       </div>
       <div class="row"></div>
       <div class="row">
@@ -485,6 +597,7 @@
           <tr>
             <th>Keyword Name</th>
             <th>Times</th>
+            <th>Fail Count</th>
             <th>Min Duration(s)</th>
             <th>Max Duration(s)</th>
             <th>Average Duration(s)</th>
@@ -496,6 +609,7 @@
           <tr>
             <td class="td_left">{{ value['Name'] }}</td>
             <td>{{ value['times'] }}</td>
+            <td>{{ value['fail_count'] }}</td>
             <td>{{ (value['time_min']/1000)|round(2) }}</td>
             <td>{{ (value['time_max']/1000)|round(2) }}</td>
             <td>{{ (value['time_mean']/1000)|round(2) }}</td>
@@ -506,288 +620,416 @@
       </table>
     </div>
 
-  </div>
+    <div class="section" id="details">
+      <h2 class="details-title">Details</h2>
+      <div class="search-container">
+        <input type="text" hidden id="suiteSearch" placeholder="Search suites..." onkeyup="filterSuites()">
+      </div>
+
+      <!-- Status Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="total" onclick="filterByStatus('all')">All</button>
+        <button class="pass" onclick="filterByStatus('pass')">Pass</button>
+        <button class="fail" onclick="filterByStatus('fail')">Fail</button>
+        <button class="skip" onclick="filterByStatus('skip')">Skip</button>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 scroll suite-tracker">
+          <div class="suite-list" id="suiteList">
+            {% for suite in suites_list %}
+            {% if suite['tests'] %}
+            <div class="card suite-card {{ suite['status']|lower }}" id="{{ suite['suite_id'] }}"
+              data-status="{{ suite['status']|lower }}" onclick="updateDetails('{{ suite['suite_id'] }}')">
+              <div class="title">{{ suite["suite_name"] }}</div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="col-md-8 scroll">
+          <div class="suite-details">
+            <div id="suite-description">
+              {% for suite in suites_list %}
+              {% if suite['tests'] %}
+              <div class="suite-content" id="{{ suite['suite_id'] }}_details" style="display: none;">
+                <h4 class="title" style="color:gray">{{ suite['suite_name'] }}</h4>
+                <table class="suite-table">
+                  <thead>
+                    <tr>
+                      <th>Total</th>
+                      <th>Pass</th>
+                      <th>Fail</th>
+                      <th>Skip</th>
+                      <th>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><b>{{ suite['total'] }}</b></td>
+                      <td class="text-success"><b>{{ suite['pass_count'] }}</b></td>
+                      <td class="text-danger"><b>{{ suite['fail_count'] }}</b></td>
+                      <td class="text-warning"><b>{{ suite['skip_count'] }}</b></td>
+                      <td>{{ suite['elapsed_time'] }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row"></div>
+                {% for test in suite['tests'] %}
+                <div class="card test-item">
+                  <div class="card-body">
+                    <h5 class="test-name {{ test['status']|lower }} title">{{ test["test_name"] }}</h5>
+                    <div class="test-details">
+                      <p><b>Duration:</b> {{ test['elapsed_time'] }}</p>
+                      <p><b>Tags:</b> {{ test['tags'] }}</p>
+                      {% if test['status'] == "FAIL" %}
+                      <p><b>Message:</b></p>
+                      <div class="error-message-box">
+                        <p> {{ test['message'] }}</p>
+                      </div>
+                      <div>
+                        <p><b>Failed Keywords:</b></p>
+                        <div class="card-body">
+                          {% for keyword in test['keywords'] %}
+                          {% if keyword['keyword_status'] == "FAIL" %}
+                          <p class="text-danger title">{{ keyword['keyword_name'] }}</p>
+                          {% endif %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 
 
-  <script>
+    <script>
 
-    function showSection(targetId) {
-      // Remove active class from all links and sections
-      document.querySelectorAll('.sidebar .nav-link').forEach(link => link.classList.remove('active'));
-      document.querySelectorAll('.content .section').forEach(section => section.style.display = 'none');
+      function showSection(targetId) {
+        // Remove active class from all links and sections
+        document.querySelectorAll('.sidebar .nav-link').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('.content .section').forEach(section => section.style.display = 'none');
 
-      // Add active class to the clicked link and show the corresponding section
-      document.querySelector(`.sidebar .nav-link[href="#${targetId}"]`).classList.add('active');
-      document.getElementById(targetId).style.display = 'block';
+        // Add active class to the clicked link and show the corresponding section
+        document.querySelector(`.sidebar .nav-link[href="#${targetId}"]`).classList.add('active');
+        document.getElementById(targetId).style.display = 'block';
 
-    }
+      }
 
-    // Event listener for hash change and initial load
-    window.addEventListener('hashchange', () => {
-      const targetId = window.location.hash.replace('#', '') || 'dashboard';
-      showSection(targetId);
-    });
-
-    // Initial load based on hash or default to 'dashboard'
-    document.addEventListener('DOMContentLoaded', () => {
-      const targetId = window.location.hash.replace('#', '') || 'dashboard';
-      showSection(targetId);
-    });
-
-    // Initialize DataTables
-    $(document).ready(function () {
-      // Initialize DataTables
-      $('#sm, #tm, #kmt').DataTable({
-        dom: '<"top"lfB>rtip',
-        order: [[0, 'asc']],
-        buttons: [
-          {
-            extend: 'copy',
-            className: 'copyButton dt-button',
-            text: 'Copy',
-            filename: function () {
-              return "Metrics" + '-' + new Date().toLocaleString();
-            },
-            exportOptions: {
-              columns: ':visible'
-            }
-          },
-          {
-            extend: 'csv',
-            className: 'csvButton dt-button',
-            text: 'CSV',
-            filename: function () {
-              return "Metrics" + '-' + new Date().toLocaleString();
-            },
-            exportOptions: {
-              columns: ':visible'
-            }
-          },
-          {
-            extend: 'excel',
-            className: 'excelButton dt-button',
-            text: 'Excel',
-            filename: function () {
-              return "Metrics" + '-' + new Date().toLocaleString();
-            },
-            exportOptions: {
-              columns: ':visible',
-            }
-          },
-          {
-            extend: 'print',
-            className: 'printButton dt-button',
-            text: 'Print',
-            filename: function () {
-              return "Metrics" + '-' + new Date().toLocaleString();
-            },
-            exportOptions: {
-              columns: ':visible',
-              alignment: 'left',
-            }
-          },
-          {
-            extend: 'colvis',
-            className: 'colviButton dt-button',
-            text: 'Hide',
-            postfixButtons: ['colvisRestore']
-          }
-        ],
-        lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
-        responsive: true,
-        initComplete: function () {
-          this.api().columns().every(function () {
-            var column = this;
-            $('input', this.footer()).on('keyup change', function () {
-              if (column.search() !== this.value) {
-                column.search(this.value).draw();
-              }
-            });
-          });
-        }
+      // Event listener for hash change and initial load
+      window.addEventListener('hashchange', () => {
+        const targetId = window.location.hash.replace('#', '') || 'dashboard';
+        showSection(targetId);
       });
-    });
-  </script>
 
-  <script>
-    window.onload = function () {
-      barChart('#suitePie', "{{suite_stats['Pass']}}", "{{suite_stats['Fail']}}", "{{suite_stats['Skip']}}");
-      pieChart('#testPie', "{{test_stats['Pass']}}", "{{test_stats['Fail']}}", "{{test_stats['Skip']}}");
-      barChart('#keywordPie', "{{kw_stats['Pass']}}", "{{kw_stats['Fail']}}", "{{kw_stats['Skip']}}");
-    };
-  </script>
-  <script>
-    function pieChart(chartID, passed, failed, skipped) {
-      var options = {
-        series: [parseInt(passed), parseInt(failed), parseInt(skipped)],
-        chart: {
-          type: 'donut',
-          width: 300,
-        },
-        labels: ["Pass", "Fail", "Skip"],
-        legend: {
-          show: false,
-        },
-        colors: ['#2ecc71', '#fc6666', '#ffa500'],
+      // Initial load based on hash or default to 'dashboard'
+      document.addEventListener('DOMContentLoaded', () => {
+        const targetId = window.location.hash.replace('#', '') || 'dashboard';
+        showSection(targetId);
+      });
+
+      // Initialize DataTables
+      $(document).ready(function () {
+        // Initialize DataTables
+        $('#sm, #tm, #kmt').DataTable({
+          dom: '<"top"lfB>rtip',
+          order: [[2, 'desc']],
+          buttons: [
+            {
+              extend: 'copy',
+              className: 'copyButton dt-button',
+              text: 'Copy',
+              filename: function () {
+                return "Metrics" + '-' + new Date().toLocaleString();
+              },
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            {
+              extend: 'csv',
+              className: 'csvButton dt-button',
+              text: 'CSV',
+              filename: function () {
+                return "Metrics" + '-' + new Date().toLocaleString();
+              },
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            {
+              extend: 'excel',
+              className: 'excelButton dt-button',
+              text: 'Excel',
+              filename: function () {
+                return "Metrics" + '-' + new Date().toLocaleString();
+              },
+              exportOptions: {
+                columns: ':visible',
+              }
+            },
+            {
+              extend: 'print',
+              className: 'printButton dt-button',
+              text: 'Print',
+              filename: function () {
+                return "Metrics" + '-' + new Date().toLocaleString();
+              },
+              exportOptions: {
+                columns: ':visible',
+                alignment: 'left',
+              }
+            },
+            {
+              extend: 'colvis',
+              className: 'colviButton dt-button',
+              text: 'Hide',
+              postfixButtons: ['colvisRestore']
+            }
+          ],
+          lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+          responsive: true,
+          initComplete: function () {
+            this.api().columns().every(function () {
+              var column = this;
+              $('input', this.footer()).on('keyup change', function () {
+                if (column.search() !== this.value) {
+                  column.search(this.value).draw();
+                }
+              });
+            });
+          }
+        });
+      });
+    </script>
+
+    <script>
+      window.onload = function () {
+        barChart('#suitePie', "{{suite_stats['Pass']}}", "{{suite_stats['Fail']}}", "{{suite_stats['Skip']}}");
+        pieChart('#testPie', "{{test_stats['Pass']}}", "{{test_stats['Fail']}}", "{{test_stats['Skip']}}");
+        barChart('#keywordPie', "{{kw_stats['Pass']}}", "{{kw_stats['Fail']}}", "{{kw_stats['Skip']}}");
       };
-
-      var chart = new ApexCharts(document.querySelector(chartID), options);
-      chart.render();
-    }
-  </script>
-  <script>
-    function barChart(chartID, passed, failed, skipped) {
-      var options = {
-        series: [{
-          name: 'Pass',
-          data: [parseInt(passed)]
-        },
-        {
-          name: 'Fail',
-          data: [parseInt(failed)]
-        },
-        {
-          name: 'Skip',
-          data: [parseInt(skipped)]
-        }],
-        chart: {
-          type: 'bar',
-          height: 120,
-          stacked: true,
-          toolbar: {
-            show: false
+    </script>
+    <script>
+      function pieChart(chartID, passed, failed, skipped) {
+        var options = {
+          series: [parseInt(passed), parseInt(failed), parseInt(skipped)],
+          chart: {
+            type: 'donut',
+            width: 300,
           },
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true,
-            dataLabels: {
-              total: {
-                enabled: true,
-                offsetX: 0,
-                style: {
-                  fontSize: '12px',
-                  fontWeight: 100
+          labels: ["Pass", "Fail", "Skip"],
+          legend: {
+            show: false,
+          },
+          colors: ['#2ecc71', '#fc6666', '#ffa500'],
+        };
+
+        var chart = new ApexCharts(document.querySelector(chartID), options);
+        chart.render();
+      }
+    </script>
+    <script>
+      function barChart(chartID, passed, failed, skipped) {
+        var options = {
+          series: [{
+            name: 'Pass',
+            data: [parseInt(passed)]
+          },
+          {
+            name: 'Fail',
+            data: [parseInt(failed)]
+          },
+          {
+            name: 'Skip',
+            data: [parseInt(skipped)]
+          }],
+          chart: {
+            type: 'bar',
+            height: 120,
+            stacked: true,
+            toolbar: {
+              show: false
+            },
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true,
+              dataLabels: {
+                total: {
+                  enabled: true,
+                  offsetX: 0,
+                  style: {
+                    fontSize: '12px',
+                    fontWeight: 100
+                  }
                 }
               }
+            },
+          },
+          stroke: {
+            width: 2,
+            colors: ['#fff']
+          },
+          labels: [""],
+          legend: {
+            show: false,
+          },
+          colors: ['#2ecc71', '#fc6666', '#ffa500'],
+        };
+
+        var chart = new ApexCharts(document.querySelector(chartID), options);
+        chart.render();
+      }
+    </script>
+    <script>
+      var passArray = [];
+      var failArray = [];
+      var catgArray = [];
+
+      {% for key, value in suite_error_stats.iterrows() %}
+      {% if (value['Name'] != "") %}
+      catgArray.push("{{value['Name']}}");
+      passArray.push({{ value['percent']| round(2) }});
+      failArray.push({{ value['Fail']}});
+      {% endif %}
+      {% endfor %}
+
+      var options = {
+        series: [{
+          name: 'Fail Percentage',
+          data: passArray,
+          type: "line"
+        }, {
+          name: 'Fail',
+          data: failArray,
+          type: "column"
+        }],
+        chart: {
+          type: 'line',
+          height: 350,
+          // stacked: true,
+        },
+
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              position: 'center',
+              hideOverflowingLabels: true
             }
           },
         },
-        stroke: {
-          width: 2,
-          colors: ['#fff']
+        colors: ['#2ecc71', '#fc6666'],
+        xaxis: {
+          categories: catgArray,
+          tickPlacement: 'off',
+          labels: {
+            show: false,
+            trim: true
+          }
         },
-        labels: [""],
-        legend: {
-          show: false,
+        yaxis: [{
+          title: {
+            text: 'Suite Fail Percentage',
+          },
+
+        }, {
+          opposite: true,
+          title: {
+            text: 'Suite Fail Count'
+          }
+        }],
+        fill: {
+          opacity: 0.9
         },
-        colors: ['#2ecc71', '#fc6666', '#ffa500'],
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val
+            }
+          },
+          x: {
+            show: true
+          }
+        }
       };
 
-      var chart = new ApexCharts(document.querySelector(chartID), options);
+      var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
       chart.render();
-    }
-  </script>
-  <script>
-    var passArray = [];
-    var failArray = [];
-    var catgArray = [];
 
-    {% for key, value in suite_error_stats.iterrows() %}
-    {% if (value['Name'] != "") %}
-    catgArray.push("{{value['Name']}}");
-    passArray.push({{ value['percent']| round(2) }});
-    failArray.push({{ value['Fail']}});
-    {% endif %}
-    {% endfor %}
-
-    var options = {
-      series: [{
-        name: 'Fail Percentage',
-        data: passArray,
-        type: "line"
-      }, {
-        name: 'Fail',
-        data: failArray,
-        type: "column"
-      }],
-      chart: {
-        type: 'line',
-        height: 350,
-        // stacked: true,
-      },
-
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            position: 'center',
-            hideOverflowingLabels: true
-          }
-        },
-      },
-      colors: ['#2ecc71', '#fc6666'],
-      xaxis: {
-        categories: catgArray,
-        tickPlacement: 'off',
-        labels: {
-          show: false,
-          trim: true
-        }
-      },
-      yaxis: [{
-        title: {
-          text: 'Suite Fail Percentage',
-        },
-
-      }, {
-        opposite: true,
-        title: {
-          text: 'Suite Fail Count'
-        }
-      }],
-      fill: {
-        opacity: 0.9
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return val
-          }
-        },
-        x: {
-          show: true
-        }
+    </script>
+    <script>
+      function openInNewTab(url, element_id) {
+        var element_id = element_id;
+        var win = window.open(url, '_blank');
+        win.focus();
+        $('body').scrollTo(element_id);
       }
-    };
+    </script>
+    <script>
+      $(window).on('load', function () { $('.loader').fadeOut(); });
+    </script>
+    <script>
+      function updateDetails(selectedSuite) {
+        // Hide all issue content divs
+        const contents = document.querySelectorAll('.suite-content');
+        contents.forEach(content => {
+          content.style.display = 'none';
+        });
 
-    var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
-    chart.render();
+        // Show the selected suite details
+        const selectedContent = document.getElementById(selectedSuite + '_details');
+        if (selectedContent) {
+          selectedContent.style.display = 'block';
+        }
 
-  </script>
-  <script>
-    function openInNewTab(url, element_id) {
-      var element_id = element_id;
-      var win = window.open(url, '_blank');
-      win.focus();
-      $('body').scrollTo(element_id);
-    }
-  </script>
-  <script>
-    $(window).on('load', function () { $('.loader').fadeOut(); });
-  </script>
+      }
+    </script>
+    <script>
+      function filterSuites() {
+        const searchInput = document.getElementById('suiteSearch').value.toLowerCase();
+        const suites = document.querySelectorAll('.suite-card');
+        suites.forEach(suite => {
+          const suiteName = suite.innerText.toLowerCase();
+          suite.style.display = suiteName.includes(searchInput) && isStatusVisible(suite) ? "" : "none";
+        });
+      }
+
+      function filterByStatus(status) {
+        document.querySelector('.filter-buttons').dataset.status = status;
+        filterSuites(); // Reapply filters to update visibility
+      }
+
+      function isStatusVisible(suite) {
+        const status = document.querySelector('.filter-buttons').dataset.status;
+        return status === 'all' || suite.dataset.status === status;
+      }
+    </script>
 
 </body>
 
