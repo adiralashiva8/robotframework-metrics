@@ -134,6 +134,7 @@
     th,
     td {
       text-align: center;
+      max-width: 100px;
     }
 
     .dt-buttons {
@@ -158,7 +159,8 @@
 
     .card-table,
     .suite-table,
-    .ecard-table {
+    .ecard-table,
+    .table {
       width: 100%;
     }
 
@@ -167,9 +169,16 @@
       color: #666;
     }
 
-    .ecard-table tr {
-      height: 35px;
+    .ecard-table tr,
+    .table tr {
+      height: 25px;
       padding-left: 5px;
+    }
+
+    .table td,
+    .table tr {
+      font-style: italic;
+      font-size: 14px;
     }
 
     .ecard-table tr:nth-child(even) {
@@ -389,7 +398,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="col-md-12 rowcard">
-            <span class="card-header-new">Test Statistics:</span>
+            <span class="card-header-new">Test Status:</span>
             <div class="col-md-12" style="display: flex; align-items: center; justify-content: center;">
               <div id="testPie"></div>
             </div>
@@ -420,12 +429,10 @@
 
         <div class="col-md-4">
           <div class="col-md-12">
-            <div class="col-md-12">
-              <div class="col-md-12 rowcard">
-                <span class="card-header-new">Suite Statistics:</span>
-                <div class="col-md-12">
-                  <div id="suitePie"></div>
-                </div>
+            <div class="col-md-12 rowcard">
+              <span class="card-header-new">Suite Status:</span>
+              <div class="col-md-12">
+                <div id="suitePie"></div>
               </div>
             </div>
           </div>
@@ -433,7 +440,7 @@
 
           <div class="col-md-12">
             <div class="col-md-12 rowcard">
-              <span class="card-header-new">Keyword Statistics:</span>
+              <span class="card-header-new">Keyword Status:</span>
               <div class="col-md-12">
                 <div id="keywordPie"></div>
               </div>
@@ -443,8 +450,8 @@
 
         <div class="col-md-4">
           <div class="col-md-12 rowcard">
-            <span class="card-header-new">Execution Duration(m):</span>
-            <table class="ecard-table">
+            <span class="card-header-new">Execution Duration (m):</span>
+            <table class="table">
               <tr>
                 <th>Type</th>
                 <th>Min</th>
@@ -452,16 +459,38 @@
                 <th>Avg</th>
               </tr>
               <tr>
-                <td style="text-align: left;">Suite</td>
-                <td>{{(suite_stats['Min']/60000)|round(2)}}</td>
-                <td>{{(suite_stats['Max']/60000)|round(2)}}</td>
-                <td>{{(suite_stats['Avg']/60000)|round(2)}}</td>
+                <td class="suite-list" style="text-align: left;">Suite</td>
+                <td class="suite-list">{{(suite_stats['Min']/60000)|round(2)}}</td>
+                <td class="suite-list">{{(suite_stats['Max']/60000)|round(2)}}</td>
+                <td class="suite-list">{{(suite_stats['Avg']/60000)|round(2)}}</td>
               </tr>
               <tr>
-                <td style="text-align: left;">Test</td>
-                <td>{{(test_stats['Min']/60000)|round(2)}}</td>
-                <td>{{(test_stats['Max']/60000)|round(2)}}</td>
-                <td>{{(test_stats['Avg']/60000)|round(2)}}</td>
+                <td class="suite-list" style="text-align: left;">Test</td>
+                <td class="suite-list">{{(test_stats['Min']/60000)|round(2)}}</td>
+                <td class="suite-list">{{(test_stats['Max']/60000)|round(2)}}</td>
+                <td class="suite-list">{{(test_stats['Avg']/60000)|round(2)}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="row"></div>
+          <div class="col-md-12 rowcard">
+            <span class="card-header-new">Execution Info:</span>
+            <table class="table">
+              <tr>
+                <th>Action</th>
+                <th>Time</th>
+              </tr>
+              <tr>
+                <td class="suite-list" style="text-align: left;">Start Time</td>
+                <td>{{ execution_stats[0] }}</td>
+              </tr>
+              <tr>
+                <td class="suite-list" style="text-align: left;">End Time</td>
+                <td>{{ execution_stats[1] }}</td>
+              </tr>
+              <tr>
+                <td class="suite-list" style="text-align: left;">Duration</td>
+                <td>{{ execution_stats[2] }}</td>
               </tr>
             </table>
           </div>
@@ -473,11 +502,19 @@
       </div>
       <div class="row"></div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div class="col-md-12 rowcard">
-            <span class="card-header-new">Top 10 Suite Failures:</span>
+            <span class="card-header-new">Top 10 Failed Suites:</span>
             <div class="col-md-12">
               <div id="suiteFailureLineID"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-12 rowcard">
+            <span class="card-header-new">Test Count By Elapsed Time:</span>
+            <div class="col-md-12">
+              <div id="testExecutionTrends"></div>
             </div>
           </div>
         </div>
@@ -544,12 +581,12 @@
       <table id="tm" class="display tablecard" style="width:100%">
         <thead>
           <tr>
-            <th>Suite Name</th>
-            <th>Test Name</th>
-            <th>Status</th>
-            <th>Time (s)</th>
-            <th>Message</th>
-            <th class="{{hide_tags}}">Tags</th>
+            <th style="width: 20%;">Suite Name</th>
+            <th style="width: 20%;">Test Name</th>
+            <th style="width: 10%;">Status</th>
+            <th style="width: 10%;">Time (s)</th>
+            <th style="width: 20%;">Message</th>
+            <th style="width: 20%;" class="{{hide_tags}}">Tags</th>
           </tr>
         </thead>
         <tfoot>
@@ -565,10 +602,10 @@
         <tbody>
           {% for test in tests %}
           <tr>
-            <td class="td_left">{{ test['Suite Name'] }}</td>
+            <td class="td_left" style="width: 200px;">{{ test['Suite Name'] }}</td>
             <td class="td_left" data-toggle="tooltip" title="{{ test['Test Name'] }}"
               onclick="openInNewTab('{{ log_name }}#{{ test['Test Id'] }}','#{{ test['Test Id'] }}')"
-              style="cursor: pointer; color:blue;">
+              style="cursor: pointer; color:blue;width: 200px;">
               {{ test['Test Name'] }}</td>
             {% if (test['Status'] == "PASS") %}
             <td style="color:green">{{ test['Status'] }}</td>
@@ -621,7 +658,7 @@
     </div>
 
     <div class="section" id="details">
-      <h2 class="details-title">Details</h2>
+      <h2 style="color:silver">Details</h2>
       <div class="search-container">
         <input type="text" hidden id="suiteSearch" placeholder="Search suites..." onkeyup="filterSuites()">
       </div>
@@ -928,7 +965,7 @@
         }, {
           name: 'Fail',
           data: failArray,
-          type: "column"
+          type: "column",
         }],
         chart: {
           type: 'line',
@@ -944,7 +981,7 @@
             }
           },
         },
-        colors: ['#2ecc71', '#fc6666'],
+        colors: ['#ea9999', '#fc6666'],
         xaxis: {
           categories: catgArray,
           tickPlacement: 'off',
@@ -980,6 +1017,43 @@
       };
 
       var chart = new ApexCharts(document.querySelector("#suiteFailureLineID"), options);
+      chart.render();
+
+    </script>
+    <script>
+      var time_group = [];
+      var test_count = [];
+
+      {% for key, value in test_time_group.iterrows() %}
+      time_group.push("{{value['time_group']}}");
+      test_count.push({{ value['test_case_count']}});
+      {% endfor %}
+
+      var options = {
+        series: [{
+          name: "Test Count",
+          data: test_count
+        }],
+        chart: {
+          type: 'area',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            borderRadiusApplication: 'end',
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: time_group,
+        }
+      };
+
+      var chart = new ApexCharts(document.querySelector("#testExecutionTrends"), options);
       chart.render();
 
     </script>
