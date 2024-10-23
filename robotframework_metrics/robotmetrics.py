@@ -118,9 +118,9 @@ def generate_report(opts):
     suite_stats = dashboard_obj.get_suite_statistics(suite_list)
     test_stats = dashboard_obj.get_test_statistics(test_list)
     kw_stats = dashboard_obj.get_keyword_statistics(kw_list)
-    # error_stats = dashboard_obj.group_error_messages(test_list)
     suite_error_stats = dashboard_obj.suite_error_statistics(suite_list)
-    # print(suite_error_stats)
+    execution_stats = dashboard_obj.get_execution_info(test_list)
+    test_time_group = dashboard_obj.get_test_execution_trends(test_list)
 
     logging.info(" Writing results to html file")
     with codecs.open(result_file,'w','utf-8') as fh:
@@ -139,6 +139,8 @@ def generate_report(opts):
             keyword_times = kw_times,
             # error_stats = error_stats,
             suite_error_stats = suite_error_stats,
-            suites_list = details_list
+            suites_list = details_list,
+            execution_stats=execution_stats,
+            test_time_group=test_time_group,
         ))
     logging.info(" Results file created successfully and can be found at {}".format(result_file))
