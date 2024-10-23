@@ -18,6 +18,8 @@ class TestResults(ResultVisitor):
             "Time" : test.elapsedtime,
             # "Message" : html_format(test.message),
             "Message" : str(test.message).replace("*HTML*",""),
-            "Tags" : test.tags 
+            "Tags" : test.tags,
+            'start_time': test.starttime,
+            'end_time': test.endtime,
         }
         self.test_list.append(test_json)
