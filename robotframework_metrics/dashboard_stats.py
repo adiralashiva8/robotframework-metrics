@@ -79,8 +79,10 @@ class Dashboard:
         num_bins = 10
         min_time = round(data_frame['Time'].min()/60000, 2)
         max_time = round(data_frame['Time'].max()/60000, 2)
+        if max_time == min_time:
+            max_time += 0.1
         bins = np.linspace(min_time, max_time, num_bins + 1)
         labels = [f'{round(bins[i], 0)} - {round(bins[i+1], 0)} min' for i in range(len(bins)-1)]
-        data_frame['time_group'] = pd.cut(round(data_frame['Time']/60000,2), bins=bins, labels=labels, include_lowest=True)
+        data_frame['time_group'] = pd.cut(round(data_frame['Time']/60000,2), bins=bins, labels=labels, include_lowest=True, ordered=False)
         result = data_frame.groupby('time_group').size().reset_index(name='test_case_count')
         return result
