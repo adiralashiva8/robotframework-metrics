@@ -30,7 +30,7 @@
 </p>
 
 <h4>
-    <a href="https://adiralashiva8.github.io/robotframework-metrics/metrics.png" target="_blank">View Demo</a>
+    <a href="https://robotmetrics37.netlify.app/" target="_blank">View Demo</a>
   <span> · </span>
     <a href="https://github.com/adiralashiva8/robotframework-metrics/blob/master/README.md">Documentation</a>
   <span> · </span>
