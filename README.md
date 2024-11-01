@@ -103,7 +103,7 @@ pip install git+https://github.com/adiralashiva8/robotframework-metrics
 
 __Method 2__: Using pip
 ```
-pip install robotframework-metrics==3.3.3
+pip install robotframework-metrics==3.7.0
 ```
 
 __Method 3__: From Source (clone the repository and install using setup.py)
